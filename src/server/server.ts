@@ -12,6 +12,7 @@ import { AppServerModule } from './app.server.module';
 const root = resolve(process.argv[1], '../');
 const pkg = join(process.env.PWD, './package.json');
 const settings = require(pkg).app;
+const port = process.env.PORT || settings.server.port;
 const app = express();
 
 app.use(compression());
@@ -28,6 +29,6 @@ app.get('/*', (req, res) => {
     res,
   });
 });
-app.listen(settings.server.port, () => {
-  console.log(`Angular Universal Server listening on port ${settings.server.port}...`);
+app.listen(port, () => {
+  console.log(`Angular Universal Server listening on port ${port}...`);
 });
