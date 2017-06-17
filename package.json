@@ -1,10 +1,13 @@
 {
   "name": "fusebox-angular-universal-starter",
   "version": "0.0.0",
-  "description": "",
+  "description": "Angular Universal starter build pipeline using FuseBox",
   "scripts": {
+    "clean": "node fuse clean",
     "start.deving.spa": "node fuse serve.dev.spa",
-    "start.deving.server": "node fuse serve.dev.universal"
+    "start.deving.server": "node fuse serve.dev.universal",
+    "start.prod.server": "node fuse serve.prod.universal",
+    "start.prod.min.server": "node fuse serve.prod.min.universal"
   },
   "devDependencies": {
     "@types/compression": "0.0.33",
@@ -41,6 +44,7 @@
   },
   "app": {
     "title": "Fusebox Angular Universal Starter",
+    "outputDir": "dist",
     "server": {
       "port": 8081
     }
