@@ -28,7 +28,6 @@ const fuse = FuseBox.init({
     WebIndexPlugin({
       title: app.title,
       template: 'src/client/index.html',
-      // path: 'js',
       bundles: ['js/vendor', 'js/app']
     }),
     JSONPlugin(),

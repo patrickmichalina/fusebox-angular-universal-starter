@@ -40,7 +40,7 @@
     "zone.js": "0.8.12"
   },
   "app": {
-    "title": "Fusebox Angular Universal",
+    "title": "Fusebox Angular Universal Starter",
     "server": {
       "port": 8080
     }
