@@ -20,6 +20,7 @@ const { Ng2TemplatePlugin } = require('ng2-fused');
 const fuse = FuseBox.init({
   homeDir: 'src/',
   output: 'dist/$name.js',
+  sourceMaps: { project: true, vendor: true },
   plugins: [
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],

@@ -15,7 +15,7 @@
     "ng2-fused": "^0.3.3",
     "node-sass": "^4.5.3",
     "rollup": "^0.43.0",
-    "typescript": "^2.3.4",
+    "typescript": "^2.4.0",
     "uglify-es": "^3.0.17"
   },
   "dependencies": {
@@ -42,7 +42,7 @@
   "app": {
     "title": "Fusebox Angular Universal Starter",
     "server": {
-      "port": 8080
+      "port": 8081
     }
   }
 }
