@@ -1,10 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app',
+  selector: 'pm-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   d = 1;

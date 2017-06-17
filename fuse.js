@@ -28,14 +28,17 @@ const fuse = FuseBox.init({
     WebIndexPlugin({
       title: app.title,
       template: 'src/client/index.html',
-      path: 'js',
+      // path: 'js',
       bundles: ['js/vendor', 'js/app']
     }),
     JSONPlugin(),
     HTMLPlugin({
       useDefault: false,
     })
-  ]
+  ],
+  alias: {
+    "@angular/platform-browser/animations": "@angular/platform-browser/bundles/platform-browser-animations.umd.js",
+  },
 });
 
 Sparky.task("serve.dev.spa", () => {

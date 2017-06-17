@@ -4,11 +4,9 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
   imports: [
-    BrowserModule.withServerTransition({ appId: 'app' })
+    BrowserModule.withServerTransition({ appId: 'pm-app' })
   ],
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
