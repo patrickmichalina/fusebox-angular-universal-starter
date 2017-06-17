@@ -84,13 +84,21 @@ Sparky.task("serve.prod.universal", ["clean"], () => {
 });
 
 Sparky.task("serve.prod.min.universal", ["clean"], () => {
-  const fuse = FuseBox.init(Object.assign(prodOptions, {
-    plugins: [...prodOptions.plugins, UglifyESPlugin()]
-  }));
+  const fuse = FuseBox.init(prodOptions);
+  fuse.opts.plugins = [...fuse.opts.plugins, UglifyESPlugin()]
   fuse.dev({ httpServer: false });
   fuse.bundle('js/vendor').instructions(' ~ client/main.ts');
   fuse.bundle("js/app").instructions(" !> [client/main.ts]");
   fuse.bundle("server").instructions(" > [server/server.ts]")
     .completed(proc => proc.start())
+  fuse.run()
+})
+
+Sparky.task("build.prod.min.universal", ["clean"], () => {
+  const fuse = FuseBox.init(prodOptions);
+  fuse.opts.plugins = [...fuse.opts.plugins, UglifyESPlugin()]
+  fuse.bundle('js/vendor').instructions(' ~ client/main.ts');
+  fuse.bundle("js/app").instructions(" !> [client/main.ts]");
+  fuse.bundle("server").instructions(" > [server/server.ts]");
   fuse.run()
 })

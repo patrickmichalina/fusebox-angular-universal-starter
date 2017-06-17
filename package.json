@@ -2,12 +2,19 @@
   "name": "fusebox-angular-universal-starter",
   "version": "0.0.0",
   "description": "Angular Universal starter build pipeline using FuseBox",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickmichalina/fusebox-angular-universal-starter"
+  },
   "scripts": {
     "clean": "node fuse clean",
+    "build.prod.min.universal": "node fuse build.prod.min.universal",
     "start.deving.spa": "node fuse serve.dev.spa",
     "start.deving.server": "node fuse serve.dev.universal",
     "start.prod.server": "node fuse serve.prod.universal",
-    "start.prod.min.server": "node fuse serve.prod.min.universal"
+    "start.prod.min.server": "node fuse serve.prod.min.universal",
+    "postinstall": "if test \"$HEROKU\" = \"true\" ; then npm run build.prod.min.universal ; fi"
   },
   "devDependencies": {
     "@types/compression": "0.0.33",
