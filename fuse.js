@@ -50,7 +50,9 @@ const prodOptions = Object.assign({
 
 Sparky.task("clean", () => Sparky.src(`${app.outputDir}`).clean(`${app.outputDir}`));
 Sparky.task("assets.dev", () => Sparky.src(`./assets/**/*.*`, { base: `./${app.assetParentDir}`}).dest(`./${app.outputDir}/dev`));
+Sparky.task("assets.prod", () => Sparky.src(`./assets/**/*.*`, { base: `./${app.assetParentDir}`}).dest(`./${app.outputDir}/prod`));
 Sparky.task("build.dev", ["clean", "assets.dev"], () => undefined);
+Sparky.task("build.prod", ["clean", "assets.prod"], () => undefined);
 
 Sparky.task("serve.dev.spa", ["clean"], () => {
   const fuse = FuseBox.init(devOptions);
@@ -75,7 +77,7 @@ Sparky.task("serve.dev.universal", ["build.dev"], () => {
   fuse.run()
 });
 
-Sparky.task("serve.prod.universal", ["clean"], () => {
+Sparky.task("serve.prod.universal", ["build.prod"], () => {
   const fuse = FuseBox.init(prodOptions);
   fuse.dev({ httpServer: false });
   fuse.bundle('js/vendor').instructions(' ~ client/main.ts').watch();
@@ -85,7 +87,7 @@ Sparky.task("serve.prod.universal", ["clean"], () => {
   fuse.run()
 });
 
-Sparky.task("serve.prod.min.universal", ["clean"], () => {
+Sparky.task("serve.prod.min.universal", ["build.prod"], () => {
   const fuse = FuseBox.init(prodOptions);
   fuse.opts.plugins = [...fuse.opts.plugins, UglifyESPlugin()]
   fuse.dev({ httpServer: false });
@@ -96,7 +98,7 @@ Sparky.task("serve.prod.min.universal", ["clean"], () => {
   fuse.run()
 })
 
-Sparky.task("build.prod.min.universal", ["clean"], () => {
+Sparky.task("build.prod.min.universal", ["build.prod"], () => {
   const fuse = FuseBox.init(prodOptions);
   fuse.opts.plugins = [...fuse.opts.plugins, UglifyESPlugin()]
   fuse.bundle('js/vendor').instructions(' ~ client/main.ts');
