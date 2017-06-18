@@ -67,8 +67,9 @@ Sparky.task("cdn", () => {
     dom.window.document.querySelectorAll('[src]').forEach(script => {
       script.src = process.env.CDN_ORIGIN + script.src
     });
-    dom.window.document.querySelectorAll('link').forEach(link => {
-      link.href = process.env.CDN_ORIGIN + link.src
+    dom.window.document.querySelectorAll('[data-inject-href]').forEach(link => {
+      link.href = process.env.CDN_ORIGIN + link.href;
+      link.removeAttribute('data-inject-href')
     })
     file.setContent(dom.serialize());
     file.save();
