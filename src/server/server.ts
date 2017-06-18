@@ -5,6 +5,7 @@ import 'systemjs';
 import * as express from 'express';
 import * as compression from 'compression';
 import * as morgan from 'morgan';
+import * as favicon from 'serve-favicon';
 import { join, resolve } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
@@ -16,13 +17,14 @@ const port = process.env.PORT || settings.server.port;
 const app = express();
 
 app.use(compression());
+app.use(favicon(join(root, 'assets/favicon.ico')));
 app.use(morgan('dev'));
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModule
 }));
 app.set('view engine', 'html');
-app.set('views', join(root, '.'));
-app.use('/js', express.static(join(root, './js')));
+app.set('views', root);
+app.use(express.static(root))
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,

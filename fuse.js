@@ -49,6 +49,8 @@ const prodOptions = Object.assign({
 }, baseOptions)
 
 Sparky.task("clean", () => Sparky.src(`${app.outputDir}`).clean(`${app.outputDir}`));
+Sparky.task("assets.dev", () => Sparky.src(`./assets/**/*.*`, { base: `./${app.assetParentDir}`}).dest(`./${app.outputDir}/dev`));
+Sparky.task("build.dev", ["clean", "assets.dev"], () => undefined);
 
 Sparky.task("serve.dev.spa", ["clean"], () => {
   const fuse = FuseBox.init(devOptions);
@@ -62,7 +64,7 @@ Sparky.task("serve.dev.spa", ["clean"], () => {
   fuse.run()
 });
 
-Sparky.task("serve.dev.universal", ["clean"], () => {
+Sparky.task("serve.dev.universal", ["build.dev"], () => {
   const fuse = FuseBox.init(devOptions);
   fuse.dev({ httpServer: false });
   fuse.bundle('js/vendor').instructions(' ~ client/main.ts').watch();
