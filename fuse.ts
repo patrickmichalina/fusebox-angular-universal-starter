@@ -1,6 +1,6 @@
 import { renderSync } from 'node-sass';
 import { writeFileSync } from 'fs';
-import { insertExternalStylesheet } from './tools/scripts/insert-stylesheet';
+import { insertExternalStylesheet, insertBodyScripts } from './tools/scripts/insert-stylesheet';
 import { replace, prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { sync as glob } from 'glob';
@@ -13,11 +13,10 @@ import {
   FuseBox,
   Sparky,
   SassPlugin,
-  WebIndexPlugin,
   TypeScriptHelpers,
   JSONPlugin,
   HTMLPlugin,
-  UglifyESPlugin,
+  // UglifyESPlugin,
   RawPlugin
 } from 'fuse-box';
 
@@ -25,7 +24,7 @@ const cachebuster = Math.round(new Date().getTime() / 1000);
 const isProd = process.env.NODE_ENV === 'prod' ? true : false;
 const mainEntryFileName = isProd ? `main-prod` : `main`;
 const appBundleName = `js/app-${cachebuster}`;
-const vendorBundleName = `js/vendor-${cachebuster}`;
+const vendorBundleName = `js/_vendor-${cachebuster}`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 const serverBundleInstructions = ` > [server/server.ts]`;
@@ -35,16 +34,16 @@ const options = {
   output: `${app.outputDir}/$name.js`,
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: true, vendor: true },
   plugins: [
-    isProd && UglifyESPlugin(),
+    // isProd && UglifyESPlugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss', SassPlugin({ importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     TypeScriptHelpers(),
-    WebIndexPlugin({
-      title: app.name,
-      template: './dist/index.html',
-      bundles: [vendorBundleName, appBundleName]
-    }),
+    // WebIndexPlugin({
+    //   title: app.name,
+    //   template: './dist/index.html',
+    //   bundles: [vendorBundleName, appBundleName]
+    // }),
     JSONPlugin(),
     HTMLPlugin({ useDefault: false }),
 
@@ -84,6 +83,16 @@ Sparky.task("sass.files", () => {
   });
 });
 
+Sparky.task("js.files", () => {
+  const js = glob('./dist/js/**/*.js').map((a: string) => a.replace('./dist', ''));
+
+  return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
+    file.read();
+    file.setContent(insertBodyScripts(file.contents, js));
+    file.save();
+  });
+});
+
 Sparky.task("index.inject", () => {
   return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
     file.read();
@@ -103,6 +112,8 @@ Sparky.task("serve", () => {
   Sparky.start('clean')
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
+    .then(() => Sparky.start('sass'))
+    .then(() => Sparky.start('sass.files'))
     .then(() => {
       const fuse = FuseBox.init(options as any);
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
@@ -121,8 +132,7 @@ Sparky.task("serve", () => {
 
       return fuse.run();
     })
-    .then(() => Sparky.start('sass'))
-    .then(() => Sparky.start('sass.files'))
+    .then(() => Sparky.start('js.files'))
     .then(() => Sparky.start('index.inject'))
 });
 

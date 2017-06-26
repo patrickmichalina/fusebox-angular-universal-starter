@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "ts-node fuse serve",
-    "start.prod": "NODE_ENV=prod ts-node fuse serve",
+    "start.prod": "NODE_ENV=prod CI=true ts-node fuse serve",
     "postinstall": "if test \"$CI\" = \"true\" ; then npm run start.prod ; fi"
   },
   "devDependencies": {
