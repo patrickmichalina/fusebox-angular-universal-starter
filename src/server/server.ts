@@ -24,7 +24,7 @@ app.engine('html', ngExpressEngine({
 }));
 app.set('view engine', 'html');
 app.set('views', root);
-app.use(express.static(root, { index: false }))
+app.use(express.static(root, { index: false, maxAge: '1yr' }))
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,
