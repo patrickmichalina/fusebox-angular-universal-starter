@@ -5,7 +5,6 @@ import { replace } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { sync as glob } from 'glob';
 import { sync as mkdirp } from 'mkdirp';
-import * as CleanCSS from 'clean-css';
 
 const npm = require('./package.json');
 const app = npm.app;
@@ -65,10 +64,8 @@ Sparky.task("sass", () => {
       file: './src/client/styles/main.scss',
       outputStyle: 'compressed'
     });
-    const css = new CleanCSS().minify(result.css.toString()).styles;
-
     mkdirp(`./dist/css`);
-    writeFileSync(`./dist/css/main-${cachebuster}.css`, css, (err: any) => {
+    writeFileSync(`./dist/css/main-${cachebuster}.css`, result.css, (err: any) => {
       if (err) return console.log(err);
     });
   });

@@ -13,7 +13,6 @@
     "postinstall": "if test \"$CI\" = \"true\" ; then npm start ; fi"
   },
   "devDependencies": {
-    "@types/clean-css": "^3.4.30",
     "@types/compression": "0.0.33",
     "@types/express": "^4.0.36",
     "@types/glob": "^5.0.30",
@@ -22,7 +21,6 @@
     "@types/morgan": "^1.7.32",
     "@types/node-sass": "^3.10.32",
     "@types/serve-favicon": "^2.2.28",
-    "clean-css": "^4.1.4",
     "fuse-box": "2.1.0",
     "fusebox-chain-plugin": "^1.0.7",
     "glob": "^7.1.2",
@@ -71,5 +69,9 @@
     "server": {
       "port": 8081
     }
+  },
+  "engines": {
+    "node": "8.1.2",
+    "npm": ">= 5.0.3"
   }
 }
