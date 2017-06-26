@@ -1,7 +1,7 @@
 import { renderSync } from 'node-sass';
 import { writeFileSync } from 'fs';
 import { insertExternalStylesheet } from './tools/scripts/insert-stylesheet';
-import { replace } from './tools/scripts/replace';
+import { replace, prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { sync as glob } from 'glob';
 import { sync as mkdirp } from 'mkdirp';
@@ -90,6 +90,11 @@ Sparky.task("index.inject", () => {
     file.setContent(replace(file.contents, 'base', app.baseHref));
     file.setContent(replace(file.contents, 'favicon', '/assets/favicon.ico'));
     file.setContent(insertExternalStylesheet(file.contents, app.stylesheets));
+
+    if (process.env.CI && process.env.CDN_ORIGIN) {
+      file.setContent(prefixByQuery(file.contents, 'script', 'src', process.env.CDN_ORIGIN));
+      file.setContent(prefixByQuery(file.contents, 'link', 'href', process.env.CDN_ORIGIN));
+    }
     file.save();
   });
 });
@@ -98,12 +103,8 @@ Sparky.task("serve", () => {
   Sparky.start('clean')
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
-    .then(() => Sparky.start('sass'))
-    .then(() => Sparky.start('sass.files'))
-    .then(() => Sparky.start('index.inject'))
     .then(() => {
       const fuse = FuseBox.init(options as any);
-
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
       const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions);
       const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).completed((proc: any) => {
@@ -118,8 +119,11 @@ Sparky.task("serve", () => {
         serverBundle.watch();
       }
 
-      fuse.run();
+      return fuse.run();
     })
+    .then(() => Sparky.start('sass'))
+    .then(() => Sparky.start('sass.files'))
+    .then(() => Sparky.start('index.inject'))
 });
 
 // Sparky.task("serve.spa.hmr", ["clean"], () => {
@@ -134,19 +138,3 @@ Sparky.task("serve", () => {
 //   fuse.run()
 // });
 
-// Sparky.task("cdn", () => {
-//   if (!process.env.CDN_ORIGIN) return;
-//   return Sparky.src("./dist/prod/index.html").file("index.html", file => {
-//     file.read();
-//     const dom = new JSDOM(file.contents);
-//     dom.window.document.querySelectorAll('[src]').forEach(script => {
-//       script.src = process.env.CDN_ORIGIN + script.src
-//     });
-//     dom.window.document.querySelectorAll('[data-inject-href]').forEach(link => {
-//       link.href = process.env.CDN_ORIGIN + link.href;
-//       link.removeAttribute('data-inject-href')
-//     })
-//     file.setContent(dom.serialize());
-//     file.save();
-//   });
-// })
