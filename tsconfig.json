@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "isolatedModules": false,
     "experimentalDecorators": true,
@@ -16,7 +16,8 @@
     "outDir": "dist/",
     "noUnusedParameters": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": ["es6", "dom"]
   },
   "exclude": [
     "node_modules",
