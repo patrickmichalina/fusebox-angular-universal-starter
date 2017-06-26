@@ -16,7 +16,7 @@ import {
   TypeScriptHelpers,
   JSONPlugin,
   HTMLPlugin,
-  // UglifyESPlugin,
+  UglifyESPlugin,
   RawPlugin
 } from 'fuse-box';
 
@@ -34,19 +34,13 @@ const options = {
   output: `${app.outputDir}/$name.js`,
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: true, vendor: true },
   plugins: [
-    // isProd && UglifyESPlugin(),
+    isProd && UglifyESPlugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss', SassPlugin({ importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     TypeScriptHelpers(),
-    // WebIndexPlugin({
-    //   title: app.name,
-    //   template: './dist/index.html',
-    //   bundles: [vendorBundleName, appBundleName]
-    // }),
     JSONPlugin(),
-    HTMLPlugin({ useDefault: false }),
-
+    HTMLPlugin({ useDefault: false })
   ],
   alias: {
     "@angular/platform-browser/animations": "@angular/platform-browser/bundles/platform-browser-animations.umd.js",
