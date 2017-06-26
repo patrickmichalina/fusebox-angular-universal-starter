@@ -8,9 +8,9 @@
     "url": "https://github.com/patrickmichalina/fusebox-angular-universal-starter"
   },
   "scripts": {
-    "start": "CI=true ts-node fuse serve",
+    "start": "ts-node fuse serve",
     "start.prod": "NODE_ENV=prod ts-node fuse serve",
-    "postinstall": "if test \"$CI\" = \"true\" ; then npm run build.prod.min.universal ; fi"
+    "postinstall": "if test \"$CI\" = \"true\" ; then npm start ; fi"
   },
   "devDependencies": {
     "@types/clean-css": "^3.4.30",

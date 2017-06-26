@@ -1,1 +1,1 @@
-web: node dist/prod/server.js --prod
+web: node dist/server.js --prod

@@ -34,7 +34,9 @@ const serverBundleInstructions = ` > [server/server.ts]`;
 const options = {
   homeDir: 'src/',
   output: `${app.outputDir}/$name.js`,
+  sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: true, vendor: true },
   plugins: [
+    isProd && UglifyESPlugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss', SassPlugin({ importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
@@ -58,7 +60,7 @@ Sparky.task("assets", () => Sparky.src(`./assets/**/*.*`, { base: `./${app.asset
 Sparky.task("index", () => Sparky.src(`./index.html`, { base: `./src/client` }).dest(`./${app.outputDir}`));
 
 Sparky.task("sass", () => {
-  return Sparky.watch('./src/client/styles/**/*.scss').file("*.scss", () => {
+  const src = Sparky.src('./src/client/styles/main.scss').file("main.scss", () => {
     const result = renderSync({
       file: './src/client/styles/main.scss',
       outputStyle: 'compressed'
@@ -70,6 +72,10 @@ Sparky.task("sass", () => {
       if (err) return console.log(err);
     });
   });
+
+  if (!isProd && !process.env.CI) src.watch(['./src/client/styles/**/*.scss']);
+
+  return src;
 });
 
 Sparky.task("sass.files", () => {
@@ -92,41 +98,31 @@ Sparky.task("index.inject", () => {
 });
 
 Sparky.task("serve", () => {
-  return new Promise((resolve) => {
-    return resolve(Sparky.start('clean')
-      .then(() => Sparky.start('index'))
-      .then(() => Sparky.start('assets'))
-      .then(() => Sparky.start('sass'))
-      .then(() => Sparky.start('sass.files'))
-      .then(() => Sparky.start('index.inject'))
-      .then(() => {
-        const fuse = FuseBox.init(options as any);
+  Sparky.start('clean')
+    .then(() => Sparky.start('index'))
+    .then(() => Sparky.start('assets'))
+    .then(() => Sparky.start('sass'))
+    .then(() => Sparky.start('sass.files'))
+    .then(() => Sparky.start('index.inject'))
+    .then(() => {
+      const fuse = FuseBox.init(options as any);
 
-        if (isProd) {
-          fuse.opts.sourceMaps = { project: false, vendor: false };
-          fuse.opts.plugins = [...fuse.opts.plugins as any[], UglifyESPlugin()];
-        } else {
-          fuse.opts.sourceMaps = { project: true, vendor: true };
+      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
+      const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions);
+      const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).completed((proc: any) => {
+        if (!process.env.CI) {
+          proc.start();
         }
+      });
 
-        const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
-        const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions);
-        const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).completed((proc: any) => {
-          if (!process.env.CI) {
-            proc.start();
-          }
-        });
+      if (!isProd && !process.env.CI) {
+        vendorBundle.watch();
+        appBundle.watch();
+        serverBundle.watch();
+      }
 
-        if (!isProd && !process.env.CI) {
-          vendorBundle.watch();
-          appBundle.watch();
-          serverBundle.watch();
-        }
-
-        fuse.run();//.then(() => fuse.triggerEnd());
-      }));
-  });
-
+      fuse.run();
+    })
 });
 
 // Sparky.task("serve.spa.hmr", ["clean"], () => {
