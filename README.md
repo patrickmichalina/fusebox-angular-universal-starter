@@ -21,7 +21,7 @@ Includes the following features:
 
 **Note that we strongly recommend node >= v7.0.0 and npm >= 4.0.0.**
 
-In order to start the seed use:
+To start the seed use:
 
 
 ```bash
@@ -30,6 +30,12 @@ $ cd fusebox-angular-universal-starter
 
 # install the project's dependencies
 $ npm install
+
+# single test run
+$ npm test 
+
+# continuous testing
+$ npm run test.watch
 
 # start the local server
 $ npm start
