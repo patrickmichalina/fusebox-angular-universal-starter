@@ -8,6 +8,8 @@
     "url": "https://github.com/patrickmichalina/fusebox-angular-universal-starter"
   },
   "scripts": {
+    "test": "jest",
+    "test.watch": "jest --watch",
     "start": "ts-node fuse serve",
     "start.prod": "NODE_ENV=prod CI=true ts-node fuse serve",
     "postinstall": "if test \"$CI\" = \"true\" ; then npm run start.prod ; fi"
@@ -16,6 +18,7 @@
     "@types/compression": "0.0.33",
     "@types/express": "^4.0.36",
     "@types/glob": "^5.0.30",
+    "@types/jest": "^20.0.2",
     "@types/jsdom": "^11.0.0",
     "@types/mkdirp": "^0.3.29",
     "@types/morgan": "^1.7.32",
@@ -24,6 +27,9 @@
     "fuse-box": "2.1.0",
     "fusebox-chain-plugin": "^1.0.7",
     "glob": "^7.1.2",
+    "jest": "^20.0.4",
+    "jest-preset-angular": "^2.0.4",
+    "jsdom": "^11.0.0",
     "mkdirp": "^0.5.1",
     "ng2-fused": "^0.3.3",
     "node-sass": "^4.5.3",
@@ -48,7 +54,6 @@
     "compression": "^1.6.2",
     "core-js": "2.4.1",
     "express": "^4.15.3",
-    "jsdom": "^11.0.0",
     "morgan": "^1.8.2",
     "normalize.css": "^7.0.0",
     "rxjs": "5.4.1",
@@ -67,11 +72,19 @@
       "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     ],
     "server": {
-      "port": 8081
+      "port": 8083
     }
   },
   "engines": {
     "node": "8.1.2",
     "npm": ">= 5.0.3"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupTestFrameworkScriptFile": "./test/jest.setup.ts",
+    "globals": {
+      "__TS_CONFIG__": "tsconfig.json",
+      "__TRANSFORM_HTML__": true
+    }
   }
 }

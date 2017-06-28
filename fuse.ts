@@ -103,7 +103,7 @@ Sparky.task("index.inject", () => {
 });
 
 Sparky.task("serve", () => {
-  Sparky.start('clean')
+  return Sparky.start('clean')
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
     .then(() => Sparky.start('sass'))
@@ -112,7 +112,9 @@ Sparky.task("serve", () => {
       const fuse = FuseBox.init(options as any);
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
       const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions);
-      const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).completed((proc: any) => {
+      const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions)
+        
+      .completed(proc => {
         if (!process.env.CI) {
           proc.start();
         }
