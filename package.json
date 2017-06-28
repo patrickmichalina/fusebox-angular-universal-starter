@@ -12,7 +12,7 @@
     "test.watch": "jest --watch",
     "start": "ts-node fuse serve",
     "start.prod": "NODE_ENV=prod CI=true ts-node fuse serve",
-    "postinstall": "if test \"$CI\" = \"true\" ; then npm run start.prod ; fi"
+    "postinstall": "if test \"$CI\" = \"true\" ; then npm test && npm run start.prod ; fi"
   },
   "devDependencies": {
     "@types/compression": "0.0.33",
