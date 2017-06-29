@@ -50,6 +50,7 @@ const options = {
 Sparky.task("clean", () => Sparky.src(`${app.outputDir}`).clean(`${app.outputDir}`));
 Sparky.task("assets", () => Sparky.src(`./assets/**/*.*`, { base: `./${app.assetParentDir}` }).dest(`./${app.outputDir}`));
 Sparky.task("index", () => Sparky.src(`./index.html`, { base: `./src/client` }).dest(`./${app.outputDir}`));
+Sparky.task("robots", () => Sparky.src(`./robots.txt`).dest(`./${app.outputDir}`));
 
 Sparky.task("sass", () => {
   const src = Sparky.src('./src/client/styles/main.scss').file("main.scss", () => {
@@ -105,6 +106,7 @@ Sparky.task("index.inject", () => {
 
 Sparky.task("serve", () => {
   return Sparky.start('clean')
+    .then(() => Sparky.start('robots'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
     .then(() => Sparky.start('sass'))
