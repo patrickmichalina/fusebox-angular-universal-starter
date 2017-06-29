@@ -1,6 +1,6 @@
 import { renderSync } from 'node-sass';
 import { writeFileSync } from 'fs';
-import { insertExternalStylesheet, insertBodyScripts } from './tools/scripts/insert-stylesheet';
+import { insertExternalStylesheet, insertBodyScripts, insertTitle } from './tools/scripts/insert-stylesheet';
 import { replace, prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { sync as glob } from 'glob';
@@ -93,6 +93,7 @@ Sparky.task("index.inject", () => {
     file.setContent(replace(file.contents, 'base', app.baseHref));
     file.setContent(replace(file.contents, 'favicon', '/assets/favicon.ico'));
     file.setContent(insertExternalStylesheet(file.contents, app.stylesheets));
+    file.setContent(insertTitle(file.contents, app.title));
 
     if (process.env.CI && process.env.CDN_ORIGIN) {
       file.setContent(prefixByQuery(file.contents, 'script', 'src', process.env.CDN_ORIGIN));

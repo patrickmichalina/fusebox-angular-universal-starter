@@ -35,3 +35,13 @@ export const insertBodyScripts = function (file: any, hrefs: string[]) {
   return dom.serialize();
 };
 
+export const insertTitle = function (file: any, title: string) {
+  const dom = new JSDOM(file);
+
+  const titleElement = dom.window.document.createElement('title') as HTMLElement;
+  titleElement.textContent = title;
+  dom.window.document.head.appendChild(titleElement);
+
+  return dom.serialize();
+};
+
