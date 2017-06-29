@@ -18,7 +18,7 @@ const app = express();
 
 app.use(compression());
 app.use(favicon(join(root, 'assets/favicon.ico')));
-app.use(morgan('dev'));
+app.use(morgan(process.env.NODE_ENV === 'prod' ? 'compressed' : 'dev'));
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModule
 }));
