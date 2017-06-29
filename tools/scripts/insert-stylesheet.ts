@@ -45,12 +45,36 @@ export const insertTitle = function (file: any, title: string) {
   return dom.serialize();
 };
 
+export const insertFavicon = function (file: any, href: string) {
+  const dom = new JSDOM(file);
+
+  const elm = dom.window.document.createElement('link') as HTMLLinkElement;
+  elm.setAttribute('rel', 'icon');
+  elm.setAttribute('type', 'image/ico');
+  elm.href = href;
+  dom.window.document.head.appendChild(elm);
+
+  return dom.serialize();
+};
+
+export const insertBase = function (file: any, href: string) {
+  const dom = new JSDOM(file);
+
+  const elm = dom.window.document.createElement('base') as HTMLBaseElement;
+  elm.href = href;
+  dom.window.document.head.appendChild(elm);
+
+  return dom.serialize();
+};
+
 export const insertGoogleAnalytics = function (file: any, googleId: string) {
   const dom = new JSDOM(file);
 
   const script1Element = dom.window.document.createElement('script') as HTMLScriptElement;
   script1Element.textContent =
     `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${googleId}', 'auto');ga('send', 'pageview');`;
+
+  script1Element.removeAttribute('src');
 
   const script2Element = dom.window.document.createElement('script') as HTMLScriptElement;
   script2Element.setAttribute('async', '');

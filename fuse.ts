@@ -1,5 +1,5 @@
-import { insertExternalStylesheet, insertTitle, insertGoogleAnalytics } from './tools/scripts/insert-stylesheet';
-import { replace, prefixByQuery } from './tools/scripts/replace';
+import { insertFavicon, insertBase, insertExternalStylesheet, insertTitle, insertGoogleAnalytics } from './tools/scripts/insert-stylesheet';
+import { prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { config } from './tools/config';
 import './tools/tasks';
@@ -44,12 +44,14 @@ const options = {
 Sparky.task("index.inject", () => {
   return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
     file.read();
-    file.setContent(replace(file.contents, 'base', config.baseHref));
-    file.setContent(replace(file.contents, 'favicon', '/assets/favicon.ico'));
+
+    file.setContent(insertBase(file.contents, config.baseHref));
+    file.setContent(insertFavicon(file.contents, '/assets/favicon.ico'));
+
     file.setContent(insertExternalStylesheet(file.contents, config.stylesheets));
     file.setContent(insertTitle(file.contents, config.title));
 
-    if (process.env.GA_TRACKING_ID) { 
+    if (process.env.GA_TRACKING_ID) {
       file.setContent(insertGoogleAnalytics(file.contents, process.env.GA_TRACKING_ID));
     }
 
@@ -73,12 +75,12 @@ Sparky.task("serve", () => {
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
       const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions);
       const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions)
-        
-      .completed(proc => {
-        if (!process.env.CI) {
-          proc.start();
-        }
-      });
+
+        .completed(proc => {
+          if (!process.env.CI) {
+            proc.start();
+          }
+        });
 
       if (!isProd && !process.env.CI) {
         vendorBundle.watch();
