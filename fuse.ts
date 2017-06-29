@@ -1,14 +1,8 @@
-import { renderSync } from 'node-sass';
-import { writeFileSync } from 'fs';
-import { insertExternalStylesheet, insertBodyScripts, insertTitle, insertGoogleAnalytics } from './tools/scripts/insert-stylesheet';
+import { insertExternalStylesheet, insertTitle, insertGoogleAnalytics } from './tools/scripts/insert-stylesheet';
 import { replace, prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
-import { sync as glob } from 'glob';
-import { sync as mkdirp } from 'mkdirp';
-
-const npm = require('./package.json');
-const app = npm.app;
-
+import { config } from './tools/config';
+import './tools/tasks';
 import {
   FuseBox,
   Sparky,
@@ -31,7 +25,7 @@ const serverBundleInstructions = ` > [server/server.ts]`;
 
 const options = {
   homeDir: 'src/',
-  output: `${app.outputDir}/$name.js`,
+  output: `${config.outputDir}/$name.js`,
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: true, vendor: true },
   plugins: [
     isProd && UglifyESPlugin(),
@@ -47,54 +41,13 @@ const options = {
   }
 }
 
-Sparky.task("clean", () => Sparky.src(`${app.outputDir}`).clean(`${app.outputDir}`));
-Sparky.task("assets", () => Sparky.src(`./assets/**/*.*`, { base: `./${app.assetParentDir}` }).dest(`./${app.outputDir}`));
-Sparky.task("index", () => Sparky.src(`./index.html`, { base: `./src/client` }).dest(`./${app.outputDir}`));
-Sparky.task("robots", () => Sparky.src(`./robots.txt`, { base: `./tools/web` }).dest(`./${app.outputDir}`));
-
-Sparky.task("sass", () => {
-  const src = Sparky.src('./src/client/styles/main.scss').file("main.scss", () => {
-    const result = renderSync({
-      file: './src/client/styles/main.scss',
-      outputStyle: 'compressed'
-    });
-    mkdirp(`./dist/css`);
-    writeFileSync(`./dist/css/main-${cachebuster}.css`, result.css, (err: any) => {
-      if (err) return console.log(err);
-    });
-  });
-
-  if (!isProd && !process.env.CI) src.watch(['./src/client/styles/**/*.scss']);
-
-  return src;
-});
-
-Sparky.task("sass.files", () => {
-  const css = glob('./dist/css/**/*.css').map((a: string) => a.replace('./dist', ''));
-  return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
-    file.read();
-    file.setContent(insertExternalStylesheet(file.contents, css));
-    file.save();
-  });
-});
-
-Sparky.task("js.files", () => {
-  const js = glob('./dist/js/**/*.js').map((a: string) => a.replace('./dist', ''));
-
-  return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
-    file.read();
-    file.setContent(insertBodyScripts(file.contents, js));
-    file.save();
-  });
-});
-
 Sparky.task("index.inject", () => {
   return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
     file.read();
-    file.setContent(replace(file.contents, 'base', app.baseHref));
+    file.setContent(replace(file.contents, 'base', config.baseHref));
     file.setContent(replace(file.contents, 'favicon', '/assets/favicon.ico'));
-    file.setContent(insertExternalStylesheet(file.contents, app.stylesheets));
-    file.setContent(insertTitle(file.contents, app.title));
+    file.setContent(insertExternalStylesheet(file.contents, config.stylesheets));
+    file.setContent(insertTitle(file.contents, config.title));
 
     if (process.env.GA_TRACKING_ID) { 
       file.setContent(insertGoogleAnalytics(file.contents, process.env.GA_TRACKING_ID));

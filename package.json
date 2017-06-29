@@ -63,21 +63,6 @@
     "systemjs": "^0.20.14",
     "zone.js": "0.8.12"
   },
-  "app": {
-    "title": "Fusebox Angular Universal Starter",
-    "outputDir": "dist",
-    "sourceDir": "src",
-    "prodOutDir": "./dist/prod",
-    "assetParentDir": "src/client",
-    "baseHref": "/",
-    "stylesheets": [
-      "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css",
-      "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    ],
-    "server": {
-      "port": 8083
-    }
-  },
   "engines": {
     "node": "8.1.2",
     "npm": ">= 5.0.3"

@@ -11,10 +11,12 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
 import { forceSsl } from './heroku.force-ssl';
 
+require('ts-node/register');
+
 const root = resolve(process.argv[1], '../');
-const pkg = join(process.env.PWD, './package.json');
-const settings = require(pkg).app;
-const port = process.env.PORT || settings.server.port;
+const pkg = join(process.env.PWD, './tools/config.ts');
+const settings = require(pkg).config.server;
+const port = process.env.PORT || settings.port;
 const app = express();
 
 if (process.env.HEROKU) app.use(forceSsl);
