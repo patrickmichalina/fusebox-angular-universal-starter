@@ -1,5 +1,5 @@
 import { Injectable, RendererFactory2, ViewEncapsulation } from '@angular/core';
-import { TransferState } from './transfer-state.service';
+import { TransferState } from './transfer-state';
 import { PlatformState } from '@angular/platform-server';
 @Injectable()
 export class ServerTransferState extends TransferState {
@@ -7,9 +7,6 @@ export class ServerTransferState extends TransferState {
     super();
   }
 
-  /**
-   * Inject the State into the bottom of the <head>
-   */
   inject() {
     try {
       const document: any = this.state.getDocument();

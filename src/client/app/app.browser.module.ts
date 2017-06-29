@@ -4,16 +4,11 @@ import { AppModule } from './app.module';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { TransferState } from './shared/services/transfer-state.service';
+import { BrowserTransferStateModule } from './modules/transfer-state/browser-transfer-state.module';
+import { TransferState } from './modules/transfer-state/transfer-state';
 
 export function getRequest(transferState: TransferState) {
   return transferState.get('req');
-}
-
-export function getTransferState(): TransferState {
-  const transferState = new TransferState();
-  transferState.initialize((<any>window)['PM_UNIVERSAL'] || {});
-  return transferState;
 }
 
 @NgModule({
@@ -22,14 +17,11 @@ export function getTransferState(): TransferState {
     BrowserModule.withServerTransition({
       appId: 'pm-app'
     }),
+    BrowserTransferStateModule,
     BrowserAnimationsModule,
     AppModule
   ],
   providers: [
-    {
-      provide: TransferState,
-      useFactory: getTransferState
-    },
     {
       provide: REQUEST,
       useFactory: getRequest,

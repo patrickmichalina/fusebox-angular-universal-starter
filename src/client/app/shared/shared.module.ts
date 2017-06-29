@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CookieService } from './services/cookie.service';
 import { PlatformService } from './services/platform.service';
-import { TransferHttp } from './services/transfer-http.service';
 
 @NgModule({
   imports: [CommonModule, RouterModule],
@@ -12,8 +11,7 @@ import { TransferHttp } from './services/transfer-http.service';
   exports: [CommonModule, RouterModule, NavbarComponent],
   providers: [
     PlatformService,
-    CookieService,
-    TransferHttp
+    CookieService
   ]
 })
 export class SharedModule {

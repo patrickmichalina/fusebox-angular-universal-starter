@@ -3,11 +3,12 @@ import { AppModule } from './../client/app/app.module';
 import { NgModule, enableProdMode } from '@angular/core';
 import { ServerModule, } from '@angular/platform-server';
 import { ApplicationRef, APP_BOOTSTRAP_LISTENER } from '@angular/core';
-import { ServerTransferState } from '../client/app/shared/services/transfer-server-state.service';
-import { TransferState } from '../client/app/shared/services/transfer-state.service';
+import { TransferState } from '../client/app/modules/transfer-state/transfer-state';
+import { ServerTransferStateModule } from '../client/app/modules/transfer-state/server-transfer-state.module';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/first';
+import '../client/operators';
 
 if (process.env.NODE_ENV === 'production') enableProdMode();
 
@@ -21,10 +22,10 @@ export function bootstrapFactory(appRef: ApplicationRef, transferState: Transfer
 @NgModule({
   imports: [
     ServerModule,
+    ServerTransferStateModule,
     AppModule
   ],
   providers: [
-    { provide: TransferState, useClass: ServerTransferState },
     {
       provide: APP_BOOTSTRAP_LISTENER,
       useFactory: bootstrapFactory,

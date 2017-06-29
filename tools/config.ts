@@ -10,6 +10,6 @@ export const config = {
     "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
   ],
   server: {
-    port: 8080
+    port: 8083
   }
 }

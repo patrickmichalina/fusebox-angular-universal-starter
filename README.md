@@ -9,13 +9,14 @@ Includes the following features:
 - [x] Production and development builds
 - [x] Fast Angular testing with Jest
 - [x] Manage your type definitions using @types
-- [ ] Simple Heroku Deployment
+- [x] Simple Heroku Deployment
+- [x] HttpStateTransfer for caching server responses on client boostrap (no flickering)
 - [ ] Hot Module Reloading (client only dev mode)
 - [ ] Client-Only and Server build servers
 - [ ] Support for Angular Mobile Toolkit (Service Worker)
 - [ ] Ahead-of-Time (AOT) compilation support
 - [ ] Tree-Shaking builds with Rollup
-- [ ] HttpStateTransfer for caching server responses on client boostrap
+
 
 ## How to Start
 
