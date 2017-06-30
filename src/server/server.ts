@@ -20,6 +20,7 @@ const settings = require(pkg).config.server;
 const port = process.env.PORT || settings.port;
 const app = express();
 const isProd = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? true : false;
+const staticOptions = { index: false, maxAge: isProd ? '1yr' : '0' };
 
 if (process.env.HEROKU) app.use(forceSsl);
 
@@ -29,7 +30,8 @@ app.use(morgan(isProd ? 'common' : 'dev'));
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }));
 app.set('view engine', 'html');
 app.set('views', root);
-app.use(express.static(root, { index: false, maxAge: isProd ? '1yr' : '0' }))
+app.use(express.static(root, staticOptions));
+app.use('/sitemap.xml', express.static('sitemap.xml', staticOptions));
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,
