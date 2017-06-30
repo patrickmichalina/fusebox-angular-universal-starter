@@ -23,7 +23,7 @@ if (process.env.HEROKU) app.use(forceSsl);
 
 app.use(compression());
 app.use(favicon(join(root, 'assets/favicon.ico')));
-app.use(morgan(process.env.NODE_ENV === 'prod' ? 'compressed' : 'dev'));
+app.use(morgan(process.env.NODE_ENV === 'prod' ? 'common' : 'dev'));
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModule
 }));
