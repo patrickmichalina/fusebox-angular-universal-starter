@@ -56,7 +56,7 @@ Sparky.task("index.inject", () => {
     }
 
     if (process.env.CI && process.env.CDN_ORIGIN) {
-      file.setContent(prefixByQuery(file.contents, 'script', 'src', process.env.CDN_ORIGIN));
+      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', process.env.CDN_ORIGIN));
       file.setContent(prefixByQuery(file.contents, 'link', 'href', process.env.CDN_ORIGIN));
     }
     file.save();

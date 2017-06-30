@@ -74,8 +74,6 @@ export const insertGoogleAnalytics = function (file: any, googleId: string) {
   script1Element.textContent =
     `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${googleId}', 'auto');ga('send', 'pageview');`;
 
-  script1Element.removeAttribute('src');
-
   const script2Element = dom.window.document.createElement('script') as HTMLScriptElement;
   script2Element.setAttribute('async', '');
   script2Element.setAttribute('src', 'https://www.google-analytics.com/analytics.js');
