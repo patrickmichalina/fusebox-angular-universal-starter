@@ -9,7 +9,7 @@ import * as favicon from 'serve-favicon';
 import { join, resolve } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
-import { forceSsl } from './heroku.force-ssl';
+// import { forceSsl } from './heroku.force-ssl';
 
 require('ts-node/register');
 
@@ -19,7 +19,7 @@ const settings = require(pkg).config.server;
 const port = process.env.PORT || settings.port;
 const app = express();
 
-if (process.env.HEROKU) app.use(forceSsl);
+// if (process.env.HEROKU) app.use(forceSsl);
 
 app.use(compression());
 app.use(favicon(join(root, 'assets/favicon.ico')));
