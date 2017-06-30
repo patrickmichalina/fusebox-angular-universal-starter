@@ -78,8 +78,8 @@ export const insertGoogleAnalytics = function (file: any, googleId: string) {
   script2Element.setAttribute('async', '');
   script2Element.setAttribute('src', 'https://www.google-analytics.com/analytics.js');
 
-  dom.window.document.head.appendChild(script1Element);
-  dom.window.document.head.appendChild(script2Element);
+  dom.window.document.body.appendChild(script1Element);
+  dom.window.document.body.appendChild(script2Element);
 
   return dom.serialize();
 };
