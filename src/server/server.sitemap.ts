@@ -5,9 +5,7 @@ export const sitemap = (host: string) => {
   const generator = new SitemapGenerator(host);
 
   generator.on('done', (sitemaps: any[]) => {
-    writeFile('dist/sitemap.xml', sitemaps, () => { }, () => {
-      console.log(`Generated sitemap.xml`);
-    });
+    writeFile('dist/sitemap.xml', sitemaps[0], () => console.log(`Generated sitemap.xml`));
   });
 
   generator.start();
