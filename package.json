@@ -55,6 +55,7 @@
     "compression": "^1.6.2",
     "core-js": "2.4.1",
     "express": "^4.15.3",
+    "heroku-ssl-redirect": "0.0.4",
     "js-cookie": "^2.1.4",
     "morgan": "^1.8.2",
     "normalize.css": "^7.0.0",
