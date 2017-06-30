@@ -1,3 +1,10 @@
 machine:
   node:
     version: 8.1.2
+
+test:
+  override:
+    - node_modules/.bin/jest --coverage:
+        environment:
+          TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS/junit/
+          TEST_REPORT_FILENAME: test-results.xml

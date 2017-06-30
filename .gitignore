@@ -64,3 +64,5 @@ typings/
 dist/
 
 .DS_Store
+
+test-report.xml
