@@ -11,6 +11,7 @@ Includes the following features:
 - [x] Manage your type definitions using @types
 - [x] Simple Heroku Deployment
 - [x] HttpStateTransfer for caching server responses on client boostrap (no flickering)
+- [x] [Brotli compression](https://github.com/google/brotli) with [gzip](http://www.gzip.org) fallback
 - [ ] Hot Module Reloading (client only dev mode)
 - [ ] Client-Only and Server build servers
 - [ ] Support for Angular Mobile Toolkit (Service Worker)

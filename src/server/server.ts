@@ -3,14 +3,13 @@ import 'zone.js/dist/zone-node';
 import 'zone.js/dist/long-stack-trace-zone';
 import 'systemjs';
 import * as express from 'express';
-import * as compression from 'compression';
 import * as morgan from 'morgan';
 import * as favicon from 'serve-favicon';
 import { join, resolve } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
-
 import { forceSsl } from './heroku.force-ssl';
+import { brotli } from './brotli';
 
 require('ts-node/register');
 
@@ -22,7 +21,7 @@ const app = express();
 
 if (process.env.HEROKU) app.use(forceSsl);
 
-app.use(compression());
+app.use(brotli);
 app.use(favicon(join(root, 'assets/favicon.ico')));
 app.use(morgan(process.env.NODE_ENV === 'prod' ? 'common' : 'dev'));
 app.engine('html', ngExpressEngine({
