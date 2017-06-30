@@ -8,8 +8,9 @@ import * as favicon from 'serve-favicon';
 import { join, resolve } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
-import { forceSsl } from './heroku.force-ssl';
-import { brotli } from './brotli';
+import { forceSsl } from './server.heroku.ssl';
+import { brotli } from './server.brotli';
+import { sitemap } from './server.sitemap';
 
 require('ts-node/register');
 
@@ -18,18 +19,17 @@ const pkg = join(process.env.PWD, './tools/config.ts');
 const settings = require(pkg).config.server;
 const port = process.env.PORT || settings.port;
 const app = express();
+const isProd = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? true : false;
 
 if (process.env.HEROKU) app.use(forceSsl);
 
 app.use(brotli);
 app.use(favicon(join(root, 'assets/favicon.ico')));
-app.use(morgan(process.env.NODE_ENV === 'prod' ? 'common' : 'dev'));
-app.engine('html', ngExpressEngine({
-  bootstrap: AppServerModule
-}));
+app.use(morgan(isProd ? 'common' : 'dev'));
+app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }));
 app.set('view engine', 'html');
 app.set('views', root);
-app.use(express.static(root, { index: false, maxAge: '1yr' }))
+app.use(express.static(root, { index: false, maxAge: isProd ? '1yr' : '0' }))
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,
@@ -38,4 +38,7 @@ app.get('/*', (req, res) => {
 });
 app.listen(port, () => {
   console.log(`Angular Universal Server listening on port ${port}...`);
+  sitemap(isProd ? `https://${process.env.HOST}` : `http://localhost:${port}`);
 });
+
+

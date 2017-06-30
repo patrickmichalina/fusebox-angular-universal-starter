@@ -66,3 +66,4 @@ dist/
 .DS_Store
 
 test-report.xml
+test-results.xml

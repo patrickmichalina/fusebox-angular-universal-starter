@@ -13,6 +13,7 @@ Includes the following features:
 - [x] Simple [Heroku](https://www.heroku.com) Deployment
 - [x] HttpStateTransfer for caching server responses on client boostrap (no flickering)
 - [x] CDN asset configuration
+- [x] Automatic sitemap generation
 - [x] [Brotli compression](https://github.com/google/brotli) with [gzip](http://www.gzip.org) fallback
 - [ ] SEO support for Title and Meta tags
 - [ ] Hot Module Reloading
