@@ -17,6 +17,7 @@ Includes the following features:
 - [x] [SCSS](http://sass-lang.com) support for professional grade CSS management
 - [x] [Brotli compression](https://github.com/google/brotli) with [gzip](http://www.gzip.org) fallback
 - [ ] SEO support for Title and Meta tags
+- [ ] OG (Open Graph) tags for social sharing
 - [ ] Hot Module Reloading
 - [ ] Both Client and Server build tasks
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
