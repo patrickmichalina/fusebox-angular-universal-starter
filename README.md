@@ -14,6 +14,7 @@ Includes the following features:
 - [x] HttpStateTransfer for caching server responses on client boostrap (no flickering)
 - [x] CDN asset configuration
 - [x] Automatic sitemap generation
+- [x] [SCSS](http://sass-lang.com) support for professional grade CSS management
 - [x] [Brotli compression](https://github.com/google/brotli) with [gzip](http://www.gzip.org) fallback
 - [ ] SEO support for Title and Meta tags
 - [ ] Hot Module Reloading
