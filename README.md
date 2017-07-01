@@ -16,6 +16,7 @@ Includes the following features:
 - [x] Automatic sitemap generation
 - [x] [SCSS](http://sass-lang.com) support for professional grade CSS management
 - [x] [Brotli compression](https://github.com/google/brotli) with [gzip](http://www.gzip.org) fallback
+- [x] [CircleCI](https://circleci.com) unit testing support 
 - [ ] SEO support for Title and Meta tags
 - [ ] OG (Open Graph) tags for social sharing
 - [ ] Hot Module Reloading
