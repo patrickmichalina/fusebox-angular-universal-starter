@@ -65,7 +65,7 @@ Sparky.task("index.inject", () => {
 
 Sparky.task("serve", () => {
   return Sparky.start('clean')
-    .then(() => Sparky.start('robots'))
+    .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
     .then(() => Sparky.start('sass'))

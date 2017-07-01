@@ -1,6 +1,6 @@
 import './clean';
 import './assets';
-import './robots';
+import './web';
 import './sass';
 import './sass.files';
 import './js.files';

@@ -31,7 +31,6 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }));
 app.set('view engine', 'html');
 app.set('views', root);
 app.use(express.static(root, staticOptions));
-app.use('/sitemap.xml', express.static('sitemap.xml', staticOptions));
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,
@@ -40,7 +39,5 @@ app.get('/*', (req, res) => {
 });
 app.listen(port, () => {
   console.log(`Angular Universal Server listening on port ${port}...`);
-  sitemap(isProd ? `https://${process.env.HOST}` : `http://localhost:${port}`);
+  sitemap(isProd ? `https://${process.env.HOST}` : `http://localhost:${port}`).then(() => { });
 });
-
-
