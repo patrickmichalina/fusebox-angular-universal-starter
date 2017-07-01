@@ -70,7 +70,7 @@ export const insertBase = function (file: any, href: string) {
 export const insertGoogleAnalytics = function (file: any, trackingId: string, verificationCode: string) {
   const dom = new JSDOM(file);
 
-  const metaElement = dom.window.document.createElement('script') as HTMLMetaElement;
+  const metaElement = dom.window.document.createElement('meta') as HTMLMetaElement;
   metaElement.setAttribute('name', 'google-site-verification');
   metaElement.setAttribute('content', verificationCode);
 
