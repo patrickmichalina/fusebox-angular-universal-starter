@@ -51,8 +51,8 @@ Sparky.task("index.inject", () => {
     file.setContent(insertExternalStylesheet(file.contents, config.stylesheets));
     file.setContent(insertTitle(file.contents, config.title));
 
-    if (process.env.GA_TRACKING_ID) {
-      file.setContent(insertGoogleAnalytics(file.contents, process.env.GA_TRACKING_ID));
+    if (process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE) {
+      file.setContent(insertGoogleAnalytics(file.contents, process.env.GA_TRACKING_ID, process.env.GA_VERIFICATION_CODE));
     }
 
     if (process.env.CI && process.env.CDN_ORIGIN) {

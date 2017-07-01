@@ -67,20 +67,24 @@ export const insertBase = function (file: any, href: string) {
   return dom.serialize();
 };
 
-export const insertGoogleAnalytics = function (file: any, googleId: string) {
+export const insertGoogleAnalytics = function (file: any, trackingId: string, verificationCode: string) {
   const dom = new JSDOM(file);
+
+  const metaElement = dom.window.document.createElement('script') as HTMLMetaElement;
+  metaElement.setAttribute('name', 'google-site-verification');
+  metaElement.setAttribute('content', verificationCode);
 
   const script1Element = dom.window.document.createElement('script') as HTMLScriptElement;
   script1Element.textContent =
-    `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${googleId}', 'auto');ga('send', 'pageview');`;
+    `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${trackingId}', 'auto');ga('send', 'pageview');`;
 
   const script2Element = dom.window.document.createElement('script') as HTMLScriptElement;
   script2Element.setAttribute('async', '');
   script2Element.setAttribute('src', 'https://www.google-analytics.com/analytics.js');
 
+  dom.window.document.head.appendChild(script1Element);
   dom.window.document.body.appendChild(script1Element);
   dom.window.document.body.appendChild(script2Element);
 
   return dom.serialize();
 };
-
