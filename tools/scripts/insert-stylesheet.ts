@@ -82,7 +82,7 @@ export const insertGoogleAnalytics = function (file: any, trackingId: string, ve
   script2Element.setAttribute('async', '');
   script2Element.setAttribute('src', 'https://www.google-analytics.com/analytics.js');
 
-  dom.window.document.head.appendChild(script1Element);
+  dom.window.document.head.appendChild(metaElement);
   dom.window.document.body.appendChild(script1Element);
   dom.window.document.body.appendChild(script2Element);
 
