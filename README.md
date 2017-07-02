@@ -1,4 +1,5 @@
 # Introduction
+[![codecov](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter)
 
 Provides an extremely fast starter for the development of Angular Universal (isomorphic) projects.
 
