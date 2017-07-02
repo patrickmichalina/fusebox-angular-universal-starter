@@ -1,6 +1,10 @@
 # Introduction
-[![CircleCI](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter.svg?style=svg)](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter)
+
+[![CircleCI](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter.svg?style=shield)](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter)
 [![codecov](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter)
+[![dependencies Status](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter/status.svg)](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter)
+[![devDependencies Status](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter/dev-status.svg)](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter?type=dev)
+[![Angular Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
 
 Provides an extremely fast starter for the development of Angular Universal (isomorphic) projects.
 
