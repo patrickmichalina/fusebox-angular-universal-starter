@@ -49,4 +49,7 @@ $ npm run test.watch
 # start the local server
 $ npm start
 
+# start the local server in production mode
+$ npm run start.prod
+
 ```

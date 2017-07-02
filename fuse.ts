@@ -68,6 +68,7 @@ Sparky.task("serve", () => {
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
+    .then(() => Sparky.start('favicons'))
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {

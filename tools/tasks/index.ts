@@ -4,6 +4,7 @@ import './web';
 import './sass';
 import './sass.files';
 import './js.files';
+import './favicons';
 
 import { Sparky } from 'fuse-box';
 import { config } from '../config';
