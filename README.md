@@ -54,3 +54,22 @@ $ npm start
 $ npm run start.prod
 
 ```
+
+## Environment Variables
+
+```bash
+# it is important to set the following environmental variables on your CI server (examples below)
+HOST : angular.patrickmichalina.com # the root origin of the application server
+CI : true 
+
+# for Heroku
+HEROKU : true # to build on heroku, ssl settings are setup using this flag
+NPM_CONFIG_PRODUCTION : false # to download all depenedencies on Heroku, including devDependencies
+
+# cdn origin for assets will only be injected if the following environment variable is set
+CDN_ORIGIN : https://my-distro.some-awesome-cdn.net
+
+# google analytics settings will only be injected if the following environment variables are set
+GA_TRACKING_ID : UA-78080189-2
+GA_VERIFICATION_CODE : RW-hcjXEgPMoy2NF8pTl8IEzP8gnj3cEZ6aF1HDUiOc
+```
