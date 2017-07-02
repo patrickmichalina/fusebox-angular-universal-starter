@@ -12,3 +12,5 @@ test:
         environment:
           TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS/junit/
           TEST_REPORT_FILENAME: test-results.xml
+  post:
+    - bash <(curl -s https://codecov.io/bash)
