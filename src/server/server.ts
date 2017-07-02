@@ -12,6 +12,7 @@ import { forceSsl } from './server.heroku.ssl';
 import { sitemap } from './server.sitemap';
 import { stat } from 'fs';
 const shrinkRay = require('shrink-ray')
+const minifyHTML = require('express-minify-html');
 
 require('ts-node/register');
 
@@ -26,17 +27,31 @@ const app = express();
 
 if (process.env.HEROKU) app.use(forceSsl);
 
-app.use(shrinkRay());
-app.use(morgan(isProd ? 'common' : 'dev'));
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }));
 app.set('view engine', 'html');
 app.set('views', root);
+app.use(shrinkRay());
+if (settings.minifyIndex) {
+  app.use(minifyHTML({
+    override: true,
+    exception_url: false,
+    htmlMinifier: {
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      removeAttributeQuotes: true,
+      removeEmptyAttributes: true,
+      minifyJS: true
+    }
+  }));
+}
+app.use(morgan(isProd ? 'common' : 'dev'));
 app.get('/sitemap.xml', (req, res) => {
   const fileLocation = join(root, 'sitemap.xml');
 
   stat(fileLocation, (err) => {
-    return err 
-      ? sitemap(host) .then(a => res.header('Content-Type', 'text/xml').send(a))
+    return err
+      ? sitemap(host).then(a => res.header('Content-Type', 'text/xml').send(a))
       : res.sendFile(fileLocation);
   });
 });

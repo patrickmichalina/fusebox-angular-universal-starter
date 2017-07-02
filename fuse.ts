@@ -93,6 +93,7 @@ Sparky.task("serve", () => {
     })
     .then(() => Sparky.start('js.files'))
     .then(() => Sparky.start('index.inject'))
+    .then(() => Sparky.start('index.minify'))
 });
 
 // Sparky.task("serve.spa.hmr", ["clean"], () => {

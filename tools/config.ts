@@ -10,6 +10,7 @@ export const config = {
   stylesheets: [
     "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
   ],
+  minifyIndex: true,
   server: {
     port: 8083,
     faviconSource: './src/client/assets/favicon.png'
