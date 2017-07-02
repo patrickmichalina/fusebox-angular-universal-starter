@@ -1,4 +1,5 @@
 # Introduction
+[![codecov](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter)
 
 Provides an extremely fast starter for the development of Angular Universal (isomorphic) projects.
 
@@ -70,6 +71,6 @@ NPM_CONFIG_PRODUCTION : false # to download all depenedencies on Heroku, includi
 CDN_ORIGIN : https://my-distro.some-awesome-cdn.net
 
 # google analytics settings will only be injected if the following environment variables are set
-GA_TRACKING_ID : UA-78080189-2
-GA_VERIFICATION_CODE : RW-hcjXEgPMoy2NF8pTl8IEzP8gnj3cEZ6aF1HDUiOc
+GA_TRACKING_ID : UA-18280491-Z
+GA_VERIFICATION_CODE : RW-some-crazy-number
 ```
