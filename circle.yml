@@ -2,6 +2,10 @@ machine:
   node:
     version: 8.1.2
 
+general:
+  artifacts:
+    - ./coverage
+
 test:
   override:
     - node_modules/.bin/jest --coverage:
