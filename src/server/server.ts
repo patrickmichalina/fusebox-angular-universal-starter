@@ -39,6 +39,7 @@ if (FuseBoxEnvConfig.server.minifyIndex) {
       removeComments: true,
       collapseWhitespace: true,
       collapseBooleanAttributes: true,
+      removeAttributeQuotes: false,
       minifyJS: true
     }
   }));
