@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { EnvConfig } from './app.config';
+import { EnvironmentService } from './shared/services/environment.service';
 
 @Component({
   selector: 'pm-app',
@@ -8,7 +8,7 @@ import { EnvConfig } from './app.config';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent { 
-  constructor(meta: Meta) {
-    meta.addTag({ property: 'fb:app_id', content: EnvConfig.og.facebookAppId  })
+  constructor(environmentService: EnvironmentService, meta: Meta) {
+    meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId  })
    }
 }

@@ -2,7 +2,7 @@ import { insertFavicon, insertBase, insertExternalStylesheet, insertGoogleAnalyt
 import { prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { BuildConfig } from './tools/config/build.config';
-import { EnvConfig } from './tools/tasks/_global';
+import { EnvConfigInstance } from './tools/tasks/_global';
 import './tools/tasks';
 import {
   FuseBox,
@@ -30,7 +30,7 @@ const options = {
   output: `${BuildConfig.outputDir}/$name.js`,
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: true, vendor: true },
   plugins: [
-    EnvPlugin(EnvConfig),
+    EnvPlugin(EnvConfigInstance),
     isProd && UglifyESPlugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],

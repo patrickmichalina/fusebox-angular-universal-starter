@@ -1,4 +1,4 @@
-export interface IConfig {
+export interface EnvConfig {
   name: string;
   description: string;
   pageTitleSeparator: string;

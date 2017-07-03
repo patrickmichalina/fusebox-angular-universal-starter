@@ -84,7 +84,8 @@
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "globals": {
       "__TS_CONFIG__": "tsconfig.json",
-      "__TRANSFORM_HTML__": true
+      "__TRANSFORM_HTML__": true,
+      "__process_env__": {}
     }
   }
 }

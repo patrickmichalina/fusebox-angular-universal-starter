@@ -1,7 +1,7 @@
-import { IConfig } from '../config/app.config';
+import { EnvConfig } from '../config/app.config';
 import * as base from './base';
 
-const ProdConfig: IConfig = Object.assign(base, {
+const ProdConfig: EnvConfig = Object.assign(base, {
   server: {
     host: "https://angular.patrickmichalina.com",
     port: 8083,

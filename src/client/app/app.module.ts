@@ -9,21 +9,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotFoundModule } from './not-found/not-found.module';
 import { TransferHttpModule } from './modules/transfer-http/transfer-http.module';
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { EnvConfig } from './app.config';
+import { EnvironmentService } from './shared/services/environment.service';
 
-export function metaFactory(): MetaLoader {
+export function metaFactory(environmentService: EnvironmentService): MetaLoader {
   return new MetaStaticLoader({
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
-    pageTitleSeparator: EnvConfig.pageTitleSeparator,
-    applicationName: EnvConfig.name,
-    applicationUrl: EnvConfig.server.host,
+    pageTitleSeparator: environmentService.config.pageTitleSeparator,
+    applicationName: environmentService.config.name,
+    applicationUrl: environmentService.config.server.host,
     defaults: {
-      title: EnvConfig.name,
-      description: EnvConfig.description,
-      'og:image': EnvConfig.og.defaultSocialImage,
+      title: environmentService.config.name,
+      description: environmentService.config.description,
+      'og:image': environmentService.config.og.defaultSocialImage,
       'og:type': 'website',
       'og:locale': 'en_US',
-      'og:locale:alternate': 'en_US',
+      'og:locale:alternate': 'en_US'
     }
   });
 }
@@ -40,11 +40,12 @@ export function metaFactory(): MetaLoader {
     SharedModule.forRoot(),
     MetaModule.forRoot({
       provide: MetaLoader,
-      useFactory: (metaFactory)
+      useFactory: (metaFactory),
+      deps: [EnvironmentService]
     })
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  exports: [AppComponent]
+  exports: [AppComponent],
 })
 export class AppModule { }

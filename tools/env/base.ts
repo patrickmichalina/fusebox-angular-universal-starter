@@ -1,6 +1,6 @@
-import { IConfig } from '../config/app.config';
+import { EnvConfig } from '../config/app.config';
 
-const BaseConfig: IConfig = {
+const BaseConfig: EnvConfig = {
   name: "Fusebox Angular Universal Starter",
   description: "Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator. Created by Patrick Michalina",
   pageTitleSeparator: " - ",
