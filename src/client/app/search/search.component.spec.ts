@@ -22,7 +22,7 @@ describe(SearchComponent.name, () => {
         .compileComponents()
         .then(() => {
           const fixture = TestBed.createComponent(SearchComponent);
-          expect(fixture.componentInstance).not.toBeNull();
+          expect(fixture.nativeElement).toBeTruthy();
         });
     }));
 });

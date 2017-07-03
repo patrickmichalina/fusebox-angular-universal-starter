@@ -79,3 +79,10 @@ CDN_ORIGIN : https://my-distro.some-awesome-cdn.net
 GA_TRACKING_ID : UA-18280491-Z
 GA_VERIFICATION_CODE : RW-some-crazy-number
 ```
+
+### Credits
+
+[angular]()
+[fuse-box]()
+[ngx-meta](https://github.com/ngx-meta)
+..todo!

@@ -15,7 +15,7 @@ describe(AboutComponent.name, () => {
         .compileComponents()
         .then(() => {
           const fixture = TestBed.createComponent(AboutComponent);
-          expect(fixture.componentInstance).not.toBeNull();
+          expect(fixture.nativeElement).toBeTruthy();
         });
     }));
 });
