@@ -1,16 +1,19 @@
 import { Sparky } from 'fuse-box';
 import { writeFile, readFile } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
-import { config } from '../config';
+import { BuildConfig } from '../config/build.config';
+import { EnvConfig } from '../tasks/_global';
+
 const favicons = require('favicons');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 Sparky.task("favicons", () => {
   return new Promise((resolve, reject) => {
-    favicons(config.server.faviconSource, {
+    favicons(BuildConfig.faviconSource, {
       path: '/assets/favicons',
-      appDescription: config.description
+      appDescription: EnvConfig.description,
+      appName: EnvConfig.name
     }, (error: any, response: any) => {
       if (error) {
         console.log(error.status);
@@ -23,11 +26,11 @@ Sparky.task("favicons", () => {
         return `${prev}\n${curr}`;
       });
 
-      mkdirp(`./${config.outputDir}/assets/favicons`);
+      mkdirp(`./${BuildConfig.outputDir}/assets/favicons`);
 
       var imagePromises = (<{ name: string, contents: Buffer }[]>response.images).map(image =>
         new Promise((resolve, reject) => {
-          return writeFile(`./${config.outputDir}/assets/favicons/${image.name}`, image.contents, (err: any) => {
+          return writeFile(`./${BuildConfig.outputDir}/assets/favicons/${image.name}`, image.contents, (err: any) => {
             if (err) reject(err);
             return resolve(image.contents);
           })
@@ -41,7 +44,7 @@ Sparky.task("favicons", () => {
         }));
 
       return Promise.all<any>([...imagePromises, ...filePromises]).then(() => {
-        const filePath = `./${config.outputDir}/index.html`;
+        const filePath = `./${BuildConfig.outputDir}/index.html`;
         readFile(filePath, 'utf-8', (err, data) => {
           if (err) return reject(err);
           const dom = new JSDOM(data);

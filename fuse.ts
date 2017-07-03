@@ -1,7 +1,8 @@
-import { insertFavicon, insertBase, insertExternalStylesheet, insertTitle, insertGoogleAnalytics } from './tools/scripts/insert-stylesheet';
+import { insertFavicon, insertBase, insertExternalStylesheet, insertGoogleAnalytics } from './tools/scripts/insert-stylesheet';
 import { prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
-import { config } from './tools/config';
+import { BuildConfig } from './tools/config/build.config';
+import { EnvConfig } from './tools/tasks/_global';
 import './tools/tasks';
 import {
   FuseBox,
@@ -11,11 +12,12 @@ import {
   JSONPlugin,
   HTMLPlugin,
   UglifyESPlugin,
-  RawPlugin
+  RawPlugin,
+  EnvPlugin
 } from 'fuse-box';
 
 const cachebuster = Math.round(new Date().getTime() / 1000);
-const isProd = process.env.NODE_ENV === 'prod' ? true : false;
+const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const mainEntryFileName = isProd ? `main-prod` : `main`;
 const appBundleName = `js/app-${cachebuster}`;
 const vendorBundleName = `js/_vendor-${cachebuster}`;
@@ -25,9 +27,10 @@ const serverBundleInstructions = ` > [server/server.ts]`;
 
 const options = {
   homeDir: 'src/',
-  output: `${config.outputDir}/$name.js`,
+  output: `${BuildConfig.outputDir}/$name.js`,
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: true, vendor: true },
   plugins: [
+    EnvPlugin(EnvConfig),
     isProd && UglifyESPlugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
@@ -45,11 +48,10 @@ Sparky.task("index.inject", () => {
   return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
     file.read();
 
-    file.setContent(insertBase(file.contents, config.baseHref));
+    file.setContent(insertBase(file.contents, BuildConfig.baseHref));
     file.setContent(insertFavicon(file.contents, '/assets/favicon.ico'));
 
-    file.setContent(insertExternalStylesheet(file.contents, config.stylesheets));
-    file.setContent(insertTitle(file.contents, config.title));
+    file.setContent(insertExternalStylesheet(file.contents, BuildConfig.stylesheets));
 
     if (process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE) {
       file.setContent(insertGoogleAnalytics(file.contents, process.env.GA_TRACKING_ID, process.env.GA_VERIFICATION_CODE));

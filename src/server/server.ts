@@ -11,15 +11,15 @@ import { AppServerModule } from './app.server.module';
 import { forceSsl } from './server.heroku.ssl';
 import { sitemap } from './server.sitemap';
 import { stat } from 'fs';
+import { EnvConfig } from '../client/app/app.config';
+
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html');
 
 require('ts-node/register');
 
 const root = resolve(process.argv[1], '../');
-const pkg = join(process.env.PWD, './tools/config.ts');
-const settings = require(pkg).config;
-const port = process.env.PORT || settings.server.port;
+const port = process.env.PORT || EnvConfig.server.port;
 const isProd = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? true : false;
 const host = process.env.HOST || `http://localhost:${port}`;
 const staticOptions = { index: false, maxAge: isProd ? '1yr' : '0' };
@@ -31,7 +31,7 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }));
 app.set('view engine', 'html');
 app.set('views', root);
 app.use(shrinkRay());
-if (settings.minifyIndex) {
+if (EnvConfig.server.minifyIndex) {
   app.use(minifyHTML({
     override: true,
     exception_url: false,

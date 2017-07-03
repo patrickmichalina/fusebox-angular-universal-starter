@@ -10,7 +10,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/first';
 import '../client/operators';
 
-if (process.env.NODE_ENV === 'production') enableProdMode();
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod') enableProdMode();
 
 export function bootstrapFactory(appRef: ApplicationRef, transferState: TransferState): () => Subscription {
   return () => appRef.isStable
