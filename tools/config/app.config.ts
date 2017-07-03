@@ -4,6 +4,7 @@ export interface IConfig {
   pageTitleSeparator: string;
   og: {
     defaultSocialImage: string,
+    facebookAppId: string
   }
   server: {
     host: string;

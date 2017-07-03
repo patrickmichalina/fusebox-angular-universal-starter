@@ -23,7 +23,7 @@ export function metaFactory(): MetaLoader {
       'og:image': EnvConfig.og.defaultSocialImage,
       'og:type': 'website',
       'og:locale': 'en_US',
-      'og:locale:alternate': 'en_US'
+      'og:locale:alternate': 'en_US',
     }
   });
 }
