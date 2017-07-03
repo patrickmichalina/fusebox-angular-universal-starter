@@ -5,7 +5,7 @@ const BaseConfig: IConfig = {
   description: "Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator.",
   pageTitleSeparator: " - ",
   og: {
-    defaultSocialImage: "https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/apple-touch-startup-image-1536x2008.png"
+    defaultSocialImage: "https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/apple-touch-startup-image-750x1294.png"
   },
   server: {
     host: "http://localhost",
