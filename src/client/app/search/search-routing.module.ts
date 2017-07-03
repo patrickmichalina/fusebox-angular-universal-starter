@@ -5,7 +5,15 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'search', component: SearchComponent }
+      {
+        path: 'search',
+        component: SearchComponent,
+        data: {
+          meta: {
+            title: 'Search'
+          }
+        }
+      }
     ])
   ],
   exports: [RouterModule]
