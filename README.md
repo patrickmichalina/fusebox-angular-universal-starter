@@ -6,7 +6,7 @@
 [![devDependencies Status](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter/dev-status.svg)](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter?type=dev)
 [![Angular Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
 
-Provides an extremely fast starter for the development of Angular Universal (isomorphic) projects.
+Provides an extremely fast seed project for the development of Angular Universal (isomorphic) projects.
 
 This is early work and under heavy development.
 
@@ -24,16 +24,16 @@ Includes the following features:
 - [x] [Brotli compression](https://github.com/google/brotli) with [gzip](http://www.gzip.org) fallback
 - [x] [CircleCI](https://circleci.com) unit testing support 
 - [x] Full favicon icon generation for multiple devices derived from a single seed image
-- [ ] SEO support for Title and Meta tags
-- [ ] OG (Open Graph) tags for social sharing
-- [ ] Hot Module Reloading
+- [x] SEO support for Title and Meta tags
+- [x] OG (Open Graph) tags for social sharing
+- [ ] Hot Module Reloading for faster browser reloads during development
 - [ ] Both Client and Server build tasks
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
 - [ ] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
 - [ ] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
 - [ ] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
 
-## How to Start
+# How to Start
 
 **Note that we strongly recommend node >= v7.0.0 and npm >= 4.0.0.**
 
@@ -50,6 +50,9 @@ $ npm install
 # single test run
 $ npm test 
 
+# single test with coverage results
+$ npm run test.coverage
+
 # continuous testing
 $ npm run test.watch
 
@@ -61,7 +64,7 @@ $ npm run start.prod
 
 ```
 
-## Environment Variables
+# Environment Variables
 
 ```bash
 # it is important to set the following environmental variables on your CI server (examples below)
@@ -80,9 +83,10 @@ GA_TRACKING_ID : UA-18280491-Z
 GA_VERIFICATION_CODE : RW-some-crazy-number
 ```
 
-### Credits
+# Change Log
 
-[angular]()
-[fuse-box]()
-[ngx-meta](https://github.com/ngx-meta)
-..todo!
+You can follow the [Angular change log here](https://github.com/angular/angular/blob/master/CHANGELOG.md).
+
+# License
+
+MIT

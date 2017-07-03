@@ -1,6 +1,7 @@
 import { SearchComponent } from './search.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { MetaGuard } from '@ngx-meta/core';
 
 @NgModule({
   imports: [
@@ -8,6 +9,7 @@ import { RouterModule } from '@angular/router';
       {
         path: 'search',
         component: SearchComponent,
+        canActivate: [MetaGuard],
         data: {
           meta: {
             title: 'Search'

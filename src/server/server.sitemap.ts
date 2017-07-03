@@ -15,7 +15,7 @@ export const sitemap = (host: string) => new Promise<string>((resolve, reject) =
   // });
 
   generator.on('done', (sitemaps: string[]) => {
-    if (sitemaps[0]) {
+    if (sitemaps && sitemaps[0]) {
       writeFile('dist/sitemap.xml', sitemaps[0], () => {
         console.log(`Generated sitemap.xml`)
         return resolve(sitemaps[0]);

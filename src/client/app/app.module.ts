@@ -9,16 +9,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { NotFoundModule } from './not-found/not-found.module';
 import { TransferHttpModule } from './modules/transfer-http/transfer-http.module';
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
+import { EnvConfig } from './app.config';
 
 export function metaFactory(): MetaLoader {
   return new MetaStaticLoader({
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
-    pageTitleSeparator: ' - ',
-    applicationName: 'Fusebox Angular Universal Starter',
+    pageTitleSeparator: EnvConfig.pageTitleSeparator,
+    applicationName: EnvConfig.name,
+    applicationUrl: EnvConfig.server.host,
     defaults: {
-      title: 'Fusebox Angular Universal Starter',
-      description: 'Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator.',
-      'og:image': 'https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/apple-touch-startup-image-1536x2008.png',
+      title: EnvConfig.name,
+      description: EnvConfig.description,
+      'og:image': EnvConfig.og.defaultSocialImage,
       'og:type': 'website',
       'og:locale': 'en_US',
       'og:locale:alternate': 'en_US'
