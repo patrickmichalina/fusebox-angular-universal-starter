@@ -39,8 +39,6 @@ if (EnvConfig.server.minifyIndex) {
       removeComments: true,
       collapseWhitespace: true,
       collapseBooleanAttributes: true,
-      removeAttributeQuotes: true,
-      removeEmptyAttributes: true,
       minifyJS: true
     }
   }));
