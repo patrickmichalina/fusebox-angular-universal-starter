@@ -27,6 +27,7 @@ Includes the following features:
 - [x] Full favicon icon generation for multiple devices derived from a single seed image
 - [x] SEO support for Title and Meta tags
 - [x] OG (Open Graph) tags for social sharing
+- [x] Simple Ad-Blocker detection service
 - [ ] Hot Module Reloading for faster browser reloads during development
 - [ ] Both Client and Server build tasks
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
