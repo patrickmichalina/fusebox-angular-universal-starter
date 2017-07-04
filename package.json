@@ -65,6 +65,7 @@
     "@ngx-meta/core": "^0.4.0-rc.2",
     "compressible": "^2.0.10",
     "core-js": "2.4.1",
+    "detect-adblock": "0.0.2",
     "express": "^4.15.3",
     "js-cookie": "^2.1.4",
     "morgan": "^1.8.2",

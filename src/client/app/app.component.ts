@@ -7,8 +7,8 @@ import { EnvironmentService } from './shared/services/environment.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent { 
+export class AppComponent {
   constructor(environmentService: EnvironmentService, meta: Meta) {
-    meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId  })
-   }
+    meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId })
+  }
 }
