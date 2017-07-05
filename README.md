@@ -8,7 +8,7 @@
 
 Provides an extremely fast seed project for the development of Angular Universal (isomorphic) projects.
 
-This is early work and under heavy development.
+This is early work and under heavy development. A demo project can be found [here](https://angular.patrickmichalina.com)
 
 Includes the following features:
 - [x] [Angular 4](https://github.com/angular/angular/blob/master/CHANGELOG.md)
