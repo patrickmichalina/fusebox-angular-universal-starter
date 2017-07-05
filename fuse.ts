@@ -75,9 +75,9 @@ Sparky.task("serve", () => {
     .then(() => Sparky.start('sass.files'))
     .then(() => {
       const fuse = FuseBox.init(options as any);
-      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
-      const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions);
-      const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions)
+      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions).target('browser');
+      const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions).target('browser');
+      const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser')
 
         .completed(proc => {
           if (!process.env.CI) {
