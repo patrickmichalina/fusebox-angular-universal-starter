@@ -4,16 +4,23 @@ import { TestBed, async } from '@angular/core/testing';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 describe(CookieService.name, () => {
+  let service: ICookieService;
 
-  it('should construct', async(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
         CookieService,
         PlatformService,
         { provide: REQUEST, useValue: {} }
       ]
-    });
-    const service = TestBed.get(CookieService) as ICookieService;
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    service = TestBed.get(CookieService);
+  });
+
+  it('should construct', async(() => {
     expect(service).not.toBeNull();
   }));
 });

@@ -9,6 +9,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test.snapshots": "jest --updateSnapshot",
     "test.coverage": "jest --coverage",
     "test.watch": "jest --watch",
     "start": "ts-node fuse serve",

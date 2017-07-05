@@ -3,15 +3,22 @@ import { TestBed, async } from '@angular/core/testing';
 import { ENV_CONFIG, FuseBoxEnvConfig } from '../../app.config';
 
 describe(EnvironmentService.name, () => {
+  let service: IEnvironmentService;
 
-  it('should construct', async(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
         EnvironmentService,
         { provide: ENV_CONFIG, useValue: FuseBoxEnvConfig }
       ]
-    });
-    const service = TestBed.get(EnvironmentService) as IEnvironmentService;
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    service = TestBed.get(EnvironmentService);
+  });
+
+  it('should construct', async(() => {
     expect(service).not.toBeNull();
   }));
 });

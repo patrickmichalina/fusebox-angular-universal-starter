@@ -1,21 +1,25 @@
 import { AboutComponent } from './about.component';
-import { async, TestBed } from '@angular/core/testing';
+import { async, TestBed, ComponentFixture } from '@angular/core/testing';
 
 describe(AboutComponent.name, () => {
+  let fixture: ComponentFixture<AboutComponent>;
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AboutComponent]
-    });
-  });
+    }).compileComponents();
+  }));
 
-  it('should compile',
-    async(() => {
-      TestBed
-        .compileComponents()
-        .then(() => {
-          const fixture = TestBed.createComponent(AboutComponent);
-          expect(fixture.nativeElement).toBeTruthy();
-        });
-    }));
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AboutComponent);
+    fixture.detectChanges();
+  })
+
+  it('should match snapshot', () => {
+    expect(fixture).toMatchSnapshot();
+  })
+
+  it('should compile', async(() => {
+    expect(fixture.nativeElement).toBeTruthy();
+  }));
 });

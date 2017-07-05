@@ -67,3 +67,5 @@ dist/
 
 test-report.xml
 test-results.xml
+
+*.snap

@@ -34,7 +34,7 @@ describe('App component', () => {
     { path: 'about', component: AboutComponent },
     { path: 'search', component: SearchComponent }
   ];
-  beforeEach(() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes(config)],
       declarations: [TestComponent, NavbarComponent, AppComponent,
@@ -44,8 +44,8 @@ describe('App component', () => {
         { provide: ENV_CONFIG, useValue: TestingConfig },
         EnvironmentService
       ]
-    });
-  });
+    }).compileComponents();
+  }));
 
   it('should build without a problem',
     async(() => {

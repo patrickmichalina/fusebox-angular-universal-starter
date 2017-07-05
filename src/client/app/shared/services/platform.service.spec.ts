@@ -3,39 +3,49 @@ import { TestBed, async } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
 
 describe(PlatformService.name, () => {
+  let service: IPlatformService;
 
-  it('should construct', async(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        PlatformService,
-        { provide: PLATFORM_ID, useValue: 'browser' }
-      ]
-    });
-    const service = TestBed.get(PlatformService) as IPlatformService;
-    expect(service).not.toBeNull();
-  }));
+  describe('browser', () => {
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          PlatformService,
+          { provide: PLATFORM_ID, useValue: 'browser' }
+        ]
+      }).compileComponents();
+    }));
 
-  it('should be browser', async(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        PlatformService,
-        { provide: PLATFORM_ID, useValue: 'browser' }
-      ]
+    beforeEach(() => {
+      service = TestBed.get(PlatformService);
     });
-    const service = TestBed.get(PlatformService) as IPlatformService;
-    expect(service.isBrowser).toBeTruthy();
-    expect(service.isServer).toBeFalsy();
-  }));
 
-  it('should be server', async(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        PlatformService,
-        { provide: PLATFORM_ID, useValue: 'server' }
-      ]
+    it('should construct', async(() => {
+      expect(service).not.toBeNull();
+    }));
+
+    it('should be browser', async(() => {
+      expect(service.isBrowser).toBeTruthy();
+      expect(service.isServer).toBeFalsy();
+    }));
+  });
+
+  describe('server', () => {
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          PlatformService,
+          { provide: PLATFORM_ID, useValue: 'server' }
+        ]
+      }).compileComponents();
+    }));
+
+    beforeEach(() => {
+      service = TestBed.get(PlatformService);
     });
-    const service = TestBed.get(PlatformService) as IPlatformService;
-    expect(service.isServer).toBeTruthy();
-    expect(service.isBrowser).toBeFalsy();
-  }));
+
+    it('should be server', async(() => {
+      expect(service.isServer).toBeTruthy();
+      expect(service.isBrowser).toBeFalsy();
+    }));
+  });
 });

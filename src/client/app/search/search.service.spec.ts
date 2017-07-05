@@ -8,9 +8,9 @@ import { Observable } from 'rxjs/Observable';
 import '../../operators';
 
 describe(SearchService.name, () => {
-
-  beforeEach(() => {
-
+  let service: ISearchService;
+  
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
         SearchService,
@@ -28,16 +28,18 @@ describe(SearchService.name, () => {
           deps: [Http, TransferState]
         }
       ]
-    });
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    service = TestBed.get(SearchService);
   });
 
   it('should compile', async(() => {
-    const service = TestBed.get(SearchService) as ISearchService;
     expect(service).not.toBeNull();
   }));
 
   it('should return an Observable when search is called', async(() => {
-    const service = TestBed.get(SearchService) as ISearchService;
-    expect(service.search()).toEqual(jasmine.any(Observable));
+    expect(service.search()).toEqual(expect.any(Observable));
   }));
 });

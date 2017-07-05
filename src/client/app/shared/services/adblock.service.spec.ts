@@ -1,68 +1,63 @@
 import { PlatformService } from './platform.service';
 import { AdblockService, IAdblockService } from './adblock.service';
 import { TestBed, async } from '@angular/core/testing';
-import { BaseRequestOptions, ConnectionBackend, Http } from '@angular/http';
+import { BaseRequestOptions, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { Observable } from 'rxjs/Observable';
 import '../../../operators';
 
+class MockHttp {
+  public returnValue: any;
+  public throw: any;
+
+  get(): Observable<any> {
+    return Observable.create((observer: any) => {
+      if (this.throw) observer.throw(this.throw);
+      observer.next(this.returnValue);
+      observer.complete();
+    });
+  }
+}
+
 describe(AdblockService.name, () => {
+  let service: IAdblockService;
+  let mockHttp: MockHttp;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        AdblockService,
         PlatformService,
-        MockBackend,
         BaseRequestOptions,
+        MockBackend,
         {
           provide: Http,
-          useFactory: (backend: ConnectionBackend, options: BaseRequestOptions) => new Http(backend, options),
-          deps: [MockBackend, BaseRequestOptions]
-        }
+          useValue: new MockHttp()
+        },
+        AdblockService
       ]
     });
   }));
 
-  // beforeEach(inject([MockBackend, Http, PlatformService],
-  //   (mb: MockBackend, http: Http, ps: PlatformService) => {
-  //     mockBackend = mb;
-  //     adblockService = new AdblockService(ps, http);
-  //   }));
+  beforeEach(() => {
+    service = TestBed.get(AdblockService);
+    mockHttp = TestBed.get(Http);
+  });
 
   it('should construct', async(() => {
-    const service = TestBed.get(AdblockService) as IAdblockService;
     expect(service).toBeTruthy();
   }));
 
   it('should return an observable when called', async(() => {
-    const service = TestBed.get(AdblockService) as IAdblockService;
-    expect(service.adsAreBlocked$).toEqual(expect.any(Observable));
+    expect(service.adBlockerIsActive$).toEqual(expect.any(Observable));
   }));
 
-  // it('should not detect ads when adblock is not present', () => {
-  //   const service = TestBed.get(AdblockService) as IAdblockService;
-  //   const mockBackend = TestBed.get(MockBackend) as MockBackend;
+  it('should detect adblock is present', async(() => {
+    mockHttp.throw = { status: 0 };
+    service.adBlockerIsActive$.subscribe(result => expect(result).toBe(true));
+  }));
 
-  //   mockBackend.connections.subscribe((c: any) => {
-  //     c.mockRespond(new Response(new ResponseOptions({ status: 200 })));
-  //   });
-
-  //   return service.adsAreBlocked$.toPromise().then(result => expect(result).toEqual(true));
-  // });
-
-  // it('should detect ads when adblock is enabled', async(() => {
-  //   const service = TestBed.get(AdblockService) as IAdblockService;
-  //   const mockBackend = TestBed.get(MockBackend) as MockBackend;
-
-  //   mockBackend.connections.subscribe((connection: MockConnection) => {
-  //     expect(connection.request.method).toEqual(RequestMethod.Get);
-  //     // connection.mockRespond(new Response(new ResponseOptions({ status: 0 })));
-  //   });
-
-  //   // return service.adsAreBlocked$.toPromise().then(result => {
-  //   //   console.log(result);
-  //   //   return expect(result).toEqual(false)
-  //   // });
-  // }));
+  it('should detect adblock is not present', async(() => {
+    mockHttp.returnValue = { status: 200 };
+    service.adBlockerIsActive$.subscribe(result => expect(result).toBe(false));
+  }));
 });
