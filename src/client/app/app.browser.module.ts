@@ -4,8 +4,8 @@ import { AppModule } from './app.module';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { BrowserTransferStateModule } from './modules/transfer-state/browser-transfer-state.module';
-import { TransferState } from './modules/transfer-state/transfer-state';
+import { BrowserTransferStateModule } from './shared/transfer-state/browser-transfer-state.module';
+import { TransferState } from './shared/transfer-state/transfer-state';
 
 export function getRequest(transferState: TransferState) {
   return transferState.get('req');

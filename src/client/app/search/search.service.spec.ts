@@ -1,5 +1,5 @@
-import { TransferState } from '../modules/transfer-state/transfer-state';
-import { TransferHttp } from '../modules/transfer-http/transfer-http';
+import { TransferState } from '../shared/transfer-state/transfer-state';
+import { TransferHttp } from '../shared/transfer-http/transfer-http';
 import { SearchService, ISearchService } from './search.service';
 import { async, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';

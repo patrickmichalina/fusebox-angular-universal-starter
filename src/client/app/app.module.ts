@@ -7,7 +7,7 @@ import { SearchModule } from './search/search.module';
 import { HomeModule } from './home/home.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundModule } from './not-found/not-found.module';
-import { TransferHttpModule } from './modules/transfer-http/transfer-http.module';
+import { TransferHttpModule } from './shared/transfer-http/transfer-http.module';
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { EnvironmentService } from './shared/services/environment.service';
 
