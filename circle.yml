@@ -8,7 +8,7 @@ general:
 
 test:
   override:
-    - node_modules/.bin/jest --coverage:
+    - node_modules/.bin/jest --ci --coverage:
         environment:
           TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS/junit/
           TEST_REPORT_FILENAME: test-results.xml
