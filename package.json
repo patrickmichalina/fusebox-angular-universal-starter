@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test.ci": "jest --ci",
+    "test.ci": "jest --ci --updateSnapshot",
     "test.snapshots": "jest --updateSnapshot",
     "test.coverage": "jest --coverage",
     "test.watch": "jest --watch",
