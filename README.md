@@ -29,6 +29,7 @@ Includes the following features:
 - [x] OG (Open Graph) tags for social sharing
 - [x] Simple Ad-Blocker detection service
 - [x] Vendor-agnostic analytics using [angulartics2](https://github.com/angulartics/angulartics2)
+- [x] Generic token based Authentication service with [JWT](https://jwt.io) cookie support.
 - [ ] Hot Module Reloading for faster browser reloads during development
 - [ ] Both Client and Server build tasks
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
