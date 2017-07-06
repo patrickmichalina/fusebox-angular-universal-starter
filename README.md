@@ -28,6 +28,7 @@ Includes the following features:
 - [x] SEO support for Title and Meta tags
 - [x] OG (Open Graph) tags for social sharing
 - [x] Simple Ad-Blocker detection service
+- [x] Vendor-agnostic analytics using [angulartics2](angulartics.github.io)
 - [ ] Hot Module Reloading for faster browser reloads during development
 - [ ] Both Client and Server build tasks
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)

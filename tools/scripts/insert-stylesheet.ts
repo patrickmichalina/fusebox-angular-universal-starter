@@ -76,7 +76,7 @@ export const insertGoogleAnalytics = function (file: any, trackingId: string, ve
 
   const script1Element = dom.window.document.createElement('script') as HTMLScriptElement;
   script1Element.textContent =
-    `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${trackingId}', 'auto');ga('send', 'pageview');`;
+    `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${trackingId}', 'auto');`;
 
   const script2Element = dom.window.document.createElement('script') as HTMLScriptElement;
   script2Element.setAttribute('async', '');

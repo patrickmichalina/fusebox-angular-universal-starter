@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { EnvironmentService } from './shared/services/environment.service';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'pm-app',
@@ -8,7 +9,7 @@ import { EnvironmentService } from './shared/services/environment.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(environmentService: EnvironmentService, meta: Meta) {
+  constructor(environmentService: EnvironmentService, meta: Meta, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
     meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId })
   }
 }

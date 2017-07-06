@@ -10,6 +10,7 @@ import { NotFoundModule } from './not-found/not-found.module';
 import { TransferHttpModule } from './shared/transfer-http/transfer-http.module';
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { EnvironmentService } from './shared/services/environment.service';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 export function metaFactory(environmentService: EnvironmentService): MetaLoader {
   return new MetaStaticLoader({
@@ -38,6 +39,7 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
     TransferHttpModule,
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory),

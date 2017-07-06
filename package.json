@@ -66,6 +66,7 @@
     "@nguniversal/express-engine": "^1.0.0-beta.2",
     "@ngx-meta/core": "^0.4.0-rc.2",
     "angular2-jwt": "^0.2.3",
+    "angulartics2": "^2.2.2",
     "compressible": "^2.0.10",
     "core-js": "2.4.1",
     "detect-adblock": "0.0.2",
