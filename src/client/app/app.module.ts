@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 import { AboutModule } from './about/about.module';
 import { SearchModule } from './search/search.module';
+import { LoginModule } from './login/login.module';
+import { LogoutModule } from './logout/logout.module';
+import { SignupModule } from './signup/signup.module';
 import { HomeModule } from './home/home.module';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundModule } from './not-found/not-found.module';
@@ -35,7 +38,10 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
     HomeModule,
     AboutModule,
     SearchModule,
-    NotFoundModule,
+    LoginModule,
+    LogoutModule,
+    SignupModule,
+    NotFoundModule, /* be sure this is the last route-able module */
     TransferHttpModule,
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
