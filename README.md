@@ -28,7 +28,7 @@ Includes the following features:
 - [x] SEO support for Title and Meta tags
 - [x] OG (Open Graph) tags for social sharing
 - [x] Simple Ad-Blocker detection service
-- [x] Vendor-agnostic analytics using [angulartics2](angulartics.github.io)
+- [x] Vendor-agnostic analytics using [angulartics2](https://github.com/angulartics/angulartics2)
 - [ ] Hot Module Reloading for faster browser reloads during development
 - [ ] Both Client and Server build tasks
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
@@ -92,4 +92,4 @@ You can follow the [Angular change log here](https://github.com/angular/angular/
 
 # License
 
-MIT
+[MIT](https://github.com/patrickmichalina/fusebox-angular-universal-starter/blob/master/LICENSE)
