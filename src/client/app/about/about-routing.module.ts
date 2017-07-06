@@ -12,7 +12,8 @@ import { MetaGuard } from '@ngx-meta/core';
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'About'
+            title: 'About',
+            description: 'See contact information and details about the Angular Universal seed at angular.patrickmichalina.com'
           }
         }
       }

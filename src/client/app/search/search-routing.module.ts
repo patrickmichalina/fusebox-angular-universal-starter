@@ -12,7 +12,8 @@ import { MetaGuard } from '@ngx-meta/core';
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Search'
+            title: 'Search',
+            description: 'Search for angular related projects on github, to showcase the flicker-free http state transfer of an Angular isomorphic application.'
           }
         }
       }
