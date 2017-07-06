@@ -15,7 +15,7 @@
     "test.watch": "jest --watch",
     "start": "ts-node fuse serve",
     "start.prod": "NODE_ENV=prod ts-node fuse serve",
-    "heroku-postbuild": "npm run test.ci && npm run start.prod"
+    "heroku-postbuild": "npm run start.prod"
   },
   "devDependencies": {
     "@types/express": "^4.0.36",
