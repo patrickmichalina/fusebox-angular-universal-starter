@@ -1,9 +1,7 @@
-import { insertFavicon, insertBase, insertExternalStylesheet, insertGoogleAnalytics } from './tools/scripts/insert-stylesheet';
-import { prefixByQuery } from './tools/scripts/replace';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { BuildConfig } from './tools/config/build.config';
+import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { EnvConfigInstance } from './tools/tasks/_global';
-import './tools/tasks';
 import {
   FuseBox,
   Sparky,
@@ -15,6 +13,7 @@ import {
   RawPlugin,
   EnvPlugin
 } from 'fuse-box';
+import './tools/tasks';
 
 const cachebuster = Math.round(new Date().getTime() / 1000);
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
@@ -47,20 +46,9 @@ const options = {
 Sparky.task("index.inject", () => {
   return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
     file.read();
-
-    file.setContent(insertBase(file.contents, BuildConfig.baseHref));
-    file.setContent(insertFavicon(file.contents, '/assets/favicon.ico'));
-
-    file.setContent(insertExternalStylesheet(file.contents, BuildConfig.stylesheets));
-
-    if (process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE) {
-      file.setContent(insertGoogleAnalytics(file.contents, process.env.GA_TRACKING_ID, process.env.GA_VERIFICATION_CODE));
-    }
-
-    if (process.env.CI && process.env.CDN_ORIGIN) {
-      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', process.env.CDN_ORIGIN));
-      file.setContent(prefixByQuery(file.contents, 'link', 'href', process.env.CDN_ORIGIN));
-    }
+    const transformer = new ConfigurationTransformer();
+    const dom = transformer.apply(BuildConfig.dependencies, file.contents.toString('utf8'));
+    file.setContent(dom.serialize());
     file.save();
   });
 });
