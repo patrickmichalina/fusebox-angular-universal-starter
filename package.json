@@ -14,8 +14,10 @@
     "test.coverage": "jest --coverage",
     "test.watch": "jest --watch",
     "start": "ts-node fuse serve",
+    "start.aot": "ts-node fuse serve --aot",
     "start.spa": "ts-node fuse serve --spa",
-    "start.prod": "NODE_ENV=prod ts-node fuse serve",
+    "start.prod": "NODE_ENV=prod ts-node fuse serve --aot",
+    "ngc": "ts-node fuse ngc",
     "heroku-postbuild": "npm run start.prod"
   },
   "devDependencies": {
@@ -49,6 +51,7 @@
     "sitemap-generator": "^6.0.0",
     "string-hash": "^1.1.3",
     "svg2png": "^4.1.1",
+    "ts-jest": "^20.0.7",
     "ts-node": "^3.2.0",
     "typescript": "^2.4.1",
     "uglify-es": "^3.0.23",
@@ -91,9 +94,11 @@
     "setupTestFrameworkScriptFile": "./tools/test/jest.setup.ts",
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "globals": {
-      "__TS_CONFIG__": "tsconfig.json",
       "__TRANSFORM_HTML__": true,
-      "__process_env__": {}
+      "__process_env__": {},
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
     }
   }
 }

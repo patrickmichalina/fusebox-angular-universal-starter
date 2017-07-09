@@ -32,8 +32,8 @@ Includes the following features:
 - [x] Generic token based Authentication service with [JWT](https://jwt.io) cookie support.
 - [x] Both Client and Server build tasks
 - [x] Hot Module Reloading for faster browser reloads during client development
+- [x] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
-- [ ] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
 - [ ] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
 - [ ] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
 

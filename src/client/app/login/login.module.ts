@@ -1,4 +1,3 @@
-import { AuthHttp } from './../shared/services/auth-http.service';
 import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { NgModule } from '@angular/core';

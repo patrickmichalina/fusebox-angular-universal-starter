@@ -18,7 +18,8 @@ import './tools/tasks';
 
 const cachebuster = Math.round(new Date().getTime() / 1000);
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
-const mainEntryFileName = isProd ? `main-prod` : `main`;
+const baseEntry = argv.aot ? 'main.aot' : 'main';
+const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = `js/app-${cachebuster}`;
 const vendorBundleName = `js/_vendor-${cachebuster}`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
@@ -34,13 +35,13 @@ const options = {
     isProd && UglifyESPlugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
-    ['*.component.scss', SassPlugin({ importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
+    ['*.component.scss', SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     TypeScriptHelpers(),
     JSONPlugin(),
     HTMLPlugin({ useDefault: false })
   ],
   alias: {
-    "@angular/platform-browser/animations": "@angular/platform-browser/bundles/platform-browser-animations.umd.js",
+    "@angular/platform-browser/animations": "@angular/platform-browser/bundles/platform-browser-animations.umd.js"
   }
 }
 
@@ -56,6 +57,7 @@ Sparky.task("index.inject", () => {
 
 Sparky.task("serve", () => {
   return Sparky.start('clean')
+    .then(() => argv.aot ? Sparky.start('ngc') : undefined)
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))

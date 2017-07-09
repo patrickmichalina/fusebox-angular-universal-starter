@@ -6,6 +6,7 @@ import './sass.files';
 import './js.files';
 import './favicons';
 import './index.minify';
+import './ngc';
 
 import { Sparky } from 'fuse-box';
 import { BuildConfig } from '../config/build.config';
