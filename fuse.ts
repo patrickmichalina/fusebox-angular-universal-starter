@@ -2,6 +2,7 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { BuildConfig } from './tools/config/build.config';
 import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { EnvConfigInstance } from './tools/tasks/_global';
+import { argv } from 'yargs';
 import {
   FuseBox,
   Sparky,
@@ -67,16 +68,21 @@ Sparky.task("serve", () => {
       const appBundle = fuse.bundle(`${appBundleName}`).instructions(appBundleInstructions).target('browser');
       const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser')
 
-        .completed(proc => {
-          if (!process.env.CI) {
-            proc.start();
-          }
-        });
+      if (argv.spa) fuse.dev({ port: EnvConfigInstance.server.port });
 
       if (!isProd && !process.env.CI) {
-        vendorBundle.watch();
-        appBundle.watch();
-        serverBundle.watch();
+        if (argv.spa) {
+          vendorBundle.watch().hmr();
+          appBundle.watch().hmr();
+        } else {
+          vendorBundle.watch();
+          appBundle.watch();
+          serverBundle.completed(proc => {
+            if (!process.env.CI) {
+              proc.start();
+            }
+          }).watch();
+        }
       }
 
       return fuse.run();
@@ -85,15 +91,3 @@ Sparky.task("serve", () => {
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'))
 });
-
-// Sparky.task("serve.spa.hmr", ["clean"], () => {
-//   const fuse = FuseBox.init(devOptions);
-//   fuse.opts = devOptions;
-//   fuse.dev({ port: app.server.port });
-//   fuse.bundle('js/vendor').hmr().instructions(' ~ client/main.ts');
-//   fuse.bundle('js/app')
-//     .instructions(' !> [client/main.ts]')
-//     .watch()
-//     .hmr();
-//   fuse.run()
-// });

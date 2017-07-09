@@ -14,6 +14,7 @@
     "test.coverage": "jest --coverage",
     "test.watch": "jest --watch",
     "start": "ts-node fuse serve",
+    "start.spa": "ts-node fuse serve --spa",
     "start.prod": "NODE_ENV=prod ts-node fuse serve",
     "heroku-postbuild": "npm run start.prod"
   },

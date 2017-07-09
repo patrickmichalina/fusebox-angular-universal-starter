@@ -30,8 +30,8 @@ Includes the following features:
 - [x] Simple Ad-Blocker detection service
 - [x] Vendor-agnostic analytics using [angulartics2](https://github.com/angulartics/angulartics2)
 - [x] Generic token based Authentication service with [JWT](https://jwt.io) cookie support.
-- [ ] Hot Module Reloading for faster browser reloads during development
-- [ ] Both Client and Server build tasks
+- [x] Both Client and Server build tasks
+- [x] Hot Module Reloading for faster browser reloads during client development
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
 - [ ] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
 - [ ] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
@@ -60,8 +60,11 @@ $ npm run test.coverage
 # continuous testing
 $ npm run test.watch
 
-# start the server
+# start the Angular Universal server
 $ npm start
+
+# start the application in Client only mode (not server driven), with HMR enabled
+$ npm run start.spa
 
 # start the server in production mode
 $ npm run start.prod
