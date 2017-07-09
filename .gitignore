@@ -69,3 +69,8 @@ test-report.xml
 test-results.xml
 
 *.snap
+
+ngc
+.ngc
+.aot
+aot

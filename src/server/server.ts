@@ -11,7 +11,8 @@ import { AppServerModule } from './app.server.module';
 import { forceSsl } from './server.heroku.ssl';
 import { sitemap } from './server.sitemap';
 import { stat } from 'fs';
-import { FuseBoxEnvConfig } from '../client/app/app.config';
+import { EnvConfig } from '../../tools/config/app.config';
+declare var __process_env__: EnvConfig;
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html');
@@ -19,7 +20,7 @@ const minifyHTML = require('express-minify-html');
 require('ts-node/register');
 
 const root = resolve(process.argv[1], '../');
-const port = process.env.PORT || FuseBoxEnvConfig.server.port;
+const port = process.env.PORT || __process_env__.server.port;
 const isProd = process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? true : false;
 const host = process.env.HOST || `http://localhost:${port}`;
 const staticOptions = { index: false, maxAge: isProd ? '1yr' : '0' };
@@ -31,7 +32,7 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }));
 app.set('view engine', 'html');
 app.set('views', root);
 app.use(shrinkRay());
-if (FuseBoxEnvConfig.server.minifyIndex) {
+if (__process_env__.server.minifyIndex) {
   app.use(minifyHTML({
     override: true,
     exception_url: false,
