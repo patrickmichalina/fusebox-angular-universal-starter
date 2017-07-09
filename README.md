@@ -37,7 +37,7 @@ Includes the following features:
 - [ ] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
 - [ ] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
 
-# How to Start
+# Quick Start
 
 **Note that we strongly recommend node >= v7.0.0 and npm >= 4.0.0.**
 
@@ -70,6 +70,76 @@ $ npm run start.spa
 $ npm run start.prod
 
 ```
+
+# Table of Contents
+* [File Structure](#file-structure)
+* [Configuration](#configuration)
+* [Environment Variables](#environment-variables)
+* [@Types](#types)
+* [Change Log](#change-log)
+* [License](#license)
+
+## File Structure
+We use the component approach in our starter. This is the standard for developing Angular apps and a great way to ensure maintainable code
+```
+fusebox-angular-universal-starter/
+ ├──.fusebox/                       * working folder for the js bundler
+ ├──.vscode/                        * Visual Studio Code settings 
+ ├──coverage/                       * stores recent reporting of test coverage
+ ├──dist/                           * output files that represent the bundled application and its dependencies
+ ├──node_modules/                   * project depdendencies
+ |
+ ├──src/
+ |   ├──client/                     * client Angular code. (most your work should be done here)
+ |   └──server/                     * server code
+ |
+ ├──tools/
+ |   ├──config/
+ |   |   ├──app.config.ts          * configuration interface for the web applications
+ |   |   ├──build.config.ts        * configuration values for the build system
+ |   |   ├──build.interfaces.ts    * configuration interfaces for the build system
+ |   |   └──build.transformer.ts   * build system config transform helper
+ |   |
+ |   ├──env/
+ |   |   ├──base.ts                * base app configuration 
+ |   |   ├──dev.ts                 * dev app configuration
+ |   |   ├──**.ts                  * arbitrary configuration called via the flag --env-config
+ |   |   └──prod.ts                * production app configuration
+ |   |
+ |   ├──scripts/
+ |   ├──tasks/
+ |   ├──test/                      * testing system related configuration
+ |   └──web/
+ |
+ ├──.gitignore                     * GIT settings
+ ├──circl.yml                      * CirclCI configuration file
+ ├──CODE_OF_CONDUCT.md             * standard code of conduct information
+ ├──CONTRIBUTING.md                * standard contributor information
+ ├──fuse.ts                        * FuseBox entry point
+ ├──LICENSE                        * software license
+ ├──package-lock.json              * what npm uses to manage it's dependencies
+ ├──package.json                   * what npm uses to manage it's dependencies
+ ├──Procfile                       * Heroku deployment setting
+ ├──README.md                      * project information
+ ├──test-report.xml                * JUNIT test results
+ └──tsconfig.json                  * typescript config used outside webpack
+
+
+```
+
+# Configuration
+```shell
+Coming Soon
+```
+
+
+# @Types
+When you include a module that doesn't include typings, you can include external type definitions using the npm @types repo.
+
+i.e, to have youtube api support, run this command in terminal: 
+```shell
+npm i -D @types/youtube @types/gapi @types/gapi.youtube
+``` 
 
 # Environment Variables
 
