@@ -63,6 +63,11 @@ $ npm run test.watch
 # start the Angular Universal server
 $ npm start
 
+# start the Angular Universal server w/ AOT build step
+$ npm run start.aot
+# can also be called passing the parameter --aot
+# npm start --aot
+
 # start the application in Client only mode (not server driven), with HMR enabled
 $ npm run start.spa
 
@@ -106,14 +111,15 @@ fusebox-angular-universal-starter/
  |   |   ├──**.ts                  * arbitrary configuration called via the flag --env-config
  |   |   └──prod.ts                * production app configuration
  |   |
- |   ├──scripts/
- |   ├──tasks/
+ |   ├──scripts/                   * misc. build helper scripts
+ |   ├──tasks/                     * Sparky tasks
  |   ├──test/                      * testing system related configuration
- |   └──web/
+ |   └──web/                       * static assets used for common web functions
  |
  ├──.gitignore                     * GIT settings
  ├──circl.yml                      * CirclCI configuration file
  ├──CODE_OF_CONDUCT.md             * standard code of conduct information
+ ├──codecov.yml                    * codecov.io configuration file
  ├──CONTRIBUTING.md                * standard contributor information
  ├──fuse.ts                        * FuseBox entry point
  ├──LICENSE                        * software license
@@ -122,9 +128,8 @@ fusebox-angular-universal-starter/
  ├──Procfile                       * Heroku deployment setting
  ├──README.md                      * project information
  ├──test-report.xml                * JUNIT test results
- └──tsconfig.json                  * typescript config used outside webpack
-
-
+ ├──tsconfig-aot.json              * typescript config for AOT build using @angular-cli (ngc)
+ └──tsconfig.json                  * typescript config
 ```
 
 # Configuration
