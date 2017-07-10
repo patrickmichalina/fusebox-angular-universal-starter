@@ -33,6 +33,7 @@ Includes the following features:
 - [x] Both Client and Server build tasks
 - [x] Hot Module Reloading for faster browser reloads during client development
 - [x] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
+- [x] End-to-end (e2e) testing with Protractor
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
 - [ ] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
 - [ ] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
@@ -59,6 +60,12 @@ $ npm run test.coverage
 
 # continuous testing
 $ npm run test.watch
+
+# e2e testing
+# start in different tabs
+$ npm start
+$ npm run webdriver.start
+$ npm run test.e2e.start
 
 # start the Angular Universal server
 $ npm start
