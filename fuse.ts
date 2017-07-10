@@ -2,6 +2,7 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { BuildConfig } from './tools/config/build.config';
 import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { EnvConfigInstance } from './tools/tasks/_global';
+import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import {
   FuseBox,
@@ -51,6 +52,10 @@ Sparky.task("index.inject", () => {
     const transformer = new ConfigurationTransformer();
     const dom = transformer.apply(BuildConfig.dependencies, file.contents.toString('utf8'));
     file.setContent(dom.serialize());
+    if (process.env.CI && process.env.CDN_ORIGIN) {
+      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', process.env.CDN_ORIGIN));
+      file.setContent(prefixByQuery(file.contents, 'link', 'href', process.env.CDN_ORIGIN));
+    }
     file.save();
   });
 });
