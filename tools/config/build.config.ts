@@ -30,7 +30,7 @@ export const BuildConfig: BuildConfiguration = {
     {
       type: DependencyType.Script,
       order: 3,
-      preloaded: true,
+      preloaded: false,
       source: {
         type: SourceType.Inline,
         link: `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${process.env.GA_TRACKING_ID}', 'auto');`
