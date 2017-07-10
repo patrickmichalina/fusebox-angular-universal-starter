@@ -21,6 +21,7 @@ export const BuildConfig: BuildConfiguration = {
     {
       type: DependencyType.Meta,
       order: 2,
+      preloaded: true,
       attributes: {
         name: 'google-site-verification',
         content: process.env.GA_VERIFICATION_CODE
