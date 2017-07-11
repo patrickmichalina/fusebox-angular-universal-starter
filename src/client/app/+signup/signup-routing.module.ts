@@ -7,7 +7,7 @@ import { MetaGuard } from '@ngx-meta/core';
   imports: [
     RouterModule.forChild([
       {
-        path: 'signup',
+        path: '',
         component: SignupComponent,
         canActivate: [MetaGuard],
         data: {
