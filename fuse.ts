@@ -7,16 +7,16 @@ import { argv } from 'yargs';
 import { readdirSync, lstatSync } from 'fs';
 import { resolve, basename } from 'path';
 const hashFiles = require('hash-files');
-
+import { TestPlugin } from './plug';
 import {
   FuseBox,
   Sparky,
   SassPlugin,
-  JSONPlugin,
+  // JSONPlugin,
   HTMLPlugin,
   UglifyESPlugin,
   RawPlugin,
-  EnvPlugin
+  EnvPlugin,
 } from 'fuse-box';
 import './tools/tasks';
 
@@ -38,12 +38,16 @@ const options = {
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: false, vendor: false },
   plugins: [
     EnvPlugin(EnvConfigInstance),
+    TestPlugin(),
     isProd && UglifyESPlugin(),
+    
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss', SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
-    JSONPlugin(),
-    HTMLPlugin({ useDefault: false })
+    
+    // JSONPlugin(),
+    HTMLPlugin({ useDefault: false }),
+    
   ],
   alias: {
     "@angular/platform-browser/animations": "@angular/platform-browser/bundles/platform-browser-animations.umd.js"
@@ -94,7 +98,7 @@ Sparky.task("serve", () => {
 
             EnvConfigInstance.lazyBuster[moduleName] = checksum;
 
-            appBundle.split('client/app/' + dirName + '/**', `js/bundle-${checksum}-${moduleName}` + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
+            appBundle.split('client/app/' + dirName + '/**', `js/bundle-${moduleName}` + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
           }
         }
       });
@@ -128,3 +132,37 @@ Sparky.task("serve", () => {
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'))
 });
+
+
+Sparky.task("fused", () => {
+  const fuse = FuseBox.init(options as any);
+  fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions).target('browser');
+  const appBundle = fuse.bundle(appBundleName)
+
+  EnvConfigInstance.lazyBuster = {};
+
+  readdirSync(resolve('src/client/app')).forEach(file => {
+    const lstat = lstatSync(resolve('src/client/app', file));
+    if (lstat.isDirectory()) {
+      const dirName = basename(file);
+
+      if (dirName[0] === '+') {
+        const moduleName = dirName.substring(1);
+
+        const checksum = hashFiles.sync({
+          files: resolve('src/client/app', file, '**')
+        })
+
+        EnvConfigInstance.lazyBuster[moduleName] = checksum;
+
+        appBundle.split('client/app/' + dirName + '/**', `js/bundle-${moduleName}` + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
+      }
+    }
+  });
+
+  appBundle.instructions('!> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
+    .plugin(EnvPlugin(EnvConfigInstance))
+    .plugin(TestPlugin())
+    .target('browser');
+  fuse.run();
+})

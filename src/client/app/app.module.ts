@@ -7,6 +7,23 @@ import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '
 import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { ServerTransition } from './server-trans';
+import { DOCUMENT, ɵgetDOM, ɵTRANSITION_ID } from '@angular/platform-browser';
+import { APP_BOOTSTRAP_LISTENER, APP_ID } from '@angular/core';
+import { PlatformService } from './shared/services/platform.service';
+import { BrowserModule } from '@angular/platform-browser';
+
+export function removeStyleTags(document: HTMLDocument, ps: PlatformService): any {
+  return function() {
+    if (ps.isBrowser) {
+      const dom = ɵgetDOM();
+
+      const styles: HTMLElement[] =
+        Array.prototype.slice.apply(dom.querySelectorAll(document, 'style[ng-transition]'));
+
+      styles.forEach(el => dom.remove(el));
+    }
+  };
+}
 
 export function metaFactory(environmentService: EnvironmentService): MetaLoader {
   return new MetaStaticLoader({
@@ -29,14 +46,24 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
   imports: [
     AppRoutingModule,
     TransferHttpModule,
-    ServerTransition.forRoot({ appId: 'pm-app' }),
+    BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory),
       deps: [EnvironmentService]
     })
+  ],
+  providers: [
+    { provide: APP_ID, useValue: 'pm-app' },
+    { provide: ɵTRANSITION_ID, useValue: 'pm-app' },
+    {
+      provide: APP_BOOTSTRAP_LISTENER,
+      useFactory: removeStyleTags,
+      deps: [DOCUMENT, PlatformService],
+      multi: true
+    }
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
