@@ -4,7 +4,7 @@ import { ConfigurationTransformer } from '../config/build.transformer';
 import { Dependency, DependencyType, SourceType } from '../config/build.interfaces';
 
 Sparky.task("js.files", () => {
-  const js = glob('./dist/js/**/*.js').map((a: string) => a.replace('./dist', ''));
+  const js = glob('./dist/js/**/*(!bundle-*).js').map((a: string) => a.replace('./dist', ''));
 
   return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
     file.read();
