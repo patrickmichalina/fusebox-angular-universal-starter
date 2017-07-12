@@ -11,4 +11,5 @@ export interface EnvConfig {
     port: number;
     minifyIndex: boolean;
   }
+  lazyBuster?: any;
 }

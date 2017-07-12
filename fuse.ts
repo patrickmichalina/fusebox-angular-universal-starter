@@ -1,7 +1,4 @@
-import {
-  Ng2TemplatePlugin,
-  Ng2RouterPlugin
-} from 'ng2-fused';
+import { Ng2TemplatePlugin } from 'ng2-fused';
 import { BuildConfig } from './tools/config/build.config';
 import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { EnvConfigInstance } from './tools/tasks/_global';
@@ -9,6 +6,8 @@ import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { readdirSync, lstatSync } from 'fs';
 import { resolve, basename } from 'path';
+const hashFiles = require('hash-files');
+
 import {
   FuseBox,
   Sparky,
@@ -21,7 +20,8 @@ import {
 } from 'fuse-box';
 import './tools/tasks';
 
-// const cachebuster = Math.round(new Date().getTime() / 1000);
+EnvConfigInstance.lazyBuster = {};
+
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const baseEntry = argv.aot ? 'main.aot' : 'main';
 const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
@@ -36,14 +36,10 @@ const options = {
   homeDir: './src',
   output: `${BuildConfig.outputDir}/$name.js`,
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: false, vendor: false },
-  // experimentalFeatures: true,
   plugins: [
     EnvPlugin(EnvConfigInstance),
     isProd && UglifyESPlugin(),
     Ng2TemplatePlugin(),
-    Ng2RouterPlugin({
-      publicPath: '/js'
-    }),
     ['*.component.html', RawPlugin()],
     ['*.component.scss', SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
@@ -82,18 +78,29 @@ Sparky.task("serve", () => {
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions).target('browser');
       const appBundle = fuse.bundle(appBundleName)
 
-      // automate to automatically split based on folders prepended with '+' 
+      EnvConfigInstance.lazyBuster = {};
+
       readdirSync(resolve('src/client/app')).forEach(file => {
-        if (lstatSync(resolve('src/client/app', file)).isDirectory()) {
+        const lstat = lstatSync(resolve('src/client/app', file));
+        if (lstat.isDirectory()) {
           const dirName = basename(file);
+
           if (dirName[0] === '+') {
             const moduleName = dirName.substring(1);
-            appBundle.split('client/app/' + dirName + '/**', 'js/bundle-' + moduleName + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
+
+            const checksum = hashFiles.sync({
+              files: resolve('src/client/app', file, '**')
+            })
+
+            EnvConfigInstance.lazyBuster[moduleName] = checksum;
+
+            appBundle.split('client/app/' + dirName + '/**', `js/bundle-${checksum}-${moduleName}` + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
           }
         }
       });
 
       appBundle.instructions('!> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
+        .plugin(EnvPlugin(EnvConfigInstance))
         .target('browser');
 
       const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser');

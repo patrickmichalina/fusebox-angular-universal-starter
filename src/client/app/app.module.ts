@@ -1,14 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
-// import { SearchModule } from './search/search.module';
-// import { LoginModule } from './login/login.module';
-// import { LogoutModule } from './logout/logout.module';
-// import { SignupModule } from './signup/signup.module';
-// import { HomeModule } from './home/home.module';
 import { AppRoutingModule } from './app-routing.module';
-// import { NotFoundModule } from './not-found/not-found.module';
 import { TransferHttpModule } from './shared/transfer-http/transfer-http.module';
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { EnvironmentService } from './shared/services/environment.service';
@@ -35,15 +28,8 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
 @NgModule({
   imports: [
     AppRoutingModule,
-    // HomeModule,
-    // SearchModule,
-    // LoginModule,
-    // LogoutModule,
-    // SignupModule,
-    // NotFoundModule, /* be sure this is the last route-able module */
     TransferHttpModule,
     ServerTransition.forRoot({ appId: 'pm-app' }),
-    // BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     MetaModule.forRoot({
