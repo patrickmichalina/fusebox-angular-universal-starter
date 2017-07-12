@@ -6,7 +6,7 @@ import { TransferHttpModule } from './shared/transfer-http/transfer-http.module'
 import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
-import { ServerTransition } from './server-trans';
+// import { ServerTransition } from './server-trans';
 import { DOCUMENT, ɵgetDOM, ɵTRANSITION_ID } from '@angular/platform-browser';
 import { APP_BOOTSTRAP_LISTENER, APP_ID } from '@angular/core';
 import { PlatformService } from './shared/services/platform.service';

@@ -17,9 +17,9 @@
     ],
     "outDir": ".ngc"
   },
-  "files": [
-    "src/client/app/app.module.ts",
-    "src/client/main.ts"
+  "include": [
+    "./src/client/main.ts",
+    "./src/client/app/**/*.module.ts"
   ],
   "angularCompilerOptions": {
     "genDir": "src/client/.aot",
