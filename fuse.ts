@@ -21,21 +21,21 @@ import {
 } from 'fuse-box';
 import './tools/tasks';
 
-const cachebuster = Math.round(new Date().getTime() / 1000);
+// const cachebuster = Math.round(new Date().getTime() / 1000);
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const baseEntry = argv.aot ? 'main.aot' : 'main';
 const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
-// const appBundleName = `js/app-${cachebuster}`;
+const appBundleName = `js/app`;
 // const lazyBundleSuffix = `js/bundle-${cachebuster}-`;
-const vendorBundleName = `_vendor-${cachebuster}`;
+const vendorBundleName = `js/_vendor`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 // const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
-const serverBundleInstructions = ` > [server/server.ts]`;
+const serverBundleInstructions = ` asd > [server/server.ts]`;
 
 const options = {
   homeDir: './src',
-  output: `${BuildConfig.outputDir}/js/$name.js`,
-  sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: true, vendor: true },
+  output: `${BuildConfig.outputDir}/$name.js`,
+  sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: false, vendor: false },
   // experimentalFeatures: true,
   plugins: [
     EnvPlugin(EnvConfigInstance),
@@ -80,10 +80,7 @@ Sparky.task("serve", () => {
     .then(() => {
       const fuse = FuseBox.init(options as any);
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions).target('browser');
-      const appBundle = fuse.bundle(`app`)
-      // .split("client/app/+about/**", `about > client/app/+about/about.module.ts`)
-      // .instructions(' !> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
-      // .target('browser');
+      const appBundle = fuse.bundle(appBundleName)
 
       // automate to automatically split based on folders prepended with '+' 
       readdirSync(resolve('src/client/app')).forEach(file => {
@@ -91,16 +88,13 @@ Sparky.task("serve", () => {
           const dirName = basename(file);
           if (dirName[0] === '+') {
             const moduleName = dirName.substring(1);
-            console.log(dirName)
-            appBundle.split('client/app/' + dirName + '/**', 'bundle-' + moduleName + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
+            appBundle.split('client/app/' + dirName + '/**', 'js/bundle-' + moduleName + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
           }
         }
       });
 
-      // and now our application's main instructions
       appBundle.instructions('!> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
         .target('browser');
-
 
       const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser');
 
