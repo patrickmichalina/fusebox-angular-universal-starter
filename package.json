@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Angular Universal starter build pipeline using FuseBox",
   "license": "MIT",
+  "homepage": "https://angular.patrickmichalina.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/patrickmichalina/fusebox-angular-universal-starter"
