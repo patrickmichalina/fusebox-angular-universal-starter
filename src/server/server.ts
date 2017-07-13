@@ -10,7 +10,7 @@ import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
 import { forceSsl } from './server.heroku.ssl';
 import { sitemap } from './server.sitemap';
-import { stat } from 'fs';
+import { exists, existsSync } from 'fs';
 import { EnvConfig } from '../../tools/config/app.config';
 declare var __process_env__: EnvConfig;
 
@@ -49,13 +49,17 @@ app.use(morgan(isProd ? 'common' : 'dev'));
 app.get('/sitemap.xml', (req, res) => {
   const fileLocation = join(root, 'sitemap.xml');
 
-  stat(fileLocation, (err) => {
-    return err
+  exists(fileLocation, (exists) => {
+    return exists
       ? sitemap(host).then(a => res.header('Content-Type', 'text/xml').send(a))
       : res.sendFile(fileLocation);
   });
 });
-app.use(favicon(join(root, 'assets/favicons/favicon.ico')));
+
+if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
+  app.use(favicon(join(root, 'assets/favicons/favicon.ico')));
+}
+
 app.use(express.static(root, staticOptions));
 app.get('/*', (req, res) => {
   return res.render('index', {

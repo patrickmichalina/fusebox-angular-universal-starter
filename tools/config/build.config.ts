@@ -8,6 +8,7 @@ export const BuildConfig: BuildConfiguration = {
   prodOutDir: "./dist/prod",
   assetParentDir: "src/client",
   minifyIndex: true,
+  skipFaviconGenerationOnDev: true,
   dependencies: [
     {
       type: DependencyType.Stylesheet,

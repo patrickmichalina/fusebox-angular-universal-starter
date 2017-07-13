@@ -6,7 +6,6 @@ import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { readdirSync, lstatSync } from 'fs';
 import { resolve, basename } from 'path';
-const hashFiles = require('hash-files');
 import { NgLazyplugin } from './tools/plugins/ng-lazy';
 import {
   FuseBox,
@@ -19,6 +18,7 @@ import {
   EnvPlugin,
 } from 'fuse-box';
 import './tools/tasks';
+const hashFiles = require('hash-files');
 
 EnvConfigInstance.lazyBuster = {};
 
@@ -26,11 +26,11 @@ const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'prod
 const baseEntry = argv.aot ? 'main.aot' : 'main';
 const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = `js/app`;
-// const lazyBundleSuffix = `js/bundle-${cachebuster}-`;
 const vendorBundleName = `js/_vendor`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
+const serverBundleInstructions = ` > [server/server.ts]`;
+// const lazyBundleSuffix = `js/bundle-${cachebuster}-`;
 // const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
-const serverBundleInstructions = ` asd > [server/server.ts]`;
 
 const options = {
   homeDir: './src',
@@ -38,14 +38,13 @@ const options = {
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: false, vendor: false },
   plugins: [
     EnvPlugin(EnvConfigInstance),
+    isProd && UglifyESPlugin(),
     NgLazyplugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss', SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
-    isProd && UglifyESPlugin(),
     JSONPlugin(),
-    HTMLPlugin({ useDefault: false }),
-    
+    HTMLPlugin({ useDefault: false })
   ],
   alias: {
     "@angular/platform-browser/animations": "@angular/platform-browser/bundles/platform-browser-animations.umd.js"
@@ -72,7 +71,7 @@ Sparky.task("serve", () => {
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
-    .then(() => Sparky.start('favicons'))
+    .then(() => isProd || !BuildConfig.skipFaviconGenerationOnDev ? Sparky.start('favicons') : undefined)
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {
@@ -104,7 +103,6 @@ Sparky.task("serve", () => {
       appBundle
         .instructions('!> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
         .plugin(EnvPlugin(EnvConfigInstance))
-        
         .target('browser');
 
       const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser');
