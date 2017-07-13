@@ -20,6 +20,7 @@ import {
 import './tools/tasks';
 const hashFiles = require('hash-files');
 
+
 EnvConfigInstance.lazyBuster = {};
 
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
@@ -29,7 +30,6 @@ const appBundleName = `js/app`;
 const vendorBundleName = `js/_vendor`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ` > [server/server.ts]`;
-// const lazyBundleSuffix = `js/bundle-${cachebuster}-`;
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 
 const options = {
@@ -81,8 +81,13 @@ Sparky.task("serve", () => {
 
       EnvConfigInstance.lazyBuster = {};
 
-      readdirSync(resolve('src/client/app')).forEach(file => {
-        const lstat = lstatSync(resolve('src/client/app', file));
+      const root = `src`;
+      const relative = argv.aot ? `client/.aot/src/client/app` : `client/app`;
+      const rootPath = `${root}/${relative}`;
+      const compSuffix = argv.aot ? `component.ngfactory.ts` : `component.ts`;
+
+      readdirSync(resolve(rootPath)).forEach(file => {
+        const lstat = lstatSync(resolve(rootPath, file));
         if (lstat.isDirectory()) {
           const dirName = basename(file);
 
@@ -90,20 +95,20 @@ Sparky.task("serve", () => {
             const moduleName = dirName.substring(1);
 
             const checksum = hashFiles.sync({
-              files: resolve('src/client/app', file, '**')
+              files: resolve(rootPath, file, '**')
             })
 
             EnvConfigInstance.lazyBuster[moduleName] = checksum;
-
-            appBundle.split('client/app/' + dirName + '/**', `js/bundle-${checksum}-${moduleName}` + '.module.js > client/app/' + dirName + '/' + moduleName + '.component.ts');
+            appBundle
+              .split(`${relative}/${dirName}/**`, `js/bundle-${checksum}-${moduleName}.module.js > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
           }
         }
       });
 
       if (argv.aot) {
-        appBundle.instructions(`${appBundleInstructions}`)
+        appBundle.instructions(`${appBundleInstructions} + [${relative}/**/*.ts]`)
       } else {
-        appBundle.instructions(`${appBundleInstructions} + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]`)
+        appBundle.instructions(`${appBundleInstructions} [${relative}/**/*.module.ts] [${relative}/**/!(*.spec|*.e2e-spec|*.ngsummary).*]`)
       }
 
       appBundle
