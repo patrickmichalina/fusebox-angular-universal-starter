@@ -30,7 +30,7 @@ const vendorBundleName = `js/_vendor`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ` > [server/server.ts]`;
 // const lazyBundleSuffix = `js/bundle-${cachebuster}-`;
-// const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
+const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 
 const options = {
   homeDir: './src',
@@ -100,8 +100,14 @@ Sparky.task("serve", () => {
         }
       });
 
+      if (argv.aot) {
+        appBundle.instructions(`${appBundleInstructions}`)
+      } else {
+        appBundle.instructions(`${appBundleInstructions} + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]`)
+      }
+
       appBundle
-        .instructions('!> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
+        // .instructions('!> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
         .plugin(EnvPlugin(EnvConfigInstance))
         .target('browser');
 
