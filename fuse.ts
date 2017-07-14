@@ -7,7 +7,6 @@ import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
 import { basename, resolve } from 'path';
 import { NgLazyplugin } from './tools/plugins/ng-lazy';
-import { TypeHelper } from 'fuse-box-typechecker/dist/commonjs';
 import * as hashFiles from 'hash-files';
 import {
   EnvPlugin,
@@ -41,12 +40,6 @@ const options = {
   target: 'browser',
   plugins: [
     EnvPlugin(EnvConfigInstance), // Leave this as first plugin
-    TypeHelper({
-      tsConfig: './tsconfig.json',
-      basePath: './',
-      tsLint: './src/client/tslint.json',
-      name: 'Angular'
-    }),
     isProd && UglifyESPlugin(),
     NgLazyplugin(),
     Ng2TemplatePlugin(),
