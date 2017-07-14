@@ -20,6 +20,8 @@
   },
   "exclude": [
     "dist",
-    "node_modules"
+    "node_modules",
+    ".ngc",
+    ".fusebox"
   ]
 }
