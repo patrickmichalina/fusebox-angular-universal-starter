@@ -105,14 +105,9 @@ Sparky.task('serve', () => {
 
             let bundlePath = `js/bundle-${checksum}-${moduleName}.module.js`;
 
-            // if (process.env.CI && process.env.CDN_ORIGIN) { 
-
-            // }
-
             EnvConfigInstance.lazyBuster[moduleName] = checksum;
-            appBundle
-              // tslint:disable-next-line:max-line-length
-              .split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
+            
+            appBundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
           }
         }
       });
@@ -126,7 +121,6 @@ Sparky.task('serve', () => {
       if (!argv.spa) serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
       if (argv.spa) fuse.dev({ port: EnvConfigInstance.server.port, root: 'dist' });
 
-      // tslint:disable-next-line:curly
       if (!isProd && !process.env.CI) {
         if (argv.spa) {
           vendorBundle.watch().hmr();
