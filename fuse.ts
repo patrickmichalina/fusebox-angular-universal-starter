@@ -1,25 +1,27 @@
+import { lstatSync, readdirSync } from 'fs';
 import { Ng2TemplatePlugin } from 'ng2-fused';
-import { BuildConfig } from './tools/config/build.config';
 import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { EnvConfigInstance } from './tools/tasks/_global';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
-import { readdirSync, lstatSync } from 'fs';
-import { resolve, basename } from 'path';
+import { BuildConfig } from './tools/config/build.config';
+import { basename, resolve } from 'path';
 import { NgLazyplugin } from './tools/plugins/ng-lazy';
+import { RemoveSourceMapPlugin } from './tools/plugins/remove-maps';
 import {
+  EnvPlugin,
   FuseBox,
-  Sparky,
-  SassPlugin,
-  JSONPlugin,
   HTMLPlugin,
-  UglifyESPlugin,
+  JSONPlugin,
   RawPlugin,
-  EnvPlugin
+  SassPlugin,
+  Sparky,
+  UglifyESPlugin
+  // ReplacePlugin
 } from 'fuse-box';
 import './tools/tasks';
-const TypeHelper = require('fuse-box-typechecker').TypeHelper
-const hashFiles = require('hash-files');
+import { TypeHelper } from 'fuse-box-typechecker/dist/commonjs';
+import * as hashFiles from 'hash-files';
 
 EnvConfigInstance.lazyBuster = {};
 
@@ -27,10 +29,10 @@ const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'prod
 const isAot = argv.aot;
 const baseEntry = argv.aot ? 'main.aot' : 'main';
 const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
-const appBundleName = `js/app`;
-const vendorBundleName = `js/_vendor`;
+const appBundleName = 'js/app';
+const vendorBundleName = 'js/_vendor';
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
-const serverBundleInstructions = ` > [server/server.ts]`;
+const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 
 const options = {
@@ -38,29 +40,32 @@ const options = {
   output: `${BuildConfig.outputDir}/$name.js`,
   experimentalFeatures: false,
   sourceMaps: { project: false, vendor: false, inline: false },
+  target: 'browser',
   plugins: [
-    EnvPlugin(EnvConfigInstance),
+    EnvPlugin(EnvConfigInstance), // Leave this as first plugin
     TypeHelper({
       tsConfig: './tsconfig.json',
       basePath: './',
-      tsLint:'./tslint.json',
+      tsLint: './tslint.json',
       name: 'Test Sync'
     }),
+    // ReplacePlugin({ 'sourceMappingURL=': '' }),
     isProd && UglifyESPlugin(),
-    NgLazyplugin(),
+    [RemoveSourceMapPlugin(), NgLazyplugin()],
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
-    ['*.component.scss', SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
+    ['*.component.scss',
+      SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
     HTMLPlugin({ useDefault: false })
   ],
   alias: {
-    "@angular/platform-browser/animations": "@angular/platform-browser/bundles/platform-browser-animations.umd.js"
+    '@angular/platform-browser/animations': '@angular/platform-browser/bundles/platform-browser-animations.umd.js'
   }
-}
+};
 
-Sparky.task("index.inject", () => {
-  return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
+Sparky.task('index.inject', () => {
+  return Sparky.src('./dist/index.html').file('index.html', (file: any) => {
     file.read();
     const transformer = new ConfigurationTransformer();
     const dom = transformer.apply(BuildConfig.dependencies, file.contents.toString('utf8'));
@@ -73,7 +78,7 @@ Sparky.task("index.inject", () => {
   });
 });
 
-Sparky.task("serve", () => {
+Sparky.task('serve', () => {
   return Sparky.start('clean')
     .then(() => argv.aot ? Sparky.start('ngc') : undefined)
     .then(() => Sparky.start('web'))
@@ -83,15 +88,15 @@ Sparky.task("serve", () => {
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {
-      const fuse = FuseBox.init(options as any);
-      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions).target('browser');
-      const appBundle = fuse.bundle(appBundleName).plugin()
-
       EnvConfigInstance.lazyBuster = {};
 
-      const root = `src`;
-      const compSuffix = argv.aot ? `component.ngfactory.ts` : `component.ts`;
-      const relative = isAot ? `client/.aot/src/client/app` : `client/app`;
+      const fuse = FuseBox.init(options as any);
+      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
+      const appBundle = fuse.bundle(appBundleName);
+
+      const root = 'src';
+      const compSuffix = argv.aot ? 'component.ngfactory.ts' : 'component.ts';
+      const relative = isAot ? 'client/.aot/src/client/app' : 'client/app';
       const rootPath = `${root}/${relative}`;
 
       readdirSync(resolve(rootPath)).forEach(file => {
@@ -104,26 +109,26 @@ Sparky.task("serve", () => {
 
             const checksum = hashFiles.sync({
               files: resolve(rootPath, file, '**')
-            })
+            });
 
             EnvConfigInstance.lazyBuster[moduleName] = checksum;
             appBundle
+              // tslint:disable-next-line:max-line-length
               .split(`${relative}/${dirName}/**`, `js/bundle-${checksum}-${moduleName}.module.js > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
           }
         }
       });
 
-      appBundle.instructions(`${appBundleInstructions} + [${relative}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
+      appBundle.instructions(`${appBundleInstructions} + [${relative}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`);
 
-      appBundle
-        .plugin([EnvPlugin(EnvConfigInstance)])
-        .target('browser');
+      appBundle.plugin([EnvPlugin(EnvConfigInstance)]);
 
       let serverBundle: any;
 
-      if (!argv.spa) serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser');
+      if (!argv.spa) serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
       if (argv.spa) fuse.dev({ port: EnvConfigInstance.server.port, root: 'dist' });
 
+      // tslint:disable-next-line:curly
       if (!isProd && !process.env.CI) {
         if (argv.spa) {
           vendorBundle.watch().hmr();
@@ -132,9 +137,7 @@ Sparky.task("serve", () => {
           vendorBundle.watch();
           appBundle.watch();
           serverBundle.completed((proc: any) => {
-            if (!process.env.CI) {
-              proc.start();
-            }
+            if (!process.env.CI) proc.start();
           }).watch();
         }
       }
@@ -143,5 +146,5 @@ Sparky.task("serve", () => {
     })
     .then(() => Sparky.start('js.files'))
     .then(() => Sparky.start('index.inject'))
-    .then(() => Sparky.start('index.minify'))
+    .then(() => Sparky.start('index.minify'));
 });

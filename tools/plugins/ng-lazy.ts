@@ -5,7 +5,7 @@ export class NgLazypluginClass {
   public test: RegExp = /routing/;
   private checksums: any;
   public init(context: WorkFlowContext) {
-    this.checksums = (<any>context.plugins[0]).env.lazyBuster;
+    this.checksums = (<any>context.plugins[0]).env.lazyBuster; // TODO: super risky
   }
 
   public transform(file: File) {
@@ -25,7 +25,6 @@ export class NgLazypluginClass {
           ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
           : reject('Unable to load module ${moduleName} from ./js/bundle-${moduleName}.module.js'))})}`;
     });
-    file.contents.replace(/.*sourceMappingURL.*/, '');
   }
 }
 
