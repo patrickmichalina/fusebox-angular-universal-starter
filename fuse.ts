@@ -15,16 +15,16 @@ import {
   HTMLPlugin,
   UglifyESPlugin,
   RawPlugin,
-  EnvPlugin,
-  QuantumPlugin
+  EnvPlugin
 } from 'fuse-box';
 import './tools/tasks';
+const TypeHelper = require('fuse-box-typechecker').TypeHelper
 const hashFiles = require('hash-files');
-
 
 EnvConfigInstance.lazyBuster = {};
 
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
+const isAot = argv.aot;
 const baseEntry = argv.aot ? 'main.aot' : 'main';
 const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = `js/app`;
@@ -34,18 +34,19 @@ const serverBundleInstructions = ` > [server/server.ts]`;
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 
 const options = {
-  experimentalFeatures: true,
   homeDir: './src',
   output: `${BuildConfig.outputDir}/$name.js`,
-  sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: false, vendor: false },
+  experimentalFeatures: false,
+  sourceMaps: { project: false, vendor: false, inline: false },
   plugins: [
     EnvPlugin(EnvConfigInstance),
-    isProd && UglifyESPlugin(),
-    QuantumPlugin({
-      treeshake: true,
-      removeExportsInterop: true,
-      uglify: true
+    TypeHelper({
+      tsConfig: './tsconfig.json',
+      basePath: './',
+      tsLint:'./tslint.json',
+      name: 'Test Sync'
     }),
+    isProd && UglifyESPlugin(),
     NgLazyplugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
@@ -84,14 +85,14 @@ Sparky.task("serve", () => {
     .then(() => {
       const fuse = FuseBox.init(options as any);
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions).target('browser');
-      const appBundle = fuse.bundle(appBundleName)
+      const appBundle = fuse.bundle(appBundleName).plugin()
 
       EnvConfigInstance.lazyBuster = {};
 
       const root = `src`;
-      const relative = argv.aot ? `client/.aot/src/client/app` : `client/app`;
+      const compSuffix = argv.aot ? `component.ngfactory.ts` : `component.ts`;
+      const relative = isAot ? `client/.aot/src/client/app` : `client/app`;
       const rootPath = `${root}/${relative}`;
-      const compSuffix = argv.aot ? `component.ts` : `component.ts`;
 
       readdirSync(resolve(rootPath)).forEach(file => {
         const lstat = lstatSync(resolve(rootPath, file));
@@ -112,19 +113,15 @@ Sparky.task("serve", () => {
         }
       });
 
-      if (argv.aot) {
-        //appBundle.instructions(`> [client/${mainEntryFileName}.ts] - [client/app/**/*.component.ts]`)
-      } else {
-        appBundle.instructions(`${appBundleInstructions} [${relative}/**/*.module.ts] [client/app/**/!(*.spec|*.e2e-spec|*.ngsummary).*]`)
-      }
+      appBundle.instructions(`${appBundleInstructions} + [${relative}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
 
       appBundle
-        // .instructions('!> [client/main.ts] + [client/app/**/*.module.ts] + [client/app/**/!(*.spec|*.e2e-spec).*]')
-        .plugin(EnvPlugin(EnvConfigInstance))
+        .plugin([EnvPlugin(EnvConfigInstance)])
         .target('browser');
 
-      const serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser');
+      let serverBundle: any;
 
+      if (!argv.spa) serverBundle = fuse.bundle("server").instructions(serverBundleInstructions).target('browser');
       if (argv.spa) fuse.dev({ port: EnvConfigInstance.server.port, root: 'dist' });
 
       if (!isProd && !process.env.CI) {
@@ -134,7 +131,7 @@ Sparky.task("serve", () => {
         } else {
           vendorBundle.watch();
           appBundle.watch();
-          serverBundle.completed(proc => {
+          serverBundle.completed((proc: any) => {
             if (!process.env.CI) {
               proc.start();
             }

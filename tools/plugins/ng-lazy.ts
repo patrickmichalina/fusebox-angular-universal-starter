@@ -25,6 +25,7 @@ export class NgLazypluginClass {
           ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
           : reject('Unable to load module ${moduleName} from ./js/bundle-${moduleName}.module.js'))})}`;
     });
+    file.contents.replace(/.*sourceMappingURL.*/, '');
   }
 }
 

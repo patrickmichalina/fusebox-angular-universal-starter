@@ -49,7 +49,7 @@ Sparky.task("favicons", () => {
           if (err) return reject(err);
           const dom = new JSDOM(data);
           (<HTMLHeadElement>dom.window.document.head).innerHTML = dom.window.document.head.innerHTML + '\n' + htmlHeadBlock;
-          writeFile(filePath, dom.serialize(), 'utf-8', (err) => {
+          writeFile(filePath, dom.serialize(), { encoding: 'utf-8' }, (err) => {
             if (err) return reject(err);
             return resolve();
           })
