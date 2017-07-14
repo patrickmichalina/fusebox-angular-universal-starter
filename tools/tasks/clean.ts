@@ -1,4 +1,4 @@
 import { Sparky } from 'fuse-box';
-import { BuildConfig } from '../config/build.config';
+import { BUILD_CONFIG } from '../config/build.config';
 
-Sparky.task("clean", () => Sparky.src(`${BuildConfig.outputDir}`).clean(`${BuildConfig.outputDir}`));
+Sparky.task('clean', () => Sparky.src(`${BUILD_CONFIG.outputDir}`).clean(`${BUILD_CONFIG.outputDir}`));

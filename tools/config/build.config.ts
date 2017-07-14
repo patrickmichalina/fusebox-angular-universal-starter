@@ -1,12 +1,12 @@
-import { Dependency, DependencyType, SourceType, BuildConfiguration } from './build.interfaces';
+import { BuildConfiguration, Dependency, DependencyType, SourceType } from './build.interfaces';
 
-export const BuildConfig: BuildConfiguration = {
-  baseHref: "/",
+export const BUILD_CONFIG: BuildConfiguration = {
+  baseHref: '/',
   faviconSource: './src/client/assets/favicon.png',
-  outputDir: "dist",
-  sourceDir: "src",
-  prodOutDir: "./dist/prod",
-  assetParentDir: "src/client",
+  outputDir: 'dist',
+  sourceDir: 'src',
+  prodOutDir: './dist/prod',
+  assetParentDir: 'src/client',
   minifyIndex: true,
   skipFaviconGenerationOnDev: true,
   dependencies: [
@@ -16,7 +16,7 @@ export const BuildConfig: BuildConfiguration = {
       preloaded: true,
       source: {
         type: SourceType.ExternalLink,
-        link: "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        link: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
       }
     },
     {
@@ -27,7 +27,7 @@ export const BuildConfig: BuildConfiguration = {
         name: 'google-site-verification',
         content: process.env.GA_VERIFICATION_CODE
       },
-      shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE,
+      shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
     },
     {
       type: DependencyType.Script,
@@ -35,9 +35,10 @@ export const BuildConfig: BuildConfiguration = {
       preloaded: false,
       source: {
         type: SourceType.Inline,
+        // tslint:disable-next-line:max-line-length
         link: `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${process.env.GA_TRACKING_ID}', 'auto');`
       },
-      shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE,
+      shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
     },
     {
       type: DependencyType.Script,
@@ -45,7 +46,7 @@ export const BuildConfig: BuildConfiguration = {
       preloaded: false,
       source: {
         type: SourceType.ExternalLink,
-        link: `https://www.google-analytics.com/analytics.js`
+        link: 'https://www.google-analytics.com/analytics.js'
       },
       shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE,
       attributes: {
@@ -53,4 +54,4 @@ export const BuildConfig: BuildConfiguration = {
       }
     }
   ]
-}
+};

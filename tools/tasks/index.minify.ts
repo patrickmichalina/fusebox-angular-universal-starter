@@ -1,10 +1,11 @@
 import { Sparky } from 'fuse-box';
 import { minify } from 'html-minifier';
-import { BuildConfig } from '../config/build.config';
+import { BUILD_CONFIG } from '../config/build.config';
 
-Sparky.task("index.minify", () => {
-  if (!BuildConfig.minifyIndex) return;
-  return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
+Sparky.task('index.minify', () => {
+  if (!BUILD_CONFIG.minifyIndex) return;
+
+  return Sparky.src('./dist/index.html').file('index.html', (file: any) => {
     file.read();
     file.setContent(minify(file.contents.toString('utf8'), {
       collapseWhitespace: true,

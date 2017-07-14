@@ -3,17 +3,17 @@ import { sync as glob } from 'glob';
 import { ConfigurationTransformer } from '../config/build.transformer';
 import { Dependency, DependencyType, SourceType } from '../config/build.interfaces';
 import { readFileSync } from 'fs';
-import hash = require("string-hash");
+import hash = require('string-hash');
 
-Sparky.task("js.files", () => {
+Sparky.task('js.files', () => {
   const js = glob('./dist/js/**/!(bundle-*|server).js').map(a => {
     return {
       hash: hash(readFileSync(a).toString()),
       name: a.replace('./dist', '')
-    }
-  })
+    };
+  });
 
-  return Sparky.src("./dist/index.html").file("index.html", (file: any) => {
+  return Sparky.src('./dist/index.html').file('index.html', (file: any) => {
     file.read();
 
     const transformer = new ConfigurationTransformer();
@@ -24,9 +24,9 @@ Sparky.task("js.files", () => {
         type: DependencyType.Script,
         source: {
           type: SourceType.RelativeLink,
-          link: `${j.name}?${j.hash}`,
+          link: `${j.name}?${j.hash}`
         }
-      } as Dependency
+      } as Dependency;
     });
 
     const dom = transformer.apply(deps, file.contents.toString('utf8'));

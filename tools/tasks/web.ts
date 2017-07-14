@@ -1,4 +1,4 @@
 import { Sparky } from 'fuse-box';
-import { BuildConfig } from '../config/build.config';
+import { BUILD_CONFIG } from '../config/build.config';
 
-Sparky.task("web", () => Sparky.src(`./**`, { base: `./tools/web` }).dest(`./${BuildConfig.outputDir}`));
+Sparky.task('web', () => Sparky.src('./**', { base: './tools/web' }).dest(`./${BUILD_CONFIG.outputDir}`));

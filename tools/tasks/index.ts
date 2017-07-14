@@ -9,6 +9,6 @@ import './index.minify';
 import './ngc';
 
 import { Sparky } from 'fuse-box';
-import { BuildConfig } from '../config/build.config';
+import { BUILD_CONFIG } from '../config/build.config';
 
-Sparky.task("index", () => Sparky.src(`./index.html`, { base: `./src/client` }).dest(`./${BuildConfig.outputDir}`));
+Sparky.task('index', () => Sparky.src('./index.html', { base: './src/client' }).dest(`./${BUILD_CONFIG.outputDir}`));

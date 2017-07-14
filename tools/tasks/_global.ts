@@ -7,6 +7,7 @@ let selectedEnv = process.env.NODE_ENV || argv['env-config'] || 'dev';
 if (selectedEnv === 'production') selectedEnv = 'prod';
 
 try {
+  // tslint:disable-next-line:no-require-imports
   envConfig = require(`../env/${selectedEnv}`);
 } catch (err) {
   throw new Error(`Unable to find environment configuration for '${selectedEnv}' `);

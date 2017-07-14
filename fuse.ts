@@ -4,7 +4,7 @@ import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { EnvConfigInstance } from './tools/tasks/_global';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
-import { BuildConfig } from './tools/config/build.config';
+import { BUILD_CONFIG } from './tools/config/build.config';
 import { basename, resolve } from 'path';
 import { NgLazyplugin } from './tools/plugins/ng-lazy';
 import { TypeHelper } from 'fuse-box-typechecker/dist/commonjs';
@@ -35,7 +35,7 @@ const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 
 const options = {
   homeDir: './src',
-  output: `${BuildConfig.outputDir}/$name.js`,
+  output: `${BUILD_CONFIG.outputDir}/$name.js`,
   experimentalFeatures: false,
   sourceMaps: { project: false, vendor: false, inline: false },
   target: 'browser',
@@ -44,8 +44,8 @@ const options = {
     TypeHelper({
       tsConfig: './tsconfig.json',
       basePath: './',
-      tsLint: './tslint.json',
-      name: 'TypeHelper'
+      tsLint: './src/client/tslint.json',
+      name: 'Angular'
     }),
     isProd && UglifyESPlugin(),
     NgLazyplugin(),
@@ -65,7 +65,7 @@ Sparky.task('index.inject', () => {
   return Sparky.src('./dist/index.html').file('index.html', (file: any) => {
     file.read();
     const transformer = new ConfigurationTransformer();
-    const dom = transformer.apply(BuildConfig.dependencies, file.contents.toString('utf8'));
+    const dom = transformer.apply(BUILD_CONFIG.dependencies, file.contents.toString('utf8'));
     file.setContent(dom.serialize());
     if (process.env.CI && process.env.CDN_ORIGIN) {
       file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', process.env.CDN_ORIGIN));
@@ -81,7 +81,7 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
-    .then(() => isProd || !BuildConfig.skipFaviconGenerationOnDev ? Sparky.start('favicons') : undefined)
+    .then(() => isProd || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : undefined)
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {
