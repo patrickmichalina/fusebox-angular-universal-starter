@@ -16,6 +16,7 @@ import {
   UglifyESPlugin,
   RawPlugin,
   EnvPlugin,
+  QuantumPlugin
 } from 'fuse-box';
 import './tools/tasks';
 const hashFiles = require('hash-files');
@@ -33,12 +34,18 @@ const serverBundleInstructions = ` > [server/server.ts]`;
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 
 const options = {
+  experimentalFeatures: true,
   homeDir: './src',
   output: `${BuildConfig.outputDir}/$name.js`,
   sourceMaps: isProd || process.env.CI ? { project: false, vendor: false } : { project: false, vendor: false },
   plugins: [
     EnvPlugin(EnvConfigInstance),
     isProd && UglifyESPlugin(),
+    QuantumPlugin({
+      treeshake: true,
+      removeExportsInterop: true,
+      uglify: true
+    }),
     NgLazyplugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
@@ -84,7 +91,7 @@ Sparky.task("serve", () => {
       const root = `src`;
       const relative = argv.aot ? `client/.aot/src/client/app` : `client/app`;
       const rootPath = `${root}/${relative}`;
-      const compSuffix = argv.aot ? `component.ngfactory.ts` : `component.ts`;
+      const compSuffix = argv.aot ? `component.ts` : `component.ts`;
 
       readdirSync(resolve(rootPath)).forEach(file => {
         const lstat = lstatSync(resolve(rootPath, file));
@@ -106,9 +113,9 @@ Sparky.task("serve", () => {
       });
 
       if (argv.aot) {
-        appBundle.instructions(`${appBundleInstructions} + [${relative}/**/*.ts]`)
+        //appBundle.instructions(`> [client/${mainEntryFileName}.ts] - [client/app/**/*.component.ts]`)
       } else {
-        appBundle.instructions(`${appBundleInstructions} [${relative}/**/*.module.ts] [${relative}/**/!(*.spec|*.e2e-spec|*.ngsummary).*]`)
+        appBundle.instructions(`${appBundleInstructions} [${relative}/**/*.module.ts] [client/app/**/!(*.spec|*.e2e-spec|*.ngsummary).*]`)
       }
 
       appBundle
