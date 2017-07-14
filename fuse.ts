@@ -6,7 +6,7 @@ import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
 import { basename, resolve } from 'path';
-import { NgLazyplugin } from './tools/plugins/ng-lazy';
+import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import * as hashFiles from 'hash-files';
 import {
   EnvPlugin,
@@ -41,11 +41,13 @@ const options = {
   plugins: [
     EnvPlugin(EnvConfigInstance), // Leave this as first plugin
     isProd && UglifyESPlugin(),
-    NgLazyplugin(),
+    NgLazyPlugin({
+      cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined
+    }),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss',
-      SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
+    SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
     HTMLPlugin({ useDefault: false })
   ],
@@ -101,10 +103,16 @@ Sparky.task('serve', () => {
               files: resolve(rootPath, file, '**')
             });
 
+            let bundlePath = `js/bundle-${checksum}-${moduleName}.module.js`;
+
+            // if (process.env.CI && process.env.CDN_ORIGIN) { 
+
+            // }
+
             EnvConfigInstance.lazyBuster[moduleName] = checksum;
             appBundle
               // tslint:disable-next-line:max-line-length
-              .split(`${relative}/${dirName}/**`, `js/bundle-${checksum}-${moduleName}.module.js > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
+              .split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
           }
         }
       });
