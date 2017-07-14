@@ -7,7 +7,8 @@ import { argv } from 'yargs';
 import { BuildConfig } from './tools/config/build.config';
 import { basename, resolve } from 'path';
 import { NgLazyplugin } from './tools/plugins/ng-lazy';
-import { RemoveSourceMapPlugin } from './tools/plugins/remove-maps';
+import { TypeHelper } from 'fuse-box-typechecker/dist/commonjs';
+import * as hashFiles from 'hash-files';
 import {
   EnvPlugin,
   FuseBox,
@@ -17,11 +18,8 @@ import {
   SassPlugin,
   Sparky,
   UglifyESPlugin
-  // ReplacePlugin
 } from 'fuse-box';
 import './tools/tasks';
-import { TypeHelper } from 'fuse-box-typechecker/dist/commonjs';
-import * as hashFiles from 'hash-files';
 
 EnvConfigInstance.lazyBuster = {};
 
@@ -47,11 +45,10 @@ const options = {
       tsConfig: './tsconfig.json',
       basePath: './',
       tsLint: './tslint.json',
-      name: 'Test Sync'
+      name: 'TypeHelper'
     }),
-    // ReplacePlugin({ 'sourceMappingURL=': '' }),
     isProd && UglifyESPlugin(),
-    [RemoveSourceMapPlugin(), NgLazyplugin()],
+    NgLazyplugin(),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss',

@@ -34,6 +34,8 @@ Includes the following features:
 - [x] Hot Module Reloading for faster browser reloads during client development
 - [x] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
 - [x] End-to-end (e2e) testing with Protractor
+- [x] [angular-tslint-rules](https://github.com/fulls1z3/angular-tslint-rules) as configuration preset for [TSLint](https://github.com/palantir/tslint) and [codelyzer](https://github.com/mgechev/codelyzer).
+- [x] Automatic static file cache invalidation
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
 - [ ] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
 - [ ] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
