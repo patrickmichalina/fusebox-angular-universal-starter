@@ -1,13 +1,10 @@
-import { lstatSync, readdirSync } from 'fs';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
 import { ENV_CONFIG_INSTANCE } from './tools/tasks/_global';
-import { basename, resolve } from 'path';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
-import * as hashFiles from 'hash-files';
 import {
   EnvPlugin,
   FuseBox,
@@ -21,18 +18,15 @@ import {
 import './tools/tasks';
 import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 
-ENV_CONFIG_INSTANCE.lazyBuster = {};
-
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const isAot = argv.aot;
-const baseEntry = argv.aot ? 'main.aot' : 'main';
+const baseEntry = isAot ? 'main.aot' : 'main';
 const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = 'js/app';
 const vendorBundleName = 'js/_vendor';
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
-
 
 const options: any = {
   homeDir: './src',
@@ -44,7 +38,11 @@ const options: any = {
     EnvPlugin(ENV_CONFIG_INSTANCE), // Leave this as first plugin
     isProd && UglifyESPlugin(),
     NgLazyPlugin({
-      cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined
+      cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined,
+      angularAppEntry: '',
+      angularAppRoot: 'src/client/app',
+      angularBundle: 'js/app',
+      aot: isAot
     }),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
@@ -52,10 +50,10 @@ const options: any = {
       SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
     HTMLPlugin({ useDefault: false })
-  ] as Plugin[],
-  alias: {
-    '@angular/platform-browser/animations': '@angular/platform-browser/bundles/platform-browser-animations.umd.js'
-  }
+  ] as Plugin[]
+  // alias: {
+  //   // '@angular/platform-browser/animations': '@angular/platform-browser/bundles/platform-browser-animations.umd.js'
+  // }
 };
 
 Sparky.task('index.inject', () => {
@@ -82,41 +80,14 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {
-      ENV_CONFIG_INSTANCE.lazyBuster = {};
-
       const fuse = FuseBox.init(options as any);
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
-      const appBundle = fuse.bundle(appBundleName);
 
-      const root = 'src';
-      const compSuffix = isAot ? 'component.ngfactory.ts' : 'component.ts';
-      const relative = isAot ? 'client/.aot/src/client/app' : 'client/app';
-      const rootPath = `${root}/${relative}`;
+      const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
 
-      readdirSync(resolve(rootPath)).forEach(file => {
-        const lstat = lstatSync(resolve(rootPath, file));
-        if (lstat.isDirectory()) {
-          const dirName = basename(file);
-
-          if (dirName[0] === '+') {
-            const moduleName = dirName.substring(1);
-
-            const checksum = hashFiles.sync({
-              files: resolve(rootPath, file, '**')
-            });
-
-            let bundlePath = `js/bundle-${checksum}-${moduleName}.module.js`;
-
-            ENV_CONFIG_INSTANCE.lazyBuster[moduleName] = checksum;
-
-            appBundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
-          }
-        }
-      });
-
-      appBundle.instructions(`${appBundleInstructions} + [${relative}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`);
-
-      appBundle.plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
+      const appBundle = fuse.bundle(appBundleName)
+        .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap|*-routing.module).*]`)
+        .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
       let serverBundle: any;
 
@@ -142,3 +113,34 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'));
 });
+
+
+      // const root = 'src';
+      // const compSuffix = isAot ? 'component.ngfactory.ts' : 'component.ts';
+      // const relative = isAot ? 'client/.aot/src/client/app' : 'client/app';
+      // const rootPath = `${root}/${relative}`;
+
+      // readdirSync(resolve(rootPath)).forEach(file => {
+      //   const lstat = lstatSync(resolve(rootPath, file));
+      //   if (lstat.isDirectory()) {
+      //     const dirName = basename(file);
+
+      //     if (dirName[0] === '+') {
+      //       const moduleName = dirName.substring(1);
+
+      //       const checksum = hashFiles.sync({
+      //         files: resolve(rootPath, file, '**')
+      //       });
+
+      //       let bundlePath = `js/bundle-${checksum}-${moduleName}.module.js`;
+
+      //       ENV_CONFIG_INSTANCE.lazyBuster[moduleName] = checksum;
+
+      //       appBundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
+      //     }
+      //   }
+      // });
+
+      // appBundle.instructions(`!> [client/${mainEntryFileName}.ts] [client/app/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`);
+
+      // appBundle.plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
