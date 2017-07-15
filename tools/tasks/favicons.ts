@@ -2,7 +2,7 @@ import { Sparky } from 'fuse-box';
 import { readFile, writeFile } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
 import { BUILD_CONFIG } from '../config/build.config';
-import { EnvConfigInstance } from '../tasks/_global';
+import { ENV_CONFIG_INSTANCE } from '../tasks/_global';
 
 const favicons = require('favicons');
 const jsdom = require('jsdom');
@@ -12,8 +12,8 @@ Sparky.task('favicons', () => {
   return new Promise((resolve, reject) => {
     favicons(BUILD_CONFIG.faviconSource, {
       path: '/assets/favicons',
-      appDescription: EnvConfigInstance.description,
-      appName: EnvConfigInstance.name
+      appDescription: ENV_CONFIG_INSTANCE.description,
+      appName: ENV_CONFIG_INSTANCE.name
     }, (error: any, response: any) => {
       if (error) {
         // tslint:disable:no-console

@@ -13,6 +13,6 @@ try {
   throw new Error(`Unable to find environment configuration for '${selectedEnv}' `);
 }
 
-export const EnvConfigInstance = envConfig as EnvConfig;
+export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
 export const cachebuster = Math.round(new Date().getTime() / 1000);
 export const isProd = process.env.NODE_ENV === 'prod' ? true : false;

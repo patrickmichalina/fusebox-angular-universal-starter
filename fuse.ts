@@ -1,10 +1,10 @@
 import { lstatSync, readdirSync } from 'fs';
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { ConfigurationTransformer } from './tools/config/build.transformer';
-import { EnvConfigInstance } from './tools/tasks/_global';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
+import { ENV_CONFIG_INSTANCE } from './tools/tasks/_global';
 import { basename, resolve } from 'path';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import * as hashFiles from 'hash-files';
@@ -19,8 +19,9 @@ import {
   UglifyESPlugin
 } from 'fuse-box';
 import './tools/tasks';
+import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 
-EnvConfigInstance.lazyBuster = {};
+ENV_CONFIG_INSTANCE.lazyBuster = {};
 
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const isAot = argv.aot;
@@ -32,14 +33,15 @@ const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 
-const options = {
+
+const options: any = {
   homeDir: './src',
   output: `${BUILD_CONFIG.outputDir}/$name.js`,
   experimentalFeatures: false,
   sourceMaps: { project: false, vendor: false, inline: false },
   target: 'browser',
   plugins: [
-    EnvPlugin(EnvConfigInstance), // Leave this as first plugin
+    EnvPlugin(ENV_CONFIG_INSTANCE), // Leave this as first plugin
     isProd && UglifyESPlugin(),
     NgLazyPlugin({
       cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined
@@ -47,10 +49,10 @@ const options = {
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss',
-    SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
+      SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
     HTMLPlugin({ useDefault: false })
-  ],
+  ] as Plugin[],
   alias: {
     '@angular/platform-browser/animations': '@angular/platform-browser/bundles/platform-browser-animations.umd.js'
   }
@@ -80,14 +82,14 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {
-      EnvConfigInstance.lazyBuster = {};
+      ENV_CONFIG_INSTANCE.lazyBuster = {};
 
       const fuse = FuseBox.init(options as any);
       const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
       const appBundle = fuse.bundle(appBundleName);
 
       const root = 'src';
-      const compSuffix = argv.aot ? 'component.ngfactory.ts' : 'component.ts';
+      const compSuffix = isAot ? 'component.ngfactory.ts' : 'component.ts';
       const relative = isAot ? 'client/.aot/src/client/app' : 'client/app';
       const rootPath = `${root}/${relative}`;
 
@@ -105,8 +107,8 @@ Sparky.task('serve', () => {
 
             let bundlePath = `js/bundle-${checksum}-${moduleName}.module.js`;
 
-            EnvConfigInstance.lazyBuster[moduleName] = checksum;
-            
+            ENV_CONFIG_INSTANCE.lazyBuster[moduleName] = checksum;
+
             appBundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
           }
         }
@@ -114,12 +116,12 @@ Sparky.task('serve', () => {
 
       appBundle.instructions(`${appBundleInstructions} + [${relative}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`);
 
-      appBundle.plugin([EnvPlugin(EnvConfigInstance)]);
+      appBundle.plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
       let serverBundle: any;
 
       if (!argv.spa) serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
-      if (argv.spa) fuse.dev({ port: EnvConfigInstance.server.port, root: 'dist' });
+      if (argv.spa) fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
 
       if (!isProd && !process.env.CI) {
         if (argv.spa) {

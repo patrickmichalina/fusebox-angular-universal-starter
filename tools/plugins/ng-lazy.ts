@@ -9,7 +9,7 @@ export class NgLazyPluginClass {
   public test: RegExp = /routing/;
   private checksums: any;
 
-  constructor(private options: NgLazyPluginOptions = {}) {}
+  constructor(private options: NgLazyPluginOptions = {}) { }
 
   public init(context: WorkFlowContext) {
     this.checksums = (context.plugins[0] as any).env.lazyBuster; // TODO: super risky
