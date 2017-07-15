@@ -6,7 +6,7 @@ export interface NgLazyPluginOptions {
 }
 
 export class NgLazyPluginClass {
-  public test: RegExp = /routing/;
+  public test: RegExp = /.ts/;
   private checksums: any;
 
   constructor(private options: NgLazyPluginOptions = {}) { }

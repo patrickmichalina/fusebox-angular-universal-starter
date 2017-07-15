@@ -7,7 +7,7 @@ import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { BrowserTransferStateModule } from './shared/transfer-state/browser-transfer-state.module';
 import { TransferState } from './shared/transfer-state/transfer-state';
 
-export function getRequest(transferState: TransferState) {
+export function getRequest(transferState: TransferState): any {
   return transferState.get('req');
 }
 
