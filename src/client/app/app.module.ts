@@ -17,7 +17,7 @@ export function removeStyleTags(document: HTMLDocument, ps: PlatformService): an
     if (ps.isBrowser) {
       const dom = ɵgetDOM();
 
-      const styles: Array<HTMLElement> =
+      const styles: HTMLElement[] =
         Array.prototype.slice.apply(dom.querySelectorAll(document, 'style[ng-transition]'));
 
       styles.forEach(el => dom.remove(el));

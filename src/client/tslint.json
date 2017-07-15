@@ -18,7 +18,9 @@
       true,
       "element",
       [
+        "pm",
         "app",
+        "test",
         "i18n"
       ],
       "kebab-case"
@@ -28,6 +30,9 @@
       true,
       "camelCase",
       "kr"
+    ],
+    "array-type": [
+      false
     ]
   }
 }
