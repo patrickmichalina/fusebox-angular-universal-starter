@@ -1,5 +1,5 @@
 import { LoginComponent } from './login.component';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe(LoginComponent.name, () => {
   let fixture: ComponentFixture<LoginComponent>;
@@ -13,11 +13,11 @@ describe(LoginComponent.name, () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     fixture.detectChanges();
-  })
+  });
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
-  })
+  });
 
   it('should compile', async(() => {
     expect(fixture.nativeElement).toBeTruthy();

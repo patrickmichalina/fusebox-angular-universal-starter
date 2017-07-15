@@ -1,6 +1,6 @@
 import { TransferState } from '../shared/transfer-state/transfer-state';
 import { TransferHttp } from '../shared/transfer-http/transfer-http';
-import { SearchService, ISearchService } from './search.service';
+import { ISearchService, SearchService } from './search.service';
 import { async, TestBed } from '@angular/core/testing';
 import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions, ConnectionBackend, Http } from '@angular/http';
@@ -9,7 +9,7 @@ import '../../operators';
 
 describe(SearchService.name, () => {
   let service: ISearchService;
-  
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [

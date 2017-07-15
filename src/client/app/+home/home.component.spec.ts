@@ -1,5 +1,5 @@
 import { HomeComponent } from './home.component';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe(HomeComponent.name, () => {
   let fixture: ComponentFixture<HomeComponent>;
@@ -13,11 +13,11 @@ describe(HomeComponent.name, () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
-  })
+  });
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
-  })
+  });
 
   it('should compile', async(() => {
     expect(fixture.nativeElement).toBeTruthy();

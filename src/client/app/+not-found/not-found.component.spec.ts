@@ -1,5 +1,5 @@
 import { NotFoundComponent } from './not-found.component';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 describe(NotFoundComponent.name, () => {
   let fixture: ComponentFixture<NotFoundComponent>;
@@ -13,7 +13,7 @@ describe(NotFoundComponent.name, () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NotFoundComponent);
     fixture.detectChanges();
-  })
+  });
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();

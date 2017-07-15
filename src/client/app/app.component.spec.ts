@@ -27,7 +27,7 @@ const TestingConfig: EnvConfig = {
     port: 8083,
     minifyIndex: true
   }
-}
+};
 
 describe('App component', () => {
   const config: Array<Route> = [
