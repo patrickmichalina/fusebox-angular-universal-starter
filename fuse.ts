@@ -13,7 +13,8 @@ import {
   RawPlugin,
   SassPlugin,
   Sparky,
-  UglifyESPlugin
+  UglifyESPlugin,
+  Bundle
 } from 'fuse-box';
 import './tools/tasks';
 import { Plugin } from 'fuse-box/src/core/WorkflowContext';
@@ -86,25 +87,29 @@ Sparky.task('serve', () => {
       const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
 
       const appBundle = fuse.bundle(appBundleName)
+        .cache(false)
         .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
         .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
-      let serverBundle: any;
+      let serverBundle: Bundle = {} as Bundle;
 
-      if (!argv.spa) serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
+      if (!argv.spa) serverBundle = fuse.bundle('server').cache(false).instructions(serverBundleInstructions);
       if (argv.spa) fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
 
-      if (!isProd && !process.env.CI) {
-        if (argv.spa) {
-          vendorBundle.watch().hmr();
-          appBundle.watch().hmr();
-        } else {
-          vendorBundle.watch();
-          appBundle.watch();
-          serverBundle.completed((proc: any) => {
-            if (!process.env.CI) proc.start();
-          }).watch();
-        }
+      if (isProd || process.env.CI) return fuse.run();
+
+      vendorBundle.watch();
+      appBundle.watch()
+
+      if (argv.spa) {
+        vendorBundle.hmr();
+        appBundle.hmr();
+      } else {
+        serverBundle.completed(proc => {
+          if (!process.env.CI) {
+            proc.start()
+          }
+        }).watch();
       }
 
       return fuse.run();
