@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
-import { SearchService, ISearchService } from './search.service';
+import { ISearchService, SearchService } from './search.service';
 import { SearchComponent } from './search.component';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { URLSearchParams } from '@angular/http';
 import '../../operators';
 
@@ -20,7 +20,7 @@ describe(SearchComponent.name, () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     fixture.detectChanges();
-  })
+  });
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
@@ -32,7 +32,7 @@ describe(SearchComponent.name, () => {
 });
 
 class MockSearchService implements ISearchService {
-  public returnValue: any[] = [];
+  returnValue: any[] = [];
 
   search(search?: string | undefined, sort?: string | undefined, order?: string | undefined): Observable<any> {
     const params = new URLSearchParams();

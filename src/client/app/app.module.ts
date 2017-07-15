@@ -1,19 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { NgModule } from '@angular/core';
-import { SharedModule } from './shared/shared.module';
-import { AboutModule } from './about/about.module';
-import { SearchModule } from './search/search.module';
-import { LoginModule } from './login/login.module';
-import { LogoutModule } from './logout/logout.module';
-import { SignupModule } from './signup/signup.module';
-import { HomeModule } from './home/home.module';
-import { AppRoutingModule } from './app-routing.module';
-import { NotFoundModule } from './not-found/not-found.module';
-import { TransferHttpModule } from './shared/transfer-http/transfer-http.module';
-import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { EnvironmentService } from './shared/services/environment.service';
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
+import { TransferHttpModule } from './shared/transfer-http/transfer-http.module';
+import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
+import { NgModule } from '@angular/core';
+import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
+import { DOCUMENT, ɵgetDOM, ɵTRANSITION_ID } from '@angular/platform-browser';
+import { APP_BOOTSTRAP_LISTENER, APP_ID } from '@angular/core';
+import { PlatformService } from './shared/services/platform.service';
+import { BrowserModule } from '@angular/platform-browser';
+
+export function removeStyleTags(document: HTMLDocument, ps: PlatformService): any {
+  // tslint:disable-next-line:only-arrow-functions
+  return function(): void {
+    if (ps.isBrowser) {
+      const dom = ɵgetDOM();
+
+      const styles: HTMLElement[] =
+        Array.prototype.slice.apply(dom.querySelectorAll(document, 'style[ng-transition]'));
+
+      styles.forEach(el => dom.remove(el));
+    }
+  };
+}
 
 export function metaFactory(environmentService: EnvironmentService): MetaLoader {
   return new MetaStaticLoader({
@@ -35,25 +45,28 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
 @NgModule({
   imports: [
     AppRoutingModule,
-    HomeModule,
-    AboutModule,
-    SearchModule,
-    LoginModule,
-    LogoutModule,
-    SignupModule,
-    NotFoundModule, /* be sure this is the last route-able module */
     TransferHttpModule,
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory),
       deps: [EnvironmentService]
     })
   ],
+  providers: [
+    { provide: APP_ID, useValue: 'pm-app' },
+    { provide: ɵTRANSITION_ID, useValue: 'pm-app' },
+    {
+      provide: APP_BOOTSTRAP_LISTENER,
+      useFactory: removeStyleTags,
+      deps: [DOCUMENT, PlatformService],
+      multi: true
+    }
+  ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  exports: [AppComponent],
+  exports: [AppComponent]
 })
 export class AppModule { }

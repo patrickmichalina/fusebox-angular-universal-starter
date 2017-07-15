@@ -40,6 +40,7 @@ export interface BuildConfiguration {
   prodOutDir: string;
   assetParentDir: string;
   minifyIndex: boolean;
+  skipFaviconGenerationOnDev: boolean;
 }
 
 export interface IConfigurationTransformer {

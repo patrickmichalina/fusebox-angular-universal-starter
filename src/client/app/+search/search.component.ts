@@ -8,9 +8,9 @@ import { SearchService } from './search.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent {
-  public $results = this.searchService.search().share();
-  public $items = this.$results.map(a => a.items);
-  public $count = this.$results.map(a => a.total_count);
+  public $results = this.searchService.search();
+  public $items = this.$results.map((a: any) => a.items);
+  public $count = this.$results.map((a: any) => a.total_count);
 
   constructor(private searchService: SearchService) { }
 }

@@ -1,23 +1,23 @@
-import { HomeComponent } from './home.component';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { AboutComponent } from './about.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe(HomeComponent.name, () => {
-  let fixture: ComponentFixture<HomeComponent>;
+describe(AboutComponent.name, () => {
+  let fixture: ComponentFixture<AboutComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeComponent]
+      declarations: [AboutComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(AboutComponent);
     fixture.detectChanges();
-  })
+  });
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
-  })
+  });
 
   it('should compile', async(() => {
     expect(fixture.nativeElement).toBeTruthy();

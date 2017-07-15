@@ -90,8 +90,8 @@ export class TransferHttp {
 
     } catch (e) {
       return callback(uri, options)
-        .map(res => res.json())
-        .do(data => {
+        .map((res: any) => res.json())
+        .do((data: any) => {
           this.setCache(key, data);
         });
     }
@@ -118,8 +118,8 @@ export class TransferHttp {
 
     } catch (e) {
       return callback(uri, body, options)
-        .map(res => res.json())
-        .do(data => {
+        .map((res: any) => res.json())
+        .do((data: any) => {
           this.setCache(key, data);
         });
     }

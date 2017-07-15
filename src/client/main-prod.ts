@@ -9,4 +9,3 @@ import { AppBrowserModule } from './app/app.browser.module';
 enableProdMode();
 
 platformBrowserDynamic().bootstrapModule(AppBrowserModule);
-

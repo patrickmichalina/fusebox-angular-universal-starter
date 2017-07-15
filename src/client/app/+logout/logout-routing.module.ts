@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: 'logout', component: LogoutComponent }
+      { path: '', component: LogoutComponent }
     ])
   ],
   exports: [RouterModule]

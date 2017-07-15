@@ -7,7 +7,7 @@ import { MetaGuard } from '@ngx-meta/core';
   imports: [
     RouterModule.forChild([
       {
-        path: 'search',
+        path: '',
         component: SearchComponent,
         canActivate: [MetaGuard],
         data: {

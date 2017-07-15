@@ -1,6 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-  "editor.tabSize": 2,
-  "autoimport.filesToScan": "src/**/*.{ts}",
-  "git.enableSmartCommit": true
-}
