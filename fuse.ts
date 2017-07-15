@@ -86,7 +86,7 @@ Sparky.task('serve', () => {
       const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
 
       const appBundle = fuse.bundle(appBundleName)
-        .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap|*-routing.module).*]`)
+        .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
         .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
       let serverBundle: any;

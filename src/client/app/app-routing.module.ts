@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
   { path: '', loadChildren: '~/client/app/+home/home.module#HomeModule' },
@@ -18,4 +18,3 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
