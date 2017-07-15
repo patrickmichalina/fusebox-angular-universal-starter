@@ -113,34 +113,3 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'));
 });
-
-
-      // const root = 'src';
-      // const compSuffix = isAot ? 'component.ngfactory.ts' : 'component.ts';
-      // const relative = isAot ? 'client/.aot/src/client/app' : 'client/app';
-      // const rootPath = `${root}/${relative}`;
-
-      // readdirSync(resolve(rootPath)).forEach(file => {
-      //   const lstat = lstatSync(resolve(rootPath, file));
-      //   if (lstat.isDirectory()) {
-      //     const dirName = basename(file);
-
-      //     if (dirName[0] === '+') {
-      //       const moduleName = dirName.substring(1);
-
-      //       const checksum = hashFiles.sync({
-      //         files: resolve(rootPath, file, '**')
-      //       });
-
-      //       let bundlePath = `js/bundle-${checksum}-${moduleName}.module.js`;
-
-      //       ENV_CONFIG_INSTANCE.lazyBuster[moduleName] = checksum;
-
-      //       appBundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
-      //     }
-      //   }
-      // });
-
-      // appBundle.instructions(`!> [client/${mainEntryFileName}.ts] [client/app/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`);
-
-      // appBundle.plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
