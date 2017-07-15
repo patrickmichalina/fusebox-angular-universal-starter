@@ -5,6 +5,7 @@ import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
 import { ENV_CONFIG_INSTANCE } from './tools/tasks/_global';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
+import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 import {
   EnvPlugin,
   FuseBox,
@@ -17,7 +18,6 @@ import {
   Bundle
 } from 'fuse-box';
 import './tools/tasks';
-import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 
 const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const isAot = argv.aot;

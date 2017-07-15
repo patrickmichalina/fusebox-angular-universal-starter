@@ -55,9 +55,9 @@ export class NgLazyPluginClass {
     file.loadContents();
 
     file.contents = file.contents.replace(/loadChildren[\s]*:[\s]*['|"](.*?)['|"]/gm, (match: string, file: string) => {
-      const modulePath = file.split('#')[0];
+      const modulePath = this.options.aot ? `~/client/.aot/src/${file.split('#')[0].replace('~/', '')}` : file.split('#')[0];
       const moduleName = this.options.aot ? `${file.split('#')[1]}NgFactory` : file.split('#')[1];
-      const moduleLoaderPath = `${modulePath}.js`;
+      const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
       let bundlePath = this.options.cdn 
@@ -67,9 +67,10 @@ export class NgLazyPluginClass {
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
       return FuseBox.exists('${moduleLoaderPath}')
         ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
-        : FuseBox.import('${bundlePath}', (loaded) => loaded 
-          ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
-          : reject('Unable to load module ${moduleName} from ./js/bundle-${moduleName}.module.js'))})}`;
+        : FuseBox.import('${bundlePath}', (loaded) => 
+          loaded 
+            ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
+            : reject('failed to load ${moduleName}'))})}`;
     });
   }
 }
