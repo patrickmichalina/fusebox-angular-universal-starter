@@ -5,7 +5,7 @@ import 'systemjs';
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as favicon from 'serve-favicon';
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
 import { forceSsl } from './server.heroku.ssl';
@@ -20,7 +20,7 @@ const minifyHTML = require('express-minify-html');
 
 require('ts-node/register');
 
-const root = resolve(process.argv[1], '../');
+const root = './dist';
 const port = process.env.PORT || __process_env__.server.port;
 const isProd = argv['build-type'] === 'prod' || process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? true : false;
 const host = process.env.HOST || `http://localhost:${port}`;

@@ -16,11 +16,13 @@ import {
   Sparky,
   UglifyESPlugin
 } from 'fuse-box';
+import { readFileSync, writeFileSync } from 'fs';
 import './tools/tasks';
 
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
+const cdn = process.env.CDN_ORIGIN;
 const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = 'js/app';
 const vendorBundleName = 'js/_vendor';
@@ -39,7 +41,7 @@ const options: any = {
     EnvPlugin(ENV_CONFIG_INSTANCE), // Leave this as first plugin
     isProdBuild && UglifyESPlugin(),
     NgLazyPlugin({
-      // cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined,
+      cdn,
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
       angularBundle: 'js/app',
@@ -50,7 +52,8 @@ const options: any = {
     ['*.component.scss',
       SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
-    HTMLPlugin({ useDefault: false })
+    HTMLPlugin({ useDefault: false }),
+
   ] as Plugin[]
 };
 
@@ -95,8 +98,21 @@ Sparky.task('serve', () => {
           vendorBundle.hmr();
           appBundle.hmr();
         } else {
-          serverBundle.completed(proc => proc.start()).watch();
+          serverBundle.completed(proc => {
+            if (cdn) {
+              var file = readFileSync(proc.filePath, 'utf-8');
+              const cdnRemoved = file.replace(new RegExp(cdn, 'g'), '.');
+              writeFileSync(proc.filePath, cdnRemoved, { encoding: 'utf-8' });
+            }
+
+            proc.start()
+          }).watch();
         }
+      } else {
+        serverBundle.completed(a => {
+          var d = readFileSync(a.filePath);
+          console.log(d.toString());
+        })
       }
 
       return fuse.run();
