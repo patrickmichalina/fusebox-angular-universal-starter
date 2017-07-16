@@ -24,16 +24,16 @@ export class NgLazyPluginClass {
     if (!options.lazyFolderMarker) options.lazyFolderMarker = '+';
   }
 
-  public bundleStart(context: WorkFlowContext) {   
+  public bundleStart(context: WorkFlowContext) {
     if (context.bundle.name === this.options.angularBundle) {
-      
+
       readdirSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`)).forEach(file => {
         const lstat = lstatSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`, file));
         if (lstat.isDirectory()) {
           const dirName = basename(file);
 
           const compSuffix = this.options.aot ? 'component.ngfactory.ts' : 'component.ts';
-          const relative = this.options.aot ? 'client/.aot/src/client/app' : 'client/app'; 
+          const relative = this.options.aot ? 'client/.aot/src/client/app' : 'client/app';
 
           if (dirName[0] === this.options.lazyFolderMarker) {
             const moduleName = dirName.substring(1);
@@ -60,17 +60,28 @@ export class NgLazyPluginClass {
       const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
-      let bundlePath = this.options.cdn 
-        ? `${this.options.cdn}/js/bundle-${this.checksums[name]}-${name}.module.js`
-        : `./js/bundle-${this.checksums[name]}-${name}.module.js`;
+      let bundlePath = `./js/bundle-${this.checksums[name]}-${name}.module.js`;
+      let cdnPath = `${this.options.cdn}/js/bundle-${this.checksums[name]}-${name}.module.js`;
 
-      return `loadChildren: function() { return new Promise(function (resolve, reject) {
-      return FuseBox.exists('${moduleLoaderPath}')
-        ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
-        : FuseBox.import('${bundlePath}', (loaded) => 
-          loaded 
-            ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
-            : reject('failed to load ${moduleName}'))})}`;
+      if (this.options.cdn) {
+        return `loadChildren: function() { return new Promise(function (resolve, reject) {
+          return FuseBox.exists('${moduleLoaderPath}')
+            ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
+            : FuseBox.import('${cdnPath}', (loaded) => 
+              loaded 
+                ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
+                : FuseBox.import('${bundlePath}', (loaded) => loaded
+                  ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
+                  : reject('failed to load ${moduleName}')))})}`;
+      } else {
+        return `loadChildren: function() { return new Promise(function (resolve, reject) {
+          return FuseBox.exists('${moduleLoaderPath}')
+            ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
+            : FuseBox.import('${bundlePath}', (loaded) => 
+              loaded 
+                ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
+                : reject('failed to load ${moduleName}'))})}`;
+      }
     });
   }
 }

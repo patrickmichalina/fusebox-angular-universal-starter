@@ -39,7 +39,7 @@ const options: any = {
     EnvPlugin(ENV_CONFIG_INSTANCE), // Leave this as first plugin
     isProdBuild && UglifyESPlugin(),
     NgLazyPlugin({
-      cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined,
+      // cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined,
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
       angularBundle: 'js/app',
