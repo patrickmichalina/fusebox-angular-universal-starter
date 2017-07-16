@@ -24,7 +24,7 @@
     "test.snapshots": "jest --updateSnapshot",
     "test.coverage": "jest --coverage",
     "test.watch": "jest --watch",
-    "start": "sts-node fuse serve --build-type=dev --env-config=dev",
+    "start": "ts-node fuse serve --build-type=dev --env-config=dev",
     "start.spa": "ts-node fuse serve --build-type=dev --spa",
     "start.prod": "ts-node fuse serve --build-type=prod",
     "start.prod.ci": "CI=true ts-node fuse serve --build-type=prod --ci",
