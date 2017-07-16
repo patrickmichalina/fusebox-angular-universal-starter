@@ -41,7 +41,7 @@ const options: any = {
     EnvPlugin(ENV_CONFIG_INSTANCE), // Leave this as first plugin
     isProdBuild && UglifyESPlugin(),
     NgLazyPlugin({
-      // cdn,
+      cdn,
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
       angularBundle: appBundleName,
@@ -119,6 +119,6 @@ Sparky.task('serve', () => {
 
 const removeCdn = (proc: any, cdnHost: string) => {
   var file = readFileSync(proc.filePath, 'utf-8');
-  const cdnRemoved = file.replace(new RegExp(cdnHost, 'g'), '.');
+  const cdnRemoved = file.replace(new RegExp(cdnHost.replace('https:', ''), 'g'), './');
   writeFileSync(proc.filePath, cdnRemoved, { encoding: 'utf-8' });
 }
