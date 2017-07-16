@@ -24,7 +24,7 @@
     "test.snapshots": "jest --updateSnapshot",
     "test.coverage": "jest --coverage",
     "test.watch": "jest --watch",
-    "start": "CDN_ORIGIN=https://angularmichalina-8724.kxcdn.com ts-node fuse serve --build-type=dev --env-config=dev",
+    "start": "sts-node fuse serve --build-type=dev --env-config=dev",
     "start.spa": "ts-node fuse serve --build-type=dev --spa",
     "start.prod": "ts-node fuse serve --build-type=prod",
     "start.prod.ci": "CI=true ts-node fuse serve --build-type=prod --ci",
