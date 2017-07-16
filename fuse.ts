@@ -3,7 +3,7 @@ import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
-import { ENV_CONFIG_INSTANCE } from './tools/tasks/_global';
+import { ENV_CONFIG_INSTANCE, isProdBuild } from './tools/tasks/_global';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 import {
@@ -14,15 +14,14 @@ import {
   RawPlugin,
   SassPlugin,
   Sparky,
-  UglifyESPlugin,
-  // Bundle
+  UglifyESPlugin
 } from 'fuse-box';
 import './tools/tasks';
 
-const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const isAot = argv.aot;
+const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
-const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
+const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = 'js/app';
 const vendorBundleName = 'js/_vendor';
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
@@ -35,9 +34,10 @@ const options: any = {
   experimentalFeatures: false,
   sourceMaps: { project: false, vendor: false, inline: false },
   target: 'browser',
+  cache: false,
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE), // Leave this as first plugin
-    isProd && UglifyESPlugin(),
+    isProdBuild && UglifyESPlugin(),
     NgLazyPlugin({
       cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined,
       angularAppEntry: '',
@@ -52,9 +52,6 @@ const options: any = {
     JSONPlugin(),
     HTMLPlugin({ useDefault: false })
   ] as Plugin[]
-  // alias: {
-  //   // '@angular/platform-browser/animations': '@angular/platform-browser/bundles/platform-browser-animations.umd.js'
-  // }
 };
 
 Sparky.task('index.inject', () => {
@@ -73,35 +70,33 @@ Sparky.task('index.inject', () => {
 
 Sparky.task('serve', () => {
   return Sparky.start('clean')
-    .then(() => argv.aot ? Sparky.start('ngc') : undefined)
+    .then(() => argv.aot ? Sparky.start('ngc') : Promise.resolve())
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
-    .then(() => isProd || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : undefined)
+    .then(() => isProdBuild || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : Promise.resolve())
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {
       const fuse = FuseBox.init(options as any);
-      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
       const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
-
+      const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
+      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
       const appBundle = fuse.bundle(appBundleName)
-        .cache(false)
         .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
         .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
-      if (process.env.CI) return fuse.run();
+      if (!isBuildServer) {
+        vendorBundle.watch();
+        appBundle.watch()
 
-      vendorBundle.watch();
-      appBundle.watch()
-
-      if (argv.spa) {
-        fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
-        vendorBundle.hmr();
-        appBundle.hmr();
-      } else {
-        const serverBundle = fuse.bundle('server').cache(false).instructions(serverBundleInstructions);
-        serverBundle.completed(proc => proc.start()).watch();
+        if (argv.spa) {
+          fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
+          vendorBundle.hmr();
+          appBundle.hmr();
+        } else {
+          serverBundle.completed(proc => proc.start()).watch();
+        }
       }
 
       return fuse.run();

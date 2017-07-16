@@ -1,5 +1,5 @@
 import { Sparky } from 'fuse-box';
-import { isProd } from './_global';
+import { isProdBuild, isBuildServer } from './_global';
 import { renderSync } from 'node-sass';
 import { writeFileSync } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
@@ -17,7 +17,7 @@ Sparky.task('sass', () => {
     });
   });
 
-  if (!isProd && !process.env.CI) src.watch(['./src/client/styles/**/*.scss']);
+  if (!isProdBuild && !isBuildServer) src.watch(['./src/client/styles/**/*.scss']);
 
   return src;
 });
