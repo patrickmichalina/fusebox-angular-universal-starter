@@ -3,7 +3,7 @@ import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
-import { ENV_CONFIG_INSTANCE, isProdBuild } from './tools/tasks/_global';
+import { ENV_CONFIG_INSTANCE, isProdBuild, cachebuster } from './tools/tasks/_global';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 import {
@@ -24,8 +24,8 @@ const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
 const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
-const appBundleName = 'js/app';
-const vendorBundleName = 'js/_vendor';
+const appBundleName = `js/app-${cachebuster}`;
+const vendorBundleName = `js/_vendor-${cachebuster}`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
@@ -44,7 +44,7 @@ const options: any = {
       cdn,
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
-      angularBundle: 'js/app',
+      angularBundle: appBundleName,
       aot: isAot
     }),
     Ng2TemplatePlugin(),

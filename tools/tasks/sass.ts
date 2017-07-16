@@ -3,6 +3,7 @@ import { isProdBuild, isBuildServer } from './_global';
 import { renderSync } from 'node-sass';
 import { writeFileSync } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
+import hash = require('string-hash');
 
 Sparky.task('sass', () => {
   const src = Sparky.src('./src/client/styles/main.scss').file('main.scss', () => {
@@ -11,7 +12,7 @@ Sparky.task('sass', () => {
       outputStyle: 'compressed'
     });
     mkdirp('./dist/css');
-    writeFileSync('./dist/css/main.css', result.css, (err: any) => {
+    writeFileSync(`./dist/css/main-${hash(result.css.toString())}.css`, result.css, (err: any) => {
       // tslint:disable-next-line:no-console
       if (err) return console.log(err);
     });

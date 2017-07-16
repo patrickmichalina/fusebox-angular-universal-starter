@@ -53,6 +53,9 @@ export class NgLazyPluginClass {
   }
 
   public bundleEnd(context: WorkFlowContext) {
+    if (context.bundle) {
+      // console.log(context.bundle.);
+    }
     // if (context.bundle && context.bundle.name === 'server') {
     //   // console.log(context.source.getResult().content.toString());
     //   // context.source =  new BundleSource(context);;
@@ -75,28 +78,17 @@ export class NgLazyPluginClass {
       const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
-      let bundlePath = `./js/bundle-${this.checksums[name]}-${name}.module.js`;
-      let cdnPath = `${this.options.cdn}/js/bundle-${this.checksums[name]}-${name}.module.js`;
+      let bundlePath = this.options.cdn 
+        ? `${this.options.cdn}/js/bundle-${this.checksums[name]}-${name}.module.js`
+        : `./js/bundle-${this.checksums[name]}-${name}.module.js`;
 
-      if (this.options.cdn) {
-        return `loadChildren: function() { return new Promise(function (resolve, reject) {
-          return FuseBox.exists('${moduleLoaderPath}')
-            ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
-            : FuseBox.import('${cdnPath}', (loaded) => 
-              loaded 
-                ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
-                : FuseBox.import('${bundlePath}', (loaded) => loaded
-                  ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
-                  : reject('failed to load ${moduleName}')))})}`;
-      } else {
-        return `loadChildren: function() { return new Promise(function (resolve, reject) {
+      return `loadChildren: function() { return new Promise(function (resolve, reject) {
           return FuseBox.exists('${moduleLoaderPath}')
             ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
             : FuseBox.import('${bundlePath}', (loaded) => 
               loaded 
                 ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
                 : reject('failed to load ${moduleName}'))})}`;
-      }
     });
   }
 }

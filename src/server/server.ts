@@ -61,7 +61,8 @@ if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
   app.use(favicon(join(root, 'assets/favicons/favicon.ico')));
 }
 
-app.use(express.static(root, staticOptions));
+app.use('/css', express.static('dist/css', staticOptions));
+app.use('/js', express.static('dist/js', staticOptions));
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,

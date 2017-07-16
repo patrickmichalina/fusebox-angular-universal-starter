@@ -24,7 +24,7 @@ Sparky.task('js.files', () => {
         type: DependencyType.Script,
         source: {
           type: SourceType.RelativeLink,
-          link: `${j.name}?${j.hash}`
+          link: `${j.name}`
         }
       } as Dependency;
     });

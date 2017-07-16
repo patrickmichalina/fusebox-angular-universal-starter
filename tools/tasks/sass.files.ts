@@ -24,7 +24,7 @@ Sparky.task('sass.files', () => {
         type: DependencyType.Stylesheet,
         source: {
           type: SourceType.RelativeLink,
-          link: `${c.name}?${c.hash}`
+          link: `${c.name}`
         }
       } as Dependency;
     });
