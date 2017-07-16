@@ -22,7 +22,7 @@ import './tools/tasks';
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
-const cdn = process.env.CDN_ORIGIN;
+const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = 'js/app';
 const vendorBundleName = 'js/_vendor';
@@ -63,9 +63,9 @@ Sparky.task('index.inject', () => {
     const transformer = new ConfigurationTransformer();
     const dom = transformer.apply(BUILD_CONFIG.dependencies, file.contents.toString('utf8'));
     file.setContent(dom.serialize());
-    if (process.env.CI && process.env.CDN_ORIGIN) {
-      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', process.env.CDN_ORIGIN));
-      file.setContent(prefixByQuery(file.contents, 'link', 'href', process.env.CDN_ORIGIN));
+    if (isBuildServer && cdn) {
+      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', cdn));
+      file.setContent(prefixByQuery(file.contents, 'link', 'href', cdn));
     }
     file.save();
   });
