@@ -119,6 +119,6 @@ Sparky.task('serve', () => {
 
 const removeCdn = (proc: any, cdnHost: string) => {
   var file = readFileSync(proc.filePath, 'utf-8');
-  const cdnRemoved = file.replace(new RegExp(cdnHost.replace('https:', ''), 'g'), './');
+  const cdnRemoved = file.replace(new RegExp(cdnHost.replace('https:', ''), 'g'), '.');
   writeFileSync(proc.filePath, cdnRemoved, { encoding: 'utf-8' });
 }

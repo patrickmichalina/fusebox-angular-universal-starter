@@ -79,7 +79,7 @@ export class NgLazyPluginClass {
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
       let bundlePath = this.options.cdn 
-        ? `${this.options.cdn.replace('https:','')}js/bundle-${this.checksums[name]}-${name}.module.js`
+        ? `${this.options.cdn.replace('https:','')}/js/bundle-${this.checksums[name]}-${name}.module.js`
         : `./js/bundle-${this.checksums[name]}-${name}.module.js`;
 
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
