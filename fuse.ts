@@ -3,7 +3,7 @@ import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
 import { BUILD_CONFIG } from './tools/config/build.config';
-import { ENV_CONFIG_INSTANCE } from './tools/tasks/_global';
+import { ENV_CONFIG_INSTANCE, isProdBuild, cachebuster } from './tools/tasks/_global';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 import {
@@ -14,17 +14,18 @@ import {
   RawPlugin,
   SassPlugin,
   Sparky,
-  UglifyESPlugin,
-  Bundle
+  UglifyESPlugin
 } from 'fuse-box';
+import { readFileSync, writeFileSync } from 'fs';
 import './tools/tasks';
 
-const isProd = process.env.NODE_ENV === 'prod' || process.env.NODE_ENV === 'production' ? true : false;
 const isAot = argv.aot;
+const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
-const mainEntryFileName = isProd ? `${baseEntry}-prod` : `${baseEntry}`;
-const appBundleName = 'js/app';
-const vendorBundleName = 'js/_vendor';
+const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
+const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
+const appBundleName = `js/app-${cachebuster}`;
+const vendorBundleName = `js/_vendor-${cachebuster}`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
@@ -35,14 +36,15 @@ const options: any = {
   experimentalFeatures: false,
   sourceMaps: { project: false, vendor: false, inline: false },
   target: 'browser',
+  cache: false,
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE), // Leave this as first plugin
-    isProd && UglifyESPlugin(),
+    isProdBuild && UglifyESPlugin(),
     NgLazyPlugin({
-      cdn: process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined,
+      cdn,
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
-      angularBundle: 'js/app',
+      angularBundle: appBundleName,
       aot: isAot
     }),
     Ng2TemplatePlugin(),
@@ -50,11 +52,9 @@ const options: any = {
     ['*.component.scss',
       SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
-    HTMLPlugin({ useDefault: false })
+    HTMLPlugin({ useDefault: false }),
+
   ] as Plugin[]
-  // alias: {
-  //   // '@angular/platform-browser/animations': '@angular/platform-browser/bundles/platform-browser-animations.umd.js'
-  // }
 };
 
 Sparky.task('index.inject', () => {
@@ -63,9 +63,9 @@ Sparky.task('index.inject', () => {
     const transformer = new ConfigurationTransformer();
     const dom = transformer.apply(BUILD_CONFIG.dependencies, file.contents.toString('utf8'));
     file.setContent(dom.serialize());
-    if (process.env.CI && process.env.CDN_ORIGIN) {
-      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', process.env.CDN_ORIGIN));
-      file.setContent(prefixByQuery(file.contents, 'link', 'href', process.env.CDN_ORIGIN));
+    if (isBuildServer && cdn) {
+      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', cdn));
+      file.setContent(prefixByQuery(file.contents, 'link', 'href', cdn));
     }
     file.save();
   });
@@ -73,43 +73,41 @@ Sparky.task('index.inject', () => {
 
 Sparky.task('serve', () => {
   return Sparky.start('clean')
-    .then(() => argv.aot ? Sparky.start('ngc') : undefined)
+    .then(() => argv.aot ? Sparky.start('ngc') : Promise.resolve())
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index'))
     .then(() => Sparky.start('assets'))
-    .then(() => isProd || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : undefined)
+    .then(() => isProdBuild || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : Promise.resolve())
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => {
       const fuse = FuseBox.init(options as any);
-      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
-
       const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
-
+      const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
+      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
       const appBundle = fuse.bundle(appBundleName)
-        .cache(false)
         .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
         .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
-      let serverBundle: Bundle = {} as Bundle;
+      if (!isBuildServer) {
+        vendorBundle.watch();
+        appBundle.watch()
 
-      if (!argv.spa) serverBundle = fuse.bundle('server').cache(false).instructions(serverBundleInstructions);
-      if (argv.spa) fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
+        if (argv.spa) {
+          fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
+          vendorBundle.hmr();
+          appBundle.hmr();
+        } else {
+          serverBundle.completed(proc => {
+            if (cdn) removeCdn(proc, cdn);
 
-      if (isProd || process.env.CI) return fuse.run();
-
-      vendorBundle.watch();
-      appBundle.watch()
-
-      if (argv.spa) {
-        vendorBundle.hmr();
-        appBundle.hmr();
+            proc.start()
+          }).watch();
+        }
       } else {
         serverBundle.completed(proc => {
-          if (!process.env.CI) {
-            proc.start()
-          }
-        }).watch();
+          if (cdn) removeCdn(proc, cdn);
+        })
       }
 
       return fuse.run();
@@ -118,3 +116,9 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'));
 });
+
+const removeCdn = (proc: any, cdnHost: string) => {
+  var file = readFileSync(proc.filePath, 'utf-8');
+  const cdnRemoved = file.replace(new RegExp(cdnHost.replace('https:', ''), 'g'), '.');
+  writeFileSync(proc.filePath, cdnRemoved, { encoding: 'utf-8' });
+}

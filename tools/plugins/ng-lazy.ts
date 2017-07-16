@@ -1,5 +1,6 @@
 import { WorkFlowContext } from 'fuse-box/src/core/WorkflowContext';
 import { File } from 'fuse-box/src/core/File';
+// import { BundleSource } from "fuse-box/src/BundleSource";
 import { lstatSync, readdirSync } from 'fs';
 import { basename, resolve } from 'path';
 import * as hashFiles from 'hash-files';
@@ -24,16 +25,16 @@ export class NgLazyPluginClass {
     if (!options.lazyFolderMarker) options.lazyFolderMarker = '+';
   }
 
-  public bundleStart(context: WorkFlowContext) {   
+  public bundleStart(context: WorkFlowContext) {
     if (context.bundle.name === this.options.angularBundle) {
-      
+
       readdirSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`)).forEach(file => {
         const lstat = lstatSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`, file));
         if (lstat.isDirectory()) {
           const dirName = basename(file);
 
           const compSuffix = this.options.aot ? 'component.ngfactory.ts' : 'component.ts';
-          const relative = this.options.aot ? 'client/.aot/src/client/app' : 'client/app'; 
+          const relative = this.options.aot ? 'client/.aot/src/client/app' : 'client/app';
 
           if (dirName[0] === this.options.lazyFolderMarker) {
             const moduleName = dirName.substring(1);
@@ -51,26 +52,43 @@ export class NgLazyPluginClass {
     }
   }
 
+  public bundleEnd(context: WorkFlowContext) {
+    if (context.bundle) {
+      // console.log(context.bundle.);
+    }
+    // if (context.bundle && context.bundle.name === 'server') {
+    //   // console.log(context.source.getResult().content.toString());
+    //   // context.source =  new BundleSource(context);;
+
+    //   const newConcat = context.source.getResult();
+
+    //   newConcat.content = new Buffer('asdasd', 'utf-8');
+
+    // }
+
+    // console.log(context.bundle.name);
+  }
+
   public transform(file: File) {
     file.loadContents();
 
-    file.contents = file.contents.replace(/loadChildren[\s]*:[\s]*['|"](.*?)['|"]/gm, (match: string, file: string) => {
-      const modulePath = this.options.aot ? `~/client/.aot/src/${file.split('#')[0].replace('~/', '')}` : file.split('#')[0];
-      const moduleName = this.options.aot ? `${file.split('#')[1]}NgFactory` : file.split('#')[1];
+    file.contents = file.contents.replace(/loadChildren[\s]*:[\s]*['|"](.*?)['|"]/gm, (match: string, f: string) => {
+      const modulePath = this.options.aot ? `~/client/.aot/src/${f.split('#')[0].replace('~/', '')}` : f.split('#')[0];
+      const moduleName = this.options.aot ? `${f.split('#')[1]}NgFactory` : f.split('#')[1];
       const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
       let bundlePath = this.options.cdn 
-        ? `${this.options.cdn}/js/bundle-${this.checksums[name]}-${name}.module.js`
+        ? `${this.options.cdn.replace('https:','')}/js/bundle-${this.checksums[name]}-${name}.module.js`
         : `./js/bundle-${this.checksums[name]}-${name}.module.js`;
 
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
-      return FuseBox.exists('${moduleLoaderPath}')
-        ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
-        : FuseBox.import('${bundlePath}', (loaded) => 
-          loaded 
-            ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
-            : reject('failed to load ${moduleName}'))})}`;
+          return FuseBox.exists('${moduleLoaderPath}')
+            ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
+            : FuseBox.import('${bundlePath}', (loaded) => 
+              loaded 
+                ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
+                : reject('failed to load ${moduleName}'))})}`;
     });
   }
 }
