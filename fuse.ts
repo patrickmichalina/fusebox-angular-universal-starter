@@ -99,19 +99,14 @@ Sparky.task('serve', () => {
           appBundle.hmr();
         } else {
           serverBundle.completed(proc => {
-            if (cdn) {
-              var file = readFileSync(proc.filePath, 'utf-8');
-              const cdnRemoved = file.replace(new RegExp(cdn, 'g'), '.');
-              writeFileSync(proc.filePath, cdnRemoved, { encoding: 'utf-8' });
-            }
+            if (cdn) removeCdn(proc, cdn);
 
             proc.start()
           }).watch();
         }
       } else {
-        serverBundle.completed(a => {
-          var d = readFileSync(a.filePath);
-          console.log(d.toString());
+        serverBundle.completed(proc => {
+          if (cdn) removeCdn(proc, cdn);
         })
       }
 
@@ -121,3 +116,9 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'));
 });
+
+const removeCdn = (proc: any, cdnHost: string) => {
+  var file = readFileSync(proc.filePath, 'utf-8');
+  const cdnRemoved = file.replace(new RegExp(cdnHost, 'g'), '.');
+  writeFileSync(proc.filePath, cdnRemoved, { encoding: 'utf-8' });
+}
