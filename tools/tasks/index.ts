@@ -7,7 +7,6 @@ import './js.files';
 import './favicons';
 import './index.minify';
 import './ngc';
-import './server.lazy';
 
 import { Sparky } from 'fuse-box';
 import { BUILD_CONFIG } from '../config/build.config';
