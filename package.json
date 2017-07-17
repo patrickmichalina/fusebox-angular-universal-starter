@@ -36,6 +36,7 @@
     "webdriver.start": "node_modules/.bin/webdriver-manager start"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.3.30",
     "@types/express": "^4.0.36",
     "@types/glob": "^5.0.30",
     "@types/html-minifier": "^1.1.30",
@@ -95,6 +96,7 @@
     "angular2-jwt": "^0.2.3",
     "angulartics2": "^2.2.2",
     "compressible": "^2.0.10",
+    "cookie-parser": "^1.4.3",
     "core-js": "2.4.1",
     "detect-adblock": "0.0.2",
     "express": "^4.15.3",

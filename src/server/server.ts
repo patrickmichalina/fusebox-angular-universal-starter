@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import 'zone.js/dist/zone-node';
 import 'zone.js/dist/long-stack-trace-zone';
-import 'systemjs';
 import * as express from 'express';
 import * as morgan from 'morgan';
 import * as favicon from 'serve-favicon';
+import * as cookieParser from 'cookie-parser';
 import { join } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
@@ -32,6 +32,7 @@ if (process.env.HEROKU) app.use(forceSsl);
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }));
 app.set('view engine', 'html');
 app.set('views', root);
+app.use(cookieParser());
 app.use(shrinkRay());
 if (__process_env__.server.minifyIndex) {
   app.use(minifyHTML({
