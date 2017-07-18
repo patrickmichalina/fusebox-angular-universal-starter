@@ -1,5 +1,5 @@
 import { IPlatformService, PlatformService } from './platform.service';
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
 
 describe(PlatformService.name, () => {

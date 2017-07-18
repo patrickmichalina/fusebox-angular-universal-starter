@@ -13,6 +13,7 @@ import { MetaGuard } from '@ngx-meta/core';
         data: {
           meta: {
             title: 'Search',
+            // tslint:disable-next-line:max-line-length
             description: 'Search for angular related projects on github, to showcase the flicker-free http state transfer of an Angular isomorphic application.'
           }
         }

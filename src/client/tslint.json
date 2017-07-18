@@ -38,7 +38,8 @@
       true,
       "element",
       [
-        "scowtee",
+        "pm",
+        "app",
         "test",
         "i18n"
       ],

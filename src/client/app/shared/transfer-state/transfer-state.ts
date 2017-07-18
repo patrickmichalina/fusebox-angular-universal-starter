@@ -32,5 +32,6 @@ export class TransferState {
       });
   }
 
+  // tslint:disable-next-line:no-empty
   inject(): void { }
 }

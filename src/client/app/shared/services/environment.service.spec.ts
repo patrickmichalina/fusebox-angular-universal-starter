@@ -1,5 +1,5 @@
 import { EnvironmentService, IEnvironmentService } from './environment.service';
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { ENV_CONFIG, FuseBoxEnvConfig } from '../../app.config';
 
 describe(EnvironmentService.name, () => {

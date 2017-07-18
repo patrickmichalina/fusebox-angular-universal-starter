@@ -1,6 +1,6 @@
 import { CookieService, ICookieService } from './cookie.service';
-import { AuthService, IAuthService, AUTH_CONFIG, IAuthServiceConfig, ITokenSchema, IUserIdentity } from './auth.service';
-import { TestBed, async } from '@angular/core/testing';
+import { AUTH_CONFIG, AuthService, IAuthService, IAuthServiceConfig, ITokenSchema, IUserIdentity } from './auth.service';
+import { async, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import '../../../operators';
 
@@ -29,10 +29,10 @@ export const authConfg: IAuthServiceConfig = {
       claims: tokenJson,
       username: tokenJson[schema.username] as string,
       roles: roleSet,
-      isInRole: function (name: string) {
+      isInRole(name: string) {
         return roleSet.has(name);
       },
-      isAdmin: function () {
+      isAdmin() {
         return schema.adminRoleNames.some(role => roleSet.has(role));
       }
     };
@@ -49,15 +49,15 @@ class MockCookieService implements ICookieService {
   }
 
   getAll() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   set(name: string, value: any, options?: Cookies.CookieAttributes | undefined): void {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   remove(name: string, options?: Cookies.CookieAttributes | undefined): void {
     delete this.mockCookieStore[name];
   }
-  
+
   get cookies$(): Observable<{ [key: string]: any; }> {
     return Observable.create((observer: any) => {
       observer.next(this.mockCookieStore);

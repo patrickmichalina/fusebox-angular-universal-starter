@@ -1,9 +1,9 @@
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { PlatformService } from './platform.service';
-import { Injectable, Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { set, remove, CookieAttributes, getJSON } from 'js-cookie';
+import { CookieAttributes, getJSON, remove, set } from 'js-cookie';
 
 export interface ICookieService {
   cookies$: Observable<{ [key: string]: any }>;

@@ -1,6 +1,6 @@
 import { PlatformService } from './platform.service';
 import { AdblockService, IAdblockService } from './adblock.service';
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { BaseRequestOptions, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { Observable } from 'rxjs/Observable';
