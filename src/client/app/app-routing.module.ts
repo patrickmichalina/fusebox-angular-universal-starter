@@ -8,7 +8,7 @@ export const routes: Routes = [
   { path: 'login', loadChildren: '~/client/app/+login/login.module#LoginModule' },
   { path: 'logout', loadChildren: '~/client/app/+logout/logout.module#LogoutModule' },
   { path: 'signup', loadChildren: '~/client/app/+signup/signup.module#SignupModule' },
-  { path: '**', loadChildren: '~/client/app/+not-found/not-found.module#NotFoundModule' },
+  { path: '**', loadChildren: '~/client/app/+not-found/not-found.module#NotFoundModule' }
 ];
 
 @NgModule({

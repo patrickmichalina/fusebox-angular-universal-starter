@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
@@ -11,6 +11,6 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 })
 export class AppComponent {
   constructor(environmentService: EnvironmentService, meta: Meta, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
-    meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId })
+    meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId });
   }
 }
