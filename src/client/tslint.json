@@ -6,6 +6,26 @@
     "angular-tslint-rules"
   ],
   "rules": {
+    "object-literal-key-quotes": [
+      false
+    ],
+    "align": [
+      false
+    ],
+    "no-console": [
+      false
+    ],
+    "curly": false,
+    "typedef": [
+      false
+    ],
+    "member-ordering": [
+      false
+    ],
+    "member-access": [
+      "no-public",false
+    ],
+    "newline-before-return": false,
     "directive-selector": [
       true,
       "attribute",
@@ -18,8 +38,7 @@
       true,
       "element",
       [
-        "pm",
-        "app",
+        "scowtee",
         "test",
         "i18n"
       ],
