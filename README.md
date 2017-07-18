@@ -86,12 +86,55 @@ $ npm run start.prod
 ```
 
 # Table of Contents
-* [File Structure](#file-structure)
+* [Testing](#testing)
 * [Configuration](#configuration)
 * [Environment Variables](#environment-variables)
 * [@Types](#types)
+* [File Structure](#file-structure)
 * [Change Log](#change-log)
 * [License](#license)
+
+# Bundling
+Checkout how blazing fast bundling can be using FuseBox!
+
+![fuse-box](https://thumbs.gfycat.com/WarmheartedUnfinishedHind-small.gif)
+
+# Testing
+Checkout how blazing fast testing can be using Jest!
+
+![jest](https://thumbs.gfycat.com/CooperativeMammothEland-small.gif)
+
+# Configuration
+```shell
+Coming Soon
+```
+
+# @Types
+When you include a module that doesn't include typings, you can include external type definitions using the npm @types repo.
+
+i.e, to have youtube api support, run this command in terminal: 
+```shell
+npm i -D @types/youtube @types/gapi @types/gapi.youtube
+``` 
+
+# Environment Variables
+
+```bash
+# it is important to set the following environmental variables on your CI server (examples below)
+HOST : angular.patrickmichalina.com # the root origin of the application server
+CI : true 
+
+# for Heroku
+HEROKU : true # to build on heroku, ssl settings are setup using this flag
+NPM_CONFIG_PRODUCTION : false # to download all depenedencies on Heroku, including devDependencies
+
+# cdn origin for assets will only be injected if the following environment variable is set
+CDN_ORIGIN : https://my-distro.some-awesome-cdn.net
+
+# google analytics settings will only be injected if the following environment variables are set
+GA_TRACKING_ID : UA-18280491-Z
+GA_VERIFICATION_CODE : RW-some-crazy-number
+```
 
 ## File Structure
 We use the component approach in our starter. This is the standard for developing Angular apps and a great way to ensure maintainable code
@@ -139,39 +182,6 @@ fusebox-angular-universal-starter/
  ├──test-report.xml                * JUNIT test results
  ├──tsconfig-aot.json              * typescript config for AOT build using @angular-cli (ngc)
  └──tsconfig.json                  * typescript config
-```
-
-# Configuration
-```shell
-Coming Soon
-```
-
-
-# @Types
-When you include a module that doesn't include typings, you can include external type definitions using the npm @types repo.
-
-i.e, to have youtube api support, run this command in terminal: 
-```shell
-npm i -D @types/youtube @types/gapi @types/gapi.youtube
-``` 
-
-# Environment Variables
-
-```bash
-# it is important to set the following environmental variables on your CI server (examples below)
-HOST : angular.patrickmichalina.com # the root origin of the application server
-CI : true 
-
-# for Heroku
-HEROKU : true # to build on heroku, ssl settings are setup using this flag
-NPM_CONFIG_PRODUCTION : false # to download all depenedencies on Heroku, including devDependencies
-
-# cdn origin for assets will only be injected if the following environment variable is set
-CDN_ORIGIN : https://my-distro.some-awesome-cdn.net
-
-# google analytics settings will only be injected if the following environment variables are set
-GA_TRACKING_ID : UA-18280491-Z
-GA_VERIFICATION_CODE : RW-some-crazy-number
 ```
 
 # Change Log

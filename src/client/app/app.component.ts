@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'pm-app',
@@ -12,8 +11,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   constructor(environmentService: EnvironmentService, meta: Meta,
-      angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics, http: HttpClient) {
+      angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
     meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId });
-    http.get('charters').subscribe();
   }
 }
