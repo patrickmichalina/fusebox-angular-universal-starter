@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { TransferHttp } from './transfer-http';
-import { HttpModule } from '@angular/http';
+import { HttpStateTransferInterceptor } from './transfer-http-interceptor.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [HttpModule],
+  imports: [HttpClientModule],
   providers: [
-    TransferHttp
+    { provide: HTTP_INTERCEPTORS, useClass: HttpStateTransferInterceptor, multi: true }
   ]
 })
-export class TransferHttpModule {}
+export class TransferHttpModule { }

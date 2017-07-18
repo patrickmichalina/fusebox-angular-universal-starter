@@ -13,6 +13,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ENV_CONFIG } from './app.config';
 import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const TESTING_CONFIG: EnvConfig = {
   name: 'Fusebox Angular Universal Starter',
@@ -38,7 +39,10 @@ describe('App component', () => {
   ];
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes(config), Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])],
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes(config),
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])],
       declarations: [TestComponent, NavbarComponent, AppComponent,
         HomeComponent, AboutComponent, SearchComponent],
       providers: [
