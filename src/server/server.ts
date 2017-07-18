@@ -5,7 +5,7 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
 import { forceSsl } from './server.heroku.ssl';
@@ -27,7 +27,7 @@ require('ts-node/register');
 const root = './dist';
 const port = process.env.PORT || __process_env__.server.port;
 const isProd = argv['build-type'] === 'prod' || process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? true : false;
-const host = process.env.HOST || `http://localhost:${port}`;
+const host = process.env.HOST || __process_env__.server.host;
 const staticOptions = { index: false, maxAge: isProd ? '1yr' : '0' };
 const app = express();
 
@@ -53,12 +53,12 @@ if (__process_env__.server.minifyIndex) {
 }
 app.use(morgan(isProd ? 'common' : 'dev'));
 app.get('/sitemap.xml', (req, res) => {
-  const fileLocation = join(root, 'sitemap.xml');
+  const fileLocation = resolve(__dirname, 'dist/sitemap.xml');
 
   exists(fileLocation, (exists) => {
     return exists
-      ? sitemap(host).then(a => res.header('Content-Type', 'text/xml').send(a))
-      : res.sendFile(fileLocation);
+      ? res.sendFile(fileLocation)
+      : sitemap(host).then(a => res.header('Content-Type', 'text/xml').send(a));
   });
 });
 
@@ -76,6 +76,5 @@ app.get('/*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Angular Universal Server listening on port ${port}...`);
-  sitemap(host).then(() => { });
+  console.log(`\nAngular Universal Server listening at ${host}:${port} \n`);
 });
