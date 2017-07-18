@@ -3,7 +3,7 @@ import { TransferState } from './transfer-state';
 
 export function getTransferState(): TransferState {
   const transferState = new TransferState();
-  transferState.initialize((<any>window)['PM_UNIVERSAL'] || {});
+  transferState.initialize((window as any)['PM_UNIVERSAL'] || {});
   return transferState;
 }
 

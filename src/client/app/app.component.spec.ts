@@ -14,8 +14,9 @@ import { ENV_CONFIG } from './app.config';
 import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
 
-const TestingConfig: EnvConfig = {
+const TESTING_CONFIG: EnvConfig = {
   name: 'Fusebox Angular Universal Starter',
+  // tslint:disable-next-line:max-line-length
   description: 'Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator. Created by Patrick Michalina',
   pageTitleSeparator: ' - ',
   og: {
@@ -42,7 +43,7 @@ describe('App component', () => {
         HomeComponent, AboutComponent, SearchComponent],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
-        { provide: ENV_CONFIG, useValue: TestingConfig },
+        { provide: ENV_CONFIG, useValue: TESTING_CONFIG },
         EnvironmentService
       ]
     }).compileComponents();
