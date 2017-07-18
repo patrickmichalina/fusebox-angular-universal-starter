@@ -57,9 +57,7 @@ export class AuthService implements IAuthService {
     if (!config.authTokenStorageKey) throw new Error('Missing config.authTokenStorageKey');
     if (!config.cookieDomain) throw new Error('Missing config.cookieDomain');
 
-    this.cookieService.cookies$.map(cookies => {
-      return Object.assign({}, ...[config.authTokenStorageKey].filter(Boolean).map(prop => ({ [prop]: cookies[prop] })));
-    }).subscribe(cookies => {
+    this.cookieService.cookies$.subscribe(cookies => {
       if (this.tokenIsValid(cookies[config.authTokenStorageKey])) {
         this.updateUser(this.jwtHelper.decodeToken(cookies[config.authTokenStorageKey]));
       } else {
@@ -79,7 +77,7 @@ export class AuthService implements IAuthService {
   private tokenIsValid(token: string): boolean {
     if (!token) return false;
     const tkn = this.jwtHelper.decodeToken(token);
-    return tkn && !this.jwtHelper.isTokenExpired(tkn);
+    return tkn && !this.jwtHelper.isTokenExpired(token);
   }
 
   private updateUser(decodedToken: any): void {

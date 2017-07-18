@@ -1,6 +1,6 @@
 import { PlatformService } from './platform.service';
 import { CookieService, ICookieService } from './cookie.service';
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { REQUEST } from '@nguniversal/express-engine/tokens';
 
 describe(CookieService.name, () => {
