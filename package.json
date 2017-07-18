@@ -111,7 +111,7 @@
     "systemjs": "^0.20.15",
     "tsickle": "^0.23.3",
     "xmlhttprequest": "^1.8.0",
-    "zone.js": "0.8.12"
+    "zone.js": "0.8.14"
   },
   "engines": {
     "node": ">= 8.1.4",
