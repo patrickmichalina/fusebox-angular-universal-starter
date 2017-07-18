@@ -7,6 +7,7 @@ export const BUILD_CONFIG: BuildConfiguration = {
   sourceDir: 'src',
   prodOutDir: './dist/prod',
   assetParentDir: 'src/client',
+  toolsDir: './tools',
   minifyIndex: true,
   skipFaviconGenerationOnDev: true,
   dependencies: [

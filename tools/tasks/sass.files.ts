@@ -1,5 +1,6 @@
 import { sync as glob } from 'glob';
 import { Sparky } from 'fuse-box';
+import { SparkyFile } from 'fuse-box/src/sparky/SparkyFile';
 import { ConfigurationTransformer } from '../config/build.transformer';
 import { Dependency, DependencyType, SourceType } from '../config/build.interfaces';
 import { readFileSync } from 'fs';
@@ -13,7 +14,7 @@ Sparky.task('sass.files', () => {
     };
   });
 
-  return Sparky.src('./dist/index.html').file('index.html', (file: any) => {
+  return Sparky.src('./dist/index.html').file('index.html', (file: SparkyFile) => {
     file.read();
 
     const transformer = new ConfigurationTransformer();
@@ -29,7 +30,7 @@ Sparky.task('sass.files', () => {
       } as Dependency;
     });
 
-    const dom = transformer.apply(deps, file.contents.toString('utf8'));
+    const dom = transformer.apply(deps, file.contents.toString());
     file.setContent(dom.serialize());
     file.save();
   });

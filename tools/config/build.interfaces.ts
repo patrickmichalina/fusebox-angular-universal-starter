@@ -41,6 +41,7 @@ export interface BuildConfiguration {
   assetParentDir: string;
   minifyIndex: boolean;
   skipFaviconGenerationOnDev: boolean;
+  toolsDir: string;
 }
 
 export interface IConfigurationTransformer {
