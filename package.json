@@ -40,7 +40,7 @@
     "@types/express": "^4.0.36",
     "@types/glob": "^5.0.30",
     "@types/html-minifier": "^1.1.30",
-    "@types/jest": "^20.0.2",
+    "@types/jest": "^20.0.4",
     "@types/js-cookie": "^2.0.28",
     "@types/jsdom": "^11.0.1",
     "@types/memory-cache": "0.0.29",
@@ -55,7 +55,7 @@
     "codelyzer": "^3.1.2",
     "express-minify-html": "^0.11.4",
     "favicons": "^4.8.6",
-    "fuse-box": "^2.2.1-beta.5",
+    "fuse-box": "^2.2.1-beta.8",
     "fuse-box-typechecker": "git://github.com/fuse-box/fuse-box-typechecker.git",
     "glob": "^7.1.2",
     "hash-files": "^1.1.1",
@@ -76,7 +76,7 @@
     "ts-node": "^3.2.0",
     "tslint": "^5.5.0",
     "typescript": "^2.4.1",
-    "uglify-es": "^3.0.23",
+    "uglify-es": "^3.0.25",
     "yargs": "^8.0.2"
   },
   "dependencies": {
