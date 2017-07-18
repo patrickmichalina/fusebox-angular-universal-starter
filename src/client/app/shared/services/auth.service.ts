@@ -1,5 +1,5 @@
 import { IUserIdentity } from './auth.service';
-import { Injectable, InjectionToken, Inject } from '@angular/core';
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { JwtHelper } from 'angular2-jwt';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { CookieService } from './cookie.service';
@@ -83,9 +83,9 @@ export class AuthService implements IAuthService {
   }
 
   private updateUser(decodedToken: any): void {
-    decodedToken 
+    decodedToken
       ? this.userIdentitySource.next(this.config.userFactory(decodedToken, this.config.tokenSchema))
-      : this.userIdentitySource.next(undefined);   
+      : this.userIdentitySource.next(undefined);
   }
 
   private getUserFromStoredToken(): IUserIdentity | undefined {
@@ -111,6 +111,6 @@ export class AuthService implements IAuthService {
   }
 
   public authorize(token: string): IUserIdentity | undefined {
-    return this.setToken(token, this.config.cookieDomain)
+    return this.setToken(token, this.config.cookieDomain);
   }
 }
