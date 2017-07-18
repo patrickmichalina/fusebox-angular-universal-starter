@@ -18,6 +18,10 @@ declare var __process_env__: EnvConfig;
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html');
 
+// Angular 4.3 HttpClient fails wihtout this. 
+// Possible bug, see: https://github.com/angular/angular/issues/18199
+(global as any).XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
 require('ts-node/register');
 
 const root = './dist';

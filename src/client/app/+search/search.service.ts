@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs/Observable';
-import { TransferHttp } from './../shared/transfer-http/transfer-http';
 import { Injectable } from '@angular/core';
-import { URLSearchParams } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 export interface ISearchService {
   search(search?: string, sort?: string, order?: string): Observable<any>;
@@ -10,16 +9,15 @@ export interface ISearchService {
 @Injectable()
 export class SearchService implements ISearchService {
   private url = 'https://api.github.com/search/repositories';
-  
-  constructor(private http: TransferHttp) { }
 
-  public search(search: string = 'Angular+stars:>1000', sort?: string, order?: string): Observable<any> {
-    const params = new URLSearchParams();
-    
-    if(search) params.set('q', search);
-    if(sort) params.set('sort', sort);
-    if(order) params.set('order', order);
+  constructor(private http: HttpClient) { }
 
-    return this.http.get(this.url + `?${params.toString()}`);
+  public search(search = 'Angular+stars:>1000', sort = '', order = ''): Observable<any> {
+    const params = new HttpParams()
+      .set('q', search)
+      .set('sort', sort)
+      .set('order', order);
+
+    return this.http.get(this.url, { withCredentials: false, params  });
   }
 }

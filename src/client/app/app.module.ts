@@ -10,6 +10,8 @@ import { DOCUMENT, ɵgetDOM, ɵTRANSITION_ID } from '@angular/platform-browser';
 import { APP_BOOTSTRAP_LISTENER, APP_ID } from '@angular/core';
 import { PlatformService } from './shared/services/platform.service';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpApiConfigInterceptor } from './shared/services/http-api-config-interceptor.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 export function removeStyleTags(document: HTMLDocument, ps: PlatformService): any {
   // tslint:disable-next-line:only-arrow-functions
@@ -44,6 +46,7 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
 
 @NgModule({
   imports: [
+    HttpClientModule,
     AppRoutingModule,
     TransferHttpModule,
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
@@ -56,6 +59,7 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
     })
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpApiConfigInterceptor, multi: true },
     { provide: APP_ID, useValue: 'pm-app' },
     { provide: ɵTRANSITION_ID, useValue: 'pm-app' },
     {
