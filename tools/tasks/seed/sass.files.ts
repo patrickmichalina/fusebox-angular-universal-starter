@@ -1,8 +1,8 @@
 import { sync as glob } from 'glob';
 import { Sparky } from 'fuse-box';
 import { SparkyFile } from 'fuse-box/src/sparky/SparkyFile';
-import { ConfigurationTransformer } from '../config/build.transformer';
-import { Dependency, DependencyType, SourceType } from '../config/build.interfaces';
+import { ConfigurationTransformer } from '../../config/build.transformer';
+import { Dependency, DependencyType, SourceType } from '../../config/build.interfaces';
 import { readFileSync } from 'fs';
 import hash = require('string-hash');
 

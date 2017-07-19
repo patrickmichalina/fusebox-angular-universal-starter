@@ -1,15 +1,6 @@
-import './clean';
-import './assets';
-import './web';
-import './sass';
-import './sass.files';
-import './js.files';
-import './favicons';
-import './index.minify';
-import './ngc';
-import './banner';
+import { readdirSync } from 'fs';
+import { join } from 'path';
 
-import { Sparky } from 'fuse-box';
-import { BUILD_CONFIG } from '../config/build.config';
+readdirSync(join(__dirname, 'seed')).forEach(file => require('./seed/' + file));
+readdirSync(join(__dirname, 'project')).forEach(file => require('./project/' + file));
 
-Sparky.task('index', () => Sparky.src('./index.html', { base: './src/client' }).dest(`./${BUILD_CONFIG.outputDir}`));

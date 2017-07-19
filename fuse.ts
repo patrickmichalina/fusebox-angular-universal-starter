@@ -2,8 +2,7 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { ConfigurationTransformer } from './tools/config/build.transformer';
 import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
-import { BUILD_CONFIG } from './tools/config/build.config';
-import { ENV_CONFIG_INSTANCE, isProdBuild, cachebuster } from './tools/tasks/_global';
+import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster } from './tools/config/build.config';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 import {
@@ -75,7 +74,7 @@ Sparky.task('serve', () => {
   return Sparky.start('clean')
     .then(() => argv.aot ? Sparky.start('ngc') : Promise.resolve())
     .then(() => Sparky.start('web'))
-    .then(() => Sparky.start('index'))
+    .then(() => Sparky.start('index.copy'))
     .then(() => Sparky.start('assets'))
     .then(() => isProdBuild || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : Promise.resolve())
     .then(() => Sparky.start('sass'))
