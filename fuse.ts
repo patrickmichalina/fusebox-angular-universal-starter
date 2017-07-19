@@ -33,7 +33,9 @@ const options: any = {
   homeDir: './src',
   output: `${BUILD_CONFIG.outputDir}/$name.js`,
   experimentalFeatures: false,
-  sourceMaps: { project: false, vendor: false, inline: false },
+  sourceMaps: isProdBuild || process.env.CI 
+    ? { project: false, vendor: false, inline: false } 
+    : { project: true, vendor: true, inline: true },
   target: 'browser',
   cache: false,
   plugins: [
