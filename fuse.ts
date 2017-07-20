@@ -1,8 +1,6 @@
 import { Ng2TemplatePlugin } from 'ng2-fused';
-import { ConfigurationTransformer } from './tools/config/build.transformer';
-import { prefixByQuery } from './tools/scripts/replace';
 import { argv } from 'yargs';
-import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster } from './tools/config/build.config';
+import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn } from './tools/config/build.config';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { Plugin } from 'fuse-box/src/core/WorkflowContext';
 import {
@@ -21,7 +19,6 @@ import './tools/tasks';
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
-const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = isProdBuild ? `js/app-${cachebuster}` : `js/app`;
 const vendorBundleName = isProdBuild ? `js/_vendor-${cachebuster}` : `js/_vendors`;
@@ -57,20 +54,6 @@ const options: any = {
 
   ] as Plugin[]
 };
-
-Sparky.task('index.inject', () => {
-  return Sparky.src('./dist/index.html').file('index.html', (file: any) => {
-    file.read();
-    const transformer = new ConfigurationTransformer();
-    const dom = transformer.apply(BUILD_CONFIG.dependencies, file.contents.toString('utf8'));
-    file.setContent(dom.serialize());
-    if (isBuildServer && cdn) {
-      file.setContent(prefixByQuery(file.contents, 'script[src]', 'src', cdn));
-      file.setContent(prefixByQuery(file.contents, 'link', 'href', cdn));
-    }
-    file.save();
-  });
-});
 
 Sparky.task('build', () => {
   const fuse = FuseBox.init(options as any);
@@ -115,38 +98,6 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
     .then(() => Sparky.start('build'))
-    // .then(() => {
-    //   const fuse = FuseBox.init(options as any);
-    //   const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
-    //   const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
-    //   const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
-    //   const appBundle = fuse.bundle(appBundleName)
-    //     .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
-    //     .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
-
-    //   if (!isBuildServer) {
-    //     vendorBundle.watch();
-    //     appBundle.watch()
-
-    //     if (argv.spa) {
-    //       fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
-    //       vendorBundle.hmr();
-    //       appBundle.hmr();
-    //     } else {
-    //       serverBundle.completed(proc => {
-    //         if (cdn) removeCdn(proc, cdn);
-
-    //         proc.start()
-    //       }).watch();
-    //     }
-    //   } else {
-    //     serverBundle.completed(proc => {
-    //       if (cdn) removeCdn(proc, cdn);
-    //     })
-    //   }
-
-    //   return fuse.run();
-    // })
     .then(() => Sparky.start('js.files'))
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'))

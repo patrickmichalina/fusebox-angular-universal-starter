@@ -11,7 +11,7 @@ Provides an extremely fast seed project for the development of Angular Universal
 This is early work and under heavy development. A demo project can be found [here](https://angular.patrickmichalina.com)
 
 Includes the following features:
-- [x] [Angular 4](https://github.com/angular/angular/blob/master/CHANGELOG.md)
+- [x] [Angular 5](https://github.com/angular/angular/blob/master/CHANGELOG.md)
 - [x] [FuseBox](http://fuse-box.org) bundling
 - [x] Fully typed build tools using [TypeScript](https://www.typescriptlang.org) and [Sparky](http://fuse-box.org/page/sparky)
 - [x] Production and development builds

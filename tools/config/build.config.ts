@@ -72,6 +72,7 @@ try {
 
 export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '');
 export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
+export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 export const cachebuster = Math.round(new Date().getTime() / 1000);
 export const isBuildServer = argv.ci
 export const isProdBuild = 
