@@ -23,8 +23,8 @@ const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
 const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
-const appBundleName = `js/app-${cachebuster}`;
-const vendorBundleName = `js/_vendor-${cachebuster}`;
+const appBundleName = isProdBuild ? `js/app-${cachebuster}` : `js/app`;
+const vendorBundleName = isProdBuild ? `js/_vendor-${cachebuster}` : `js/_vendors`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
@@ -33,8 +33,8 @@ const options: any = {
   homeDir: './src',
   output: `${BUILD_CONFIG.outputDir}/$name.js`,
   experimentalFeatures: false,
-  sourceMaps: isProdBuild || process.env.CI 
-    ? { project: false, vendor: false, inline: false } 
+  sourceMaps: isProdBuild || process.env.CI
+    ? { project: false, vendor: false, inline: false }
     : { project: true, vendor: true, inline: true },
   target: 'browser',
   cache: false,
@@ -72,6 +72,39 @@ Sparky.task('index.inject', () => {
   });
 });
 
+Sparky.task('build', () => {
+  const fuse = FuseBox.init(options as any);
+  const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
+  const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
+  const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
+  const appBundle = fuse.bundle(appBundleName)
+    .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
+    .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
+
+  if (!isBuildServer && !argv['build-only']) {
+    vendorBundle.watch();
+    appBundle.watch()
+
+    if (argv.spa) {
+      fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
+      vendorBundle.hmr();
+      appBundle.hmr();
+    } else {
+      serverBundle.completed(proc => {
+        if (cdn) removeCdn(proc, cdn);
+
+        proc.start()
+      }).watch();
+    }
+  } else {
+    serverBundle.completed(proc => {
+      if (cdn) removeCdn(proc, cdn);
+    })
+  }
+
+  return fuse.run();
+});
+
 Sparky.task('serve', () => {
   return Sparky.start('clean')
     .then(() => argv.aot ? Sparky.start('ngc') : Promise.resolve())
@@ -81,38 +114,39 @@ Sparky.task('serve', () => {
     .then(() => isProdBuild || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : Promise.resolve())
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('sass.files'))
-    .then(() => {
-      const fuse = FuseBox.init(options as any);
-      const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
-      const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
-      const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
-      const appBundle = fuse.bundle(appBundleName)
-        .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
-        .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
+    .then(() => Sparky.start('build'))
+    // .then(() => {
+    //   const fuse = FuseBox.init(options as any);
+    //   const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
+    //   const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
+    //   const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
+    //   const appBundle = fuse.bundle(appBundleName)
+    //     .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
+    //     .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
-      if (!isBuildServer) {
-        vendorBundle.watch();
-        appBundle.watch()
+    //   if (!isBuildServer) {
+    //     vendorBundle.watch();
+    //     appBundle.watch()
 
-        if (argv.spa) {
-          fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
-          vendorBundle.hmr();
-          appBundle.hmr();
-        } else {
-          serverBundle.completed(proc => {
-            if (cdn) removeCdn(proc, cdn);
+    //     if (argv.spa) {
+    //       fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
+    //       vendorBundle.hmr();
+    //       appBundle.hmr();
+    //     } else {
+    //       serverBundle.completed(proc => {
+    //         if (cdn) removeCdn(proc, cdn);
 
-            proc.start()
-          }).watch();
-        }
-      } else {
-        serverBundle.completed(proc => {
-          if (cdn) removeCdn(proc, cdn);
-        })
-      }
+    //         proc.start()
+    //       }).watch();
+    //     }
+    //   } else {
+    //     serverBundle.completed(proc => {
+    //       if (cdn) removeCdn(proc, cdn);
+    //     })
+    //   }
 
-      return fuse.run();
-    })
+    //   return fuse.run();
+    // })
     .then(() => Sparky.start('js.files'))
     .then(() => Sparky.start('index.inject'))
     .then(() => Sparky.start('index.minify'))

@@ -37,6 +37,7 @@ Includes the following features:
 - [x] [angular-tslint-rules](https://github.com/fulls1z3/angular-tslint-rules) as configuration preset for [TSLint](https://github.com/palantir/tslint) and [codelyzer](https://github.com/mgechev/codelyzer).
 - [x] Automatic static file cache invalidation
 - [x] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
+- [x] Analyze bundle sizes by using [source-map-explorer](https://github.com/danvk/source-map-explorer)
 - [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
 - [ ] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
 

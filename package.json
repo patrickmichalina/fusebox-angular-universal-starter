@@ -34,6 +34,8 @@
     "test.e2e.ts": "node_modules/.bin/tsc -p tsconfig-e2e.json",
     "webdriver.update": "node_modules/.bin/webdriver-manager update",
     "webdriver.start": "node_modules/.bin/webdriver-manager start",
+    "source.tree.app": "ts-node fuse.ts build --build-only && source-map-explorer dist/js/app.js",
+    "source.tree.server": "ts-node fuse.ts build --build-only &&  source-map-explorer dist/server.js",
     "prepush": "npm test"
   },
   "devDependencies": {
