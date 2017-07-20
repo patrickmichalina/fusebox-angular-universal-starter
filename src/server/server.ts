@@ -47,23 +47,23 @@ if (__process_env__.server.minifyIndex) {
     }
   }));
 }
-app.use(morgan(isProd ? 'common' : 'dev'));
-app.get('/sitemap.xml', (req, res) => {
-  const fileLocation = resolve(__dirname, 'dist/sitemap.xml');
-
-  exists(fileLocation, (exists) => {
-    return exists
-      ? res.sendFile(fileLocation)
-      : sitemap(host).then(a => res.header('Content-Type', 'text/xml').send(a));
-  });
-});
 
 if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
   app.use(favicon(join(root, 'assets/favicons/favicon.ico')));
 }
-
+app.use(morgan(isProd ? 'common' : 'dev'));
 app.use('/css', express.static('dist/css', staticOptions));
 app.use('/js', express.static('dist/js', staticOptions));
+app.get('/sitemap.xml', (req, res) => {
+  const fileLocation = resolve(root, 'sitemap.xml');
+  const url = isProd ? host : `${host}:${port}`;
+
+  exists(fileLocation, (exists) => {
+    exists
+      ? res.sendFile(fileLocation)
+      : sitemap(url).then(a => res.header('Content-Type', 'text/xml').send(a));
+  });
+});
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,
