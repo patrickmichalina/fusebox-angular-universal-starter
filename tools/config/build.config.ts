@@ -1,4 +1,7 @@
 import { BuildConfiguration, Dependency, DependencyType, SourceType } from './build.interfaces';
+import { argv } from 'yargs';
+import { EnvConfig } from '../config/app.config';
+import { basename } from 'path';
 
 export const BUILD_CONFIG: BuildConfiguration = {
   baseHref: '/',
@@ -56,3 +59,24 @@ export const BUILD_CONFIG: BuildConfiguration = {
     }
   ]
 };
+
+let envConfig;
+let selectedEnv = argv['env-config'] || 'dev';
+let selectedBuildType = argv['build-type'] || 'dev';
+
+try {
+  envConfig = require(`../env/${selectedEnv}`);
+} catch (err) {
+  throw new Error(`Unable to find environment configuration for '${selectedEnv}' `);
+}
+
+export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '');
+export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
+export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
+export const cachebuster = Math.round(new Date().getTime() / 1000);
+export const isBuildServer = argv.ci
+export const isProdBuild = 
+  selectedBuildType === 'prod' || 
+  selectedBuildType === 'production' ||
+  process.env.NODE_ENV === 'prod' ||
+  process.env.NODE_ENV === 'production';

@@ -1,7 +1,7 @@
 import { Sparky } from 'fuse-box';
 import { SparkyFile } from 'fuse-box/src/sparky/SparkyFile';
 import { minify } from 'html-minifier';
-import { BUILD_CONFIG } from '../config/build.config';
+import { BUILD_CONFIG } from '../../config/build.config';
 
 Sparky.task('index.minify', () => {
   new Promise((resolve, reject) => {

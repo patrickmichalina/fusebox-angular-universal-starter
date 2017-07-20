@@ -1,8 +1,7 @@
 import { Sparky } from 'fuse-box';
 import { readFile, writeFile } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
-import { BUILD_CONFIG } from '../config/build.config';
-import { ENV_CONFIG_INSTANCE } from '../tasks/_global';
+import { BUILD_CONFIG, ENV_CONFIG_INSTANCE } from '../../config/build.config';
 
 const favicons = require('favicons');
 const jsdom = require('jsdom');

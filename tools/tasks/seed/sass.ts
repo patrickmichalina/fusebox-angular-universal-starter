@@ -1,5 +1,5 @@
 import { Sparky } from 'fuse-box';
-import { isProdBuild, isBuildServer } from './_global';
+import { isProdBuild, isBuildServer } from '../../config/build.config';
 import { renderSync } from 'node-sass';
 import { writeFileSync } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
