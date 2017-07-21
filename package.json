@@ -71,6 +71,7 @@
     "mkdirp": "^0.5.1",
     "ng2-fused": "^0.3.3",
     "node-sass": "^4.5.3",
+    "opn": "^5.1.0",
     "protractor": "^5.1.2",
     "rollup": "^0.45.2",
     "sitemap-generator": "^6.0.0",

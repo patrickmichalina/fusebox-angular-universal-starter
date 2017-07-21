@@ -71,7 +71,7 @@ Sparky.task('build', () => {
     appBundle.watch()
 
     if (argv.spa) {
-      fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist' });
+      fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist', open : true });
       vendorBundle.hmr();
       appBundle.hmr();
     } else {
