@@ -58,11 +58,13 @@ const options: any = {
 Sparky.task('build', () => {
   const fuse = FuseBox.init(options as any);
   const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
-  const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
   const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
   const appBundle = fuse.bundle(appBundleName)
     .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
     .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
+  const serverBundle = fuse.bundle('server')
+    .sourceMaps({ project: false, vendor: false, inline: false })
+    .instructions(serverBundleInstructions);
 
   if (!isBuildServer && !argv['build-only']) {
     vendorBundle.watch();
