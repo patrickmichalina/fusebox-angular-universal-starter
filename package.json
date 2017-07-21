@@ -29,7 +29,7 @@
     "start.prod": "ts-node fuse.ts serve --build-type=prod --env-config=prod",
     "start.prod.ci": "CI=true ts-node fuse.ts serve --build-type=prod --env-config=prod --ci",
     "heroku-postbuild": "npm run start.prod.ci",
-    "postinstall": "npm prune && npm run webdriver.update",
+    "postinstall": "npm run webdriver.update",
     "test.e2e.start": "npm run test.e2e.ts && node_modules/.bin/ts-node node_modules/.bin/protractor tools/test/protractor.conf.ts",
     "test.e2e.ts": "node_modules/.bin/tsc -p tsconfig-e2e.json",
     "webdriver.update": "node_modules/.bin/webdriver-manager update",
