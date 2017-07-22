@@ -13,5 +13,7 @@ export interface EnvConfig {
     host: string;
     port: number;
     minifyIndex: boolean;
-  }
+    prodMode?: boolean;
+  },
+  env?: string;
 }

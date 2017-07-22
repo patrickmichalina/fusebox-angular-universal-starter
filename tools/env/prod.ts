@@ -1,12 +1,15 @@
 import { EnvConfig } from '../config/app.config';
 import * as base from './base';
 
-const ProdConfig: EnvConfig = Object.assign(base, {
+const ProdConfig: EnvConfig = { 
+  ...base,
+  env: 'prod',
   server: {
     host: "https://angular.patrickmichalina.com",
-    port: 8083,
-    minifyIndex: true
+    minifyIndex: true,
+    prodMode: true,
+    port: 8083
   }
-});
+};
 
 export = ProdConfig;
