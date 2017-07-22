@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { NavbarService } from './navbar.service';
 
 @Component({
   moduleId: module.id,
@@ -8,4 +9,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
+  constructor(public navbarService: NavbarService) { }
 }

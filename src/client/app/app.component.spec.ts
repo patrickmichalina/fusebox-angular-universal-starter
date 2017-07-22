@@ -14,6 +14,8 @@ import { ENV_CONFIG } from './app.config';
 import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NavbarService } from './shared/navbar/navbar.service';
+import '../operators';
 
 const TESTING_CONFIG: EnvConfig = {
   name: 'Fusebox Angular Universal Starter',
@@ -48,7 +50,8 @@ describe('App component', () => {
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: ENV_CONFIG, useValue: TESTING_CONFIG },
-        EnvironmentService
+        EnvironmentService,
+        NavbarService
       ]
     }).compileComponents();
   }));
