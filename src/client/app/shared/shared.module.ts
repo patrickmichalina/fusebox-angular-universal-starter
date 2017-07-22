@@ -6,6 +6,7 @@ import { CookieService } from './services/cookie.service';
 import { PlatformService } from './services/platform.service';
 import { EnvironmentService } from './services/environment.service';
 import { ENV_CONFIG } from '../app.config';
+import { NavbarService } from './navbar/navbar.service';
 declare var __process_env__: any;
 
 export function fuseBoxConfigFactory() {
@@ -20,7 +21,8 @@ export function fuseBoxConfigFactory() {
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
     PlatformService,
     CookieService,
-    EnvironmentService
+    EnvironmentService,
+    NavbarService
   ]
 })
 export class SharedModule {
