@@ -12,7 +12,6 @@ import { forceSsl } from './server.heroku.ssl';
 import { sitemap } from './server.sitemap';
 import { exists, existsSync } from 'fs';
 import { EnvConfig } from '../../tools/config/app.config';
-import { argv } from 'yargs';
 declare var __process_env__: EnvConfig;
 
 const shrinkRay = require('shrink-ray')
@@ -22,7 +21,7 @@ require('ts-node/register');
 
 const root = './dist';
 const port = process.env.PORT || __process_env__.server.port;
-const isProd = argv['build-type'] === 'prod' || process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'prod' ? true : false;
+const isProd = __process_env__.server.prodMode;
 const host = process.env.HOST || __process_env__.server.host;
 const staticOptions = { index: false, maxAge: isProd ? '1yr' : '0' };
 const app = express();
@@ -61,7 +60,9 @@ app.get('/sitemap.xml', (req, res) => {
   exists(fileLocation, (exists) => {
     exists
       ? res.sendFile(fileLocation)
-      : sitemap(url).then(a => res.header('Content-Type', 'text/xml').send(a));
+      : sitemap(url)
+        .then(a => res.header('Content-Type', 'text/xml').send(a))
+        .catch(err => res.sendStatus(500));
   });
 });
 app.get('/*', (req, res) => {

@@ -21,7 +21,7 @@ export const sitemap = (host: string) => new Promise<string>((resolve, reject) =
         return resolve(sitemaps[0]);
       });
     } else {
-      return reject();
+      return reject('Failed to generate sitemap.xml');
     }
   });
 
@@ -29,6 +29,7 @@ export const sitemap = (host: string) => new Promise<string>((resolve, reject) =
     return reject(err);
   });
 
+  console.log(`starting sitemap crawler on ${host}`)
   generator.start();
 })
 
