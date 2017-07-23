@@ -1,13 +1,13 @@
 import { Sparky } from 'fuse-box';
 import { readFile, writeFile } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
-import { BUILD_CONFIG, ENV_CONFIG_INSTANCE } from '../../config/build.config';
+import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, taskName } from '../../config/build.config';
 
 const favicons = require('favicons');
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
-Sparky.task('favicons', () => {
+Sparky.task(taskName(__filename), () => {
   return new Promise((resolve, reject) => {
     favicons(BUILD_CONFIG.faviconSource, {
       path: '/assets/favicons',

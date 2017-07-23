@@ -5,6 +5,7 @@ import * as express from 'express';
 import * as morgan from 'morgan';
 import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
+import ms = require('ms');
 import { join, resolve } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
@@ -19,12 +20,18 @@ const minifyHTML = require('express-minify-html');
 
 require('ts-node/register');
 
+const app = express();
 const root = './dist';
 const port = process.env.PORT || __process_env__.server.port;
 const isProd = __process_env__.server.prodMode;
 const host = process.env.HOST || __process_env__.server.host;
-const staticOptions = { index: false, maxAge: isProd ? '1yr' : '0' };
-const app = express();
+const staticOptions = {
+  index: false,
+  maxAge: isProd ? ms('1yr') : ms('0'),
+  setHeaders: (res: express.Response, path: any) => {
+    res.setHeader('Expires', isProd ? ms('1yr').toString() : ms('0').toString());
+  }
+};
 
 if (process.env.HEROKU) app.use(forceSsl);
 
