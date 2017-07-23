@@ -1,9 +1,9 @@
 import { Sparky } from 'fuse-box';
-import { BUILD_CONFIG, isBuildServer, cdn } from '../../config/build.config';
+import { BUILD_CONFIG, isBuildServer, cdn, taskName } from '../../config/build.config';
 import { ConfigurationTransformer } from '../../config/build.transformer';
 import { prefixByQuery } from '../../scripts/replace';
 
-Sparky.task('index.inject', () => {
+Sparky.task(taskName(__filename), () => {
   return Sparky.src('./dist/index.html').file('index.html', (file: any) => {
     file.read();
     const transformer = new ConfigurationTransformer();

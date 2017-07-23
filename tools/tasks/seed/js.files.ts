@@ -4,9 +4,10 @@ import { sync as glob } from 'glob';
 import { ConfigurationTransformer } from '../../config/build.transformer';
 import { Dependency, DependencyType, SourceType } from '../../config/build.interfaces';
 import { readFileSync } from 'fs';
+import { taskName } from '../../config/build.config';
 import hash = require('string-hash');
 
-Sparky.task('js.files', () => {
+Sparky.task(taskName(__filename), () => {
   const js = glob('./dist/js/**/!(bundle-*|server).js').map(a => {
     return {
       hash: hash(readFileSync(a).toString()),

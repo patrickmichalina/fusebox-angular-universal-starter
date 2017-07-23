@@ -3,9 +3,10 @@ import { isProdBuild, isBuildServer } from '../../config/build.config';
 import { renderSync } from 'node-sass';
 import { writeFileSync } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
+import { taskName } from '../../config/build.config';
 import hash = require('string-hash');
 
-Sparky.task('sass', () => {
+Sparky.task(taskName(__filename), () => {
   const src = Sparky.src('./src/client/styles/main.scss').file('main.scss', () => {
     const result = renderSync({
       file: './src/client/styles/main.scss',

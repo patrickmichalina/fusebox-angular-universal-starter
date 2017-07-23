@@ -4,9 +4,10 @@ import { SparkyFile } from 'fuse-box/src/sparky/SparkyFile';
 import { ConfigurationTransformer } from '../../config/build.transformer';
 import { Dependency, DependencyType, SourceType } from '../../config/build.interfaces';
 import { readFileSync } from 'fs';
+import { taskName } from '../../config/build.config';
 import hash = require('string-hash');
 
-Sparky.task('sass.files', () => {
+Sparky.task(taskName(__filename), () => {
   const css = glob('./dist/css/**/*.css').map(a => {
     return {
       hash: hash(readFileSync(a).toString()),
