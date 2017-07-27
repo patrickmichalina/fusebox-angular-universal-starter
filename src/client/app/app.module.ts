@@ -1,3 +1,4 @@
+import { NotFoundModule } from './not-found/not-found.module';
 import { EnvironmentService } from './shared/services/environment.service';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -48,6 +49,7 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
   imports: [
     HttpClientModule,
     AppRoutingModule,
+    NotFoundModule,
     TransferHttpModule,
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
