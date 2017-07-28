@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Optional } from '@angular/core';
+import { RESPONSE } from '@nguniversal/express-engine/tokens';
+import { Response } from 'express';
 
 @Component({
   selector: 'pm-not-found',
@@ -6,4 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./not-found.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotFoundComponent { }
+export class NotFoundComponent {
+  constructor( @Optional() @Inject(RESPONSE) res: any) {
+    if (res) {
+      (res as Response).status(404);
+    }
+  }
+}

@@ -10,8 +10,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  constructor(environmentService: EnvironmentService, meta: Meta,
-      angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
+  constructor(environmentService: EnvironmentService, meta: Meta, angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {
     meta.addTag({ property: 'fb:app_id', content: environmentService.config.og.facebookAppId });
   }
 }
