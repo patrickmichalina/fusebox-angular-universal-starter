@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, Inject, Optional } from '@angular/core';
-import { RESPONSE } from '@nguniversal/express-engine/tokens';
-import { Response } from 'express';
+import { ServerResponseService } from './../shared/services/server-response.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'pm-not-found',
@@ -9,9 +8,7 @@ import { Response } from 'express';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotFoundComponent {
-  constructor( @Optional() @Inject(RESPONSE) res: any) {
-    if (res) {
-      (res as Response).status(404);
-    }
+  constructor(responseService: ServerResponseService) {
+    responseService.setStatus(404);
   }
 }

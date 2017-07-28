@@ -1,3 +1,4 @@
+import { ServerResponseService } from './../shared/services/server-response.service';
 import { NotFoundComponent } from './not-found.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -6,7 +7,8 @@ describe(NotFoundComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NotFoundComponent]
+      declarations: [NotFoundComponent],
+      providers: [ServerResponseService]
     }).compileComponents();
   }));
 
