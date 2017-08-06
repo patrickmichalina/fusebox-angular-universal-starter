@@ -78,7 +78,7 @@
     "opn": "^5.1.0",
     "protractor": "^5.1.2",
     "rollup": "^0.45.2",
-    "sitemap-generator": "^6.0.0",
+    "sitemap-generator": "^7.0.0",
     "source-map-explorer": "^1.4.0",
     "string-hash": "^1.1.3",
     "svg2png": "^4.1.1",
