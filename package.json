@@ -107,7 +107,7 @@
     "angulartics2": "^2.2.2",
     "compressible": "^2.0.10",
     "cookie-parser": "^1.4.3",
-    "core-js": "2.4.1",
+    "core-js": "2.5.0",
     "detect-adblock": "0.0.2",
     "express": "^4.15.3",
     "js-cookie": "^2.1.4",
