@@ -10,10 +10,14 @@ describe(LogoutComponent.name, () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(LogoutComponent);
     fixture.detectChanges();
-  });
+  }));
+
+  afterEach(async(() => {
+    TestBed.resetTestingModule();
+  }));
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();

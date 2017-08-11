@@ -12,10 +12,14 @@ describe(NotFoundComponent.name, () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(NotFoundComponent);
     fixture.detectChanges();
-  });
+  }));
+
+  afterEach(async(() => {
+    TestBed.resetTestingModule();
+  }));
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();

@@ -10,10 +10,14 @@ describe(HomeComponent.name, () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
-  });
+  }));
+
+  afterEach(async(() => {
+    TestBed.resetTestingModule();
+  }));
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
