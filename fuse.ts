@@ -2,6 +2,8 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn } from './tools/config/build.config';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
+import { init, reload } from 'browser-sync';
+import { readFileSync, writeFileSync } from 'fs';
 import {
   EnvPlugin,
   FuseBox,
@@ -12,7 +14,6 @@ import {
   Sparky,
   UglifyESPlugin
 } from 'fuse-box';
-import { readFileSync, writeFileSync } from 'fs';
 import './tools/tasks';
 
 const isAot = argv.aot;
@@ -78,8 +79,14 @@ Sparky.task('build.server', () => {
   if (!isBuildServer && !argv['build-only']) {
     serverBundle.completed(proc => {
       if (cdn) removeCdn(proc, cdn);
-      proc.start()
-    }).watch();
+      proc.start();
+      setTimeout(() => {
+        init({
+          port: BUILD_CONFIG.browserSyncPort,
+          proxy: `localhost:${ENV_CONFIG_INSTANCE.server.port}`
+        });
+      }, 1300)
+    });  
   } else {
     serverBundle.completed(proc => {
       if (cdn) removeCdn(proc, cdn);
@@ -99,12 +106,13 @@ Sparky.task('build.app', () => {
 
   if (!isBuildServer && !argv['build-only']) {
     vendorBundle.watch();
-    appBundle.watch()
-
+    
     if (argv.spa) {
       fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist', open: true });
       vendorBundle.hmr();
-      appBundle.hmr();
+      appBundle.watch().hmr();
+    } else {
+      appBundle.watch().completed(() => reload());
     }
   }
 

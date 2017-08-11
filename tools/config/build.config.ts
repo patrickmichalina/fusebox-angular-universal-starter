@@ -13,6 +13,7 @@ export const BUILD_CONFIG: BuildConfiguration = {
   toolsDir: './tools',
   minifyIndex: true,
   skipFaviconGenerationOnDev: true,
+  browserSyncPort: 8000,
   dependencies: [
     {
       type: DependencyType.Stylesheet,

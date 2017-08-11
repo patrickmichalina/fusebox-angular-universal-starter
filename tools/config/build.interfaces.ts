@@ -42,6 +42,7 @@ export interface BuildConfiguration {
   minifyIndex: boolean;
   skipFaviconGenerationOnDev: boolean;
   toolsDir: string;
+  browserSyncPort: number
 }
 
 export interface IConfigurationTransformer {
