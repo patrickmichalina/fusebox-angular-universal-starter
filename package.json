@@ -79,7 +79,7 @@
     "node-sass": "^4.5.3",
     "opn": "^5.1.0",
     "protractor": "^5.1.2",
-    "rollup": "^0.45.2",
+    "rollup": "^0.46.0",
     "sitemap-generator": "^6.0.0",
     "source-map-explorer": "^1.4.0",
     "string-hash": "^1.1.3",
