@@ -18,9 +18,13 @@ describe(SearchService.name, () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     service = TestBed.get(SearchService);
-  });
+  }));
+
+  afterEach(async(() => {
+    TestBed.resetTestingModule();
+  }));
 
   it('should compile', async(() => {
     expect(service).not.toBeNull();

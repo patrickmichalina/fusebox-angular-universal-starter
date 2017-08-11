@@ -10,10 +10,14 @@ describe(SignupComponent.name, () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     fixture = TestBed.createComponent(SignupComponent);
     fixture.detectChanges();
-  });
+  }));
+
+  afterEach(async(() => {
+    TestBed.resetTestingModule();
+  }));
 
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
