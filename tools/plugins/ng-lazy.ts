@@ -1,6 +1,5 @@
 import { WorkFlowContext } from 'fuse-box/src/core/WorkflowContext';
 import { File } from 'fuse-box/src/core/File';
-// import { BundleSource } from "fuse-box/src/BundleSource";
 import { lstatSync, readdirSync } from 'fs';
 import { basename, resolve } from 'path';
 import * as hashFiles from 'hash-files';
@@ -52,23 +51,6 @@ export class NgLazyPluginClass {
     }
   }
 
-  public bundleEnd(context: WorkFlowContext) {
-    if (context.bundle) {
-      // console.log(context.bundle.);
-    }
-    // if (context.bundle && context.bundle.name === 'server') {
-    //   // console.log(context.source.getResult().content.toString());
-    //   // context.source =  new BundleSource(context);;
-
-    //   const newConcat = context.source.getResult();
-
-    //   newConcat.content = new Buffer('asdasd', 'utf-8');
-
-    // }
-
-    // console.log(context.bundle.name);
-  }
-
   public transform(file: File) {
     file.loadContents();
 
@@ -78,8 +60,8 @@ export class NgLazyPluginClass {
       const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
-      let bundlePath = this.options.cdn 
-        ? `${this.options.cdn.replace('https:','')}/js/bundle-${this.checksums[name]}-${name}.module.js`
+      let bundlePath = this.options.cdn
+        ? `${this.options.cdn.replace('https:', '')}/js/bundle-${this.checksums[name]}-${name}.module.js`
         : `./js/bundle-${this.checksums[name]}-${name}.module.js`;
 
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
