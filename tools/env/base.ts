@@ -13,7 +13,7 @@ const BaseConfig: EnvConfig = {
   },
   server: {
     host: "http://localhost",
-    port: 8083,
+    port: 8001,
     minifyIndex: false
   }
 };
