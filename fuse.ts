@@ -30,7 +30,7 @@ const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 const baseOptions = {
   homeDir: './src',
   output: `${BUILD_CONFIG.outputDir}/$name.js`,
-  cache: false,
+  cache: true,
   target: 'browser',
   plugins: [
     NgLazyPlugin({
@@ -38,7 +38,8 @@ const baseOptions = {
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
       angularBundle: appBundleName,
-      aot: isAot
+      aot: isAot,
+      isProdBuild
     }),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
@@ -77,14 +78,15 @@ Sparky.task('build.server', () => {
   const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
 
   if (!isBuildServer && !argv['build-only']) {
-    serverBundle.completed(proc => {
+    serverBundle.watch('src/**').completed(proc => {
       if (cdn) removeCdn(proc, cdn);
       proc.start();
       setTimeout(() => {
         if (active) {
-          reload();
+          // reload();
         } else {
           init({
+            reloadDelay: 2000,
             port: BUILD_CONFIG.browserSyncPort,
             proxy: `localhost:${ENV_CONFIG_INSTANCE.server.port}`
           });
@@ -110,6 +112,8 @@ Sparky.task('build.app', () => {
 
   if (!isBuildServer && !argv['build-only']) {
     vendorBundle.watch();
+
+    // if (active) reload();
 
     if (argv.spa) {
       fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist', open: true });

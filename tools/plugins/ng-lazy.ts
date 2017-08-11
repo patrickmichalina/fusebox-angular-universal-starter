@@ -11,6 +11,7 @@ export interface NgLazyPluginOptions {
   angularAppRoot?: string;
   lazyFolderMarker?: string;
   aot?: boolean;
+  isProdBuild?: boolean;
 }
 
 export class NgLazyPluginClass {
@@ -42,7 +43,9 @@ export class NgLazyPluginClass {
               files: resolve(this.options.angularAppRoot, file, '**')
             });
 
-            const bundlePath = `js/bundle-${this.checksums[moduleName]}-${moduleName}.module.js`;
+            const bundlePath = this.options.isProdBuild
+              ? `js/bundle-${this.checksums[moduleName]}-${moduleName}.module.js`
+              : `js/bundle-${moduleName}.module.js`;
 
             context.bundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
           }
@@ -60,9 +63,13 @@ export class NgLazyPluginClass {
       const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
-      let bundlePath = this.options.cdn
-        ? `${this.options.cdn.replace('https:', '')}/js/bundle-${this.checksums[name]}-${name}.module.js`
-        : `./js/bundle-${this.checksums[name]}-${name}.module.js`;
+      const bundlePath = this.options.isProdBuild
+        ? this.options.cdn
+          ? `${this.options.cdn.replace('https:', '')}/js/bundle-${this.checksums[name]}-${name}.module.js`
+          : `./js/bundle-${this.checksums[name]}-${name}.module.js`
+        : this.options.cdn
+          ? `${this.options.cdn.replace('https:', '')}/js/bundle-${name}.module.js`
+          : `./js/bundle-${name}.module.js`;
 
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
           return FuseBox.exists('${moduleLoaderPath}')
