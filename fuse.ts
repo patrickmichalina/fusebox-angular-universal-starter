@@ -2,7 +2,7 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn } from './tools/config/build.config';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
-import { init, reload } from 'browser-sync';
+import { init, reload, active } from 'browser-sync';
 import { readFileSync, writeFileSync } from 'fs';
 import {
   EnvPlugin,
@@ -81,12 +81,16 @@ Sparky.task('build.server', () => {
       if (cdn) removeCdn(proc, cdn);
       proc.start();
       setTimeout(() => {
-        init({
-          port: BUILD_CONFIG.browserSyncPort,
-          proxy: `localhost:${ENV_CONFIG_INSTANCE.server.port}`
-        });
+        if (active) {
+          reload();
+        } else {
+          init({
+            port: BUILD_CONFIG.browserSyncPort,
+            proxy: `localhost:${ENV_CONFIG_INSTANCE.server.port}`
+          });
+        }
       }, 1300)
-    });  
+    });
   } else {
     serverBundle.completed(proc => {
       if (cdn) removeCdn(proc, cdn);
@@ -106,7 +110,7 @@ Sparky.task('build.app', () => {
 
   if (!isBuildServer && !argv['build-only']) {
     vendorBundle.watch();
-    
+
     if (argv.spa) {
       fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist', open: true });
       vendorBundle.hmr();
