@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 8.1.2
+    version: 8.2.1
 
 general:
   artifacts:
@@ -11,7 +11,7 @@ test:
     - npm run test.ci.before
     - node_modules/.bin/jest --ci --updateSnapshot --coverage:
         environment:
-          TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS/junit/
+          TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS
           TEST_REPORT_FILENAME: test-results.xml
     - npm run test.ci.after
 
