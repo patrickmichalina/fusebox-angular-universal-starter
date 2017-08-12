@@ -1,4 +1,5 @@
-import { BuildConfiguration, Dependency, DependencyType, SourceType } from './build.interfaces';
+import { BuildConfiguration } from './build.interfaces';
+import { Dependency } from '../plugins/web-index';
 import { argv } from 'yargs';
 import { EnvConfig } from '../config/app.config';
 import { basename } from 'path';
@@ -16,18 +17,18 @@ export const BUILD_CONFIG: BuildConfiguration = {
   browserSyncPort: 8000,
   dependencies: [
     {
-      type: DependencyType.Stylesheet,
       order: 1,
-      preloaded: true,
-      source: {
-        type: SourceType.ExternalLink,
-        link: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+      inHead: true,
+      element: 'link',
+      attributes: {
+        rel: 'stylesheet',
+        href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
       }
     },
     {
-      type: DependencyType.Meta,
       order: 2,
-      preloaded: true,
+      inHead: true,
+      element: 'meta',
       attributes: {
         name: 'google-site-verification',
         content: process.env.GA_VERIFICATION_CODE
@@ -35,28 +36,25 @@ export const BUILD_CONFIG: BuildConfiguration = {
       shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
     },
     {
-      type: DependencyType.Script,
       order: 3,
-      preloaded: false,
-      source: {
-        type: SourceType.Inline,
-        // tslint:disable-next-line:max-line-length
-        link: `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${process.env.GA_TRACKING_ID}', 'auto');`
+      inHead: false,
+      element: 'script',
+      content: `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${process.env.GA_TRACKING_ID}', 'auto');`,
+      attributes: {
+        type: 'text/javascript',
       },
       shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
     },
     {
-      type: DependencyType.Script,
       order: 4,
-      preloaded: false,
-      source: {
-        type: SourceType.ExternalLink,
-        link: 'https://www.google-analytics.com/analytics.js'
+      inHead: false,
+      element: 'script',      
+      attributes: {
+        async: 'true',
+        type: 'text/javascript',
+        src: 'https://www.google-analytics.com/analytics.js'
       },
       shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE,
-      attributes: {
-        async: true
-      }
     }
   ]
 };

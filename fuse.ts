@@ -2,6 +2,7 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn } from './tools/config/build.config';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
+import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
 import { readFileSync, writeFileSync } from 'fs';
 import {
@@ -22,7 +23,7 @@ const isSpaOnly = argv.spa;
 const baseEntry = isAot ? 'main.aot' : 'main';
 const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = isProdBuild ? `js/app-${cachebuster}` : `js/app`;
-const vendorBundleName = isProdBuild ? `js/_vendor-${cachebuster}` : `js/_vendors`;
+const vendorBundleName = isProdBuild ? `js/vendor-${cachebuster}` : `js/vendors`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
@@ -57,6 +58,38 @@ const appOptions = {
     : { project: true, vendor: true, inline: true },
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
+    WebIndexPlugin({
+      bundles: [appBundleName, vendorBundleName],
+      appElement: {
+        name: 'pm-app',
+        innerHTML: 'Loading....'
+      },
+      additionalDeps: BUILD_CONFIG.dependencies as any[],
+      transformByQuery: [{
+        query: 'script[src]',
+        transformer: (element: NodeListOf<Element>) => {
+          Array.from(element).forEach((thing: HTMLScriptElement) => {
+            if (!thing.src.includes('https') || !thing.src.includes('http')) {
+              thing.src = `${cdn}${thing.src}`;
+            }
+          });
+          return element;
+        },
+        execute: cdn
+      },
+      {
+        query: 'link',
+        transformer: (element: NodeListOf<Element>) => {
+          Array.from(element).forEach((thing: HTMLLinkElement) => {
+            if (!thing.href.includes('https') || !thing.href.includes('http')) {
+              thing.href = `${cdn}${thing.href}`;
+            }
+          });
+          return element;
+        },
+        execute: cdn
+      }]
+    }),
     isProdBuild && UglifyESPlugin(),
     ...baseOptions.plugins
   ]
@@ -134,12 +167,10 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('index.copy'))
     .then(() => Sparky.start('assets'))
     .then(() => isProdBuild || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : Promise.resolve())
-    .then(() => Sparky.start('sass'))
-    .then(() => Sparky.start('sass.files'))
     .then(() => Sparky.start('build.app'))
     .then(() => Sparky.start('build.server'))
-    .then(() => Sparky.start('js.files'))
-    .then(() => Sparky.start('index.inject'))
+    .then(() => Sparky.start('sass'))
+    .then(() => Sparky.start('sass.files'))
     .then(() => Sparky.start('index.minify'))
     .then(() => Sparky.start('banner'));
 });
