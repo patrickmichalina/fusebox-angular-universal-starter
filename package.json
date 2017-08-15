@@ -75,7 +75,7 @@
     "jest-preset-angular": "^2.0.5",
     "jsdom": "^11.1.0",
     "mkdirp": "^0.5.1",
-    "ng2-fused": "^0.3.3",
+    "ng2-fused": "^0.4.0",
     "node-sass": "^4.5.3",
     "opn": "^5.1.0",
     "protractor": "^5.1.2",
