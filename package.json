@@ -27,6 +27,7 @@
     "test.ci.before": "greenkeeper-lockfile-update",
     "test.ci.after": "greenkeeper-lockfile-upload",
     "start": "ts-node fuse.ts serve --build-type dev --env-config dev",
+    "start.deving": "concurrently \"npm run start\" \"npm run test.watch\" \"npm run compodoc\"",
     "start.spa": "ts-node fuse.ts serve --build-type dev --spa",
     "start.prod": "ts-node fuse.ts serve --build-type prod --env-config=prod",
     "start.prod.ci": "CI=true ts-node fuse.ts serve --build-type prod --env-config prod --ci",
@@ -38,9 +39,11 @@
     "webdriver.start": "node_modules/.bin/webdriver-manager start",
     "source.tree.app": "ts-node fuse.ts build --build-only && source-map-explorer dist/js/app.js",
     "source.tree.server": "ts-node fuse.ts build --build-only &&  source-map-explorer dist/server.js",
+    "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json -t -s -w -o -r 8081 --theme readthedocs",
     "prepush": "npm test"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.0.0-beta.14",
     "@types/browser-sync": "0.0.35",
     "@types/cookie-parser": "^1.4.0",
     "@types/express": "^4.0.36",
@@ -61,6 +64,7 @@
     "bootstrap": "4.0.0-alpha.6",
     "browser-sync": "^2.18.13",
     "codelyzer": "^3.1.2",
+    "concurrently": "^3.5.0",
     "express-minify-html": "^0.11.4",
     "favicons": "^4.8.6",
     "fuse-box": "^2.2.2",
