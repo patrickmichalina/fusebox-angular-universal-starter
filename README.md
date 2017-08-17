@@ -75,6 +75,9 @@ $ npm run test.e2e.start
 # start the Angular Universal server
 $ npm start
 
+# start the server while watching tests and updating app documentation
+$ npm run start.deving
+
 # start the Angular Universal server w/ AOT build step
 $ npm run start.aot
 # can also be called passing the parameter --aot
