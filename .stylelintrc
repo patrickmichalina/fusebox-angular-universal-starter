@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "block-no-empty": null,
+    "color-no-invalid-hex": true,
+    "comment-empty-line-before": [
+        "always", {
+            "ignore": ["stylelint-commands", "between-comments"]
+        }
+    ],
+    "declaration-colon-space-after": "always",
+    "indentation": 2,
+    "max-empty-lines": 2,
+    "unit-whitelist": ["em", "rem", "%", "px", "s", "ms", "vw", "vh", "deg"]
+  }
+}
