@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "steoates.autoimport",
+    "msjsdiag.debugger-for-chrome",
+    "michelemelluso.code-beautifier",
+    "eg2.tslint",
+    "wix.vscode-import-cost",
+    "eamodio.gitlens"
+  ]
+}
