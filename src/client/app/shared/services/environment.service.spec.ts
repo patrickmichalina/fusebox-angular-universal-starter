@@ -1,6 +1,6 @@
 import { EnvironmentService, IEnvironmentService } from './environment.service';
 import { async, TestBed } from '@angular/core/testing';
-import { ENV_CONFIG, FuseBoxEnvConfig } from '../../app.config';
+import { ENV_CONFIG } from '../../app.config';
 
 describe(EnvironmentService.name, () => {
   let service: IEnvironmentService;
@@ -9,7 +9,7 @@ describe(EnvironmentService.name, () => {
     TestBed.configureTestingModule({
       providers: [
         EnvironmentService,
-        { provide: ENV_CONFIG, useValue: FuseBoxEnvConfig }
+        { provide: ENV_CONFIG, useValue: { someValue: 1 } }
       ]
     }).compileComponents();
   }));
@@ -18,7 +18,17 @@ describe(EnvironmentService.name, () => {
     service = TestBed.get(EnvironmentService);
   });
 
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
   it('should construct', async(() => {
-    expect(service).not.toBeNull();
+    expect(service).toBeDefined();
+  }));
+
+  it('should return config', async(() => {
+    expect(service.config).toEqual({
+      someValue: 1
+    });
   }));
 });
