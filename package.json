@@ -135,6 +135,7 @@
     "preset": "jest-preset-angular",
     "setupTestFrameworkScriptFile": "./tools/test/jest.setup.ts",
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
+    "collectCoverageFrom" : ["src/**/*.{ts}"],
     "globals": {
       "__TRANSFORM_HTML__": true,
       "__process_env__": {},
