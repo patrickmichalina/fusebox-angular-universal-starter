@@ -13,10 +13,7 @@ Sparky.task(taskName(__filename), () => {
       outputStyle: 'compressed'
     });
     mkdirp('./dist/css');
-    writeFileSync(`./dist/css/main-${hash(result.css.toString())}.css`, result.css, (err: any) => {
-      // tslint:disable-next-line:no-console
-      if (err) return console.log(err);
-    });
+    writeFileSync(`./dist/css/main-${hash(result.css.toString())}.css`, result.css);
   });
 
   if (!isProdBuild && !isBuildServer) src.watch(['./src/client/styles/**/*.scss']);
