@@ -20,7 +20,11 @@ describe(CookieService.name, () => {
     service = TestBed.get(CookieService);
   });
 
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
   it('should construct', async(() => {
-    expect(service).not.toBeNull();
+    expect(service).toBeDefined();
   }));
 });
