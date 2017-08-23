@@ -6,6 +6,7 @@ export interface IServerResponseService {
   getHeader(key: string): string;
   setHeader(key: string, value: string): this;
   setHeaders(dictionary: { [key: string]: string }): this;
+  appendHeader(key: string, value: string, delimiter?: string): this;
   setStatus(code: number, message?: string): this;
   setNotFound(message?: string): this;
   setError(message?: string): this;
@@ -27,6 +28,20 @@ export class ServerResponseService implements IServerResponseService {
   setHeader(key: string, value: string): this {
     if (this.response)
       this.response.header(key, value);
+    return this;
+  }
+
+  appendHeader(key: string, value: string, delimiter = ','): this {
+    if (this.response) {
+      const current = this.getHeader(key);
+      if (!current) return this.setHeader(key, value);
+
+      const newValue = [...current.split(delimiter), value]
+        .filter((el, i, a) => i === a.indexOf(el))
+        .join(delimiter);
+
+      this.response.header(key, newValue);
+    }
     return this;
   }
 

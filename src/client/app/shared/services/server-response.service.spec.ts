@@ -35,6 +35,32 @@ describe(ServerResponseService.name, () => {
     expect(service.getHeader('thing')).toBe('1');
     expect(service.getHeader('thingy')).toBe('3');
   }));
+
+  it('should append headers', async(() => {
+    service.setHeader('test', 'awesome value');
+    expect(service.getHeader('test')).toBe('awesome value');
+    service.appendHeader('test', 'another awesome value');
+    expect(service.getHeader('test')).toBe('awesome value,another awesome value');
+  }));
+
+  it('should append headers safely with undefined initial value', async(() => {
+    service.appendHeader('test', 'awesome value');
+    expect(service.getHeader('test')).toBe('awesome value');
+  }));
+
+  it('should append headers without duplicates values', async(() => {
+    service.appendHeader('test', 'awesome value');
+    service.appendHeader('test', 'awesome value');
+    service.appendHeader('test', 'awesome value');
+    expect(service.getHeader('test')).toBe('awesome value');
+  }));
+
+  it('should append headers using custom delimiter', async(() => {
+    service.setHeader('test', 'awesome value');
+    expect(service.getHeader('test')).toBe('awesome value');
+    service.appendHeader('test', 'another awesome value', '-');
+    expect(service.getHeader('test')).toBe('awesome value-another awesome value');
+  }));
 });
 
 class MockResponse {
