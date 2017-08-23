@@ -8,9 +8,7 @@ describe(NavbarService.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      providers: [
-        NavbarService
-      ]
+      providers: [NavbarService]
     });
   }));
 
@@ -18,8 +16,12 @@ describe(NavbarService.name, () => {
     service = TestBed.get(NavbarService);
   });
 
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
   it('should construct', async(() => {
-    expect(service).toBeTruthy();
+    expect(service).toBeDefined();
   }));
 
   it('should return an observable when called', async(() => {

@@ -1,13 +1,16 @@
 import { ServerResponseService } from './../shared/services/server-response.service';
 import { NotFoundComponent } from './not-found.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { NotFoundModule } from './not-found.module';
 
 describe(NotFoundComponent.name, () => {
   let fixture: ComponentFixture<NotFoundComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NotFoundComponent],
+      imports: [NotFoundModule],
+      declarations: [TestComponent],
       providers: [ServerResponseService]
     }).compileComponents();
   }));
@@ -26,10 +29,16 @@ describe(NotFoundComponent.name, () => {
   });
 
   it('should compile', async(() => {
-    expect(fixture.componentInstance).not.toBeNull();
+    expect(fixture.componentInstance).toBeDefined();
   }));
 
   it('should show text', async(() => {
     expect(fixture.debugElement.nativeElement.innerHTML).toBe('PAGE NOT FOUND');
   }));
 });
+
+@Component({
+  selector: 'test-component',
+  template: '<pm-not-found></pm-not-found>'
+})
+class TestComponent {}
