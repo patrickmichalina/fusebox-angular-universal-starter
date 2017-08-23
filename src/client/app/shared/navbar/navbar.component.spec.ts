@@ -3,6 +3,7 @@ import { NavbarComponent } from './navbar.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { INavbarService, NavbarService } from './navbar.service';
 import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import '../../../operators';
 
 describe(NavbarComponent.name, () => {
@@ -12,7 +13,7 @@ describe(NavbarComponent.name, () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [NavbarComponent],
+      declarations: [NavbarComponent, TestComponent],
       providers: [NavbarService]
     }).compileComponents();
   }));
@@ -23,12 +24,16 @@ describe(NavbarComponent.name, () => {
     navbarService = TestBed.get(NavbarService);
   });
 
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
   it('should match snapshot', () => {
     expect(fixture).toMatchSnapshot();
   });
 
   it('should compile', async(() => {
-    expect(fixture.nativeElement).toBeTruthy();
+    expect(fixture.nativeElement).toBeDefined();
   }));
 
   it('should contain a list of links', async(() => {
@@ -43,3 +48,9 @@ describe(NavbarComponent.name, () => {
     });
   }));
 });
+
+@Component({
+  selector: 'test-component',
+  template: '<pm-navbar></pm-navbar>'
+})
+class TestComponent {}

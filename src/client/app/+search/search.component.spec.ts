@@ -3,6 +3,8 @@ import { ISearchService, SearchService } from './search.service';
 import { SearchComponent } from './search.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { URLSearchParams } from '@angular/http';
+import { Component } from '@angular/core';
+import { SearchModule } from './search.module';
 import '../../operators';
 
 describe(SearchComponent.name, () => {
@@ -10,10 +12,11 @@ describe(SearchComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [SearchModule],
+      declarations: [TestComponent],
       providers: [
         { provide: SearchService, useValue: new MockSearchService() }
-      ],
-      declarations: [SearchComponent]
+      ]
     }).compileComponents();
   }));
 
@@ -22,14 +25,20 @@ describe(SearchComponent.name, () => {
     fixture.detectChanges();
   });
 
-  it('should match snapshot', () => {
+  it('should match snapshot', async(() => {
     expect(fixture).toMatchSnapshot();
-  });
+  }));
 
   it('should compile', async(() => {
-    expect(fixture.nativeElement).toBeTruthy();
+    expect(fixture.nativeElement).toBeDefined();
   }));
 });
+
+@Component({
+  selector: 'test-component',
+  template: '<pm-search></pm-search>'
+})
+class TestComponent {}
 
 class MockSearchService implements ISearchService {
   returnValue: any[] = [];

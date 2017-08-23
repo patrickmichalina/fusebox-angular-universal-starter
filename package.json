@@ -136,7 +136,7 @@
     "setupTestFrameworkScriptFile": "./tools/test/jest.setup.ts",
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "collectCoverageFrom" : [
-      "src/client/app/**/*(*.service|*.component|*.pipe|*.directive).{ts,html}",
+      "src/client/app/**/*(*.service|*.component|*.pipe|*.directive|*.module).{ts,html}",
       "src/server/**/**.{ts}"
     ],
     "globals": {
