@@ -13,7 +13,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     const message = error.message ? error.message : error.toString();
     const url = location instanceof PathLocationStrategy ? location.path() : '';
 
-    // lets grab the last 10 stacks only
+    // lets grab the last 20 stacks only
     StackTrace.fromError(error).then(stackframes => {
       const stack = stackframes
         .splice(0, 20)
@@ -22,7 +22,5 @@ export class GlobalErrorHandler implements ErrorHandler {
 
       log.error({ message, url, stack });
     });
-
-    throw error;
   }
 }
