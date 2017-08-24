@@ -8,11 +8,12 @@ import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '
 import { NgModule } from '@angular/core';
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
 import { DOCUMENT, ɵgetDOM, ɵTRANSITION_ID } from '@angular/platform-browser';
-import { APP_BOOTSTRAP_LISTENER, APP_ID } from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, APP_ID, ErrorHandler } from '@angular/core';
 import { PlatformService } from './shared/services/platform.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpApiConfigInterceptor } from './shared/services/http-api-config-interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { GlobalErrorHandler } from './shared/services/error-handler.service';
 
 export function removeStyleTags(document: HTMLDocument, ps: PlatformService): any {
   // tslint:disable-next-line:only-arrow-functions
@@ -61,6 +62,7 @@ export function metaFactory(environmentService: EnvironmentService): MetaLoader 
     })
   ],
   providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: HttpApiConfigInterceptor, multi: true },
     { provide: APP_ID, useValue: 'pm-app' },
     { provide: ɵTRANSITION_ID, useValue: 'pm-app' },

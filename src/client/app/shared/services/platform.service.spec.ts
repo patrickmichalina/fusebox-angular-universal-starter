@@ -5,7 +5,7 @@ import { PLATFORM_ID } from '@angular/core';
 describe(PlatformService.name, () => {
   let service: IPlatformService;
 
-  describe('browser', () => {
+  describe(`${PlatformService.name}.browser`, () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         providers: [
@@ -15,21 +15,25 @@ describe(PlatformService.name, () => {
       }).compileComponents();
     }));
 
-    beforeEach(() => {
+    beforeEach(async(() => {
       service = TestBed.get(PlatformService);
-    });
+    }));
+
+    afterEach(async(() => {
+      TestBed.resetTestingModule();
+    }));
 
     it('should construct', async(() => {
       expect(service).not.toBeNull();
     }));
 
     it('should be browser', async(() => {
-      expect(service.isBrowser).toBeTruthy();
-      expect(service.isServer).toBeFalsy();
+      expect(service.isBrowser).toEqual(true);
+      expect(service.isServer).toEqual(false);
     }));
   });
 
-  describe('server', () => {
+  describe(`${PlatformService.name}.server`, () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         providers: [
@@ -39,13 +43,17 @@ describe(PlatformService.name, () => {
       }).compileComponents();
     }));
 
-    beforeEach(() => {
+    beforeEach(async(() => {
       service = TestBed.get(PlatformService);
-    });
+    }));
+
+    afterEach(async(() => {
+      TestBed.resetTestingModule();
+    }));
 
     it('should be server', async(() => {
-      expect(service.isServer).toBeTruthy();
-      expect(service.isBrowser).toBeFalsy();
+      expect(service.isServer).toEqual(true);
+      expect(service.isBrowser).toEqual(false);
     }));
   });
 });

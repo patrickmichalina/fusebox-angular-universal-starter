@@ -1,10 +1,11 @@
+import { PlatformService } from './services/platform.service';
 import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { CookieService } from './services/cookie.service';
-import { PlatformService } from './services/platform.service';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EnvironmentService } from './services/environment.service';
+import { LoggingService } from './services/logging.service';
 import { ENV_CONFIG } from '../app.config';
 import { NavbarService } from './navbar/navbar.service';
 declare var __process_env__: any;
@@ -22,7 +23,8 @@ export function fuseBoxConfigFactory() {
     PlatformService,
     CookieService,
     EnvironmentService,
-    NavbarService
+    NavbarService,
+    LoggingService
   ]
 })
 export class SharedModule {
