@@ -13,7 +13,7 @@ export class AdblockService implements IAdblockService {
     ? this.http.get('./ad-server.js')
       .switchMap(a => Observable.of(false))
       .catch(a => Observable.of(true))
-    : Observable.of(false)
+    : Observable.of(false);
 
   constructor(private platformService: PlatformService, private http: Http) { }
 }
