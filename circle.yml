@@ -1,10 +1,11 @@
 machine:
   node:
-    version: 8.2.1
+    version: 8.4.0
 
 general:
   artifacts:
     - ./coverage
+    - ./dist
 
 test:
   override:
@@ -17,3 +18,4 @@ test:
 
   post:
     - bash <(curl -s https://codecov.io/bash)
+    - npm run semantic-release || true
