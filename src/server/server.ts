@@ -6,6 +6,7 @@ import * as morgan from 'morgan';
 import * as favicon from 'serve-favicon';
 import * as cookieParser from 'cookie-parser';
 import ms = require('ms');
+import { createLogger } from '@expo/bunyan';
 import { join, resolve } from 'path';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import { AppServerModule } from './app.server.module';
@@ -17,6 +18,7 @@ declare var __process_env__: EnvConfig;
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html');
+const bunyanMiddleware = require('bunyan-middleware')
 
 require('ts-node/register');
 
@@ -32,6 +34,14 @@ const staticOptions = {
     res.setHeader('Expires', isProd ? ms('1yr').toString() : ms('0').toString());
   }
 };
+
+// setup logger
+if (__process_env__.env === 'dev') {
+  app.use(morgan('dev'));
+} else {
+  const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
+  app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }));
+}
 
 if (process.env.HEROKU) app.use(forceSsl);
 
@@ -57,7 +67,6 @@ if (__process_env__.server.minifyIndex) {
 if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
   app.use(favicon(join(root, 'assets/favicons/favicon.ico')));
 }
-app.use(morgan(isProd ? 'common' : 'dev'));
 app.use('/css', express.static('dist/css', staticOptions));
 app.use('/js', express.static('dist/js', staticOptions));
 app.get('/sitemap.xml', (req, res) => {
