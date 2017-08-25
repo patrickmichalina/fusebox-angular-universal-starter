@@ -17,7 +17,6 @@ describe(NotFoundComponent.name, () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(NotFoundComponent);
-    fixture.detectChanges();
   }));
 
   afterEach(async(() => {
@@ -25,14 +24,17 @@ describe(NotFoundComponent.name, () => {
   }));
 
   it('should match snapshot', () => {
+    fixture.detectChanges();
     expect(fixture).toMatchSnapshot();
   });
 
   it('should compile', async(() => {
+    fixture.detectChanges();
     expect(fixture.componentInstance).toBeDefined();
   }));
 
   it('should show text', async(() => {
+    fixture.detectChanges();
     expect(fixture.debugElement.nativeElement.innerHTML).toBe('PAGE NOT FOUND');
   }));
 });

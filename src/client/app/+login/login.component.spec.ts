@@ -15,7 +15,6 @@ describe(LoginComponent.name, () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(LoginComponent);
-    fixture.detectChanges();
   }));
 
   afterEach(async(() => {

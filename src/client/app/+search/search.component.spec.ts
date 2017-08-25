@@ -22,7 +22,6 @@ describe(SearchComponent.name, () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
-    fixture.detectChanges();
   });
 
   it('should match snapshot', async(() => {

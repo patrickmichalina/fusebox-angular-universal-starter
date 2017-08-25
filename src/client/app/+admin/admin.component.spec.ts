@@ -15,7 +15,6 @@ describe(AdminComponent.name, () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(AdminComponent);
-    fixture.detectChanges();
   }));
 
   afterEach(async(() => {

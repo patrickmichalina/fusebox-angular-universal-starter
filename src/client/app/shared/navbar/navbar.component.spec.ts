@@ -20,7 +20,6 @@ describe(NavbarComponent.name, () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent);
-    fixture.detectChanges();
     navbarService = TestBed.get(NavbarService);
   });
 
@@ -29,14 +28,17 @@ describe(NavbarComponent.name, () => {
   });
 
   it('should match snapshot', () => {
+    fixture.detectChanges();
     expect(fixture).toMatchSnapshot();
   });
 
   it('should compile', async(() => {
+    fixture.detectChanges();
     expect(fixture.nativeElement).toBeDefined();
   }));
 
   it('should contain a list of links', async(() => {
+    fixture.detectChanges();
     const htmlDebugElement = fixture.debugElement.queryAll(By.css('.navbar-nav'))[0];
     expect(htmlDebugElement).toBeTruthy();
 

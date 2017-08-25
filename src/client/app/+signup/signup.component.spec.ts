@@ -15,7 +15,6 @@ describe(SignupComponent.name, () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(SignupComponent);
-    fixture.detectChanges();
   }));
 
   afterEach(async(() => {
@@ -23,10 +22,12 @@ describe(SignupComponent.name, () => {
   }));
 
   it('should match snapshot', async(() => {
+    fixture.detectChanges();
     expect(fixture).toMatchSnapshot();
   }));
 
   it('should compile', async(() => {
+    fixture.detectChanges();
     expect(fixture.nativeElement).toBeDefined();
   }));
 });
