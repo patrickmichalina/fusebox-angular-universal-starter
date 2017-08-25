@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PlatformService } from './platform.service';
-import * as log from 'loglevel';
-import * as loglevelStdStreams from 'loglevel-std-streams';
+import { createLogger } from '@expo/bunyan';
 
 export interface ILoggingService {
   trace(...msg: any[]): void;
@@ -13,30 +11,25 @@ export interface ILoggingService {
 
 @Injectable()
 export class LoggingService implements ILoggingService {
-
-  constructor(platformService: PlatformService) {
-    if (platformService.isServer) {
-      loglevelStdStreams(log); // to stderr
-    }
-  }
+  private logger = createLogger({ name: 'Angular Universal App', type: 'app' });
 
   trace(...msg: any[]): void {
-    log.trace(msg);
+    this.logger.trace(msg);
   }
 
   debug(...msg: any[]): void {
-    log.debug(msg);
+    this.logger.debug(msg);
   }
 
   info(...msg: any[]): void {
-    log.info(msg);
+    this.logger.info(msg);
   }
 
   warn(...msg: any[]): void {
-    log.warn(msg);
+    this.logger.warn(msg);
   }
 
   error(...msg: any[]): void {
-    log.error(msg);
+    this.logger.error(msg);
   }
 }
