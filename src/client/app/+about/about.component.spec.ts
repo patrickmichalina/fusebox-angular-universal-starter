@@ -15,7 +15,6 @@ describe(AboutComponent.name, () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(AboutComponent);
-    fixture.detectChanges();
   }));
 
   afterEach(async(() => {

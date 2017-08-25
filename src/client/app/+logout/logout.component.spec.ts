@@ -15,7 +15,6 @@ describe(LogoutComponent.name, () => {
 
   beforeEach(async(() => {
     fixture = TestBed.createComponent(LogoutComponent);
-    fixture.detectChanges();
   }));
 
   afterEach(async(() => {
