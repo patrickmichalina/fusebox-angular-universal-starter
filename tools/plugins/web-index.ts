@@ -49,7 +49,7 @@ export class WebIndexPluginClass {
     const baseDeps: Dependency[] = [
       {
         attributes: {
-          href: this.opts.base || '/'
+          href: this.opts.base || './'
         },
         inHead: true,
         element: 'base',

@@ -17,6 +17,11 @@ import {
 } from 'fuse-box';
 import './tools/tasks';
 
+
+const electron = require('electron')
+import * as proc from 'child_process';
+
+
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
 const isSpaOnly = argv.spa;
@@ -156,6 +161,48 @@ Sparky.task('build.app', () => {
       appBundle.watch().completed(() => reload());
     }
   }
+
+  return fuse.run();
+});
+
+Sparky.task('build.desktop', () => {
+  const fuse = FuseBox.init({
+    output: `${BUILD_CONFIG.outputDir}/$name.js`,
+    target: 'electron',
+    experimentalFeatures: true,
+    shim: {
+      electron: { exports: "global.require('electron')" }
+    }
+  });
+  const bundle = fuse.bundle('electron')
+    // .watch()
+    .instructions(' > [electron.ts]');
+
+  bundle.completed(a => {
+    proc.spawn(electron as any, ['.'])
+    // proc.spawn('node', [`${ __dirname }/node_modules/electron/cli.js`,  __dirname ]);
+  })
+  
+  
+  // const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
+  // const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
+  // const appBundle = fuse.bundle(appBundleName)
+  //   .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
+  //   .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
+
+  // if (!isBuildServer && !argv['build-only']) {
+  //   vendorBundle.watch();
+
+  //   // if (active) reload();
+
+  //   if (argv.spa) {
+  //     fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist', open: true });
+  //     vendorBundle.hmr();
+  //     appBundle.watch().hmr();
+  //   } else {
+  //     appBundle.watch().completed(() => reload());
+  //   }
+  // }
 
   return fuse.run();
 });
