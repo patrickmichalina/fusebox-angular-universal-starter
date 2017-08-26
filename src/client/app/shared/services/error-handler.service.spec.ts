@@ -2,7 +2,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PlatformService } from './platform.service';
 import { GlobalErrorHandler } from './error-handler.service';
 import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { LoggingService } from './logging.service';
+import { LOGGER_CONFIG, LoggingService } from './logging.service';
 import * as StackTrace from 'stacktrace-js';
 
 describe(GlobalErrorHandler.name, () => {
@@ -14,7 +14,14 @@ describe(GlobalErrorHandler.name, () => {
       providers: [
         GlobalErrorHandler,
         PlatformService,
-        { provide: LoggingService, useValue: new MockLoggingService() }
+        { provide: LoggingService, useValue: new MockLoggingService() },
+        {
+          provide: LOGGER_CONFIG,
+          useValue: {
+            name: 'Angular Universal App',
+            type: 'app'
+          }
+        }
       ]
     }).compileComponents();
   }));
@@ -48,7 +55,7 @@ describe(GlobalErrorHandler.name, () => {
         .splice(0, 20)
         .map(sf => sf.toString())
         .join('\n');
-        expect(spy).toBeCalledWith({ message: 'Testing this error', url: '', stack });
+        expect(spy).toBeCalledWith('Testing this error', { url: '', stack });
     });
   }));
 });

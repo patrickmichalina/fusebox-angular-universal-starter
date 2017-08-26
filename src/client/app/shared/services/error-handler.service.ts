@@ -20,7 +20,7 @@ export class GlobalErrorHandler implements ErrorHandler {
         .map(sf => sf.toString())
         .join('\n');
 
-      log.error({ message, url, stack });
+        log.error(message, { url, stack });
     });
   }
 }

@@ -1,5 +1,5 @@
 import { PlatformService } from './platform.service';
-import { ILoggingService, LoggingService } from './logging.service';
+import { ILoggingService, LOGGER_CONFIG, LoggingService } from './logging.service';
 import { async, TestBed } from '@angular/core/testing';
 import { PLATFORM_ID } from '@angular/core';
 
@@ -11,7 +11,14 @@ describe(LoggingService.name, () => {
         providers: [
           LoggingService,
           PlatformService,
-          { provide: PLATFORM_ID, useValue: 'browser' }
+          { provide: PLATFORM_ID, useValue: 'browser' },
+          {
+            provide: LOGGER_CONFIG,
+            useValue: {
+              name: 'Angular Universal App',
+              type: 'app'
+            }
+          }
         ]
       }).compileComponents();
     }));
