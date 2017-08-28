@@ -81,6 +81,10 @@ app.get('/sitemap.xml', (req, res) => {
         .catch(err => res.sendStatus(500));
   });
 });
+app.get('/robots.txt', (req, res) => {
+  const fileLocation = resolve(root, 'robots.txt');
+  res.sendFile(fileLocation);
+});
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,
