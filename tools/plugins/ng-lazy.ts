@@ -97,9 +97,11 @@ export class NgLazyServerPluginClass {
     readdirSync(resolve('dist/js')).filter(filename => filename.includes('bundle') && !filename.includes('.map'))
       .forEach(filename => {
         if (this.options.isProdBuild) {
-          this.checksums[filename.split('-')[2].split('.')[0]] = filename;
+          const name = filename.split('-').slice(2).reduce((acc, val) => `${acc}-${val}`)
+          this.checksums[name.split('.')[0]] = filename;
         } else {
-          this.checksums[filename.split('-')[1].split('.')[0]] = filename;
+          const name = filename.split('-').slice(1).reduce((acc, val) => `${acc}-${val}`)
+          this.checksums[name.split('.')[0]] = filename;
         }
       });
   }
