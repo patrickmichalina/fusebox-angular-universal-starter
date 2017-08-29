@@ -1,7 +1,7 @@
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn } from './tools/config/build.config';
-import { NgLazyPlugin } from './tools/plugins/ng-lazy';
+import { NgLazyPlugin, NgLazyServerPlugin } from './tools/plugins/ng-lazy';
 import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
 import { readFileSync, writeFileSync } from 'fs';
@@ -34,14 +34,6 @@ const baseOptions = {
   cache: true,
   target: 'browser',
   plugins: [
-    NgLazyPlugin({
-      cdn,
-      angularAppEntry: '',
-      angularAppRoot: 'src/client/app',
-      angularBundle: appBundleName,
-      aot: isAot,
-      isProdBuild
-    }),
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
     ['*.component.scss',
@@ -58,6 +50,14 @@ const appOptions = {
     : { project: true, vendor: true, inline: true },
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
+    NgLazyPlugin({
+      cdn,
+      angularAppEntry: '',
+      angularAppRoot: 'src/client/app',
+      angularBundle: appBundleName,
+      aot: isAot,
+      isProdBuild
+    }),
     WebIndexPlugin({
       bundles: [appBundleName, vendorBundleName],
       appElement: {
@@ -100,6 +100,13 @@ const serverOptions = {
   sourceMaps: false,
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
+    NgLazyServerPlugin({
+      angularAppEntry: '',
+      angularAppRoot: 'src/client/app',
+      angularBundle: appBundleName,
+      aot: isAot,
+      isProdBuild
+    }),
     ...baseOptions.plugins
   ]
 }

@@ -82,4 +82,49 @@ export class NgLazyPluginClass {
   }
 }
 
+export class NgLazyServerPluginClass {
+  public dependencies: ["hash-files"];
+  public test: RegExp = /(routing|app.browser.module.ngfactory|app.module.ngfactory)/;
+  private checksums: any = {};
+
+  constructor(private options: NgLazyPluginOptions = {}) {
+    if (!options.angularAppRoot) throw new Error("");
+    if (!options.angularBundle) throw new Error("");
+    if (!options.lazyFolderMarker) options.lazyFolderMarker = '+';
+  }
+
+  public bundleStart(context: WorkFlowContext) {
+    readdirSync(resolve('dist/js')).filter(filename => filename.includes('bundle') && !filename.includes('.map'))
+      .forEach(filename => {
+        if (this.options.isProdBuild) {
+          this.checksums[filename.split('-')[2].split('.')[0]] = filename;
+        } else {
+          this.checksums[filename.split('-')[1].split('.')[0]] = filename;
+        }
+      });
+  }
+
+  public transform(file: File) {
+    file.loadContents();
+
+    file.contents = file.contents.replace(/loadChildren[\s]*:[\s]*['|"](.*?)['|"]/gm, (match: string, f: string) => {
+      const modulePath = this.options.aot ? `~/client/.aot/src/${f.split('#')[0].replace('~/', '')}` : f.split('#')[0];
+      const moduleName = this.options.aot ? `${f.split('#')[1]}NgFactory` : f.split('#')[1];
+      const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
+      const name = modulePath.split('.module')[0].split('/').pop() as string;
+      
+      const bundlePath = `./js/${this.checksums[name]}`
+      
+      return `loadChildren: function() { return new Promise(function (resolve, reject) {
+          return FuseBox.exists('${moduleLoaderPath}')
+            ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
+            : FuseBox.import('${bundlePath}', (loaded) => 
+              loaded 
+                ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
+                : reject('failed to load ${moduleName}'))})}`;
+    });
+  }
+}
+
 export const NgLazyPlugin = (options: NgLazyPluginOptions = {}) => new NgLazyPluginClass(options);
+export const NgLazyServerPlugin = (options: NgLazyPluginOptions = {}) => new NgLazyServerPluginClass(options);
