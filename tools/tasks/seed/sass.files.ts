@@ -1,9 +1,8 @@
 import { sync as glob } from 'glob';
 import { Sparky } from 'fuse-box';
 import { SparkyFile } from 'fuse-box/src/sparky/SparkyFile';
-// import { ConfigurationTransformer } from '../../config/build.transformer';
 import { readFileSync } from 'fs';
-import { taskName } from '../../config/build.config';
+import { taskName, cdn } from '../../config/build.config';
 import hash = require('string-hash');
 import { Dependency, ConfigurationTransformer } from '../../plugins/web-index';
 
@@ -26,7 +25,9 @@ Sparky.task(taskName(__filename), () => {
         element: 'link',
         attributes: {
           rel: 'stylesheet',
-          href: `${c.name}`
+          href: cdn 
+            ? `${cdn}${c.name}`
+            : `${c.name}`
         }
       } as Dependency;
     });
