@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', loadChildren: '~/client/app/+home/home.module#HomeModule' },
+  { path: '', loadChildren: 'src/client/app/+home/home.module#HomeModule' },
   { path: 'about', loadChildren: '~/client/app/+about/about.module#AboutModule' },
   { path: 'search', loadChildren: '~/client/app/+search/search.module#SearchModule' },
   { path: 'login', loadChildren: '~/client/app/+login/login.module#LoginModule' },

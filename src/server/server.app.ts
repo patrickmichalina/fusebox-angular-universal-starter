@@ -1,11 +1,10 @@
+import 'systemjs';
 import 'reflect-metadata'
 import 'zone.js/dist/zone-node'
 import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as morgan from 'morgan'
 import * as favicon from 'serve-favicon'
-import * as cookieParser from 'cookie-parser'
-import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
 import { ngExpressEngine } from '@nguniversal/express-engine'
@@ -19,7 +18,9 @@ export const app = (config: EnvConfig): express.Application => {
   if (!config) throw new Error('missing configuration')
   
   require('ts-node/register')
-  const app = express()
+  const app = require('express')() as express.Application;
+  const ms = require('ms');
+  const cookieParser = require('cookie-parser');
   const shrinkRay = require('shrink-ray')
   const minifyHTML = require('express-minify-html')
   const bunyanMiddleware = require('bunyan-middleware')
