@@ -69,6 +69,7 @@ if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
 }
 app.use('/css', express.static('dist/css', staticOptions));
 app.use('/js', express.static('dist/js', staticOptions));
+app.use('/robots.txt', express.static('dist/robots.txt', staticOptions));
 app.get('/sitemap.xml', (req, res) => {
   const fileLocation = resolve(root, 'sitemap.xml');
   const url = isProd ? host : `${host}:${port}`;
@@ -80,10 +81,6 @@ app.get('/sitemap.xml', (req, res) => {
         .then(a => res.header('Content-Type', 'text/xml').send(a))
         .catch(err => res.sendStatus(500));
   });
-});
-app.get('/robots.txt', (req, res) => {
-  const fileLocation = resolve(root, 'robots.txt');
-  res.sendFile(fileLocation);
 });
 app.get('/*', (req, res) => {
   return res.render('index', {
