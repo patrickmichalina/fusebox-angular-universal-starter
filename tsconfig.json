@@ -1,28 +1,28 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "isolatedModules": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "declaration": false,
-    "noImplicitAny": true,
-    "noImplicitUseStrict": false,
-    "strictNullChecks": true,
-    "noEmitHelpers": false,
-    "noLib": false,
-    "noUnusedLocals": true,
-    "outDir": "dist/",
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "lib": ["es6", "dom"]
-  },
-  "exclude": [
-    "dist",
-    "node_modules",
-    ".ngc",
-    ".fusebox",
-    "coverage"
-  ]
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "isolatedModules": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declaration": false,
+        "noImplicitAny": true,
+        "noImplicitUseStrict": false,
+        "strictNullChecks": true,
+        "noEmitHelpers": false,
+        "noLib": false,
+        "noUnusedLocals": true,
+        "outDir": "dist/",
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "lib": ["es6", "dom"]
+    },
+    "exclude": [
+        "dist",
+        "node_modules",
+        ".ngc",
+        ".fusebox",
+        "coverage"
+    ]
 }
