@@ -5,6 +5,7 @@ import { INavbarService, NavbarService } from './navbar.service';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 import '../../../operators';
+import { MdToolbarModule, MdTabsModule } from "@angular/material";
 
 describe(NavbarComponent.name, () => {
   let fixture: ComponentFixture<NavbarComponent>;
@@ -12,7 +13,7 @@ describe(NavbarComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, MdTabsModule, MdToolbarModule],
       declarations: [NavbarComponent, TestComponent],
       providers: [NavbarService]
     }).compileComponents();
