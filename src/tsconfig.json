@@ -17,15 +17,14 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "lib": ["es6", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "skipLibCheck": true
   },
+  "include": [
+    "./**/**.ts",
+    "../tools/manual-typings/**/**.ts"
+  ],
   "exclude": [
-    "./.vscode",
-    "./.fusebox",
-    "./.ngc",
-    "./dist",
-    "./node_modules",
-    "./coverage"
+    "client/main.aot-prod.ts",
+    "client/main.aot.ts"
   ]
 }

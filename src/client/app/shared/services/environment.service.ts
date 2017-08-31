@@ -8,7 +8,7 @@ export interface IEnvironmentService {
 
 @Injectable()
 export class EnvironmentService implements IEnvironmentService {
-  constructor( @Inject(ENV_CONFIG) private _config: any) { }
+  constructor(@Inject(ENV_CONFIG) private _config: any) { }
   get config(): EnvConfig {
     return this._config;
   }

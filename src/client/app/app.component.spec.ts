@@ -1,13 +1,12 @@
+import { AboutComponent } from './+about/about.component';
 import { AppComponent } from './app.component';
-import { EnvConfig } from '../../../tools/config/app.config';
-import { TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { APP_BASE_HREF } from '@angular/common';
-import { async } from '@angular/core/testing';
 import { Route } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component } from '@angular/core';
 import { HomeComponent } from './+home/home.component';
-import { AboutComponent } from './+about/about.component';
+import { EnvConfig } from '../../../tools/config/app.config';
 import { SearchComponent } from './+search/search.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ENV_CONFIG } from './app.config';

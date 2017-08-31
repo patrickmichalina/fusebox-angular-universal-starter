@@ -8,7 +8,7 @@ export interface IPlatformService {
 
 @Injectable()
 export class PlatformService implements IPlatformService {
-  constructor( @Inject(PLATFORM_ID) private platformId: any) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: any) { }
 
   public get isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);

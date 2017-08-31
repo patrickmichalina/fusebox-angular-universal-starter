@@ -1,8 +1,7 @@
 import { AppComponent } from './../client/app/app.component';
 import { AppModule } from './../client/app/app.module';
-import { NgModule, enableProdMode } from '@angular/core';
-import { ServerModule, } from '@angular/platform-server';
-import { ApplicationRef, APP_BOOTSTRAP_LISTENER } from '@angular/core';
+import { APP_BOOTSTRAP_LISTENER, ApplicationRef, enableProdMode, NgModule } from '@angular/core';
+import { ServerModule } from '@angular/platform-server';
 import { TransferState } from '../client/app/shared/transfer-state/transfer-state';
 import { ServerTransferStateModule } from '../client/app/shared/transfer-state/server-transfer-state.module';
 import { Subscription } from 'rxjs/Subscription';

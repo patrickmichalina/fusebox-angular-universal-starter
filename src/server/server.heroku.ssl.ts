@@ -1,6 +1,7 @@
 import * as express from 'express';
 
-export const forceSsl = function (req: express.Request, res: express.Response, next: express.NextFunction) {
+// tslint:disable-next-line:only-arrow-functions
+export const forceSsl = function(req: express.Request, res: express.Response, next: express.NextFunction) {
   if (req.headers['x-forwarded-proto'] !== 'https') {
     res.header('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.header('Pragma', 'no-cache');

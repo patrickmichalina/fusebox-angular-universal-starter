@@ -13,7 +13,8 @@ import { MetaGuard } from '@ngx-meta/core';
         data: {
           meta: {
             title: 'Signup',
-            description: 'Sign up for an account with us. Create an account to start doing cool things with our application. It\'s easy to register'
+            description: `Sign up for an account with us. Create an account to start doing cool things with our application.
+            It's easy to register`
           }
         }
       }
