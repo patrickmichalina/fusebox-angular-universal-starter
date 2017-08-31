@@ -14,8 +14,8 @@ import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NavbarService } from './shared/navbar/navbar.service';
+import { MdCardModule } from '@angular/material';
 import '../operators';
-import { MdCardModule } from "@angular/material";
 
 const TESTING_CONFIG: EnvConfig = {
   name: 'Fusebox Angular Universal Starter',

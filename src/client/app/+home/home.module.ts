@@ -2,7 +2,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-import {MdCardModule, MdButtonModule} from '@angular/material';
+import { MdButtonModule, MdCardModule } from '@angular/material';
 
 @NgModule({
   imports: [HomeRoutingModule, SharedModule, MdCardModule, MdButtonModule],

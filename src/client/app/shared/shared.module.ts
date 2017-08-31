@@ -9,8 +9,7 @@ import { LOGGER_CONFIG, LoggingService } from './services/logging.service';
 import { ENV_CONFIG } from '../app.config';
 import { NavbarService } from './navbar/navbar.service';
 import { Angulartics2Module } from 'angulartics2';
-import {MdTabsModule, MdToolbarModule} from '@angular/material';
-
+import { MdTabsModule, MdToolbarModule } from '@angular/material';
 
 declare var __process_env__: any;
 
