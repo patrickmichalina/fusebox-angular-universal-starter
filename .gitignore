@@ -68,8 +68,6 @@ dist/
 test-report.xml
 test-results.xml
 
-*.snap
-
 ngc
 .ngc
 .aot
