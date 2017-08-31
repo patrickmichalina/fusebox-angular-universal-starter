@@ -64,7 +64,6 @@
     "@types/string-hash": "^1.1.1",
     "@types/yargs": "^8.0.2",
     "angular-tslint-rules": "^1.0.4",
-    "bootstrap": "4.0.0-alpha.6",
     "browser-sync": "^2.18.13",
     "codelyzer": "^3.1.2",
     "concurrently": "^3.5.0",

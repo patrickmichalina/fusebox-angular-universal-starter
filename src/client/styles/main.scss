@@ -5,8 +5,8 @@ $accent: mat-palette($mat-pink);
 $theme: mat-light-theme($primary, $accent);
 @include angular-material-theme($theme);
 .dark-theme {
-    $dark-p: mat-palette($mat-pink, 700);
-    $dark-a: mat-palette($mat-blue-grey);
-    $dark-t: mat-dark-theme($dark-p, $dark-a);
-    @include angular-material-theme($dark-t);
+  $dark-p: mat-palette($mat-pink, 700);
+  $dark-a: mat-palette($mat-blue-grey);
+  $dark-t: mat-dark-theme($dark-p, $dark-a);
+  @include angular-material-theme($dark-t);
 }
