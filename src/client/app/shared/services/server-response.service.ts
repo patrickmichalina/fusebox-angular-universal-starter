@@ -17,7 +17,7 @@ export class ServerResponseService implements IServerResponseService {
 
   private response: Response;
 
-  constructor( @Optional() @Inject(RESPONSE) res: any) {
+  constructor(@Optional() @Inject(RESPONSE) res: any) {
     this.response = res;
   }
 

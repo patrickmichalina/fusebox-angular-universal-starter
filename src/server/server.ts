@@ -1,3 +1,5 @@
+// tslint:disable:no-require-imports
+
 import 'reflect-metadata';
 import 'zone.js/dist/zone-node';
 import 'zone.js/dist/long-stack-trace-zone';
@@ -74,8 +76,8 @@ app.get('/sitemap.xml', (req, res) => {
   const fileLocation = resolve(root, 'sitemap.xml');
   const url = isProd ? host : `${host}:${port}`;
 
-  exists(fileLocation, (exists) => {
-    exists
+  exists(fileLocation, doesExist => {
+    doesExist
       ? res.sendFile(fileLocation)
       : sitemap(url)
         .then(a => res.header('Content-Type', 'text/xml').send(a))
@@ -85,7 +87,7 @@ app.get('/sitemap.xml', (req, res) => {
 app.get('/*', (req, res) => {
   return res.render('index', {
     req,
-    res,
+    res
   });
 });
 

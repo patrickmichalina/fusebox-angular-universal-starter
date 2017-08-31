@@ -1,12 +1,16 @@
 {
   "rulesDirectory": [
-    "../../node_modules/codelyzer"
+    "../node_modules/codelyzer"
   ],
   "extends": [
     "angular-tslint-rules"
   ],
   "rules": {
+    "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
     "object-literal-key-quotes": [
+      false
+    ],
+    "semicolon": [
       false
     ],
     "align": [

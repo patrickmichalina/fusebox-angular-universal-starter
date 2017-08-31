@@ -17,6 +17,15 @@ import {
 } from 'fuse-box';
 import './tools/tasks';
 
+const TypeHelper = require('fuse-box-typechecker').TypeHelper
+const typeHelper = TypeHelper({
+  basePath: './src',
+  tsConfig: './tsconfig.json',
+  tsLint: './tslint.json',
+  name: 'App typechecker',
+  throwOnTsLint: isProdBuild
+})
+
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
 const isSpaOnly = argv.spa;
@@ -150,17 +159,20 @@ Sparky.task('build.app', () => {
     .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
     .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
+  isProdBuild ? typeHelper.runSync() : typeHelper.runAsync();
+
   if (!isBuildServer && !argv['build-only']) {
     vendorBundle.watch();
-
-    // if (active) reload();
 
     if (argv.spa) {
       fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist', open: true });
       vendorBundle.hmr();
       appBundle.watch().hmr();
     } else {
-      appBundle.watch().completed(() => reload());
+      appBundle.watch().completed(() => {
+        typeHelper.runAsync()
+        reload()
+      });
     }
   }
 
