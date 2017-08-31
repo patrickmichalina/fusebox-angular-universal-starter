@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignupComponent should match snapshot 1`] = `
+<pm-signup>
+  Your <strong>
+    signup
+  </strong>form goes here!
+</pm-signup>
+`;

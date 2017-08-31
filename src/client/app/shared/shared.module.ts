@@ -9,6 +9,8 @@ import { LOGGER_CONFIG, LoggingService } from './services/logging.service';
 import { ENV_CONFIG } from '../app.config';
 import { NavbarService } from './navbar/navbar.service';
 import { Angulartics2Module } from 'angulartics2';
+import { MdTabsModule, MdToolbarModule } from '@angular/material';
+
 declare var __process_env__: any;
 
 export function fuseBoxConfigFactory() {
@@ -16,7 +18,7 @@ export function fuseBoxConfigFactory() {
 }
 
 @NgModule({
-  imports: [CommonModule, RouterModule, Angulartics2Module.forChild()],
+  imports: [CommonModule, RouterModule, Angulartics2Module.forChild(), MdTabsModule, MdToolbarModule],
   exports: [CommonModule, RouterModule, NavbarComponent, Angulartics2Module],
   declarations: [NavbarComponent],
   providers: [

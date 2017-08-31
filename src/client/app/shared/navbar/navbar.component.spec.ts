@@ -4,6 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { INavbarService, NavbarService } from './navbar.service';
 import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
+import { MdTabLink, MdTabsModule, MdToolbarModule } from '@angular/material';
 import '../../../operators';
 
 describe(NavbarComponent.name, () => {
@@ -12,7 +13,7 @@ describe(NavbarComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, MdTabsModule, MdToolbarModule],
       declarations: [NavbarComponent, TestComponent],
       providers: [NavbarService]
     }).compileComponents();
@@ -39,14 +40,11 @@ describe(NavbarComponent.name, () => {
 
   it('should contain a list of links', async(() => {
     fixture.detectChanges();
-    const htmlDebugElement = fixture.debugElement.queryAll(By.css('.navbar-nav'))[0];
-    expect(htmlDebugElement).toBeTruthy();
-
-    const listDomElement = htmlDebugElement.nativeElement as HTMLUListElement;
-    expect(listDomElement).toEqual(expect.any(HTMLUListElement));
+    const tabLinks = fixture.debugElement.queryAll(By.directive(MdTabLink));
+    expect(tabLinks).toBeDefined();
 
     navbarService.menu$.subscribe(items => {
-      expect(listDomElement.children.length).toEqual(items.length + 1);
+      expect(tabLinks.length).toEqual(items.length + 3);
     });
   }));
 });

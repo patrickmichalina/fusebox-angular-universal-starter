@@ -14,6 +14,7 @@ import { EnvironmentService } from './shared/services/environment.service';
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NavbarService } from './shared/navbar/navbar.service';
+import { MdCardModule } from '@angular/material';
 import '../operators';
 
 const TESTING_CONFIG: EnvConfig = {
@@ -43,7 +44,9 @@ describe('App component', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(config),
-        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])],
+        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+        MdCardModule
+      ],
       declarations: [TestComponent, NavbarComponent, AppComponent,
         HomeComponent, AboutComponent, SearchComponent],
       providers: [

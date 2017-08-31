@@ -5,13 +5,16 @@ import { HomeComponent } from './home.component';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { HomeModule } from './home.module';
+import { MdButtonModule, MdCardModule } from '@angular/material';
 
 describe(HomeComponent.name, () => {
   let fixture: ComponentFixture<HomeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HomeModule, RouterTestingModule, Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])],
+      imports: [HomeModule, RouterTestingModule,
+        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+        MdCardModule, MdButtonModule],
       declarations: [TestComponent]
     }).compileComponents();
   }));

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchComponent should match snapshot 1`] = `
+<pm-search
+  $count={[Function Observable]}
+  $items={[Function Observable]}
+  $results={[Function Observable]}
+  searchService={[Function MockSearchService]}
+>
+  <h1>
+    Search Angular Projects on Github
+  </h1><form
+    class="form-inline"
+  >
+    <div
+      class="form-group mx-lg-3"
+    >
+      <input
+        class="form-control"
+        placeholder="Search Angular projects"
+        type="text"
+      />
+    </div>
+    <button
+      class="btn btn-primary"
+    >
+      Search
+    </button>
+  </form><ul>
+    
+  </ul>
+</pm-search>
+`;
