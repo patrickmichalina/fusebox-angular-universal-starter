@@ -1,21 +1,21 @@
-import { AboutComponent } from './+about/about.component';
-import { AppComponent } from './app.component';
-import { async, TestBed } from '@angular/core/testing';
-import { APP_BASE_HREF } from '@angular/common';
-import { Route } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { Component } from '@angular/core';
-import { HomeComponent } from './+home/home.component';
-import { EnvConfig } from '../../../tools/config/app.config';
-import { SearchComponent } from './+search/search.component';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { ENV_CONFIG } from './app.config';
-import { EnvironmentService } from './shared/services/environment.service';
-import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NavbarService } from './shared/navbar/navbar.service';
-import { MdCardModule } from '@angular/material';
-import '../operators';
+import { AboutComponent } from './+about/about.component'
+import { AppComponent } from './app.component'
+import { async, TestBed } from '@angular/core/testing'
+import { APP_BASE_HREF } from '@angular/common'
+import { Route } from '@angular/router'
+import { RouterTestingModule } from '@angular/router/testing'
+import { Component } from '@angular/core'
+import { HomeComponent } from './+home/home.component'
+import { EnvConfig } from '../../../tools/config/app.config'
+import { SearchComponent } from './+search/search.component'
+import { NavbarComponent } from './shared/navbar/navbar.component'
+import { ENV_CONFIG } from './app.config'
+import { EnvironmentService } from './shared/services/environment.service'
+import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { NavbarService } from './shared/navbar/navbar.service'
+import { MdCardModule } from '@angular/material'
+import '../operators'
 
 const TESTING_CONFIG: EnvConfig = {
   name: 'Fusebox Angular Universal Starter',
@@ -31,14 +31,14 @@ const TESTING_CONFIG: EnvConfig = {
     port: 8083,
     minifyIndex: true
   }
-};
+}
 
 describe('App component', () => {
   const config: Array<Route> = [
     { path: '', component: HomeComponent },
     { path: 'about', component: AboutComponent },
     { path: 'search', component: SearchComponent }
-  ];
+  ]
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -55,21 +55,21 @@ describe('App component', () => {
         EnvironmentService,
         NavbarService
       ]
-    }).compileComponents();
-  }));
+    }).compileComponents()
+  }))
 
   it('should build without a problem',
     async(() => {
       TestBed
         .compileComponents()
         .then(() => {
-          const fixture = TestBed.createComponent(TestComponent);
-          const compiled = fixture.nativeElement;
+          const fixture = TestBed.createComponent(TestComponent)
+          const compiled = fixture.nativeElement
 
-          expect(compiled).toBeTruthy();
-        });
-    }));
-});
+          expect(compiled).toBeTruthy()
+        })
+    }))
+})
 
 @Component({
   selector: 'test-cmp',

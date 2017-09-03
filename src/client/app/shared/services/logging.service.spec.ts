@@ -1,11 +1,11 @@
-import { PlatformService } from './platform.service';
-import { ILoggingService, LOGGER_CONFIG, LoggingService } from './logging.service';
-import { async, TestBed } from '@angular/core/testing';
-import { PLATFORM_ID } from '@angular/core';
+import { PlatformService } from './platform.service'
+import { ILoggingService, LOGGER_CONFIG, LoggingService } from './logging.service'
+import { async, TestBed } from '@angular/core/testing'
+import { PLATFORM_ID } from '@angular/core'
 
 describe(LoggingService.name, () => {
   describe('browser', () => {
-    let service: ILoggingService;
+    let service: ILoggingService
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         providers: [
@@ -20,19 +20,19 @@ describe(LoggingService.name, () => {
             }
           }
         ]
-      }).compileComponents();
-    }));
+      }).compileComponents()
+    }))
 
     beforeEach(async(() => {
-      service = TestBed.get(LoggingService);
-    }));
+      service = TestBed.get(LoggingService)
+    }))
 
     afterEach(async(() => {
-      TestBed.resetTestingModule();
-    }));
+      TestBed.resetTestingModule()
+    }))
 
     it('should construct', async(() => {
-      expect(service).toBeDefined();
-    }));
-  });
-});
+      expect(service).toBeDefined()
+    }))
+  })
+})

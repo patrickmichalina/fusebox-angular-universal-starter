@@ -1,7 +1,7 @@
-import { LoginComponent } from './login.component';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MetaGuard } from '@ngx-meta/core';
+import { LoginComponent } from './login.component'
+import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { MetaGuard } from '@ngx-meta/core'
 
 @NgModule({
   imports: [

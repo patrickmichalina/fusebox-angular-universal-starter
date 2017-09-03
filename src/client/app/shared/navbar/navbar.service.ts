@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable'
+import { Injectable } from '@angular/core'
 
 export interface INavbarService {
-  menu$: Observable<any[]>;
+  menu$: Observable<any[]>
 }
 
 @Injectable()
@@ -15,5 +15,5 @@ export class NavbarService implements INavbarService {
     { route: 'logout', name: 'Logout' },
     { route: 'signup', name: 'Signup' },
     { route: 'admin', name: 'Admin' }
-  ]);
+  ])
 }

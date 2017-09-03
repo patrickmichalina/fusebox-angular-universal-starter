@@ -1,5 +1,5 @@
-import { ServerResponseService } from './../shared/services/server-response.service';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ServerResponseService } from './../shared/services/server-response.service'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
   selector: 'pm-not-found',
@@ -9,6 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class NotFoundComponent {
   constructor(responseService: ServerResponseService) {
-    responseService.setStatus(404);
+    responseService.setStatus(404)
   }
 }

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { HttpStateTransferInterceptor } from './transfer-http-interceptor.service';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core'
+import { HttpStateTransferInterceptor } from './transfer-http-interceptor.service'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   imports: [HttpClientModule],

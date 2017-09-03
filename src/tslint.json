@@ -11,7 +11,8 @@
       false
     ],
     "semicolon": [
-      false
+      true,
+      "never"
     ],
     "align": [
       false

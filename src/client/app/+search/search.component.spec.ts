@@ -1,14 +1,14 @@
-import { Observable } from 'rxjs/Observable';
-import { ISearchService, SearchService } from './search.service';
-import { SearchComponent } from './search.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { URLSearchParams } from '@angular/http';
-import { Component } from '@angular/core';
-import { SearchModule } from './search.module';
-import '../../operators';
+import { Observable } from 'rxjs/Observable'
+import { ISearchService, SearchService } from './search.service'
+import { SearchComponent } from './search.component'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { URLSearchParams } from '@angular/http'
+import { Component } from '@angular/core'
+import { SearchModule } from './search.module'
+import '../../operators'
 
 describe(SearchComponent.name, () => {
-  let fixture: ComponentFixture<SearchComponent>;
+  let fixture: ComponentFixture<SearchComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,21 +17,21 @@ describe(SearchComponent.name, () => {
       providers: [
         { provide: SearchService, useValue: new MockSearchService() }
       ]
-    }).compileComponents();
-  }));
+    }).compileComponents()
+  }))
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SearchComponent);
-  });
+    fixture = TestBed.createComponent(SearchComponent)
+  })
 
   it('should match snapshot', async(() => {
-    expect(fixture).toMatchSnapshot();
-  }));
+    expect(fixture).toMatchSnapshot()
+  }))
 
   it('should compile', async(() => {
-    expect(fixture.nativeElement).toBeDefined();
-  }));
-});
+    expect(fixture.nativeElement).toBeDefined()
+  }))
+})
 
 @Component({
   selector: 'test-component',
@@ -40,18 +40,18 @@ describe(SearchComponent.name, () => {
 class TestComponent {}
 
 class MockSearchService implements ISearchService {
-  returnValue: any[] = [];
+  returnValue: any[] = []
 
   search(search?: string | undefined, sort?: string | undefined, order?: string | undefined): Observable<any> {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams()
 
-    if (search) params.set('q', search);
-    if (sort) params.set('sort', sort);
-    if (order) params.set('order', order);
+    if (search) params.set('q', search)
+    if (sort) params.set('sort', sort)
+    if (order) params.set('order', order)
 
     return Observable.create((observer: any) => {
-      observer.next(this.returnValue);
-      observer.complete();
-    });
+      observer.next(this.returnValue)
+      observer.complete()
+    })
   }
 }

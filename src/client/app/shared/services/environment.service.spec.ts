@@ -1,9 +1,9 @@
-import { EnvironmentService, IEnvironmentService } from './environment.service';
-import { async, TestBed } from '@angular/core/testing';
-import { ENV_CONFIG } from '../../app.config';
+import { EnvironmentService, IEnvironmentService } from './environment.service'
+import { async, TestBed } from '@angular/core/testing'
+import { ENV_CONFIG } from '../../app.config'
 
 describe(EnvironmentService.name, () => {
-  let service: IEnvironmentService;
+  let service: IEnvironmentService
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -11,24 +11,24 @@ describe(EnvironmentService.name, () => {
         EnvironmentService,
         { provide: ENV_CONFIG, useValue: { someValue: 1 } }
       ]
-    }).compileComponents();
-  }));
+    }).compileComponents()
+  }))
 
   beforeEach(() => {
-    service = TestBed.get(EnvironmentService);
-  });
+    service = TestBed.get(EnvironmentService)
+  })
 
   afterEach(() => {
-    TestBed.resetTestingModule();
-  });
+    TestBed.resetTestingModule()
+  })
 
   it('should construct', async(() => {
-    expect(service).toBeDefined();
-  }));
+    expect(service).toBeDefined()
+  }))
 
   it('should return config', async(() => {
     expect(service.config).toEqual({
       someValue: 1
-    });
-  }));
-});
+    })
+  }))
+})
