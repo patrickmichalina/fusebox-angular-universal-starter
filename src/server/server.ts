@@ -7,6 +7,8 @@ import * as express from 'express'
 import * as morgan from 'morgan'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
+import * as getOs from 'getos'
+import * as compression from 'compression'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
@@ -51,7 +53,16 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
-app.use(shrinkRay())
+
+getOs((err, os) => {
+  if (err) throw err
+  if (os.os === 'win32') {
+    app.use(compression())
+  } else {
+    app.use(shrinkRay())
+  }
+})
+
 if (__process_env__.server.minifyIndex) {
   app.use(minifyHTML({
     override: true,
