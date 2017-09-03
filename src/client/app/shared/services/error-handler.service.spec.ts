@@ -58,6 +58,15 @@ describe(GlobalErrorHandler.name, () => {
         expect(spy).toBeCalledWith('Testing this error', { url: '', stack })
     })
   }))
+
+  it('should catch bad stack trace parse', fakeAsync(() => {
+    const spy = jest.spyOn(TestBed.get(LoggingService), 'error')
+    service.handleError({message: 'Testing this error'})
+    tick()
+    StackTrace.fromError({} as any).catch(error => {
+      expect(spy).toBeCalledWith('Testing this error', { url: '', stack: error })
+    })
+  }))
 })
 
 class MockLoggingService {
