@@ -64,6 +64,25 @@ exports[`HomeComponent should match snapshot 1`] = `
           as the UI language and component library
         </li>
         <li>
+          Angular testing with 
+          <a
+            href="https://facebook.github.io/jest"
+            target="_blank"
+          >
+            Jest
+          </a>
+          (faster than Karma)
+        </li>
+        <li>
+          End-to-end (e2e) testing with 
+          <a
+            href="https://github.com/segmentio/nightmare"
+            target="_blank"
+          >
+            Nightmare
+          </a>
+        </li>
+        <li>
           Fully typed build tools and application using 
           <a
             href="https://www.typescriptlang.org/"
@@ -74,16 +93,6 @@ exports[`HomeComponent should match snapshot 1`] = `
         </li>
         <li>
           Production and development builds
-        </li>
-        <li>
-          Angular testing with 
-          <a
-            href="https://facebook.github.io/jest"
-            target="_blank"
-          >
-            Jest
-          </a>
-          (faster than Karma)
         </li>
         <li>
           Manage your type definitions using @types (easier than using 
