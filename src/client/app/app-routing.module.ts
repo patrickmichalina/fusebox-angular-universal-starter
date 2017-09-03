@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 
 export const routes: Routes = [
   { path: '', loadChildren: '~/client/app/+home/home.module#HomeModule' },
@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: 'logout', loadChildren: '~/client/app/+logout/logout.module#LogoutModule' },
   { path: 'signup', loadChildren: '~/client/app/+signup/signup.module#SignupModule' },
   { path: 'admin', loadChildren: '~/client/app/+admin/admin.module#AdminModule' }
-];
+]
 
 @NgModule({
   imports: [

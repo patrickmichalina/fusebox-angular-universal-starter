@@ -1,20 +1,20 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { PlatformService } from './services/platform.service';
-import { RouterModule } from '@angular/router';
-import { NavbarComponent } from './navbar/navbar.component';
-import { CookieService } from './services/cookie.service';
-import { CommonModule } from '@angular/common';
-import { EnvironmentService } from './services/environment.service';
-import { LOGGER_CONFIG, LoggingService } from './services/logging.service';
-import { ENV_CONFIG } from '../app.config';
-import { NavbarService } from './navbar/navbar.service';
-import { Angulartics2Module } from 'angulartics2';
-import { MdTabsModule, MdToolbarModule } from '@angular/material';
+import { ModuleWithProviders, NgModule } from '@angular/core'
+import { PlatformService } from './services/platform.service'
+import { RouterModule } from '@angular/router'
+import { NavbarComponent } from './navbar/navbar.component'
+import { CookieService } from './services/cookie.service'
+import { CommonModule } from '@angular/common'
+import { EnvironmentService } from './services/environment.service'
+import { LOGGER_CONFIG, LoggingService } from './services/logging.service'
+import { ENV_CONFIG } from '../app.config'
+import { NavbarService } from './navbar/navbar.service'
+import { Angulartics2Module } from 'angulartics2'
+import { MdTabsModule, MdToolbarModule } from '@angular/material'
 
-declare var __process_env__: any;
+declare var __process_env__: any
 
 export function fuseBoxConfigFactory() {
-  return __process_env__;
+  return __process_env__
 }
 
 @NgModule({
@@ -41,6 +41,6 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule
-    };
+    }
   }
 }

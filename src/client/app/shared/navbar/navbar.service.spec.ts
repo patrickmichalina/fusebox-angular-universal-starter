@@ -1,30 +1,30 @@
-import { async, TestBed } from '@angular/core/testing';
-import { INavbarService, NavbarService } from './navbar.service';
-import { Observable } from 'rxjs/Observable';
-import '../../../operators';
+import { async, TestBed } from '@angular/core/testing'
+import { INavbarService, NavbarService } from './navbar.service'
+import { Observable } from 'rxjs/Observable'
+import '../../../operators'
 
 describe(NavbarService.name, () => {
-  let service: INavbarService;
+  let service: INavbarService
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [NavbarService]
-    });
-  }));
+    })
+  }))
 
   beforeEach(() => {
-    service = TestBed.get(NavbarService);
-  });
+    service = TestBed.get(NavbarService)
+  })
 
   afterEach(() => {
-    TestBed.resetTestingModule();
-  });
+    TestBed.resetTestingModule()
+  })
 
   it('should construct', async(() => {
-    expect(service).toBeDefined();
-  }));
+    expect(service).toBeDefined()
+  }))
 
   it('should return an observable when called', async(() => {
-    expect(service.menu$).toEqual(expect.any(Observable));
-  }));
-});
+    expect(service.menu$).toEqual(expect.any(Observable))
+  }))
+})

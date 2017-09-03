@@ -1,36 +1,36 @@
-import { SignupComponent } from './signup.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
-import { SignupModule } from './signup.module';
+import { SignupComponent } from './signup.component'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { Component } from '@angular/core'
+import { SignupModule } from './signup.module'
 
 describe(SignupComponent.name, () => {
-  let fixture: ComponentFixture<SignupComponent>;
+  let fixture: ComponentFixture<SignupComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [SignupModule],
       declarations: [TestComponent]
-    }).compileComponents();
-  }));
+    }).compileComponents()
+  }))
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(SignupComponent);
-  }));
+    fixture = TestBed.createComponent(SignupComponent)
+  }))
 
   afterEach(async(() => {
-    TestBed.resetTestingModule();
-  }));
+    TestBed.resetTestingModule()
+  }))
 
   it('should match snapshot', async(() => {
-    fixture.detectChanges();
-    expect(fixture).toMatchSnapshot();
-  }));
+    fixture.detectChanges()
+    expect(fixture).toMatchSnapshot()
+  }))
 
   it('should compile', async(() => {
-    fixture.detectChanges();
-    expect(fixture.nativeElement).toBeDefined();
-  }));
-});
+    fixture.detectChanges()
+    expect(fixture.nativeElement).toBeDefined()
+  }))
+})
 
 @Component({
   selector: 'test-component',

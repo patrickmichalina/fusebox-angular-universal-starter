@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Meta } from '@angular/platform-browser';
-import { EnvironmentService } from './shared/services/environment.service';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { Meta } from '@angular/platform-browser'
+import { EnvironmentService } from './shared/services/environment.service'
+import { Angulartics2GoogleAnalytics } from 'angulartics2'
 
 @Component({
   selector: 'pm-app',
@@ -11,6 +11,6 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 })
 export class AppComponent {
   constructor(env: EnvironmentService, meta: Meta, analytics: Angulartics2GoogleAnalytics) {
-    meta.addTag({ property: 'fb:app_id', content: env.config.og.facebookAppId });
+    meta.addTag({ property: 'fb:app_id', content: env.config.og.facebookAppId })
   }
 }

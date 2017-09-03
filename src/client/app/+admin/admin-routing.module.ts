@@ -1,7 +1,7 @@
-import { AdminComponent } from './admin.component';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MetaGuard } from '@ngx-meta/core';
+import { AdminComponent } from './admin.component'
+import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { MetaGuard } from '@ngx-meta/core'
 
 @NgModule({
   imports: [

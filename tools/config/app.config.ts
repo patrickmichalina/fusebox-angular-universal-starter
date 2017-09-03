@@ -1,19 +1,19 @@
 export interface EnvConfig {
-  name: string;
-  description: string;
-  pageTitleSeparator: string;
+  name: string
+  description: string
+  pageTitleSeparator: string
   endpoints?: {
     api?: string
   },
   og: {
-    defaultSocialImage: string,
+    defaultSocialImage: string
     facebookAppId: string
   }
   server: {
-    host: string;
-    port: number;
-    minifyIndex: boolean;
-    prodMode?: boolean;
+    host: string
+    port: number
+    minifyIndex: boolean
+    prodMode?: boolean
   },
-  env?: string;
+  env?: string
 }

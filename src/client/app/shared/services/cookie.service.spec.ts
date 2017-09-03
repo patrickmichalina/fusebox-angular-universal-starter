@@ -1,10 +1,10 @@
-import { PlatformService } from './platform.service';
-import { CookieService, ICookieService } from './cookie.service';
-import { async, TestBed } from '@angular/core/testing';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { PlatformService } from './platform.service'
+import { CookieService, ICookieService } from './cookie.service'
+import { async, TestBed } from '@angular/core/testing'
+import { REQUEST } from '@nguniversal/express-engine/tokens'
 
 describe(CookieService.name, () => {
-  let service: ICookieService;
+  let service: ICookieService
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -13,18 +13,18 @@ describe(CookieService.name, () => {
         PlatformService,
         { provide: REQUEST, useValue: {} }
       ]
-    }).compileComponents();
-  }));
+    }).compileComponents()
+  }))
 
   beforeEach(() => {
-    service = TestBed.get(CookieService);
-  });
+    service = TestBed.get(CookieService)
+  })
 
   afterEach(() => {
-    TestBed.resetTestingModule();
-  });
+    TestBed.resetTestingModule()
+  })
 
   it('should construct', async(() => {
-    expect(service).toBeDefined();
-  }));
-});
+    expect(service).toBeDefined()
+  }))
+})

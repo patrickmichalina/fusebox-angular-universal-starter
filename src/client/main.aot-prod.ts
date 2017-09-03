@@ -1,11 +1,11 @@
-import 'core-js/es7/reflect';
-import 'zone.js/dist/zone';
-import './operators';
+import 'core-js/es7/reflect'
+import 'zone.js/dist/zone'
+import './operators'
 
-import { enableProdMode } from '@angular/core';
-import { platformBrowser } from '@angular/platform-browser';
-import { AppBrowserModuleNgFactory } from './.aot/src/client/app/app.browser.module.ngfactory';
+import { enableProdMode } from '@angular/core'
+import { platformBrowser } from '@angular/platform-browser'
+import { AppBrowserModuleNgFactory } from './.aot/src/client/app/app.browser.module.ngfactory'
 
-enableProdMode();
+enableProdMode()
 
-platformBrowser().bootstrapModuleFactory(AppBrowserModuleNgFactory);
+platformBrowser().bootstrapModuleFactory(AppBrowserModuleNgFactory)

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SearchService } from './search.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { SearchService } from './search.service'
 
 @Component({
   selector: 'pm-search',
@@ -8,9 +8,9 @@ import { SearchService } from './search.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent {
-  public $results = this.searchService.search();
-  public $items = this.$results.map((a: any) => a.items);
-  public $count = this.$results.map((a: any) => a.total_count);
+  public $results = this.searchService.search()
+  public $items = this.$results.map((a: any) => a.items)
+  public $count = this.$results.map((a: any) => a.total_count)
 
   constructor(private searchService: SearchService) { }
 }

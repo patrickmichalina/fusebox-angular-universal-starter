@@ -1,36 +1,36 @@
-import { AboutComponent } from './about.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
-import { AboutModule } from './about.module';
+import { AboutComponent } from './about.component'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { Component } from '@angular/core'
+import { AboutModule } from './about.module'
 
 describe(AboutComponent.name, () => {
-  let fixture: ComponentFixture<AboutComponent>;
+  let fixture: ComponentFixture<AboutComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AboutModule],
       declarations: [TestComponent]
-    }).compileComponents();
-  }));
+    }).compileComponents()
+  }))
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(AboutComponent);
-  }));
+    fixture = TestBed.createComponent(AboutComponent)
+  }))
 
   afterEach(async(() => {
-    TestBed.resetTestingModule();
-  }));
+    TestBed.resetTestingModule()
+  }))
 
   it('should match snapshot', async(() => {
-    fixture.detectChanges();
-    expect(fixture).toMatchSnapshot();
-  }));
+    fixture.detectChanges()
+    expect(fixture).toMatchSnapshot()
+  }))
 
   it('should compile', async(() => {
-    fixture.detectChanges();
-    expect(fixture.nativeElement).toBeDefined();
-  }));
-});
+    fixture.detectChanges()
+    expect(fixture.nativeElement).toBeDefined()
+  }))
+})
 
 @Component({
   selector: 'test-component',

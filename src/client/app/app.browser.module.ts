@@ -1,16 +1,16 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppModule } from './app.module';
-import { NgModule } from '@angular/core';
-import { AppComponent } from './app.component';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
-import { BrowserTransferStateModule } from './shared/transfer-state/browser-transfer-state.module';
-import { TransferState } from './shared/transfer-state/transfer-state';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserModule } from '@angular/platform-browser'
+import { AppModule } from './app.module'
+import { NgModule } from '@angular/core'
+import { AppComponent } from './app.component'
+import { REQUEST } from '@nguniversal/express-engine/tokens'
+import { BrowserTransferStateModule } from './shared/transfer-state/browser-transfer-state.module'
+import { TransferState } from './shared/transfer-state/transfer-state'
 
-import 'hammerjs';
+import 'hammerjs'
 
 export function getRequest(transferState: TransferState): any {
-  return transferState.get('req');
+  return transferState.get('req')
 }
 
 @NgModule({

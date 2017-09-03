@@ -1,34 +1,34 @@
-import { LogoutComponent } from './logout.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
-import { LogoutModule } from './logout.module';
+import { LogoutComponent } from './logout.component'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
+import { Component } from '@angular/core'
+import { LogoutModule } from './logout.module'
 
 describe(LogoutComponent.name, () => {
-  let fixture: ComponentFixture<LogoutComponent>;
+  let fixture: ComponentFixture<LogoutComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [LogoutModule],
       declarations: [TestComponent]
-    }).compileComponents();
-  }));
+    }).compileComponents()
+  }))
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(LogoutComponent);
-  }));
+    fixture = TestBed.createComponent(LogoutComponent)
+  }))
 
   afterEach(async(() => {
-    TestBed.resetTestingModule();
-  }));
+    TestBed.resetTestingModule()
+  }))
 
   it('should match snapshot', async(() => {
-    expect(fixture).toMatchSnapshot();
-  }));
+    expect(fixture).toMatchSnapshot()
+  }))
 
   it('should compile', async(() => {
-    expect(fixture.nativeElement).toBeDefined();
-  }));
-});
+    expect(fixture.nativeElement).toBeDefined()
+  }))
+})
 
 @Component({
   selector: 'test-component',

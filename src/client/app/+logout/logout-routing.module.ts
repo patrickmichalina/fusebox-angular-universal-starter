@@ -1,6 +1,6 @@
-import { LogoutComponent } from './logout.component';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { LogoutComponent } from './logout.component'
+import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
 
 @NgModule({
   imports: [

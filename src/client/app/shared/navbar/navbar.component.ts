@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NavbarService } from './navbar.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { NavbarService } from './navbar.service'
 
 @Component({
   selector: 'pm-navbar',

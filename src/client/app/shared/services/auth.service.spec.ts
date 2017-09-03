@@ -1,8 +1,8 @@
-import { CookieService, ICookieService } from './cookie.service';
-import { AUTH_CONFIG, AuthService, IAuthService, IAuthServiceConfig, ITokenSchema, IUserIdentity } from './auth.service';
-import { async, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
-import '../../../operators';
+import { CookieService, ICookieService } from './cookie.service'
+import { AUTH_CONFIG, AuthService, IAuthService, IAuthServiceConfig, ITokenSchema, IUserIdentity } from './auth.service'
+import { async, TestBed } from '@angular/core/testing'
+import { Observable } from 'rxjs/Observable'
+import '../../../operators'
 
 export const authConfg: IAuthServiceConfig = {
   authTokenStorageKey: 'pm_jwt',
@@ -17,12 +17,12 @@ export const authConfg: IAuthServiceConfig = {
     adminRoleNames: ['admin']
   },
   userFactory: (tokenJson: any, schema: ITokenSchema) => {
-    const roles = tokenJson[schema.roles] as string[] || [];
-    const roleSet = new Set<string>();
+    const roles = tokenJson[schema.roles] as string[] || []
+    const roleSet = new Set<string>()
 
     Array.isArray(roles)
       ? roles.forEach(role => roleSet.add(role))
-      : roleSet.add(roles);
+      : roleSet.add(roles)
 
     const user: IUserIdentity = {
       id: tokenJson[schema.id] as string,
@@ -30,44 +30,44 @@ export const authConfg: IAuthServiceConfig = {
       username: tokenJson[schema.username] as string,
       roles: roleSet,
       isInRole(name: string) {
-        return roleSet.has(name);
+        return roleSet.has(name)
       },
       isAdmin() {
-        return schema.adminRoleNames.some(role => roleSet.has(role));
+        return schema.adminRoleNames.some(role => roleSet.has(role))
       }
-    };
+    }
 
-    return user;
+    return user
   }
-};
+}
 
 class MockCookieService implements ICookieService {
-  public mockCookieStore: any = {};
+  public mockCookieStore: any = {}
 
   get(name: string): any {
-    return this.mockCookieStore[name];
+    return this.mockCookieStore[name]
   }
 
   getAll() {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.')
   }
   set(name: string, value: any, options?: Cookies.CookieAttributes | undefined): void {
-    throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.')
   }
   remove(name: string, options?: Cookies.CookieAttributes | undefined): void {
-    delete this.mockCookieStore[name];
+    delete this.mockCookieStore[name]
   }
 
   get cookies$(): Observable<{ [key: string]: any; }> {
     return Observable.create((observer: any) => {
-      observer.next(this.mockCookieStore);
-      observer.complete();
-    });
+      observer.next(this.mockCookieStore)
+      observer.complete()
+    })
   }
 }
 
 describe(AuthService.name, () => {
-  let service: IAuthService;
+  let service: IAuthService
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -76,81 +76,81 @@ describe(AuthService.name, () => {
         { provide: CookieService, useValue: new MockCookieService() },
         { provide: AUTH_CONFIG, useValue: authConfg }
       ]
-    });
-  }));
+    })
+  }))
 
   beforeEach(() => {
-    service = TestBed.get(AuthService);
-  });
+    service = TestBed.get(AuthService)
+  })
 
   it('should construct', async(() => {
-    expect(service).toBeDefined();
-  }));
+    expect(service).toBeDefined()
+  }))
 
   it('should throw if missing IAuthServiceConfig', async(() => {
-    expect.assertions(1);
-    TestBed.resetTestingModule();
+    expect.assertions(1)
+    TestBed.resetTestingModule()
     TestBed.configureTestingModule({
       providers: [
         AuthService,
         { provide: AUTH_CONFIG, useValue: undefined }
       ]
-    }).compileComponents();
-    expect(() => TestBed.get(AuthService)).toThrow();
-  }));
+    }).compileComponents()
+    expect(() => TestBed.get(AuthService)).toThrow()
+  }))
 
   it('should throw if missing tokenSchema', async(() => {
-    expect.assertions(1);
-    TestBed.resetTestingModule();
+    expect.assertions(1)
+    TestBed.resetTestingModule()
     TestBed.configureTestingModule({
       providers: [
         AuthService,
         { provide: CookieService, useValue: new MockCookieService() },
         { provide: AUTH_CONFIG, useValue: { tokenSchema: undefined } }
       ]
-    }).compileComponents();
-    expect(() => TestBed.get(AuthService)).toThrow('Missing config.tokenSchema');
-  }));
+    }).compileComponents()
+    expect(() => TestBed.get(AuthService)).toThrow('Missing config.tokenSchema')
+  }))
 
   it('should throw if missing authTokenStorageKey', async(() => {
-    expect.assertions(1);
-    TestBed.resetTestingModule();
+    expect.assertions(1)
+    TestBed.resetTestingModule()
     TestBed.configureTestingModule({
       providers: [
         AuthService,
         { provide: CookieService, useValue: new MockCookieService() },
         { provide: AUTH_CONFIG, useValue: { tokenSchema: {}, authTokenStorageKey: undefined } }
       ]
-    }).compileComponents();
-    expect(() => TestBed.get(AuthService)).toThrow('Missing config.authTokenStorageKey');
-  }));
+    }).compileComponents()
+    expect(() => TestBed.get(AuthService)).toThrow('Missing config.authTokenStorageKey')
+  }))
 
   it('should throw if missing config.cookieDomain', async(() => {
-    expect.assertions(1);
-    TestBed.resetTestingModule();
+    expect.assertions(1)
+    TestBed.resetTestingModule()
     TestBed.configureTestingModule({
       providers: [
         AuthService,
         { provide: CookieService, useValue: new MockCookieService() },
         { provide: AUTH_CONFIG, useValue: { tokenSchema: {}, authTokenStorageKey: {}, cookieDomain: undefined } }
       ]
-    }).compileComponents();
-    expect(() => TestBed.get(AuthService)).toThrow('Missing config.cookieDomain');
-  }));
+    }).compileComponents()
+    expect(() => TestBed.get(AuthService)).toThrow('Missing config.cookieDomain')
+  }))
 
   it('should get token from store using config.authTokenStorageKey', async(() => {
-    expect.assertions(1);
-    const injectedConfig = TestBed.get(AUTH_CONFIG) as IAuthServiceConfig;
-    TestBed.get(CookieService).mockCookieStore[injectedConfig.authTokenStorageKey] = 'test_token_value';
-    expect(service.getTokenFromStore()).toBe('test_token_value');
-  }));
+    expect.assertions(1)
+    const injectedConfig = TestBed.get(AUTH_CONFIG) as IAuthServiceConfig
+    TestBed.get(CookieService).mockCookieStore[injectedConfig.authTokenStorageKey] = 'test_token_value'
+    expect(service.getTokenFromStore()).toBe('test_token_value')
+  }))
 
   it('should remove token from store on logout', async(() => {
-    expect.assertions(2);
-    const injectedConfig = TestBed.get(AUTH_CONFIG) as IAuthServiceConfig;
-    TestBed.get(CookieService).mockCookieStore[injectedConfig.authTokenStorageKey] = 'test_token_value';
-    expect(service.getTokenFromStore()).toBe('test_token_value');
-    service.logout();
-    expect(service.getTokenFromStore()).toBeUndefined();
-  }));
-});
+    expect.assertions(2)
+    const injectedConfig = TestBed.get(AUTH_CONFIG) as IAuthServiceConfig
+    TestBed.get(CookieService).mockCookieStore[injectedConfig.authTokenStorageKey] = 'test_token_value'
+    expect(service.getTokenFromStore()).toBe('test_token_value')
+    service.logout()
+    expect(service.getTokenFromStore()).toBeUndefined()
+  }))
+})
