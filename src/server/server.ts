@@ -8,7 +8,6 @@ import * as morgan from 'morgan'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import * as getOs from 'getos'
-import * as compression from 'compression'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
@@ -20,7 +19,6 @@ import { exists, existsSync } from 'fs'
 import { EnvConfig } from '../../tools/config/app.config'
 declare var __process_env__: EnvConfig
 
-const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
 
@@ -57,9 +55,9 @@ app.use(cookieParser())
 getOs((err, os) => {
   if (err) throw err
   if (os.os === 'win32') {
-    app.use(compression())
+    app.use(require('compression')())
   } else {
-    app.use(shrinkRay())
+    app.use(require('shrink-ray')())
   }
 })
 
