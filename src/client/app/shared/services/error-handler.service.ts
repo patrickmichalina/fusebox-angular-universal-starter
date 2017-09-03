@@ -21,6 +21,6 @@ export class GlobalErrorHandler implements ErrorHandler {
         .join('\n')
 
         log.error(message, { url, stack })
-    })
+    }).catch(err => log.error(message, { url, stack: err }))
   }
 }
