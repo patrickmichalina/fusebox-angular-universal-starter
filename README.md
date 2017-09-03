@@ -19,6 +19,7 @@ Includes the following features:
 - [x] Fully typed build tools using [TypeScript](https://www.typescriptlang.org) and [Sparky](http://fuse-box.org/page/sparky)
 - [x] Production and development builds
 - [x] Fast Angular testing with [Jest](https://facebook.github.io/jest)
+- [x] End-to-end (e2e) testing with [Nightmare](https://github.com/segmentio/nightmare)
 - [x] Manage your type definitions using [@types](https://www.npmjs.com/~types)
 - [x] Simple [Heroku](https://www.heroku.com) Deployment
 - [x] HttpStateTransfer for caching server responses on client boostrap (no flickering)
@@ -36,7 +37,6 @@ Includes the following features:
 - [x] Both Client and Server build tasks
 - [x] Hot Module Reloading for faster browser reloads during client development
 - [x] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
-- [x] End-to-end (e2e) testing with Protractor
 - [x] [angular-tslint-rules](https://github.com/fulls1z3/angular-tslint-rules) as configuration preset for [TSLint](https://github.com/palantir/tslint) and [codelyzer](https://github.com/mgechev/codelyzer).
 - [x] Automatic static file cache invalidation
 - [x] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
@@ -70,8 +70,7 @@ $ npm run test.watch
 # e2e testing
 # start in different tabs
 $ npm start
-$ npm run webdriver.start
-$ npm run test.e2e.start
+$ npm run test.e2e
 
 # start the Angular Universal server
 $ npm start

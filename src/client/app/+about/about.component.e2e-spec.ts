@@ -1,13 +1,13 @@
-import { browser } from 'protractor'
+import { baseUrl, browser } from '../../../../tools/test/jest.e2e-setup'
 
 describe('About', () => {
+  test('should have title', async () => {
+    const page = browser.goto(`${baseUrl}/about`)
 
-  beforeEach(async () => {
-    return await browser.get('/about')
-  })
+    const text = await page.evaluate(() => document.title)
+      .end()
 
-  it('should have correct feature heading', () => {
-    expect(browser.getTitle()).toEqual('About - Fusebox Angular Universal Starter')
+    expect(text).toContain('About - Fusebox Angular Universal Starter')
   })
 
 })
