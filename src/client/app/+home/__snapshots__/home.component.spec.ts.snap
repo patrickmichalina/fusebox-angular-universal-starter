@@ -5,24 +5,38 @@ exports[`HomeComponent should match snapshot 1`] = `
   <md-card
     class="mat-card"
   >
+    
+    
     <div>
+      
+      
       <h1
         class="display-3"
       >
         Hello, Angular Developer!
       </h1>
+      
+      
       <p
         class="lead"
       >
         Welcome to a blazing fast Angular Universal development starter
       </p>
+      
+      
       <hr
         class="my-4"
       />
+      
+      
       <h2>
         Features
       </h2>
+      
+      
       <ul>
+        
+        
         <li>
           <a
             href="https://github.com/angular/angular/blob/master/CHANGELOG.md"
@@ -30,22 +44,24 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Angular 5
           </a>
-          as the application framework
+           as the application framework
         </li>
+        
+        
         <li>
           <a
             href="http://fuse-box.org/"
           >
             FuseBox
           </a>
-          bundling (faster than 
+           bundling (faster than 
           <a
             href="https://webpack.github.io/"
             target="_blank"
           >
             Webpack
           </a>
-          and 
+                  and 
           <a
             href="http://jspm.io/"
             target="_blank"
@@ -54,6 +70,8 @@ exports[`HomeComponent should match snapshot 1`] = `
           </a>
           )
         </li>
+        
+        
         <li>
           <a
             href="https://material.angular.io"
@@ -61,8 +79,10 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Angular Material 2
           </a>
-          as the UI language and component library
+           as the UI language and component library
         </li>
+        
+        
         <li>
           Angular testing with 
           <a
@@ -71,8 +91,10 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Jest
           </a>
-          (faster than Karma)
+           (faster than Karma)
         </li>
+        
+        
         <li>
           End-to-end (e2e) testing with 
           <a
@@ -82,6 +104,8 @@ exports[`HomeComponent should match snapshot 1`] = `
             Nightmare
           </a>
         </li>
+        
+        
         <li>
           Fully typed build tools and application using 
           <a
@@ -91,9 +115,13 @@ exports[`HomeComponent should match snapshot 1`] = `
             TypeScript
           </a>
         </li>
+        
+        
         <li>
           Production and development builds
         </li>
+        
+        
         <li>
           Manage your type definitions using @types (easier than using 
           <a
@@ -103,6 +131,8 @@ exports[`HomeComponent should match snapshot 1`] = `
           </a>
           )
         </li>
+        
+        
         <li>
           Simple 
           <a
@@ -111,11 +141,15 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Heroku
           </a>
-          deployment
+           deployment
         </li>
+        
+        
         <li>
           Cookies Support
         </li>
+        
+        
         <li>
           <a
             href="https://github.com/google/brotli"
@@ -123,21 +157,27 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Brotli compression
           </a>
-          with 
+           with 
           <a
             href="http://www.gzip.org"
             target="_blank"
           >
             gzip
           </a>
-          fallback
+           fallback
         </li>
+        
+        
         <li>
           HttpStateTransfer for caching server responses on client boostrap (no flickering on load)
         </li>
+        
+        
         <li>
           Automatic sitemap generation
         </li>
+        
+        
         <li>
           <a
             href="https://circleci.com"
@@ -145,8 +185,10 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             CircleCI
           </a>
-          unit testing support
+           unit testing support
         </li>
+        
+        
         <li>
           <a
             href="https://mobile.angular.io"
@@ -154,14 +196,20 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             SCSS
           </a>
-          support for professional grade CSS management
+           support for professional grade CSS management
         </li>
+        
+        
         <li>
           Full favicon icon generation for multiple devices derived from a single seed image
         </li>
+        
+        
         <li>
           SEO support for Title and Meta tags
         </li>
+        
+        
         <li>
           <a
             href="http://ogp.me"
@@ -169,11 +217,15 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             OG (Open Graph)
           </a>
-          tags for social sharing
+           tags for social sharing
         </li>
+        
+        
         <li>
           Simple Ad-Blocker detection service
         </li>
+        
+        
         <li>
           Vendor-agnostic analytics using 
           <a
@@ -182,6 +234,8 @@ exports[`HomeComponent should match snapshot 1`] = `
             angulartics2
           </a>
         </li>
+        
+        
         <li>
           Generic token based Authentication service with 
           <a
@@ -189,11 +243,14 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             JWT
           </a>
-          cookie support.
+           cookie support.
+          
         </li>
         <li>
           Hot Module Reloading for faster browser reloads during client development
         </li>
+        
+          
         <li>
           <a
             href="https://angular.io/guide/aot-compiler"
@@ -201,11 +258,15 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Ahead-of-Time (AOT) compilation
           </a>
-          support
+           support
         </li>
+        
+          
         <li>
           e2e testing with Protractor
         </li>
+        
+          
         <li>
           <a
             href="https://angular.io/guide/aot-compiler#tree-shaking-1"
@@ -213,8 +274,10 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Lazy Loaded
           </a>
-          modules
+           modules
         </li>
+        
+          
         <li>
           Analyze bundle sizes by using 
           <a
@@ -223,6 +286,8 @@ exports[`HomeComponent should match snapshot 1`] = `
             source-map-explorer
           </a>
         </li>
+        
+          
         <li>
           <strong>
             Coming Soon
@@ -234,8 +299,10 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Tree-Shaking
           </a>
-          builds
+           builds
         </li>
+        
+          
         <li>
           <strong>
             Coming Soon
@@ -247,12 +314,18 @@ exports[`HomeComponent should match snapshot 1`] = `
           >
             Angular Mobile Toolkit
           </a>
-          (Service Worker)
+                    (Service Worker)
         </li>
+        
+      
       </ul>
+      
+      
       <p
         class="lead"
       >
+        
+        
         <a
           angulartics2on="click"
           angularticsevent="ViewRepo"
@@ -275,8 +348,14 @@ exports[`HomeComponent should match snapshot 1`] = `
             class="mat-button-focus-overlay"
           />
         </a>
+        
+      
       </p>
+      
+    
     </div>
+    
+  
   </md-card>
 </pm-home>
 `;

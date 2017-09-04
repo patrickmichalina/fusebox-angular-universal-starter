@@ -4,6 +4,6 @@ exports[`LogoutComponent should match snapshot 1`] = `
 <pm-logout>
   Your <strong>
     logout
-  </strong>info page goes here!
+  </strong> info page goes here!
 </pm-logout>
 `;
