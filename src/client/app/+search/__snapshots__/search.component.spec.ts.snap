@@ -9,25 +9,42 @@ exports[`SearchComponent should match snapshot 1`] = `
 >
   <h1>
     Search Angular Projects on Github
-  </h1><form
+  </h1>
+  <form
     class="form-inline"
   >
+    
+    
     <div
       class="form-group mx-lg-3"
     >
+      
+      
       <input
         class="form-control"
         placeholder="Search Angular projects"
         type="text"
       />
+      
+    
     </div>
+    
+    
     <button
       class="btn btn-primary"
     >
       Search
     </button>
-  </form><ul>
     
+  
+  </form>
+  <ul>
+    
+    
+    
+    
+  
   </ul>
+  
 </pm-search>
 `;

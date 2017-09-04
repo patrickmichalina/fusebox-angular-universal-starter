@@ -4,17 +4,10 @@
     "js",
     "html"
   ],
-  "moduleNameMapper": {
-    "(.*)": "<rootDir>/src/$1"
-  },
   "testRegex": "(/__tests__/.*|\\.(test|e2e-spec))\\.(ts|js)$",
   "transform": {
-    "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
+    "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
   },
-  "collectCoverageFrom": [
-    "src/client/app/**/*(*.service|*.component|*.pipe|*.directive|*.module).{ts,html}",
-    "src/server/**/**.{ts}"
-  ],
   "globals": {
     "__TRANSFORM_HTML__": true,
     "__process_env__": {},
