@@ -6,7 +6,6 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
-// import * as getOs from 'getos'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
@@ -34,7 +33,9 @@ const staticOptions = {
   index: false,
   maxAge: isProd ? ms('1yr') : ms('0'),
   setHeaders: (res: express.Response, path: any) => {
-    res.setHeader('Expires', isProd ? ms('1yr').toString() : ms('0').toString())
+    res.setHeader('Expires', isProd
+      ? new Date(Date.now() + ms('1yr')).toUTCString()
+      : new Date(Date.now() + ms('0')).toUTCString())
   }
 }
 
@@ -45,21 +46,6 @@ app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
 app.use(shrinkRay())
-
-// getOs((err, os) => {
-//   if (err) {
-//     throw err
-//   }
-//   logger.info(`Detected OS: ${os.os}`)
-//   if (os.os === 'win32') {
-//     logger.info("Using compression library: 'compression'")
-//     app.use(require('compression')())
-//   } else {
-//     logger.info("Using compression library: 'shrink-ray'")
-//     app.use(require('shrink-ray')())
-//   }
-// })
-
 app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
 if (__process_env__.server.minifyIndex) {
