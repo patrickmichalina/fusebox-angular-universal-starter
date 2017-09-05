@@ -114,7 +114,7 @@
     "@angular/router": "5.0.0-beta.2",
     "@expo/bunyan": "^1.8.10",
     "@nguniversal/express-engine": "^1.0.0-beta.3",
-    "@ngx-meta/core": "^0.4.0-rc.2",
+    "@ngx-meta/core": "^2.0.0",
     "angular2-jwt": "^0.2.3",
     "angulartics2": "^2.3.0",
     "bunyan-middleware": "^0.8.0",
