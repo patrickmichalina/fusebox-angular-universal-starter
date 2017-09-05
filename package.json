@@ -91,7 +91,7 @@
     "source-map-explorer": "^1.4.0",
     "string-hash": "^1.1.3",
     "svg2png": "^4.1.1",
-    "ts-jest": "^20.0.14",
+    "ts-jest": "^21.0.0",
     "ts-node": "^3.3.0",
     "tslint": "^5.7.0",
     "typescript": "^2.5.2",
