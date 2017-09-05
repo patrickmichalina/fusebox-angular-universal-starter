@@ -6,7 +6,7 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
-import * as getOs from 'getos'
+// import * as getOs from 'getos'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
@@ -18,6 +18,7 @@ import { exists, existsSync } from 'fs'
 import { EnvConfig } from '../../tools/config/app.config'
 declare var __process_env__: EnvConfig
 
+const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
 
@@ -43,20 +44,21 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
+app.use(shrinkRay())
 
-getOs((err, os) => {
-  if (err) {
-    throw err
-  }
-  logger.info(`Detected OS: ${os.os}`)
-  if (os.os === 'win32') {
-    logger.info("Using compression library: 'compression'")
-    app.use(require('compression')())
-  } else {
-    logger.info("Using compression library: 'shrink-ray'")
-    app.use(require('shrink-ray')())
-  }
-})
+// getOs((err, os) => {
+//   if (err) {
+//     throw err
+//   }
+//   logger.info(`Detected OS: ${os.os}`)
+//   if (os.os === 'win32') {
+//     logger.info("Using compression library: 'compression'")
+//     app.use(require('compression')())
+//   } else {
+//     logger.info("Using compression library: 'shrink-ray'")
+//     app.use(require('shrink-ray')())
+//   }
+// })
 
 app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
