@@ -132,7 +132,7 @@
     "serve-favicon": "^2.4.3",
     "stacktrace-js": "^2.0.0",
     "systemjs": "^0.20.18",
-    "tsickle": "^0.23.6",
+    "tsickle": "^0.24.0",
     "zone.js": "^0.8.17"
   },
   "optionalDependencies": {
