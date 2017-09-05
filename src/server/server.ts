@@ -4,7 +4,6 @@ import 'reflect-metadata'
 import 'zone.js/dist/zone-node'
 import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
-import * as morgan from 'morgan'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import * as getOs from 'getos'
@@ -29,20 +28,13 @@ const root = './dist'
 const port = process.env.PORT || __process_env__.server.port
 const isProd = __process_env__.server.prodMode
 const host = process.env.HOST || __process_env__.server.host
+const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
 const staticOptions = {
   index: false,
   maxAge: isProd ? ms('1yr') : ms('0'),
   setHeaders: (res: express.Response, path: any) => {
     res.setHeader('Expires', isProd ? ms('1yr').toString() : ms('0').toString())
   }
-}
-
-// setup logger
-if (__process_env__.env === 'dev') {
-  app.use(morgan('dev'))
-} else {
-  const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
-  app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 }
 
 if (process.env.HEROKU) app.use(forceSsl)
@@ -53,13 +45,20 @@ app.set('views', root)
 app.use(cookieParser())
 
 getOs((err, os) => {
-  if (err) throw err
+  if (err) {
+    throw err
+  }
+  logger.info(`Detected OS: ${os.os}`)
   if (os.os === 'win32') {
+    logger.info("Using compression library: 'compression'")
     app.use(require('compression')())
   } else {
+    logger.info("Using compression library: 'shrink-ray'")
     app.use(require('shrink-ray')())
   }
 })
+
+app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
 if (__process_env__.server.minifyIndex) {
   app.use(minifyHTML({
@@ -102,5 +101,5 @@ app.get('/*', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`\nAngular Universal Server listening at ${host}:${port} \n`)
+  logger.info(`Angular Universal Server listening at ${host}:${port}`)
 })
