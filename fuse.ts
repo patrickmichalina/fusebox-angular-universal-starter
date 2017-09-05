@@ -40,7 +40,7 @@ const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 const baseOptions = {
   homeDir: './src',
   output: `${BUILD_CONFIG.outputDir}/$name.js`,
-  cache: true,
+  cache: !isProdBuild,
   target: 'browser',
   plugins: [
     Ng2TemplatePlugin(),
