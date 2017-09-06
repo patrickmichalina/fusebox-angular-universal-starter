@@ -77,7 +77,7 @@
     "husky": "^0.14.3",
     "jest": "21.0.0",
     "jest-junit-reporter": "^1.1.0",
-    "jest-preset-angular": "^2.0.5",
+    "jest-preset-angular": "^3.0.0",
     "jsdom": "^11.2.0",
     "last-release-git": "0.0.3",
     "mkdirp": "^0.5.1",
