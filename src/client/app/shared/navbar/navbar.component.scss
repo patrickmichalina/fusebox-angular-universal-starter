@@ -1,20 +1,6 @@
 :host {
     nav {
-        background-color: #1976D2;
-        a:hover {
-            box-shadow: 4px 3px 8px 2px #26588b;
-        }
-        img {
-            width: 96px;
-        }
-        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
-        0 6px 10px 0 rgba(0, 0, 0, .14),
-        0 1px 18px 0 rgba(0, 0, 0, .12);
-        .active {
-            box-shadow: 4px 3px 8px 2px #26588b;
-        }
-    }
-    .app-navbar {
+        background-color: #2196F3;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -25,6 +11,18 @@
         align-items: center;
         padding: 8px 16px;
         color: rgba(255, 255, 255, 0.87);
+        a:hover {
+            box-shadow: 2px 4px 8px 2px #155e99;
+        }
+        img {
+            width: 96px;
+        }
+        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
+        0 6px 10px 0 rgba(0, 0, 0, .14),
+        0 1px 18px 0 rgba(0, 0, 0, .12);
+        .active {
+            box-shadow: 2px 4px 8px 2px #155e99;
+        }
     }
     .flex-spacer {
         -webkit-box-flex: 1;
@@ -32,6 +30,6 @@
         flex-grow: 1;
     }
     .nav-button {
-        text-transform: uppercase;
+        //text-transform: uppercase;
     }
 }
