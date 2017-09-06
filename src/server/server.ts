@@ -4,10 +4,8 @@ import 'reflect-metadata'
 import 'zone.js/dist/zone-node'
 import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
-import * as morgan from 'morgan'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
-import * as getOs from 'getos'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
@@ -19,6 +17,7 @@ import { exists, existsSync } from 'fs'
 import { EnvConfig } from '../../tools/config/app.config'
 declare var __process_env__: EnvConfig
 
+const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
 
@@ -29,20 +28,15 @@ const root = './dist'
 const port = process.env.PORT || __process_env__.server.port
 const isProd = __process_env__.server.prodMode
 const host = process.env.HOST || __process_env__.server.host
+const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
 const staticOptions = {
   index: false,
   maxAge: isProd ? ms('1yr') : ms('0'),
   setHeaders: (res: express.Response, path: any) => {
-    res.setHeader('Expires', isProd ? ms('1yr').toString() : ms('0').toString())
+    res.setHeader('Expires', isProd
+      ? new Date(Date.now() + ms('1yr')).toUTCString()
+      : new Date(Date.now() + ms('0')).toUTCString())
   }
-}
-
-// setup logger
-if (__process_env__.env === 'dev') {
-  app.use(morgan('dev'))
-} else {
-  const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
-  app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 }
 
 if (process.env.HEROKU) app.use(forceSsl)
@@ -51,15 +45,8 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
-
-getOs((err, os) => {
-  if (err) throw err
-  if (os.os === 'win32') {
-    app.use(require('compression')())
-  } else {
-    app.use(require('shrink-ray')())
-  }
-})
+app.use(shrinkRay())
+app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
 if (__process_env__.server.minifyIndex) {
   app.use(minifyHTML({
@@ -102,5 +89,5 @@ app.get('/*', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`\nAngular Universal Server listening at ${host}:${port} \n`)
+  logger.info(`Angular Universal Server listening at ${host}:${port}`)
 })
