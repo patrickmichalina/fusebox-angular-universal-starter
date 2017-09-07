@@ -2,6 +2,24 @@
 
 exports[`NotFoundComponent should match snapshot 1`] = `
 <pm-not-found>
-  PAGE NOT FOUND
+  <md-card
+    class="mat-card"
+  >
+    
+    PAGE NOT FOUND
+  
+  </md-card>
+</pm-not-found>
+`;
+
+exports[`NotFoundComponent should show text 1`] = `
+<pm-not-found>
+  <md-card
+    class="mat-card"
+  >
+    
+    PAGE NOT FOUND
+  
+  </md-card>
 </pm-not-found>
 `;

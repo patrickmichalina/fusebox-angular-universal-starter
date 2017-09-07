@@ -2,8 +2,16 @@
 
 exports[`SignupComponent should match snapshot 1`] = `
 <pm-signup>
-  Your <strong>
-    signup
-  </strong> form goes here!
+  <md-card
+    class="mat-card"
+  >
+    
+    Your 
+    <strong>
+      signup
+    </strong>
+     form goes here!
+  
+  </md-card>
 </pm-signup>
 `;

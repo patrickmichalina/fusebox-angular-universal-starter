@@ -2,11 +2,21 @@
 
 exports[`AboutComponent should match snapshot 1`] = `
 <pm-about>
-  <h1>
-    About
-  </h1>
-  <p>
-    An Angular starter with all the tools necessary to create server rendered Angular applications.
-  </p>
+  <md-card
+    class="mat-card"
+  >
+    
+    
+    <h1>
+      About
+    </h1>
+    
+    
+    <p>
+      An Angular starter with all the tools necessary to create server rendered Angular applications.
+    </p>
+    
+  
+  </md-card>
 </pm-about>
 `;

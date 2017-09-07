@@ -5,7 +5,7 @@ import { HomeComponent } from './home.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { HomeModule } from './home.module'
-import { MdButtonModule, MdCardModule } from '@angular/material'
+import { MdButtonModule, MdCardModule, MdRaisedButtonCssMatStyler } from '@angular/material'
 
 describe(HomeComponent.name, () => {
   let fixture: ComponentFixture<HomeComponent>
@@ -38,10 +38,10 @@ describe(HomeComponent.name, () => {
   it('should track event when link clicked', async(() => {
     const analytics = TestBed.get(Angulartics2) as Angulartics2
     expect(analytics).toBeDefined()
-    const links = fixture.debugElement.queryAll(By.css('.lead a'))
-    expect(links).toHaveLength(1)
-    const link = links[0].nativeElement as HTMLAnchorElement
-    expect(link).toBeDefined()
+    const button = fixture.debugElement.query(By.directive(MdRaisedButtonCssMatStyler))
+    expect(button).toBeTruthy()
+    const link = button.nativeElement as HTMLAnchorElement
+    expect(link).toBeTruthy()
     analytics.eventTrack.subscribe(eventTrack => {
       expect(eventTrack).toBeDefined()
       expect(eventTrack.action).toEqual('ViewRepo')

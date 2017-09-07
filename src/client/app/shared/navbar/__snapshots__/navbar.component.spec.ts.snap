@@ -6,7 +6,7 @@ exports[`NavbarComponent should match snapshot 1`] = `
 >
   <nav>
     
-      
+    
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -19,9 +19,7 @@ exports[`NavbarComponent should match snapshot 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-          FUSEBOX-ANGULAR-UNIVERSAL-STARTER
-      
+        FUSEBOX-ANGULAR-UNIVERSAL-STARTER
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -35,12 +33,12 @@ exports[`NavbarComponent should match snapshot 1`] = `
       />
     </a>
     
-      
+    
     <div
       class="flex-spacer"
     />
     
-      
+    
     
     <a
       aria-disabled="false"
@@ -246,7 +244,7 @@ exports[`NavbarComponent should match snapshot 1`] = `
       />
     </a>
     
-      
+    
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -271,7 +269,7 @@ exports[`NavbarComponent should match snapshot 1`] = `
       />
     </a>
     
-      
+    
     <a
       aria-disabled="false"
       class="nav-button mat-button"

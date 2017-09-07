@@ -1,11 +1,10 @@
 <nav>
-    <a class="nav-button" md-button routerLink>
-        FUSEBOX-ANGULAR-UNIVERSAL-STARTER
-    </a>
-    <div class="flex-spacer"></div>
-    <a class="nav-button" md-button *ngFor="let item of navbarService.menu$ | async" [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+  <a class="nav-button" md-button routerLink>FUSEBOX-ANGULAR-UNIVERSAL-STARTER</a>
+  <div class="flex-spacer"></div>
+  <a class="nav-button" md-button *ngFor="let item of navbarService.menu$ | async" [routerLink]="item.route" routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}">
       {{ item.name }}
     </a>
-    <a class="nav-button" md-button href="/sitemap.xml">{{ "Sitemap" }}</a>
-    <a class="nav-button" md-button href="/robots.txt">{{ "Robots" }}</a>
+  <a class="nav-button" md-button href="/sitemap.xml">{{ "Sitemap" }}</a>
+  <a class="nav-button" md-button href="/robots.txt">{{ "Robots" }}</a>
 </nav>
