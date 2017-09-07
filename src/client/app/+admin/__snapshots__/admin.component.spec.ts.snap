@@ -2,11 +2,21 @@
 
 exports[`AdminComponent should match snapshot 1`] = `
 <pm-admin>
-  <h1>
-    Admin
-  </h1>
-  <p>
-    Your Admin module is routed here
-  </p>
+  <md-card
+    class="mat-card"
+  >
+    
+    
+    <h1>
+      Admin
+    </h1>
+    
+    
+    <p>
+      Your Admin module is routed here
+    </p>
+    
+  
+  </md-card>
 </pm-admin>
 `;

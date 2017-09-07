@@ -35,7 +35,8 @@ describe(NotFoundComponent.name, () => {
 
   it('should show text', async(() => {
     fixture.detectChanges()
-    expect(fixture.debugElement.nativeElement.innerHTML).toBe('PAGE NOT FOUND')
+    expect(fixture.debugElement.nativeElement.innerHTML).toContain('PAGE NOT FOUND')
+    expect(fixture).toMatchSnapshot()
   }))
 })
 
