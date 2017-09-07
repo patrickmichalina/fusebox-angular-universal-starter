@@ -19,6 +19,15 @@ export const BUILD_CONFIG: BuildConfiguration = {
     {
       order: 1,
       inHead: true,
+      element: 'meta',
+      attributes: {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      }
+    },
+    {
+      order: 2,
+      inHead: true,
       element: 'link',
       attributes: {
         rel: 'stylesheet',
@@ -26,7 +35,7 @@ export const BUILD_CONFIG: BuildConfiguration = {
       }
     },
     {
-      order: 2,
+      order: 3,
       inHead: true,
       element: 'meta',
       attributes: {
@@ -36,7 +45,7 @@ export const BUILD_CONFIG: BuildConfiguration = {
       shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
     },
     {
-      order: 3,
+      order: 4,
       inHead: false,
       element: 'script',
       content: `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${process.env.GA_TRACKING_ID}', 'auto');`,
@@ -46,7 +55,7 @@ export const BUILD_CONFIG: BuildConfiguration = {
       shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
     },
     {
-      order: 4,
+      order: 5,
       inHead: false,
       element: 'script',      
       attributes: {
