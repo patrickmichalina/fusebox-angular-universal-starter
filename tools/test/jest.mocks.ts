@@ -8,6 +8,7 @@ const mock = () => {
   };
 };
 Object.defineProperty(window, 'CSS', { value: mock() });
+Object.defineProperty(window, 'matchMedia', { value: jest.fn(() => ({ matches: true }))});
 Object.defineProperty(window, 'localStorage', { value: mock() });
 Object.defineProperty(window, 'sessionStorage', { value: mock() });
 Object.defineProperty(window, 'getComputedStyle', {

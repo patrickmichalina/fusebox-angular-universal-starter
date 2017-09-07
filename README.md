@@ -15,6 +15,7 @@ This is early work and under heavy development. A demo project can be found [her
 Includes the following features:
 - [x] [Angular 5](https://github.com/angular/angular/blob/master/CHANGELOG.md) as the application framework
 - [x] [Angular Material 2](https://material.angular.io) as the UI language and component library
+- [x] [Angular Flex Layout](https://github.com/angular/flex-layout) for dynamic responsive layouts
 - [x] [FuseBox](http://fuse-box.org) bundling
 - [x] Fully typed build tools using [TypeScript](https://www.typescriptlang.org) and [Sparky](http://fuse-box.org/page/sparky)
 - [x] Production and development builds
