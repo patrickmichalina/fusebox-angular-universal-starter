@@ -10,6 +10,7 @@ import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2Module } from 'angulartics2'
 import { MdButtonModule, MdCardModule } from '@angular/material'
+import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
 
@@ -23,10 +24,17 @@ export function fuseBoxConfigFactory() {
     RouterModule,
     MdButtonModule,
     MdCardModule,
+    FlexLayoutModule,
     Angulartics2Module.forChild()
   ],
   exports: [
-    CommonModule, RouterModule, NavbarComponent, Angulartics2Module, MdButtonModule, MdCardModule
+    CommonModule,
+    RouterModule,
+    NavbarComponent,
+    Angulartics2Module,
+    MdButtonModule,
+    MdCardModule,
+    FlexLayoutModule
   ],
   declarations: [NavbarComponent],
   providers: [
