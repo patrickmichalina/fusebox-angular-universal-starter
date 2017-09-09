@@ -13,14 +13,15 @@ Provides an extremely fast seed project for the development of Angular Universal
 This is early work and under heavy development. A demo project can be found [here](https://angular.patrickmichalina.com)
 
 Includes the following features:
-- [x] [Angular 5](https://github.com/angular/angular/blob/master/CHANGELOG.md) as the application framework
-- [x] [Angular Material 2](https://material.angular.io) as the UI language and component library
+- [x] [Angular](https://github.com/angular/angular/blob/master/CHANGELOG.md) as the application framework
+- [x] [Angular Material](https://material.angular.io) as the UI language and component library
 - [x] [Angular Flex Layout](https://github.com/angular/flex-layout) for dynamic responsive layouts
-- [x] [FuseBox](http://fuse-box.org) bundling
-- [x] Fully typed build tools using [TypeScript](https://www.typescriptlang.org) and [Sparky](http://fuse-box.org/page/sparky)
+- [x] [FuseBox](http://fuse-box.org) as the TypeScript/JavaScript bundler
+- [x] [Jest](https://facebook.github.io/jest) for unit and component testing
+- [x] [Nightmare](https://github.com/segmentio/nightmare) for UI testing
+- [x] [Sparky](http://fuse-box.org/page/sparky) as the task runner
+- [x] Fully typed build tools using [TypeScript](https://www.typescriptlang.org)
 - [x] Production and development builds
-- [x] Fast Angular testing with [Jest](https://facebook.github.io/jest)
-- [x] End-to-end (e2e) testing with [Nightmare](https://github.com/segmentio/nightmare)
 - [x] Manage your type definitions using [@types](https://www.npmjs.com/~types)
 - [x] Simple [Heroku](https://www.heroku.com) Deployment
 - [x] HttpStateTransfer for caching server responses on client boostrap (no flickering)
