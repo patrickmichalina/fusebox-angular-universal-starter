@@ -60,7 +60,6 @@ const appOptions = {
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
     NgLazyPlugin({
-      cdn,
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
       angularBundle: appBundleName,
@@ -73,31 +72,7 @@ const appOptions = {
         name: 'pm-app',
         innerHTML: 'Loading....'
       },
-      additionalDeps: BUILD_CONFIG.dependencies as any[],
-      transformByQuery: [{
-        query: 'script[src]',
-        transformer: (element: NodeListOf<Element>) => {
-          Array.from(element).forEach((thing: HTMLScriptElement) => {
-            if (!thing.src.includes('https') || !thing.src.includes('http')) {
-              thing.src = `${cdn}${thing.src}`;
-            }
-          });
-          return element;
-        },
-        execute: cdn
-      },
-      {
-        query: 'link',
-        transformer: (element: NodeListOf<Element>) => {
-          Array.from(element).forEach((thing: HTMLLinkElement) => {
-            if (!thing.href.includes('https') || !thing.href.includes('http')) {
-              thing.href = `${cdn}${thing.href}`;
-            }
-          });
-          return element;
-        },
-        execute: cdn
-      }]
+      additionalDeps: BUILD_CONFIG.dependencies as any[]
     }),
     isProdBuild && UglifyESPlugin(),
     ...baseOptions.plugins

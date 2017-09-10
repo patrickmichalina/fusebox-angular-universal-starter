@@ -64,12 +64,8 @@ export class NgLazyPluginClass {
       const name = modulePath.split('.module')[0].split('/').pop() as string;
 
       const bundlePath = this.options.isProdBuild
-        ? this.options.cdn
-          ? `${this.options.cdn.replace('https:', '')}/js/bundle-${this.checksums[name]}-${name}.module.js`
-          : `./js/bundle-${this.checksums[name]}-${name}.module.js`
-        : this.options.cdn
-          ? `${this.options.cdn.replace('https:', '')}/js/bundle-${name}.module.js`
-          : `./js/bundle-${name}.module.js`;
+        ? `./js/bundle-${this.checksums[name]}-${name}.module.js`
+        : `./js/bundle-${name}.module.js`
 
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
           return FuseBox.exists('${moduleLoaderPath}')
