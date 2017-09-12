@@ -1,12 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NavbarComponent should match snapshot 1`] = `
-<pm-navbar
-  navbarService={[Function NavbarService]}
+exports[`NavbarComponent should contain a list of links 1`] = `
+<div
+  id="root2"
+  ng-version="5.0.0-beta.2"
 >
   <nav>
     
-    
+  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -33,12 +34,12 @@ exports[`NavbarComponent should match snapshot 1`] = `
       />
     </a>
     
-    
+  
     <div
       class="flex-spacer"
     />
     
-    
+  
     
     <a
       aria-disabled="false"
@@ -55,8 +56,8 @@ exports[`NavbarComponent should match snapshot 1`] = `
         class="mat-button-wrapper"
       >
         
-        Home
-      
+      Home
+    
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -84,8 +85,8 @@ exports[`NavbarComponent should match snapshot 1`] = `
         class="mat-button-wrapper"
       >
         
-        About
-      
+      About
+    
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -113,8 +114,8 @@ exports[`NavbarComponent should match snapshot 1`] = `
         class="mat-button-wrapper"
       >
         
-        Search
-      
+      Search
+    
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -142,8 +143,8 @@ exports[`NavbarComponent should match snapshot 1`] = `
         class="mat-button-wrapper"
       >
         
-        Login
-      
+      Login
+    
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -171,8 +172,8 @@ exports[`NavbarComponent should match snapshot 1`] = `
         class="mat-button-wrapper"
       >
         
-        Logout
-      
+      Logout
+    
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -200,8 +201,8 @@ exports[`NavbarComponent should match snapshot 1`] = `
         class="mat-button-wrapper"
       >
         
-        Signup
-      
+      Signup
+    
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -229,8 +230,37 @@ exports[`NavbarComponent should match snapshot 1`] = `
         class="mat-button-wrapper"
       >
         
-        Admin
-      
+      Admin
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/changelog"
+      md-button=""
+      ng-reflect-router-link="changelog"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Changelog
+    
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -244,7 +274,7 @@ exports[`NavbarComponent should match snapshot 1`] = `
       />
     </a>
     
-    
+  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -269,7 +299,7 @@ exports[`NavbarComponent should match snapshot 1`] = `
       />
     </a>
     
-    
+  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -294,7 +324,336 @@ exports[`NavbarComponent should match snapshot 1`] = `
       />
     </a>
     
-  
+
   </nav>
-</pm-navbar>
+</div>
+`;
+
+exports[`NavbarComponent should match snapshot 1`] = `
+<div
+  id="root0"
+  ng-version="5.0.0-beta.2"
+>
+  <nav>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/"
+      md-button=""
+      ng-reflect-router-link=""
+      routerlink=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        FUSEBOX-ANGULAR-UNIVERSAL-STARTER
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <div
+      class="flex-spacer"
+    />
+    
+  
+    
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/"
+      md-button=""
+      ng-reflect-router-link=""
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Home
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/about"
+      md-button=""
+      ng-reflect-router-link="about"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      About
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/search"
+      md-button=""
+      ng-reflect-router-link="search"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Search
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/login"
+      md-button=""
+      ng-reflect-router-link="login"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Login
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/logout"
+      md-button=""
+      ng-reflect-router-link="logout"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Logout
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/signup"
+      md-button=""
+      ng-reflect-router-link="signup"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Signup
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/admin"
+      md-button=""
+      ng-reflect-router-link="admin"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Admin
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/changelog"
+      md-button=""
+      ng-reflect-router-link="changelog"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Changelog
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/sitemap.xml"
+      md-button=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        Sitemap
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/robots.txt"
+      md-button=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        Robots
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+
+  </nav>
+</div>
 `;
