@@ -67,8 +67,9 @@ if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
 }
 app.use('/css', express.static('dist/css', staticOptions))
 app.use('/js', express.static('dist/js', staticOptions))
-app.use('/assets', express.static('dist/assets', { ...staticOptions, fallthrough: false }))
 app.use('/robots.txt', express.static('dist/robots.txt', staticOptions))
+app.use('/assets', express.static('dist/assets', { ...staticOptions, fallthrough: false }))
+app.use('/changelog.md', express.static('dist/changelog.md', { ...staticOptions, fallthrough: false }))
 app.get('/sitemap.xml', (req, res) => {
   const fileLocation = resolve(root, 'sitemap.xml')
   const url = isProd ? host : `${host}:${port}`

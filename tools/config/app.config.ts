@@ -9,6 +9,7 @@ export interface EnvConfig {
     defaultSocialImage: string
     facebookAppId: string
   }
+  host: string
   server: {
     host: string
     port: number

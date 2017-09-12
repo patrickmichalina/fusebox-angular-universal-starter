@@ -30,7 +30,7 @@ describe(NavbarComponent.name, () => {
 
   it('should match snapshot', () => {
     fixture.detectChanges()
-    expect(fixture).toMatchSnapshot()
+    expect(fixture.nativeElement).toMatchSnapshot()
   })
 
   it('should compile', async(() => {
@@ -46,6 +46,7 @@ describe(NavbarComponent.name, () => {
     navbarService.menu$.subscribe(items => {
       expect(buttonLinks.length).toEqual(items.length + 3)
     })
+    expect(fixture.nativeElement).toMatchSnapshot()
   }))
 })
 

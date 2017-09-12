@@ -7,6 +7,7 @@ import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/do'
 import 'rxjs/add/operator/share'
 import 'rxjs/add/operator/toPromise'
+import 'rxjs/add/operator/take'
 
 import 'rxjs/operator/finally'
 import 'rxjs/operator/startWith'

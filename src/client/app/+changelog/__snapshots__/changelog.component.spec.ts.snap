@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChangelogComponent should compile 1`] = `
+<pm-changelog
+  changelog$={[Function Observable]}
+  http={[Function HttpClient]}
+>
+  <md-card
+    class="mat-card"
+  >
+    
+    
+    <div />
+    
+  
+  </md-card>
+</pm-changelog>
+`;

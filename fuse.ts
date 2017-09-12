@@ -156,6 +156,7 @@ Sparky.task('build.app', () => {
 
 Sparky.task('serve', () => {
   return Sparky.start('clean')
+    .then(() => Sparky.start('changelog'))
     .then(() => argv.aot ? Sparky.start('ngc') : Promise.resolve())
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index.copy'))
