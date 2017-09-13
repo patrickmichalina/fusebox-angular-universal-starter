@@ -15,6 +15,8 @@ export const BUILD_CONFIG: BuildConfiguration = {
   minifyIndex: true,
   skipFaviconGenerationOnDev: true,
   browserSyncPort: 8000,
+  host: 'http://localhost',
+  port: 8001,
   dependencies: [
     {
       order: 1,

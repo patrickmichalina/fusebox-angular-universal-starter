@@ -27,16 +27,16 @@ export function removeStyleTags(document: HTMLDocument, ps: PlatformService): an
   }
 }
 
-export function metaFactory(environmentService: EnvironmentService): MetaLoader {
+export function metaFactory(env: EnvironmentService): MetaLoader {
   return new MetaStaticLoader({
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
-    pageTitleSeparator: environmentService.config.pageTitleSeparator,
-    applicationName: environmentService.config.name,
-    applicationUrl: environmentService.config.server.host,
+    pageTitleSeparator: env.config.pageTitleSeparator,
+    applicationName: env.config.name,
+    applicationUrl: env.config.host,
     defaults: {
-      title: environmentService.config.name,
-      description: environmentService.config.description,
-      'og:image': environmentService.config.og.defaultSocialImage,
+      title: env.config.name,
+      description: env.config.description,
+      'og:image': (env.config.og && env.config.og.defaultSocialImage) || '',
       'og:type': 'website',
       'og:locale': 'en_US',
       'og:locale:alternate': 'en_US'

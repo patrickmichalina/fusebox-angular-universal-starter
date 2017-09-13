@@ -26,12 +26,7 @@ export const TESTING_CONFIG: EnvConfig = {
     defaultSocialImage: 'https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/android-chrome-512x512',
     facebookAppId: '117309532219749'
   },
-  host: 'http://localhost:8083',
-  server: {
-    host: 'http://localhost',
-    port: 8083,
-    minifyIndex: true
-  }
+  host: 'http://localhost:8083'
 }
 
 describe('App component', () => {
