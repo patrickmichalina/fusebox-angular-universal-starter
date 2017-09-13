@@ -112,7 +112,7 @@ Sparky.task('build.server', () => {
           init({
             reloadDelay: 2000,
             port: BUILD_CONFIG.browserSyncPort,
-            proxy: `localhost:${ENV_CONFIG_INSTANCE.server.port}`
+            proxy: `${BUILD_CONFIG.host}:${BUILD_CONFIG.port}`
           });
         }
       }, 1300)
@@ -140,7 +140,7 @@ Sparky.task('build.app', () => {
     vendorBundle.watch();
 
     if (argv.spa) {
-      fuse.dev({ port: ENV_CONFIG_INSTANCE.server.port, root: 'dist', open: true });
+      fuse.dev({ port: BUILD_CONFIG.port, root: 'dist', open: true });
       vendorBundle.hmr();
       appBundle.watch().hmr();
     } else {

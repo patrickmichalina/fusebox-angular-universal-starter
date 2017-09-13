@@ -11,6 +11,8 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2'
 })
 export class AppComponent {
   constructor(env: EnvironmentService, meta: Meta, analytics: Angulartics2GoogleAnalytics) {
-    meta.addTag({ property: 'fb:app_id', content: env.config.og.facebookAppId })
+    if (env.config.og && env.config.og.facebookAppId) {
+      meta.addTag({ property: 'fb:app_id', content: env.config.og.facebookAppId })
+    }
   }
 }

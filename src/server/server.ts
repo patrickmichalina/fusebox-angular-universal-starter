@@ -14,8 +14,7 @@ import { AppServerModule } from './app.server.module'
 import { forceSsl } from './server.heroku.ssl'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
-import { EnvConfig } from '../../tools/config/app.config'
-declare var __process_env__: EnvConfig
+import { argv } from 'yargs'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -25,9 +24,9 @@ require('ts-node/register')
 
 const app = express()
 const root = './dist'
-const port = process.env.PORT || __process_env__.server.port
-const isProd = __process_env__.server.prodMode
-const host = process.env.HOST || __process_env__.server.host
+const port = process.env.PORT || argv['port'] || 8001
+const host = process.env.HOST || argv['host'] || 'http://localhost'
+const isProd = argv['build-type'] === 'prod'
 const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
 const staticOptions = {
   index: false,
@@ -48,7 +47,7 @@ app.use(cookieParser())
 app.use(shrinkRay())
 app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
-if (__process_env__.server.minifyIndex) {
+if (isProd) {
   app.use(minifyHTML({
     override: true,
     exception_url: false,
