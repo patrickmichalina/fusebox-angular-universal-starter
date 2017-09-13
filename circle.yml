@@ -22,7 +22,7 @@ test:
     - npm run semantic-release || true
 
 deployment:
-  production:
+  fix-config:
     commands:
         - |
           cat >~/.netrc <<EOF
