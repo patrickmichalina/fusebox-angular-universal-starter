@@ -158,7 +158,6 @@ Sparky.task('serve', () => {
     .then(() => Sparky.start('build.app'))
     .then(() => Sparky.start('build.server'))
     .then(() => Sparky.start('sass'))
-    .then(() => Sparky.start('sass.files'))
     .then(() => Sparky.start('index.minify'))
     .then(() => Sparky.start('banner'));
 });

@@ -100,7 +100,7 @@ export class WebIndexPluginClass {
           let items = dom.window.document.querySelectorAll(setting.query);
 
           items = setting.transformer(items);
-         
+
           html = dom.serialize();
         }
       });
@@ -157,17 +157,13 @@ export class ConfigurationTransformer implements IConfigurationTransformer {
 
       if (dep.content) el.innerHTML = dep.content;
 
-      if (dep.attributes) {
-        Object.keys(dep.attributes || {}).forEach(key => {
-          el.setAttribute(key, (dep.attributes as any)[key]);
-        });
-      }
+      Object.keys(dep.attributes || {}).forEach(key => el.setAttribute(key, (dep.attributes as any)[key]))
 
       return {
         ...dep,
         el
       };
-    }).filter(a => !existingElements.some(b => b === hash(a.el.outerHTML)));
+    }).filter(a => !existingElements.some(b => b === hash(a.el.outerHTML)))
 
     const headElements = elements.filter(a => a.inHead).sort((a, b) => (a.order as number) - (b.order as number)).map(a => a.el);
     const bodyElements = elements.filter(a => !a.inHead).sort((a, b) => (a.order as number) - (b.order as number)).map(a => a.el);
