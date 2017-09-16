@@ -9,17 +9,27 @@ import { sync as glob } from 'glob';
 import { ConfigurationTransformer } from '../../plugins/web-index';
 
 Sparky.task(taskName(__filename), () => {
-  const src = Sparky.watch('src/client/styles/**/**/*.scss').file('main.scss', () => {
-    mkdirp('./dist/css');
-
+  let src;
+  mkdirp('./dist/css');
+  
+  const sass = () => {
     const result = renderSync({
       file: './src/client/styles/main.scss',
       outputStyle: 'compressed'
     });
     const hashed = hash(result.css.toString())
 
+    return {
+      css: result.css,
+      hashed
+    }
+  }
+
+  const process = () => {
+    const _sass = sass()
+
     glob('./dist/css/main-*').forEach(file => unlinkSync(file))
-    writeFileSync(`./dist/css/main-${hashed}.css`, result.css);
+    writeFileSync(`./dist/css/main-${_sass.hashed}.css`, _sass.css);
 
     const indexPath = './dist/index.html'
     const index = readFileSync(indexPath)
@@ -31,13 +41,17 @@ Sparky.task(taskName(__filename), () => {
       attributes: {
         id: 'primary-styles',
         rel: 'stylesheet',
-        href: `/css/main-${hashed}.css`
+        href: `/css/main-${_sass.hashed}.css`
       }
     }], index.toString());
     writeFileSync(indexPath, html);
-  });
+  }
 
-  if (isProdBuild || isBuildServer) src.stopWatching()
+  if (isProdBuild || isBuildServer) {
+    src = Sparky.src('src/client/styles/**/**/*.scss').file('main.scss', () => process());
+  } else {
+    src = Sparky.watch('src/client/styles/**/**/*.scss').file('main.scss', () => process());
+  }
 
   return src;
 });

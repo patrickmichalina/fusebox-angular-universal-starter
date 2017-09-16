@@ -5,26 +5,26 @@ $accent: mat-palette($mat-pink);
 $theme: mat-light-theme($primary, $accent);
 @include angular-material-theme($theme);
 .dark-theme {
-    $dark-p: mat-palette($mat-pink, 700);
-    $dark-a: mat-palette($mat-blue-grey);
-    $dark-t: mat-dark-theme($dark-p, $dark-a);
-    @include angular-material-theme($dark-t);
+  $dark-p: mat-palette($mat-pink, 700);
+  $dark-a: mat-palette($mat-blue-grey);
+  $dark-t: mat-dark-theme($dark-p, $dark-a);
+  @include angular-material-theme($dark-t);
 }
 
 body {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    margin: 0px;
-    color: black;
-    font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 0px;
+  color: black;
+  font-family: Roboto, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif;
 }
