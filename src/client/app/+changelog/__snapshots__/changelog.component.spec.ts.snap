@@ -16,3 +16,49 @@ exports[`ChangelogComponent should compile 1`] = `
   </md-card>
 </pm-changelog>
 `;
+
+exports[`ChangelogComponent should handle failure to load file gracefully 1`] = `
+<div
+  id="root2"
+  ng-version="5.0.0-beta.2"
+>
+  <md-card
+    class="mat-card"
+  >
+    
+  
+    <div>
+      <p>
+        Error loading changelog.md
+      </p>
+      
+
+    </div>
+    
+
+  </md-card>
+</div>
+`;
+
+exports[`ChangelogComponent should render changelog 1`] = `
+<div
+  id="root1"
+  ng-version="5.0.0-beta.2"
+>
+  <md-card
+    class="mat-card"
+  >
+    
+  
+    <div>
+      <p>
+        Error loading changelog.md
+      </p>
+      
+
+    </div>
+    
+
+  </md-card>
+</div>
+`;
