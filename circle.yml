@@ -22,7 +22,7 @@ test:
     - npm run semantic-release || true
 
 deployment:
-  production:
-    branch: master
+  fix-config:
+    branch: fix-config
     heroku:
       appname: fusebox-angular-universal-star

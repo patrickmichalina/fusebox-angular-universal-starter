@@ -7,9 +7,12 @@ const conventionalChangelog = require('conventional-changelog')
 
 Sparky.task(taskName(__filename), () => {
   mkdirp(BUILD_CONFIG.outputDir);
-
-  return conventionalChangelog({
-    preset: 'angular',
-    releaseCount: 0
-  }).pipe(createWriteStream(`./${BUILD_CONFIG.outputDir}/CHANGELOG.md`))
+  try {
+    return conventionalChangelog({
+      preset: 'angular',
+      releaseCount: 0
+    }).pipe(createWriteStream(`./${BUILD_CONFIG.outputDir}/CHANGELOG.md`))
+  } catch {
+    console.warn('could not generate changelog')
+  }
 })
