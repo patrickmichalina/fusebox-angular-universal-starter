@@ -1,5 +1,4 @@
 import { Dependency } from '../plugins/web-index'
-import jsdom = require("jsdom")
 
 export interface BuildConfiguration {
   dependencies: Dependency[]
@@ -15,8 +14,4 @@ export interface BuildConfiguration {
   browserSyncPort: number
   host: string
   port: number
-}
-
-export interface IConfigurationTransformer {
-  apply(dependencies: Dependency[], document?: string): jsdom.JSDOM
 }
