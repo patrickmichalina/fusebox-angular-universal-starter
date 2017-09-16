@@ -1,6 +1,7 @@
-import { HttpErrorResponse, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http'
+import { HttpClient, HttpRequest } from '@angular/common/http'
 import { ITransferState, TransferState } from './../transfer-state/transfer-state'
 import { HttpStateTransferInterceptor } from './transfer-http-interceptor.service'
+import { TransferHttpModule } from './transfer-http.module'
 import { async, TestBed } from '@angular/core/testing'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import '../../../operators'
@@ -9,10 +10,11 @@ describe(HttpStateTransferInterceptor.name, () => {
   let interceptor: HttpStateTransferInterceptor
   let transferState: IMockTransferState
   let httpMock: HttpTestingController
+  let http: HttpClient
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [TransferHttpModule, HttpClientTestingModule],
       providers: [
         HttpStateTransferInterceptor,
         { provide: TransferState, useValue: new MockTransferState() }
@@ -24,6 +26,7 @@ describe(HttpStateTransferInterceptor.name, () => {
     interceptor = TestBed.get(HttpStateTransferInterceptor)
     transferState = TestBed.get(TransferState)
     httpMock = TestBed.get(HttpTestingController)
+    http = TestBed.get(HttpClient)
   }))
 
   afterEach(async(() => {
@@ -41,30 +44,32 @@ describe(HttpStateTransferInterceptor.name, () => {
     expect(interceptor.createCacheKey(reqPost)).toEqual('https://somesite.com_POST')
   }))
 
-  it('should retrieve cached HttpResponse instead of firing an http request', async(() => {
-    const req = new HttpRequest('GET', 'https://somesite.com')
-    const handler = TestBed.get(HttpHandler) as HttpHandler
-    const payload = { items: ['some value'] }
-    transferState.store = { 'https://somesite.com_GET': { status: 200, body: payload } }
-
-    interceptor.intercept(req, handler).subscribe((next: HttpResponse<any>) => {
-      expect(next).toBeInstanceOf(HttpResponse)
-      expect(next.status).toEqual(200)
-      expect(next.body).toEqual(payload)
+  it('should fetch request if not previoulsy cached and cache result', async(() => {
+    transferState.store = {}
+    http.get('http://www.google.com/api/thing/1').take(1).subscribe(res => expect(res).toEqual({ hello: 'world' }))
+    const req = httpMock.expectOne(r => r.url === 'http://www.google.com/api/thing/1')
+    expect(req.request.method).toEqual('GET')
+    req.flush({ hello: 'world' })
+    httpMock.verify()
+    expect(transferState.store).toMatchObject({
+      'http://www.google.com/api/thing/1_GET': { body: { hello: 'world' }, status: 200, statusText: 'OK' }
     })
   }))
 
-  it('should retrieve cached HttpErrorResponse instead of firing an http request that will error in client', async(() => {
-    const req = new HttpRequest('GET', 'https://somesite.com')
-    const handler = TestBed.get(HttpHandler) as HttpHandler
-    const cachedError = { status: 500, error: 'some error' }
-    transferState.store = { 'https://somesite.com_GET': cachedError }
+  it('should retrieve cached HttpResponse instead of firing an http request', async(() => {
+    const payload = { items: ['some value'] }
+    transferState.store = { 'http://www.google.com/api/thing/1_GET': { status: 200, payload } }
+    http.get('http://www.google.com/api/thing/1').subscribe()
+    httpMock.expectNone(r => r.url === 'http://www.google.com/api/thing/1')
+    httpMock.verify()
+  }))
 
-    interceptor.intercept(req, handler).subscribe(res => undefined, (err: HttpErrorResponse) => {
-      expect(err).toBeInstanceOf(HttpErrorResponse)
-      expect(err.status).toEqual(500)
-      expect(err.error).toEqual(cachedError.error)
-    })
+  it('should retrieve cached HttpErrorResponse instead of firing an http request that will error in client', async(() => {
+    const payload = { error: 'an error message' }
+    transferState.store = { 'http://www.google.com/api/thing/1_GET': { status: 500, payload } }
+    expect(() => http.get('http://www.google.com/api/thing/1').subscribe()).toThrow()
+    httpMock.expectNone(r => r.url === 'http://www.google.com/api/thing/1')
+    httpMock.verify()
   }))
 })
 
@@ -82,7 +87,8 @@ class MockTransferState implements IMockTransferState {
     throw new Error('Method not implemented.')
   }
   set(key: string, value: any): Map<string, any> {
-    throw new Error('Method not implemented.')
+    this.store[key] = value
+    return this.store[key]
   }
   toJson() {
     throw new Error('Method not implemented.')

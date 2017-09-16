@@ -34,5 +34,23 @@ describe(LoggingService.name, () => {
     it('should construct', async(() => {
       expect(service).toBeDefined()
     }))
+
+    it('should call external logging library', async(() => {
+      const traceSpy = jest.spyOn((service as any).logger, 'trace')
+      const debugSpy = jest.spyOn((service as any).logger, 'debug')
+      const infoSpy = jest.spyOn((service as any).logger, 'info')
+      const warnSpy = jest.spyOn((service as any).logger, 'warn')
+      const errorSpy = jest.spyOn((service as any).logger, 'error')
+      service.trace('')
+      service.debug('')
+      service.info('')
+      service.warn('')
+      service.error('')
+      expect(traceSpy).toHaveBeenCalled()
+      expect(debugSpy).toHaveBeenCalled()
+      expect(infoSpy).toHaveBeenCalled()
+      expect(warnSpy).toHaveBeenCalled()
+      expect(errorSpy).toHaveBeenCalled()
+    }))
   })
 })
