@@ -1,4 +1,4 @@
-import { PlatformService } from './platform.service'
+import { IPlatformService, PlatformService } from './platform.service'
 import { AdblockService, IAdblockService } from './adblock.service'
 import { async, TestBed } from '@angular/core/testing'
 import { BaseRequestOptions, Http } from '@angular/http'
@@ -26,13 +26,10 @@ describe(AdblockService.name, () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        PlatformService,
         BaseRequestOptions,
         MockBackend,
-        {
-          provide: Http,
-          useValue: new MockHttp()
-        },
+        { provide: Http, useValue: new MockHttp() },
+        { provide: PlatformService, useValue: new MockPlatformService() },
         AdblockService
       ]
     })
@@ -60,4 +57,15 @@ describe(AdblockService.name, () => {
     mockHttp.returnValue = { status: 200 }
     service.adBlockerIsActive$.subscribe(result => expect(result).toBe(false))
   }))
+
+  it('should return false when not on platform browser', async(() => {
+    const ps = TestBed.get(PlatformService) as MockPlatformService
+    ps.isServer = true
+    service.adBlockerIsActive$.subscribe(result => expect(result).toBe(false))
+  }))
 })
+
+class MockPlatformService implements IPlatformService {
+  public isBrowser = true
+  public isServer= false
+}

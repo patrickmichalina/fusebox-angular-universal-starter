@@ -1,14 +1,14 @@
+import { SharedModule } from './shared/shared.module'
 import { AboutComponent } from './+about/about.component'
-import { AppComponent } from './app.component'
 import { async, TestBed } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
 import { Route } from '@angular/router'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Component } from '@angular/core'
 import { HomeComponent } from './+home/home.component'
+import { AppModule } from './app.module'
 import { EnvConfig } from '../../../tools/config/app.config'
 import { SearchComponent } from './+search/search.component'
-import { NavbarComponent } from './shared/navbar/navbar.component'
 import { ENV_CONFIG } from './app.config'
 import { EnvironmentService } from './shared/services/environment.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
@@ -38,13 +38,14 @@ describe('App component', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        AppModule,
+        SharedModule,
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(config),
-        Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
         MdCardModule
       ],
-      declarations: [TestComponent, NavbarComponent, AppComponent,
-        HomeComponent, AboutComponent, SearchComponent],
+      declarations: [TestComponent, HomeComponent, AboutComponent, SearchComponent],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: ENV_CONFIG, useValue: TESTING_CONFIG },
@@ -54,17 +55,17 @@ describe('App component', () => {
     }).compileComponents()
   }))
 
-  it('should build without a problem',
-    async(() => {
-      TestBed
-        .compileComponents()
-        .then(() => {
-          const fixture = TestBed.createComponent(TestComponent)
-          const compiled = fixture.nativeElement
+  it('should build without a problem', async(() => {
+    TestBed
+      .compileComponents()
+      .then(() => {
+        const fixture = TestBed.createComponent(TestComponent)
+        const compiled = fixture.nativeElement
 
-          expect(compiled).toBeTruthy()
-        })
-    }))
+        expect(compiled).toBeTruthy()
+        expect(compiled).toMatchSnapshot()
+      })
+  }))
 })
 
 @Component({
