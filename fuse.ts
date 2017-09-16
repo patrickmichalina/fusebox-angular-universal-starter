@@ -1,6 +1,6 @@
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
-import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn } from './tools/config/build.config';
+import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn, typeHelper } from './tools/config/build.config';
 import { NgLazyPlugin, NgLazyServerPlugin } from './tools/plugins/ng-lazy';
 import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
@@ -16,15 +16,6 @@ import {
   UglifyESPlugin
 } from 'fuse-box';
 import './tools/tasks';
-
-const TypeHelper = require('fuse-box-typechecker').TypeHelper
-const typeHelper = TypeHelper({
-  basePath: './src',
-  tsConfig: './tsconfig.json',
-  tsLint: './tslint.json',
-  name: 'App typechecker',
-  throwOnTsLint: isProdBuild
-})
 
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
@@ -134,7 +125,8 @@ Sparky.task('build.app', () => {
     .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
     .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
-  isProdBuild ? typeHelper.runSync() : typeHelper.runAsync();
+
+  if (isProdBuild) typeHelper()
 
   if (!isBuildServer && !argv['build-only']) {
     vendorBundle.watch();
@@ -145,7 +137,7 @@ Sparky.task('build.app', () => {
       appBundle.watch().hmr();
     } else {
       appBundle.watch().completed(() => {
-        typeHelper.runAsync()
+        typeHelper(false)
         reload()
       });
     }
@@ -156,6 +148,7 @@ Sparky.task('build.app', () => {
 
 Sparky.task('serve', () => {
   return Sparky.start('clean')
+    .then(() => Sparky.start('mk-dist'))
     .then(() => Sparky.start('changelog'))
     .then(() => argv.aot ? Sparky.start('ngc') : Promise.resolve())
     .then(() => Sparky.start('web'))
