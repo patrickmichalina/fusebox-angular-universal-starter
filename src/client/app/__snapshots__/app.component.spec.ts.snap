@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App component should build without a problem 1`] = `
+<div
+  id="root0"
+  ng-version="5.0.0-beta.2"
+>
+  <pm-app>
+    <pm-navbar>
+      <nav>
+        
+  
+        <a
+          class="nav-button mat-button"
+          md-button=""
+          routerlink=""
+        >
+          <span
+            class="mat-button-wrapper"
+          >
+            FUSEBOX-ANGULAR-UNIVERSAL-STARTER
+          </span>
+          <div
+            class="mat-button-ripple mat-ripple"
+            md-ripple=""
+          />
+          <div
+            class="mat-button-focus-overlay"
+          />
+        </a>
+        
+  
+        <div
+          class="flex-spacer"
+        />
+        
+  
+        
+        
+  
+        <a
+          class="nav-button mat-button"
+          href="/sitemap.xml"
+          md-button=""
+        >
+          <span
+            class="mat-button-wrapper"
+          >
+            
+          </span>
+          <div
+            class="mat-button-ripple mat-ripple"
+            md-ripple=""
+          />
+          <div
+            class="mat-button-focus-overlay"
+          />
+        </a>
+        
+  
+        <a
+          class="nav-button mat-button"
+          href="/robots.txt"
+          md-button=""
+        >
+          <span
+            class="mat-button-wrapper"
+          >
+            
+          </span>
+          <div
+            class="mat-button-ripple mat-ripple"
+            md-ripple=""
+          />
+          <div
+            class="mat-button-focus-overlay"
+          />
+        </a>
+        
+
+      </nav>
+    </pm-navbar>
+    
+
+    <router-outlet />
+  </pm-app>
+</div>
+`;
