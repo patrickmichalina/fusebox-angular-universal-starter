@@ -37,7 +37,8 @@
     "source.tree.server": "ts-node fuse.ts build --build-only &&  source-map-explorer dist/server.js",
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json -t -s -w -o -r 8081 --theme readthedocs",
     "prepush": "npm test",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "lint": "ts-node fuse.ts lint"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.0.1",

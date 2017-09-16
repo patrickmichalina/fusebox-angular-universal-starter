@@ -59,7 +59,7 @@ export const BUILD_CONFIG: BuildConfiguration = {
     {
       order: 5,
       inHead: false,
-      element: 'script',      
+      element: 'script',
       attributes: {
         async: 'true',
         type: 'text/javascript',
@@ -80,13 +80,30 @@ try {
   throw new Error(`Unable to find environment configuration for '${selectedEnv}' `);
 }
 
+const TypeHelper = require('fuse-box-typechecker').TypeHelper
+
+export const typeHelper = (sync = true) => {
+  const _runner = TypeHelper({
+    basePath: './src',
+    tsConfig: './tsconfig.json',
+    tsLint: './tslint.json',
+    name: 'App typechecker',
+    throwOnTsLint: isProdBuild
+  })
+  if (sync) {
+    _runner.runSync()
+  } else {
+    _runner.runAsync()
+  }
+}
+
 export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '');
 export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
 export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 export const cachebuster = Math.round(new Date().getTime() / 1000);
 export const isBuildServer = argv.ci
-export const isProdBuild = 
-  selectedBuildType === 'prod' || 
+export const isProdBuild =
+  selectedBuildType === 'prod' ||
   selectedBuildType === 'production' ||
   process.env.NODE_ENV === 'prod' ||
   process.env.NODE_ENV === 'production';
