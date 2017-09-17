@@ -15,6 +15,7 @@ test:
         environment:
           TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS
           TEST_REPORT_FILENAME: test-results.xml
+    - npm run test.e2e.ci
     - npm run test.ci.after
 
   post:
