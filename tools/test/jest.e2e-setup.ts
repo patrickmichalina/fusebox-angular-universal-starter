@@ -1,5 +1,5 @@
 import * as Nightmare from 'nightmare'
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 125000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 125000
 
 // tslint:disable:no-require-imports
 const browser = require('nightmare')({

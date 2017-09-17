@@ -12,6 +12,9 @@
     "HOST": {
       "required": true
     },
+    "HEROKU": {
+      "required": true
+    },
     "NODE_MODULES_CACHE": {
       "required": true
     },

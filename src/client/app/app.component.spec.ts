@@ -18,8 +18,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarService } from './shared/navbar/navbar.service'
 import { MdCardModule } from '@angular/material'
 import { MetaStaticLoader } from '@ngx-meta/core'
+import { PlatformService } from './shared/services/platform.service'
 import '../operators'
-import { PlatformService } from './shared/services/platform.service';
 
 export const TESTING_CONFIG: EnvConfig = {
   name: 'Fusebox Angular Universal Starter',
