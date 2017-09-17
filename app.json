@@ -1,0 +1,22 @@
+{
+  "name": "fusebox-angular-universal-star",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "CI": {
+      "required": true
+    },
+    "HOST": {
+      "required": true
+    },
+    "NODE_MODULES_CACHE": {
+      "required": true
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "required": true
+    }
+  }
+}

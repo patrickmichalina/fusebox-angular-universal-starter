@@ -82,6 +82,17 @@ try {
 
 const TypeHelper = require('fuse-box-typechecker').TypeHelper
 
+export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '');
+export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
+export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
+export const cachebuster = Math.round(new Date().getTime() / 1000);
+export const isBuildServer = argv.ci
+export const isProdBuild =
+  selectedBuildType === 'prod' ||
+  selectedBuildType === 'production' ||
+  process.env.NODE_ENV === 'prod' ||
+  process.env.NODE_ENV === 'production';
+
 export const typeHelper = (sync = true) => {
   const _runner = TypeHelper({
     basePath: './src',
@@ -96,14 +107,3 @@ export const typeHelper = (sync = true) => {
     _runner.runAsync()
   }
 }
-
-export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '');
-export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
-export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
-export const cachebuster = Math.round(new Date().getTime() / 1000);
-export const isBuildServer = argv.ci
-export const isProdBuild =
-  selectedBuildType === 'prod' ||
-  selectedBuildType === 'production' ||
-  process.env.NODE_ENV === 'prod' ||
-  process.env.NODE_ENV === 'production';
