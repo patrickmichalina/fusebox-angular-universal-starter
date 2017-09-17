@@ -93,13 +93,13 @@ export const isProdBuild =
   process.env.NODE_ENV === 'prod' ||
   process.env.NODE_ENV === 'production';
 
-export const typeHelper = (sync = true) => {
+export const typeHelper = (sync = true, throwOnTsLint = true) => {
   const _runner = TypeHelper({
     basePath: './src',
     tsConfig: './tsconfig.json',
     tsLint: './tslint.json',
     name: 'App typechecker',
-    throwOnTsLint: isProdBuild
+    throwOnTsLint
   })
   if (sync) {
     _runner.runSync()

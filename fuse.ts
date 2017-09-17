@@ -137,7 +137,7 @@ Sparky.task('build.app', () => {
       appBundle.watch().hmr();
     } else {
       appBundle.watch().completed(() => {
-        typeHelper(false)
+        typeHelper(false, false)
         reload()
       });
     }
