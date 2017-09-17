@@ -11,7 +11,6 @@ import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
 import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './app.server.module'
-import { forceSsl } from './server.heroku.ssl'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
@@ -26,7 +25,7 @@ const app = express()
 const root = './dist'
 const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
-const isProd = argv['build-type'] === 'prod'
+const isProd = argv['build-type'] === 'prod' || argv['prod']
 const isTest = argv['e2e']
 const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
 const staticOptions = {
@@ -38,8 +37,6 @@ const staticOptions = {
       : new Date(Date.now() + ms('0')).toUTCString())
   }
 }
-
-if (process.env.HEROKU) app.use(forceSsl)
 
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
