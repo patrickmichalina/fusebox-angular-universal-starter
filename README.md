@@ -1,6 +1,5 @@
 # Introduction
 
-
 [![CircleCI](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter.svg?style=shield)](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter)
 [![codecov](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter/branch/master/graph/badge.svg)](https://codecov.io/gh/patrickmichalina/fusebox-angular-universal-starter)
 [![dependencies Status](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter/status.svg)](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter)
@@ -69,10 +68,11 @@ $ npm run test.coverage
 # continuous testing
 $ npm run test.watch
 
-# e2e testing
-# start in different tabs
-$ npm start
-$ npm run test.e2e
+# e2e testing (primarilly for CI builds)
+$ npm run test.e2e.ci
+
+# continuous e2e testing
+$ npm run test.e2e.watch
 
 # start the Angular Universal server
 $ npm start

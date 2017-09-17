@@ -1,12 +1,13 @@
 import { baseUrl, browser } from '../../../../tools/test/jest.e2e-setup'
 
-describe('Admin Page', () => {
+describe('Search Page', () => {
   it('should have title', async () => {
     expect.assertions(1)
-    const page = browser.goto(`${baseUrl}/admin`)
+
+    const page = browser.goto(`${baseUrl}/search`)
 
     const text = await page.evaluate(() => document.title)
 
-    expect(text).toEqual('Admin - Fusebox Angular Universal Starter')
+    expect(text).toContain('Search - Fusebox Angular Universal Starter')
   })
 })

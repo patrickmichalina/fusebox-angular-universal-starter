@@ -27,6 +27,7 @@ const root = './dist'
 const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
 const isProd = argv['build-type'] === 'prod'
+const isTest = argv['e2e']
 const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
 const staticOptions = {
   index: false,
@@ -45,8 +46,7 @@ app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
 app.use(shrinkRay())
-app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
-
+if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 if (isProd) {
   app.use(minifyHTML({
     override: true,
