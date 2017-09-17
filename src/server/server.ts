@@ -47,7 +47,6 @@ app.set('views', root)
 app.use(cookieParser())
 app.use(shrinkRay())
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
-if (isTest) process.on('SIGTERM', () => process.exit(0))
 if (isProd) {
   app.use(minifyHTML({
     override: true,

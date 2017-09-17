@@ -27,7 +27,7 @@
     "test.ci.before": "greenkeeper-lockfile-update",
     "test.ci.after": "greenkeeper-lockfile-upload",
     "test.e2e": "jest -c e2e-spec.json",
-    "test.e2e.ci": "npm run start.e2e && concurrently --kill-others \"node dist/server.js --e2e\" \"npm run test.e2e && pkill node\"",
+    "test.e2e.ci": "npm run start.e2e && concurrently --kill-others --success first \"node dist/server.js --e2e\" \"npm run test.e2e\"",
     "start.mock.api": "json-server ./tools/test/db.json",
     "start.e2e": "ts-node fuse.ts serve --build-type dev --env-config e2e --ci",
     "start": "ts-node fuse.ts serve --build-type dev --env-config dev",
