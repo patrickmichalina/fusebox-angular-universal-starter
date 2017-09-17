@@ -5,7 +5,6 @@ describe('NotFound Page', () => {
     const page = browser.goto(`${baseUrl}/not-found`)
 
     const text = await page.evaluate(() => document.title)
-      .end()
 
     expect(text).toContain('Not Found - Fusebox Angular Universal Starter')
   })
