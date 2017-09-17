@@ -154,6 +154,7 @@
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "collectCoverageFrom": [
       "src/client/app/**/*(*.service|*.component|*.pipe|*.directive|*.module).{ts,html}",
+      "!src/client/app/shared/shared.module.ts",
       "src/server/**/**.{ts}"
     ],
     "globals": {
