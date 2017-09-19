@@ -140,6 +140,7 @@
     "stacktrace-js": "^2.0.0",
     "systemjs": "^0.20.18",
     "tsickle": "^0.24.1",
+    "url-parse": "^1.1.9",
     "zone.js": "^0.8.17"
   },
   "engines": {
