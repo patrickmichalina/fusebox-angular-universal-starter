@@ -9,9 +9,21 @@
 
 Provides an extremely fast seed project for the development of Angular Universal (isomorphic) projects.
 
-This is early work and under heavy development. A demo project can be found [here](https://angular.patrickmichalina.com)
+This is early work and under heavy development.
+A live example [can be found here](https://angular.patrickmichalina.com)
 
-Includes the following features:
+# Project Goals
+This seed project is designed to get some of the best techniques running on your new fullstack Node/Angular project right away. It is not shy about being overly opinionted or more "complicated" than similiar projects. Some of the more imporant goals are:
+
+- [x] Provide a project with very fast feedback loops so developers can code, test, and integrate quickly.
+- [ ] Fully tested and ready to customize
+- [ ] As reactive and immutable as possible
+- [x] Provide common performance optimizations to deploy a fast, lean applications from day one.
+- [ ] Provide all boilerplate services, routes, and components that are almost always used in medium to large web applications.
+- [ ] Provide an ejectable OpenID Identity Server for managing user authentication
+- [ ] Provide an ejectable API with some common endpoints
+
+# Features
 - [x] [Angular](https://github.com/angular/angular/blob/master/CHANGELOG.md) as the application framework
 - [x] [Angular Material](https://material.angular.io) as the UI language and component library
 - [x] [Angular Flex Layout](https://github.com/angular/flex-layout) for dynamic responsive layouts
