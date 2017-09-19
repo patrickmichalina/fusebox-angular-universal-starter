@@ -18,6 +18,9 @@ import { argv } from 'yargs'
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
+const xhr2 = require('xhr2')
+
+xhr2.prototype._restrictedHeaders.cookie = false
 
 require('ts-node/register')
 

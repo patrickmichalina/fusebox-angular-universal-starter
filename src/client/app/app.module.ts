@@ -10,6 +10,7 @@ import { BrowserModule, DOCUMENT, ɵgetDOM, ɵTRANSITION_ID } from '@angular/pla
 import { APP_BOOTSTRAP_LISTENER, APP_ID, ErrorHandler, NgModule } from '@angular/core'
 import { PlatformService } from './shared/services/platform.service'
 import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
+import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 
@@ -62,6 +63,7 @@ export function metaFactory(env: EnvironmentService): MetaLoader {
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },
     { provide: APP_ID, useValue: 'pm-app' },
     { provide: ɵTRANSITION_ID, useValue: 'pm-app' },
     {

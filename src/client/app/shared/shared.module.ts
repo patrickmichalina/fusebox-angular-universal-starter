@@ -6,6 +6,7 @@ import { CookieService } from './services/cookie.service'
 import { CommonModule } from '@angular/common'
 import { PlatformService } from './services/platform.service'
 import { LOGGER_CONFIG, LoggingService } from './services/logging.service'
+import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.service'
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
@@ -67,6 +68,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
   declarations: [NavbarComponent],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
+    { provide: COOKIE_HOST_WHITELIST, useValue: ['angular.patrickmichalina.com'] },
     {
       provide: LOGGER_CONFIG,
       useFactory: loggerConfigFactory,
