@@ -6,6 +6,7 @@
 [![devDependencies Status](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter/dev-status.svg)](https://david-dm.org/patrickmichalina/fusebox-angular-universal-starter?type=dev)
 [![Greenkeeper badge](https://badges.greenkeeper.io/patrickmichalina/fusebox-angular-universal-starter.svg)](https://greenkeeper.io/)
 [![Angular Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
+[![Fusebox-bundler](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/fusebox-angular-universal-starter/Lobby)
 
 Provides an extremely fast seed project for the development of Angular Universal (isomorphic) projects.
 
