@@ -3,7 +3,7 @@
 exports[`NavbarComponent should contain a list of links 1`] = `
 <div
   id="root2"
-  ng-version="5.0.0-beta.5"
+  ng-version="5.0.0-beta.2"
 >
   <nav>
     
@@ -57,6 +57,35 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       >
         
       Home
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/dashboard"
+      md-button=""
+      ng-reflect-router-link="dashboard"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Dashboard
     
       </span>
       <div
@@ -332,7 +361,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
 exports[`NavbarComponent should match snapshot 1`] = `
 <div
   id="root0"
-  ng-version="5.0.0-beta.5"
+  ng-version="5.0.0-beta.2"
 >
   <nav>
     
@@ -386,6 +415,35 @@ exports[`NavbarComponent should match snapshot 1`] = `
       >
         
       Home
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        md-ripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/dashboard"
+      md-button=""
+      ng-reflect-router-link="dashboard"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Dashboard
     
       </span>
       <div

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser'
 import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MdSidenav } from "@angular/material";
 import { DASHBOARD_MENU } from "./dashboard-menu";
@@ -29,12 +29,12 @@ export class DashboardComponent implements OnInit{
       }
   }
   
-  constructor(private route: ActivatedRoute){
+  constructor(private title: Title){
   }
 
   ngOnInit() {
-    //this.setPageTitle(this.route.snapshot.children[0].firstChild.data['meta'].title);
-    this.setPageTitle("Hello");    
+    let title = this.title.getTitle();
+    this.setPageTitle(title.substr(0, title.indexOf('-')));    
   }
 
   toggleSidenav(event: any){
@@ -44,8 +44,5 @@ export class DashboardComponent implements OnInit{
   setPageTitle(title: string){
     this.pageTitle = title;
   }
-
-  
-
 
 }
