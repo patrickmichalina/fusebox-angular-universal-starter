@@ -11,7 +11,7 @@ import { TestChildComponent } from "./+testChild/testChild.component";
       {
         path: '', 
         component: TestComponent,
-        canActivate: [MetaGuard],
+        canActivateChild: [MetaGuard],
         children: [
           { path: '', redirectTo: 'test-child'},
           {
