@@ -8,12 +8,11 @@ import * as cookieParser from 'cookie-parser'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { ngExpressEngine } from '@nguniversal/express-engine'
-import { AppServerModule } from './app.server.module'
+import { AppServerModule } from './server.angular.module'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
-import { useContainer, useExpressServer as configApi } from 'routing-controllers'
-import { Container } from 'typedi'
+import { useApi } from './api'
 import { join, resolve } from 'path'
 
 const shrinkRay = require('shrink-ray')
@@ -24,9 +23,6 @@ const xhr2 = require('xhr2')
 xhr2.prototype._restrictedHeaders.cookie = false
 
 require('ts-node/register')
-
-useContainer(Container)
-import { controllers } from './api/controllers'
 
 const app = express()
 const root = './dist'
@@ -45,12 +41,15 @@ const staticOptions = {
   }
 }
 
+if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
+
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
-app.use(require('compression'))
-if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
+app.use(shrinkRay())
+useApi(app)
+
 if (isProd) {
   app.use(minifyHTML({
     override: true,
@@ -85,17 +84,7 @@ app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
         .catch(err => res.sendStatus(500))
   })
 })
-configApi(app, {
-  routePrefix: '/api',
-  controllers,
-  defaults: {
-    nullResultCode: 404,
-    undefinedResultCode: 204,
-    paramOptions: {
-      required: true
-    }
-  }
-})
+
 app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   if (req.url.includes('/api/')) return next()
   return res.render('index', {

@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.0.1",
+    "@types/body-parser": "^1.16.5",
     "@types/browser-sync": "^0.0.36",
     "@types/bunyan": "^1.8.2",
     "@types/compression": "0.0.34",
@@ -123,8 +124,10 @@
     "@ngx-meta/core": "^4.0.1",
     "angular2-jwt": "^0.2.3",
     "angulartics2": "^2.4.0",
+    "body-parser": "^1.18.1",
     "bunyan-middleware": "^0.8.0",
     "compressible": "^2.0.11",
+    "compression": "^1.7.0",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.1",
     "express": "^4.15.4",
