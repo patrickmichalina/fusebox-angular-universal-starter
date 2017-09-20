@@ -7,14 +7,14 @@ import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
-import { join, resolve } from 'path'
 import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './app.server.module'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
-import { createExpressServer, useContainer } from 'routing-controllers'
+import { useContainer, useExpressServer as configApi } from 'routing-controllers'
 import { Container } from 'typedi'
+import { join, resolve } from 'path'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -26,19 +26,9 @@ xhr2.prototype._restrictedHeaders.cookie = false
 require('ts-node/register')
 
 useContainer(Container)
-import { controllers } from './api/routes'
+import { controllers } from './api/controllers'
 
-const app = createExpressServer({
-  routePrefix: '/api',
-  controllers,
-  defaults: {
-    nullResultCode: 404,
-    undefinedResultCode: 204,
-    paramOptions: {
-      required: true
-    }
-  }
-})
+const app = express()
 const root = './dist'
 const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
@@ -59,8 +49,8 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
-app.use(shrinkRay())
-// if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
+app.use(require('compression'))
+if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 if (isProd) {
   app.use(minifyHTML({
     override: true,
@@ -94,6 +84,17 @@ app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
         .then(a => res.header('Content-Type', 'text/xml').send(a))
         .catch(err => res.sendStatus(500))
   })
+})
+configApi(app, {
+  routePrefix: '/api',
+  controllers,
+  defaults: {
+    nullResultCode: 404,
+    undefinedResultCode: 204,
+    paramOptions: {
+      required: true
+    }
+  }
 })
 app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   if (req.url.includes('/api/')) return next()
