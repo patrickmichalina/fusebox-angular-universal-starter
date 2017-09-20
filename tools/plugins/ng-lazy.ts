@@ -27,31 +27,36 @@ export class NgLazyPluginClass {
 
   public bundleStart(context: WorkFlowContext) {
     if (context.bundle.name === this.options.angularBundle) {
-
-      readdirSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`)).forEach(file => {
-        const lstat = lstatSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`, file));
-        if (lstat.isDirectory()) {
-          const dirName = basename(file);
-
-          const compSuffix = this.options.aot ? 'component.ngfactory.ts' : 'component.ts';
-          const relative = this.options.aot ? 'client/.aot/src/client/app' : 'client/app';
-
-          if (dirName[0] === this.options.lazyFolderMarker) {
-            const moduleName = dirName.substring(1);
-
-            this.checksums[moduleName] = hashFiles.sync({
-              files: resolve(this.options.angularAppRoot, file, '**')
-            });
-
-            const bundlePath = this.options.isProdBuild
-              ? `js/bundle-${this.checksums[moduleName]}-${moduleName}.module.js`
-              : `js/bundle-${moduleName}.module.js`;
-
-            context.bundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
-          }
-        }
-      });
+      this.processBundleStart(context, resolve(`${context.appRoot}/${this.options.angularAppRoot}`));
     }
+  }
+
+  public processBundleStart(context: WorkFlowContext, dir: any){
+    readdirSync(dir + '/').forEach(file => {
+      const lstat = lstatSync(resolve(dir , file));
+      if (lstat.isDirectory()) {
+        const dirName = basename(file);
+        console.log("file name 2 is "+dirName);
+        const compSuffix = this.options.aot ? 'component.ngfactory.ts' : 'component.ts';
+        const relative = this.options.aot ? 'client/.aot/src/client/app' : 'client/app';
+
+        if (dirName[0] === this.options.lazyFolderMarker) {
+          const moduleName = dirName.substring(1);
+
+          this.checksums[moduleName] = hashFiles.sync({
+            files: resolve(this.options.angularAppRoot, file, '**')
+          });
+
+          const bundlePath = this.options.isProdBuild
+            ? `js/bundle-${this.checksums[moduleName]}-${moduleName}.module.js`
+            : `js/bundle-${moduleName}.module.js`;
+
+          context.bundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
+          console.log("dir is "+ dir + "----- sub dir "+dirName);
+          return this.processBundleStart(context, dir + "/" + dirName);
+        }
+      }
+    });
   }
 
   public transform(file: File) {

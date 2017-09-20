@@ -33,7 +33,8 @@ export class DashboardComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.setPageTitle(this.route.snapshot.children[0].firstChild.data['meta'].title);
+    //this.setPageTitle(this.route.snapshot.children[0].firstChild.data['meta'].title);
+    this.setPageTitle("Hello");    
   }
 
   toggleSidenav(event: any){
