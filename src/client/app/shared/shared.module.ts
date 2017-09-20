@@ -13,6 +13,9 @@ import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { MdButtonModule, MdCardModule } from '@angular/material'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
+import { DashboardPageHeaderComponent } from "./dashboard-page-header/dashboard-page-header.component";
+import {MdIconModule} from '@angular/material';
+import { DashboardPageFooterComponent } from "./dashboard-page-footer/dashboard-page-footer.component";
 
 declare var __process_env__: any
 
@@ -51,6 +54,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     RouterModule,
     MdButtonModule,
     MdCardModule,
+    MdIconModule,
     FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
@@ -63,9 +67,11 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     MdButtonModule,
     MdCardModule,
     FlexLayoutModule,
-    MarkdownToHtmlModule
+    MarkdownToHtmlModule,
+    DashboardPageHeaderComponent,
+    DashboardPageFooterComponent
   ],
-  declarations: [NavbarComponent],
+  declarations: [NavbarComponent, DashboardPageHeaderComponent, DashboardPageFooterComponent],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
     { provide: COOKIE_HOST_WHITELIST, useValue: ['angular.patrickmichalina.com'] },
