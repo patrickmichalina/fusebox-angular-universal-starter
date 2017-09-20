@@ -1,5 +1,4 @@
 // tslint:disable:no-require-imports
-
 import 'reflect-metadata'
 import 'zone.js/dist/zone-node'
 import 'zone.js/dist/long-stack-trace-zone'
@@ -14,6 +13,8 @@ import { AppServerModule } from './app.server.module'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
+import { createExpressServer, useContainer } from 'routing-controllers'
+import { Container } from 'typedi'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -24,7 +25,20 @@ xhr2.prototype._restrictedHeaders.cookie = false
 
 require('ts-node/register')
 
-const app = express()
+useContainer(Container)
+import { controllers } from './api/routes'
+
+const app = createExpressServer({
+  routePrefix: '/api',
+  controllers,
+  defaults: {
+    nullResultCode: 404,
+    undefinedResultCode: 204,
+    paramOptions: {
+      required: true
+    }
+  }
+})
 const root = './dist'
 const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
@@ -46,7 +60,7 @@ app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
 app.use(shrinkRay())
-if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
+// if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 if (isProd) {
   app.use(minifyHTML({
     override: true,
@@ -69,7 +83,7 @@ app.use('/js', express.static('dist/js', staticOptions))
 app.use('/robots.txt', express.static('dist/web/robots.txt', staticOptions))
 app.use('/assets', express.static('dist/assets', { ...staticOptions, fallthrough: false }))
 app.use('/changelog.md', express.static('dist/web/changelog.md', { ...staticOptions, fallthrough: false }))
-app.get('/sitemap.xml', (req, res) => {
+app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
   const fileLocation = resolve(root, 'sitemap.xml')
   const url = isProd ? host : `${host}:${port}`
 
@@ -81,7 +95,8 @@ app.get('/sitemap.xml', (req, res) => {
         .catch(err => res.sendStatus(500))
   })
 })
-app.get('/*', (req, res) => {
+app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if (req.url.includes('/api/')) return next()
   return res.render('index', {
     req,
     res
