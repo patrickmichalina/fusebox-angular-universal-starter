@@ -5,6 +5,7 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
+import * as bodyParser from 'body-parser'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { ngExpressEngine } from '@nguniversal/express-engine'
@@ -31,7 +32,7 @@ const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
 const isProd = argv['build-type'] === 'prod' || argv['prod']
 const isTest = argv['e2e']
-const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
+
 const staticOptions = {
   index: false,
   maxAge: isProd ? ms('1yr') : ms('0'),
@@ -41,6 +42,19 @@ const staticOptions = {
       : new Date(Date.now() + ms('0')).toUTCString())
   }
 }
+const logger = createLogger({
+  name: 'Angular Universal App',
+  type: 'http-access',
+  streams: [{
+    level: 'info',
+    stream: { write: (err: any) => console.log(err) },
+    type: 'raw'
+  }, {
+    level: 'error',
+    stream: { write: (err: any) => console.log(err) },
+    type: 'raw'
+  }] as any
+})
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
@@ -48,9 +62,10 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
+app.use('/api/**', bodyParser.json())
+app.use('/api/**', bodyParser.urlencoded({ extended: false }))
 app.use(shrinkRay())
 
-// require('zone.js')
 useIdentity(app)
 useApi(app)
 
