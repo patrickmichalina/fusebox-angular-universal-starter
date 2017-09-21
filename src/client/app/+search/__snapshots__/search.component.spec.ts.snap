@@ -2,7 +2,6 @@
 
 exports[`SearchComponent should match snapshot 1`] = `
 <pm-search
-  $count={[Function Observable]}
   $items={[Function Observable]}
   $results={[Function Observable]}
   searchService={[Function MockSearchService]}
@@ -47,13 +46,7 @@ exports[`SearchComponent should match snapshot 1`] = `
     </form>
     
     
-    <ul>
-      
-      
-      
-      
     
-    </ul>
     
   
   </md-card>
