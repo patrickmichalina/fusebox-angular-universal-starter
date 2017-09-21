@@ -1,2 +1,5 @@
+import { ZoneErrorHandler } from './zone-error-handler'
 
-export const middlewares = []
+export const middlewares = [
+  ZoneErrorHandler
+]

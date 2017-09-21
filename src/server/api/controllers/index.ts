@@ -1,5 +1,5 @@
-import { SettingsController } from './settings.controller'
+import { TranslationsController } from './translations.controller'
 
 export const controllers = [
-  SettingsController
+  TranslationsController
 ]

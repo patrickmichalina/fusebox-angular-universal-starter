@@ -13,6 +13,7 @@ import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
 import { useApi } from './api'
+import { useIdentity } from './identity'
 import { join, resolve } from 'path'
 
 const shrinkRay = require('shrink-ray')
@@ -48,6 +49,9 @@ app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
 app.use(shrinkRay())
+
+// require('zone.js')
+useIdentity(app)
 useApi(app)
 
 if (isProd) {
@@ -87,6 +91,8 @@ app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
 
 app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   if (req.url.includes('/api/')) return next()
+  if (req.url.includes('/oidc')) return next()
+  if (req.url.includes('/.well-known')) return next()
   return res.render('index', {
     req,
     res
