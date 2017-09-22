@@ -86,7 +86,8 @@ export const taskName = (nodeFilename: string) => basename(nodeFilename).replace
 export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
 export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 export const cachebuster = Math.round(new Date().getTime() / 1000);
-export const isBuildServer = argv.ci
+export const isBuildServer: boolean = argv.ci
+export const isAot: boolean = argv.aot
 export const isProdBuild =
   selectedBuildType === 'prod' ||
   selectedBuildType === 'production' ||
