@@ -92,7 +92,7 @@
     "opn": "^5.1.0",
     "rollup": "^0.50.0",
     "semantic-release": "^8.0.1",
-    "sitemap-generator": "6.0.0",
+    "sitemap-generator": "7.3.0",
     "source-map-explorer": "^1.4.0",
     "string-hash": "^1.1.3",
     "svg2png": "^4.1.1",
