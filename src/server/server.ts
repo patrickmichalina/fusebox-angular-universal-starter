@@ -45,15 +45,17 @@ const staticOptions = {
 const logger = createLogger({
   name: 'Angular Universal App',
   type: 'http-access',
-  streams: [{
-    level: 'info',
-    stream: { write: (err: any) => console.log(err) },
-    type: 'raw'
-  }, {
-    level: 'error',
-    stream: { write: (err: any) => console.log(err) },
-    type: 'raw'
-  }] as any
+  streams: [
+    // {
+    //   level: 'info',
+    //   stream: { write: (err: any) => console.log(err) },
+    //   type: 'raw'
+    // },
+    {
+      level: 'error',
+      stream: { write: (err: any) => console.log(err) },
+      type: 'raw'
+    }] as any
 })
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))

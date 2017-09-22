@@ -18,7 +18,8 @@ export const useIdentity = (app: express.Application) => {
       registration: true,
       request: true,
       revocation: true,
-      sessionManagement: true
+      sessionManagement: false,
+      alwaysIssueRefresh: true
     }
     // ... see available options /docs/configuration.md
   }
@@ -26,7 +27,8 @@ export const useIdentity = (app: express.Application) => {
   const clients = [{
     client_id: 'angular',
     client_secret: 'secret_code',
-    token_endpoint_auth_method: 'client_secret_post',
+    // grant_types: ['client_credentials'],
+    // token_endpoint_auth_method: 'client_secret_post',
     redirect_uris: ['http://localhost:8000']
   }]
 
@@ -41,7 +43,8 @@ export const useIdentity = (app: express.Application) => {
   ]).then(() => {
     writeFileSync(resolve('dist/keystore.json'), JSON.stringify(keystore.toJSON(true), undefined, 2))
     oidc.initialize({ clients, keystore }).then(() => {
-      // oidc.app.proxy = true
+      oidc.app.proxy = true
+      oidc.app.keys = ['asd', '123']
       app.use(prefix, oidc.callback)
       app.use(rewrite('/.well-known/*', `${prefix}/.well-known/$1`))
     })

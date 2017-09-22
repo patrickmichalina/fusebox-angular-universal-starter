@@ -15,5 +15,3 @@ export const genKeystore = (path: string) => {
     writeFileSync(resolve(path), JSON.stringify(keystore.toJSON(true), undefined, 2))
   })
 }
-
-// 'src/keystore.json'
