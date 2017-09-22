@@ -119,7 +119,7 @@
     "@angular/platform-server": "5.0.0-beta.2",
     "@angular/router": "5.0.0-beta.2",
     "@expo/bunyan": "^1.8.10",
-    "@nguniversal/express-engine": "^1.0.0-beta.3",
+    "@nguniversal/express-engine": "^5.0.0-beta.0",
     "@ngx-meta/core": "^4.0.1",
     "angular2-jwt": "^0.2.3",
     "angulartics2": "^2.4.0",
