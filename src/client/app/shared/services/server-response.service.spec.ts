@@ -1,6 +1,6 @@
 import { IServerResponseService, ServerResponseService } from './server-response.service'
 import { async, TestBed } from '@angular/core/testing'
-import { RESPONSE } from '@nguniversal/express-engine/tokens'
+import { RESPONSE } from '@nguniversal/express-engine/modules/express-engine/tokens'
 
 describe(ServerResponseService.name, () => {
   let service: IServerResponseService

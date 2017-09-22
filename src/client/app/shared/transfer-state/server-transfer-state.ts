@@ -17,12 +17,7 @@ export class ServerTransferState extends TransferState {
         styles: [],
         data: {}
       })
-
       const head = document.head
-      if (head.name !== 'head') {
-        throw new Error('Please have <head> as the first element in your document')
-      }
-
       const script = renderer.createElement('script')
       renderer.setValue(script, `window['PM_UNIVERSAL'] = ${transferStateString}`)
       renderer.appendChild(head, script)
