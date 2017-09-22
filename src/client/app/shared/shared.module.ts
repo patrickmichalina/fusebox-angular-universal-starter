@@ -11,7 +11,7 @@ import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { MdButtonModule, MdCardModule } from '@angular/material'
-import { FlexLayoutModule } from '@angular/flex-layout'
+// import { FlexLayoutModule } from '@angular/flex-layout'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 
 declare var __process_env__: any
@@ -51,7 +51,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     RouterModule,
     MdButtonModule,
     MdCardModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
   ],
@@ -62,7 +62,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     Angulartics2Module,
     MdButtonModule,
     MdCardModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     MarkdownToHtmlModule
   ],
   declarations: [NavbarComponent],

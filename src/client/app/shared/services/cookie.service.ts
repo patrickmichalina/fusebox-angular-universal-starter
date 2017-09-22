@@ -1,4 +1,4 @@
-import { REQUEST } from '@nguniversal/express-engine/tokens'
+import { REQUEST } from '@nguniversal/express-engine/modules/express-engine/tokens'
 import { PlatformService } from './platform.service'
 import { Inject, Injectable } from '@angular/core'
 import { Subject } from 'rxjs/Subject'

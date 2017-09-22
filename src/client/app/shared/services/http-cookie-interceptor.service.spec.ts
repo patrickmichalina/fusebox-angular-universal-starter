@@ -1,4 +1,4 @@
-import { REQUEST } from '@nguniversal/express-engine/src/tokens'
+import { REQUEST } from '@nguniversal/express-engine/modules/express-engine/tokens'
 import { IPlatformService, PlatformService } from './platform.service'
 import { ENV_CONFIG } from './../../app.config'
 import { COOKIE_HOST_WHITELIST, HttpCookieInterceptor } from './http-cookie-interceptor.service'
