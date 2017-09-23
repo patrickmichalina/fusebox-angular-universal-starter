@@ -19,16 +19,60 @@ export class NgLazyPluginClass {
   public test: RegExp = /(routing|app.browser.module.ngfactory|app.module.ngfactory)/;
   private checksums: any = {};
 
+  getDirDeep(parentPath: string, lazyPrefix = '+', dirIgnoreRegex = '') {
+    readdirSync(resolve(parentPath))
+      .filter(dir => dir.includes(lazyPrefix))
+      .map(dir => resolve(parentPath, dir))
+      .filter(path => lstatSync(path).isDirectory())
+      .forEach(path => {
+
+        const c = readdirSync(path)
+          .filter(d => !d.includes(lazyPrefix))
+          .map(dir => resolve(path, dir))
+          .filter(d => {
+            const t = lstatSync(d).isDirectory()
+            if (t) {
+              console.log(d)
+            }
+            
+          })
+
+        console.log(c)
+        this.getDirDeep(path)
+      })
+
+    // .reduce((previous, current, index) => {
+    //   // console.log(previous)
+    //   if (index !== 0) {
+    //     const d = {
+    //       name: current,
+    //       bundle: `${previous}-${current}`
+    //     }
+    //     console.log(d)
+    //   }
+
+    //   return this.getDir(resolve(parentPath, current))
+    // }, [])
+    // console.log(res)
+    // return d
+  }
+
   constructor(private options: NgLazyPluginOptions = {}) {
     if (!options.angularAppRoot) throw new Error("");
     if (!options.angularBundle) throw new Error("");
     if (!options.lazyFolderMarker) options.lazyFolderMarker = '+';
   }
 
+
   public bundleStart(context: WorkFlowContext) {
     if (context.bundle.name === this.options.angularBundle) {
+      this.getDirDeep(`${context.appRoot}/${this.options.angularAppRoot}`)
+
+      // console.log(c)
+
 
       readdirSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`)).forEach(file => {
+
         const lstat = lstatSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`, file));
         if (lstat.isDirectory()) {
           const dirName = basename(file);
@@ -46,6 +90,7 @@ export class NgLazyPluginClass {
             const bundlePath = this.options.isProdBuild
               ? `js/bundle-${this.checksums[moduleName]}-${moduleName}.module.js`
               : `js/bundle-${moduleName}.module.js`;
+
 
             context.bundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
           }
@@ -110,9 +155,9 @@ export class NgLazyServerPluginClass {
       const moduleName = this.options.aot ? `${f.split('#')[1]}NgFactory` : f.split('#')[1];
       const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
       const name = modulePath.split('.module')[0].split('/').pop() as string;
-      
+
       const bundlePath = `./js/${this.checksums[name]}`
-      
+
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
           return FuseBox.exists('${moduleLoaderPath}')
             ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
