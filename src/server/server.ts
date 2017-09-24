@@ -9,7 +9,7 @@ import * as cookieParser from 'cookie-parser'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
-import { ngExpressEngine } from '@nguniversal/express-engine/modules/express-engine'
+import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './server.angular.module'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
