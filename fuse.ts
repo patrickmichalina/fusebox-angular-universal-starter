@@ -1,7 +1,7 @@
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, typeHelper } from './tools/config/build.config';
-import { NgLazyPlugin, NgLazyServerPlugin } from './tools/plugins/ng-lazy';
+import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
 import {
@@ -72,14 +72,16 @@ const appOptions = {
 const serverOptions = {
   ...baseOptions,
   sourceMaps: false,
+  cache: false,
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
-    NgLazyServerPlugin({
+    NgLazyPlugin({
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
       angularBundle: appBundleName,
       aot: isAot,
-      isProdBuild
+      isProdBuild,
+      isUniversalServer: true
     }),
     ...baseOptions.plugins
   ]
