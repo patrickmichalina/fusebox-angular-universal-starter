@@ -1,7 +1,7 @@
 import { WorkFlowContext } from 'fuse-box/src/core/WorkflowContext';
 import { File } from 'fuse-box/src/core/File';
 import { lstatSync, readdirSync } from 'fs';
-import { basename, resolve } from 'path';
+import { resolve } from 'path';
 import * as hashFiles from 'hash-files';
 
 export interface NgLazyPluginOptions {
@@ -19,34 +19,42 @@ export class NgLazyPluginClass {
   public test: RegExp = /(routing|app.browser.module.ngfactory|app.module.ngfactory)/;
   private checksums: any = {};
 
-  getDirDeep(parentPath: string, lazyPrefix = '+', dirIgnoreRegex: RegExp = new RegExp('__snapshots__')) {
-    const getName = (str: string, pi = '/') => (str.split(pi).pop() || '')
-    const parent = getName(getName(parentPath), lazyPrefix)
+  getDirDeep(context: WorkFlowContext, parentPath: string, lazyPrefix = '+', dirIgnoreRegex: RegExp = new RegExp('__snapshots__'),
+    componentSuffix = 'component.ts') {
+    const getName = (str: string) => (str.split('/').pop() || '')
 
     readdirSync(resolve(parentPath))
       .filter(dir => dir.includes(lazyPrefix))
       .map(dir => resolve(parentPath, dir))
       .filter(path => lstatSync(path).isDirectory())
       .forEach(path => {
-        readdirSync(path)
+        const relativeDirs = readdirSync(path)
           .filter(d => !d.includes(lazyPrefix))
           .map(dir => resolve(path, dir))
           .filter(d => lstatSync(d).isDirectory())
           .filter(d => !dirIgnoreRegex.test(d))
           .map(d => getName(d))
-        // console.log('parent', parent)
-        // console.log(getName(path, lazyPrefix), nonLazySubFolders)
+          .join('|')
 
+        const moduleName = getName(path)
+        const relative = `${parentPath.replace(`${context.homeDir}/`, '')}/${getName(path)}`
+        const moduleAlias = relative.replace('client/app/', '')
+        const entryPoint = `${relative}/${moduleName}.${componentSuffix}`
+        const modulePath = moduleAlias.split('/').length <= 1 
+          ? `js/${moduleName}/${moduleAlias}`
+          : `js/${moduleAlias}.module.js`;
 
-        const bundlePath = `js/${parent}_${getName(path, lazyPrefix)}.module.js`;
-        console.log('BUNDLE', bundlePath)
+        this.checksums[moduleAlias] = hashFiles.sync({
+          files: resolve(this.options.angularAppRoot, path, '**')
+        });
 
-        // context.bundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
+        if (relativeDirs) {
+          context.bundle.split(`${relative}/${moduleName}|${relativeDirs}/**`, `/${modulePath} > ${entryPoint}`)
+        } else {
+          context.bundle.split(`${relative}/**`, `/${modulePath} > ${entryPoint}`)
+        }
 
-
-
-
-        this.getDirDeep(path)
+        this.getDirDeep(context, path)
       })
   }
 
@@ -56,39 +64,10 @@ export class NgLazyPluginClass {
     if (!options.lazyFolderMarker) options.lazyFolderMarker = '+';
   }
 
-
   public bundleStart(context: WorkFlowContext) {
     if (context.bundle.name === this.options.angularBundle) {
-      this.getDirDeep(`${context.appRoot}/${this.options.angularAppRoot}`)
-
-      // console.log(c)
-
-
-      readdirSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`)).forEach(file => {
-
-        const lstat = lstatSync(resolve(`${context.appRoot}/${this.options.angularAppRoot}`, file));
-        if (lstat.isDirectory()) {
-          const dirName = basename(file);
-
-          const compSuffix = this.options.aot ? 'component.ngfactory.ts' : 'component.ts';
-          const relative = this.options.aot ? 'client/.aot/src/client/app' : 'client/app';
-
-          if (dirName[0] === this.options.lazyFolderMarker) {
-            const moduleName = dirName.substring(1);
-
-            this.checksums[moduleName] = hashFiles.sync({
-              files: resolve(this.options.angularAppRoot, file, '**')
-            });
-
-            const bundlePath = this.options.isProdBuild
-              ? `js/bundle-${this.checksums[moduleName]}-${moduleName}.module.js`
-              : `js/bundle-${moduleName}.module.js`;
-
-
-            context.bundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
-          }
-        }
-      });
+      this.getDirDeep(context, `${context.appRoot}/${this.options.angularAppRoot}`)
+      // console.log(this.checksums)
     }
   }
 
@@ -96,22 +75,29 @@ export class NgLazyPluginClass {
     file.loadContents();
 
     file.contents = file.contents.replace(/loadChildren[\s]*:[\s]*['|"](.*?)['|"]/gm, (match: string, f: string) => {
-      const modulePath = this.options.aot ? `~/client/.aot/src/${f.split('#')[0].replace('~/', '')}` : f.split('#')[0];
-      const moduleName = this.options.aot ? `${f.split('#')[1]}NgFactory` : f.split('#')[1];
-      const moduleLoaderPath = this.options.aot ? `${modulePath}.ngfactory` : `${modulePath}`;
-      const name = modulePath.split('.module')[0].split('/').pop() as string;
-
-      const bundlePath = this.options.isProdBuild
-        ? `./js/bundle-${this.checksums[name]}-${name}.module.js`
-        : `./js/bundle-${name}.module.js`
+      
+      const pathComponents = f.split('#')
+      const moduleRef = pathComponents[1];
+      const modulePath = pathComponents[0].replace('~/client/app/', '');
+      const moduleLoaderPath = `js/${modulePath}`;
+      // const checksumKey = modulePath.replace('.module', '');
+    
+    
+      // console.log(modulePath)
+     
+     
+     
+      // const bundlePath = this.options.isProdBuild
+      //   ? `./js/${this.checksums[checksumKey]}-${checksumKey}.module.js`
+      //   : `./js/${moduleRef}.module.js`
 
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
           return FuseBox.exists('${moduleLoaderPath}')
-            ? resolve(require('${moduleLoaderPath}')['${moduleName}'])
-            : FuseBox.import('${bundlePath}', (loaded) => 
+            ? resolve(require('${moduleLoaderPath}')['${moduleRef}'])
+            : FuseBox.import('${moduleLoaderPath}.js', (loaded) => 
               loaded 
-                ? resolve(require('${moduleLoaderPath}')['${moduleName}']) 
-                : reject('failed to load ${moduleName}'))})}`;
+                ? resolve(require('${moduleLoaderPath}')['${moduleRef}']) 
+                : reject('failed to load ${moduleRef}'))})}`;
     });
   }
 }

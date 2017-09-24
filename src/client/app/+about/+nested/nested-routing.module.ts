@@ -1,4 +1,4 @@
-import { AboutComponent } from './about.component'
+import { NestedComponent } from './nested.component'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { MetaGuard } from '@ngx-meta/core'
@@ -8,12 +8,12 @@ import { MetaGuard } from '@ngx-meta/core'
     RouterModule.forChild([
       {
         path: '',
-        component: AboutComponent,
+        component: NestedComponent,
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'About',
-            description: 'See contact information and details about the Angular Universal seed at angular.patrickmichalina.com'
+            title: 'Nested',
+            description: 'Nested'
           }
         }
       }
@@ -21,4 +21,4 @@ import { MetaGuard } from '@ngx-meta/core'
   ],
   exports: [RouterModule]
 })
-export class AboutRoutingModule { }
+export class NestedRoutingModule { }
