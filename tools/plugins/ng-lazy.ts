@@ -19,42 +19,35 @@ export class NgLazyPluginClass {
   public test: RegExp = /(routing|app.browser.module.ngfactory|app.module.ngfactory)/;
   private checksums: any = {};
 
-  getDirDeep(parentPath: string, lazyPrefix = '+', dirIgnoreRegex = '') {
+  getDirDeep(parentPath: string, lazyPrefix = '+', dirIgnoreRegex: RegExp = new RegExp('__snapshots__')) {
+    const getName = (str: string, pi = '/') => (str.split(pi).pop() || '')
+    const parent = getName(getName(parentPath), lazyPrefix)
+
     readdirSync(resolve(parentPath))
       .filter(dir => dir.includes(lazyPrefix))
       .map(dir => resolve(parentPath, dir))
       .filter(path => lstatSync(path).isDirectory())
       .forEach(path => {
-
-        const c = readdirSync(path)
+        readdirSync(path)
           .filter(d => !d.includes(lazyPrefix))
           .map(dir => resolve(path, dir))
-          .filter(d => {
-            const t = lstatSync(d).isDirectory()
-            if (t) {
-              console.log(d)
-            }
-            
-          })
+          .filter(d => lstatSync(d).isDirectory())
+          .filter(d => !dirIgnoreRegex.test(d))
+          .map(d => getName(d))
+        // console.log('parent', parent)
+        // console.log(getName(path, lazyPrefix), nonLazySubFolders)
 
-        console.log(c)
+
+        const bundlePath = `js/${parent}_${getName(path, lazyPrefix)}.module.js`;
+        console.log('BUNDLE', bundlePath)
+
+        // context.bundle.split(`${relative}/${dirName}/**`, `${bundlePath} > ${relative}/${dirName}/${moduleName}.${compSuffix}`);
+
+
+
+
         this.getDirDeep(path)
       })
-
-    // .reduce((previous, current, index) => {
-    //   // console.log(previous)
-    //   if (index !== 0) {
-    //     const d = {
-    //       name: current,
-    //       bundle: `${previous}-${current}`
-    //     }
-    //     console.log(d)
-    //   }
-
-    //   return this.getDir(resolve(parentPath, current))
-    // }, [])
-    // console.log(res)
-    // return d
   }
 
   constructor(private options: NgLazyPluginOptions = {}) {
