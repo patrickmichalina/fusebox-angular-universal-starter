@@ -16,8 +16,7 @@ import { MetaGuard } from '@ngx-meta/core'
             description: 'See contact information and details about the Angular Universal seed at angular.patrickmichalina.com'
           }
         }
-      },
-      { path: 'nested', loadChildren: '~/client/app/+about/+nested/nested.module#NestedModule' }
+      }
     ])
   ],
   exports: [RouterModule]
