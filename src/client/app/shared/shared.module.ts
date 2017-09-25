@@ -11,7 +11,7 @@ import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { MdButtonModule, MdCardModule } from '@angular/material'
-import { FlexLayoutModule } from '@angular/flex-layout'
+// import { FlexLayoutModule } from '@angular/flex-layout'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 import { DashboardPageHeaderComponent } from "./dashboard-page-header/dashboard-page-header.component";
 import {MdIconModule} from '@angular/material';
@@ -55,7 +55,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     MdButtonModule,
     MdCardModule,
     MdIconModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
   ],
@@ -66,10 +66,11 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     Angulartics2Module,
     MdButtonModule,
     MdCardModule,
-    FlexLayoutModule,
+    //FlexLayoutModule,
     MarkdownToHtmlModule,
     DashboardPageHeaderComponent,
     DashboardPageFooterComponent
+
   ],
   declarations: [NavbarComponent, DashboardPageHeaderComponent, DashboardPageFooterComponent],
   providers: [

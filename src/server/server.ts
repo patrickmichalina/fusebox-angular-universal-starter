@@ -10,7 +10,7 @@ import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { join, resolve } from 'path'
 import { ngExpressEngine } from '@nguniversal/express-engine'
-import { AppServerModule } from './app.server.module'
+import { AppServerModule } from './server.angular.module'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'

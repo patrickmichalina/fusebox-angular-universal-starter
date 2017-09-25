@@ -1,10 +1,9 @@
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
-import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, cdn, typeHelper } from './tools/config/build.config';
-import { NgLazyPlugin, NgLazyServerPlugin } from './tools/plugins/ng-lazy';
+import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, typeHelper } from './tools/config/build.config';
+import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
-import { readFileSync, writeFileSync } from 'fs';
 import {
   EnvPlugin,
   FuseBox,
@@ -73,14 +72,16 @@ const appOptions = {
 const serverOptions = {
   ...baseOptions,
   sourceMaps: false,
+  cache: false,
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
-    NgLazyServerPlugin({
+    NgLazyPlugin({
       angularAppEntry: '',
       angularAppRoot: 'src/client/app',
       angularBundle: appBundleName,
       aot: isAot,
-      isProdBuild
+      isProdBuild,
+      isUniversalServer: true
     }),
     ...baseOptions.plugins
   ]
@@ -94,12 +95,9 @@ Sparky.task('build.server', () => {
 
   if (!isBuildServer && !argv['build-only']) {
     serverBundle.watch('src/**').completed(proc => {
-      if (cdn) removeCdn(proc, cdn);
       proc.start();
       setTimeout(() => {
-        if (active) {
-          // reload();
-        } else {
+        if (!active) {
           init({
             reloadDelay: 2000,
             port: BUILD_CONFIG.browserSyncPort,
@@ -108,10 +106,6 @@ Sparky.task('build.server', () => {
         }
       }, 1300)
     });
-  } else {
-    serverBundle.completed(proc => {
-      if (cdn) removeCdn(proc, cdn);
-    })
   }
 
   return fuse.run();
@@ -145,25 +139,3 @@ Sparky.task('build.app', () => {
 
   return fuse.run();
 });
-
-Sparky.task('serve', () => {
-  return Sparky.start('clean')
-    .then(() => Sparky.start('mk-dist'))
-    .then(() => Sparky.start('changelog'))
-    .then(() => argv.aot ? Sparky.start('ngc') : Promise.resolve())
-    .then(() => Sparky.start('web'))
-    .then(() => Sparky.start('index.copy'))
-    .then(() => Sparky.start('assets'))
-    .then(() => isProdBuild || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : Promise.resolve())
-    .then(() => Sparky.start('build.app'))
-    .then(() => Sparky.start('build.server'))
-    .then(() => Sparky.start('sass'))
-    .then(() => Sparky.start('index.minify'))
-    .then(() => Sparky.start('banner'));
-});
-
-const removeCdn = (proc: any, cdnHost: string) => {
-  var file = readFileSync(proc.filePath, 'utf-8');
-  const cdnRemoved = file.replace(new RegExp(cdnHost.replace('https:', ''), 'g'), '.');
-  writeFileSync(proc.filePath, cdnRemoved, { encoding: 'utf-8' });
-}
