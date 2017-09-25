@@ -37,7 +37,7 @@ exports[`HomeComponent should match snapshot 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        md-ripple=""
+        mat-ripple=""
       />
       <div
         class="mat-button-focus-overlay"
@@ -48,13 +48,13 @@ exports[`HomeComponent should match snapshot 1`] = `
     <md-tab-group
       class="mat-tab-group mat-primary"
     >
-      <md-tab-header
+      <mat-tab-header
         class="mat-tab-header"
       >
         <div
           aria-hidden="true"
           class="mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4 mat-ripple"
-          md-ripple=""
+          mat-ripple=""
         >
           <div
             class="mat-tab-header-pagination-chevron"
@@ -72,7 +72,7 @@ exports[`HomeComponent should match snapshot 1`] = `
             >
               
             </div>
-            <md-ink-bar
+            <mat-ink-bar
               class="mat-ink-bar"
             />
           </div>
@@ -80,13 +80,13 @@ exports[`HomeComponent should match snapshot 1`] = `
         <div
           aria-hidden="true"
           class="mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4 mat-ripple"
-          md-ripple=""
+          mat-ripple=""
         >
           <div
             class="mat-tab-header-pagination-chevron"
           />
         </div>
-      </md-tab-header>
+      </mat-tab-header>
       <div
         class="mat-tab-body-wrapper"
       >

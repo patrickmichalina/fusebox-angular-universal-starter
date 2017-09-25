@@ -1,4 +1,4 @@
-import { REQUEST } from '@nguniversal/express-engine/src/tokens'
+import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { PlatformService } from './platform.service'
 import { Observable } from 'rxjs/Observable'
 import { Injectable, InjectionToken, Injector } from '@angular/core'

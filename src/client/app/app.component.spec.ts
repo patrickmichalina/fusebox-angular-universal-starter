@@ -2,12 +2,12 @@ import { AppBrowserModule, getRequest } from './app.browser.module'
 import { TransferState } from './shared/transfer-state/transfer-state'
 import { AboutComponent } from './+about/about.component'
 import { async, TestBed } from '@angular/core/testing'
-import { APP_BASE_HREF, DOCUMENT } from '@angular/common'
+import { APP_BASE_HREF } from '@angular/common'
 import { Route } from '@angular/router'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Component } from '@angular/core'
 import { HomeComponent } from './+home/home.component'
-import { AppModule, metaFactory, removeStyleTags } from './app.module'
+import { AppModule, metaFactory } from './app.module'
 import { SharedModule } from './shared/shared.module'
 import { EnvConfig } from '../../../tools/config/app.config'
 import { SearchComponent } from './+search/search.component'
@@ -18,7 +18,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarService } from './shared/navbar/navbar.service'
 import { MdCardModule } from '@angular/material'
 import { MetaStaticLoader } from '@ngx-meta/core'
-import { PlatformService } from './shared/services/platform.service'
 import '../operators'
 
 export const TESTING_CONFIG: EnvConfig = {
@@ -78,13 +77,6 @@ describe('App component', () => {
     getRequest(ts)
     expect(ts).toBeTruthy()
     expect(spy).toHaveBeenCalledWith('req')
-  }))
-
-  it('should call factory removeStyleTags', async(() => {
-    const ps = TestBed.get(PlatformService)
-    const doc = TestBed.get(DOCUMENT)
-    const val = removeStyleTags(doc, ps)
-    expect(val).toBeInstanceOf(Function)
   }))
 
   it('should call factory metaFactory', async(() => {

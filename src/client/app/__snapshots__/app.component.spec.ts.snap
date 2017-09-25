@@ -3,7 +3,11 @@
 exports[`App component should build without a problem 1`] = `
 <div
   id="root0"
+<<<<<<< HEAD
   ng-version="5.0.0-beta.2"
+=======
+  ng-version="5.0.0-beta.7"
+>>>>>>> master
 >
   <pm-app>
     <pm-navbar>
@@ -22,7 +26,7 @@ exports[`App component should build without a problem 1`] = `
           </span>
           <div
             class="mat-button-ripple mat-ripple"
-            md-ripple=""
+            mat-ripple=""
           />
           <div
             class="mat-button-focus-overlay"
@@ -50,7 +54,7 @@ exports[`App component should build without a problem 1`] = `
           </span>
           <div
             class="mat-button-ripple mat-ripple"
-            md-ripple=""
+            mat-ripple=""
           />
           <div
             class="mat-button-focus-overlay"
@@ -70,7 +74,7 @@ exports[`App component should build without a problem 1`] = `
           </span>
           <div
             class="mat-button-ripple mat-ripple"
-            md-ripple=""
+            mat-ripple=""
           />
           <div
             class="mat-button-focus-overlay"
