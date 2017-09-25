@@ -1,5 +1,5 @@
-import { TranslationRepository } from './translation.repository'
+import { SettingRepository } from './setting.repository'
 
 export {
-  TranslationRepository
+  SettingRepository
 }

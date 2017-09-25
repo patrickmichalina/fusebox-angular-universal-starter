@@ -1,17 +1,17 @@
 import { Observable } from 'rxjs/Observable'
 import { Service } from 'typedi'
-import { TranslationRepository } from '../repositories'
+import { SettingRepository } from '../repositories'
 
-export interface ITranslationService {
+export interface ISettingService {
   getTranslation(lang: string): Observable<any>
   getDictionary(): Observable<any>
   getLanguageDictionary(lang: string): Observable<any>
 }
 
 @Service()
-export class TranslationService implements ITranslationService {
+export class SettingService implements ISettingService {
 
-  constructor(private repo: TranslationRepository) { }
+  constructor(private repo: SettingRepository) { }
 
   getDictionary(): Observable<any> {
     const dictionary = this.repo.getDictionary()

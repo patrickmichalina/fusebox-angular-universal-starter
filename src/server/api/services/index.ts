@@ -1,5 +1,5 @@
-import { TranslationService } from './translation.service'
+import { SettingService } from './setting.service'
 
 export {
-  TranslationService
+  SettingService
 }

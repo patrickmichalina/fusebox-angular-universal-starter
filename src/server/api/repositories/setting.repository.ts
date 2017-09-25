@@ -1,28 +1,15 @@
 import { Service } from 'typedi'
+// tslint:disable-next-line:no-require-imports
+const jsonDb = require('./settings.json')
 
-export interface ITranslationRepository {
+export interface ISettingRepository {
   getDictionary(): { [key: string]: any }
   add(key: string, value: string, language?: string): void
 }
 
 @Service()
-export class TranslationRepository implements ITranslationRepository {
-  // simple in memory key/val database of translations
-  // this could be a databse instead
-  private db: { [key: string]: any } = {
-    EN: {
-      HOME: {
-        TITLE: 'Hello',
-        DESCRIPTION: 'some page'
-      }
-    },
-    JP: {
-      HOME: {
-        TITLE: 'こんにちは',
-        DESCRIPTION: ''
-      }
-    }
-  }
+export class SettingRepository implements ISettingRepository {
+  private db = jsonDb
 
   getDictionary(): { [key: string]: any } {
     return this.db
