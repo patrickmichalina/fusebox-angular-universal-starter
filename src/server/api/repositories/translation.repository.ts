@@ -7,7 +7,8 @@ export interface ITranslationRepository {
 
 @Service()
 export class TranslationRepository implements ITranslationRepository {
-  // in memory key/val database of translations
+  // simple in memory key/val database of translations
+  // this could be a databse instead
   private db: { [key: string]: any } = {
     EN: {
       HOME: {
