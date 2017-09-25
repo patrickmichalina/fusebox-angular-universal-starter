@@ -30,7 +30,7 @@ const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
 const baseOptions = {
   homeDir: './src',
   output: `${BUILD_CONFIG.outputDir}/$name.js`,
-  cache: !isProdBuild,
+  cache: false,
   target: 'browser',
   plugins: [
     Ng2TemplatePlugin(),
@@ -72,7 +72,6 @@ const appOptions = {
 const serverOptions = {
   ...baseOptions,
   sourceMaps: false,
-  cache: false,
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
     NgLazyPlugin({

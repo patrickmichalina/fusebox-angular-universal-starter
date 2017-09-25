@@ -12,16 +12,19 @@ import { HttpConfigInterceptor } from './shared/services/http-config-interceptor
 import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
+import { TranslationService } from './shared/services/translation.service'
+import { SettingService } from './shared/services/setting.service'
 
-export function metaFactory(env: EnvironmentService): MetaLoader {
+export function metaFactory(env: EnvironmentService, ts: TranslationService, ss: SettingService): MetaLoader {
   return new MetaStaticLoader({
+    callback: (key: string) => ts.translate(key),
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: env.config.pageTitleSeparator,
     applicationName: env.config.name,
     applicationUrl: env.config.host,
     defaults: {
-      title: env.config.name,
-      description: env.config.description,
+      // title: env.config.name,
+      // description: env.config.description,
       'og:image': (env.config.og && env.config.og.defaultSocialImage) || '',
       'og:type': 'website',
       'og:locale': 'en_US',
@@ -42,7 +45,7 @@ export function metaFactory(env: EnvironmentService): MetaLoader {
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory),
-      deps: [EnvironmentService]
+      deps: [EnvironmentService, TranslationService, SettingService]
     })
   ],
   providers: [
