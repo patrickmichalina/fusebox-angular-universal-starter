@@ -124,7 +124,7 @@
     "@ngx-meta/core": "^4.0.1",
     "angular2-jwt": "^0.2.3",
     "angulartics2": "^2.4.0",
-    "body-parser": "^1.18.1",
+    "body-parser": "^1.18.2",
     "bunyan-middleware": "^0.8.0",
     "compressible": "^2.0.11",
     "compression": "^1.7.0",
