@@ -41,8 +41,10 @@
     "source.tree.server": "ts-node fuse.ts build --build-only &&  source-map-explorer dist/server.js",
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json -t -s -w -o -r 8081 --theme readthedocs",
     "prepush": "npm test",
+    "postmerge": "./tools/scripts/post-merge.sh || true",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "lint": "ts-node fuse.ts lint --build-type prod"
+    "lint": "ts-node fuse.ts lint --build-type prod",
+    "postinstall": "./node_modules/.bin/ts-node fuse.ts clean"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.0.1",

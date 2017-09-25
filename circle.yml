@@ -11,7 +11,7 @@ test:
   override:
     - npm run lint
     - npm run test.ci.before
-    - node_modules/.bin/jest --ci --updateSnapshot --coverage:
+    - node_modules/.bin/jest --ci --updateSnapshot --runInBand --coverage:
         environment:
           TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS
           TEST_REPORT_FILENAME: test-results.xml
