@@ -9,7 +9,8 @@ export const routes: Routes = [
   { path: 'logout', loadChildren: '~/client/app/+logout/logout.module#LogoutModule' },
   { path: 'signup', loadChildren: '~/client/app/+signup/signup.module#SignupModule' },
   { path: 'admin', loadChildren: '~/client/app/+admin/admin.module#AdminModule' },
-  { path: 'changelog', loadChildren: '~/client/app/+changelog/changelog.module#ChangelogModule' }
+  { path: 'changelog', loadChildren: '~/client/app/+changelog/changelog.module#ChangelogModule' },
+  { path: 'dashboard', loadChildren: '~/client/app/+dashboard/dashboard.module#DashboardModule' }  
 ]
 
 @NgModule({

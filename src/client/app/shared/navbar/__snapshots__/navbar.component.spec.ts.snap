@@ -73,6 +73,35 @@ exports[`NavbarComponent should contain a list of links 1`] = `
     <a
       aria-disabled="false"
       class="nav-button mat-button"
+      href="/dashboard"
+      md-button=""
+      ng-reflect-router-link="dashboard"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Dashboard
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        mat-ripple=""
+        ng-reflect-_mat-ripple-centered="false"
+        ng-reflect-_mat-ripple-disabled="false"
+        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
       href="/about"
       md-button=""
       ng-reflect-router-link="about"
@@ -386,6 +415,35 @@ exports[`NavbarComponent should match snapshot 1`] = `
       >
         
       Home
+    
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        mat-ripple=""
+        ng-reflect-_mat-ripple-centered="false"
+        ng-reflect-_mat-ripple-disabled="false"
+        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/dashboard"
+      md-button=""
+      ng-reflect-router-link="dashboard"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+      Dashboard
     
       </span>
       <div
