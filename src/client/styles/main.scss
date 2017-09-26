@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons|Cormorant+Upright');
 @import './node_modules/@angular/material/_theming.scss';
 @include mat-core();
 $primary: mat-palette($mat-blue, 700);
