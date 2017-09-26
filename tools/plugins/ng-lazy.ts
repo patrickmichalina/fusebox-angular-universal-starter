@@ -47,7 +47,7 @@ export class NgLazyPluginClass {
         this.moduleMap[`~/${relativeModulePath}`] = `${hash}.js`;
 
         if (relativeDirs) {
-          context.bundle.split(`${relativeBasePath}/${moduleName}|${relativeDirs}/**`, `${hash} > ${entryPoint}`)
+          context.bundle.split(`${relativeBasePath.replace(moduleName, `(${moduleName}|${relativeDirs})/**`)}`, `${hash} > ${entryPoint}`)
         } else {
           context.bundle.split(`${relativeBasePath}/**`, `${hash} > ${entryPoint}`)
         }
