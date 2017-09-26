@@ -1,23 +1,39 @@
+import { Observable } from 'rxjs/Observable'
 import { Service } from 'typedi'
-// tslint:disable-next-line:no-require-imports
-const jsonDb = require('./settings.json')
+import { SETTINGS } from './settings'
+
+export interface ISetting {
+  og: {
+    title: string
+    description: string
+    image: string
+    type: string
+    locale: string
+  },
+  tokens: {
+    facebookAppId: string
+  },
+  translations: {
+    [key: string]: any
+  }
+}
 
 export interface ISettingRepository {
-  getDictionary(): { [key: string]: any }
-  add(key: string, value: string, language?: string): void
+  getDictionary(): Observable<ISetting>
+  // add(key: string, value: string, language?: string): void
 }
 
 @Service()
 export class SettingRepository implements ISettingRepository {
-  private db = jsonDb
+  private db = SETTINGS
 
-  getDictionary(): { [key: string]: any } {
-    return this.db
+  getDictionary(): Observable<ISetting> {
+    return Observable.of(this.db)
   }
 
-  add(key: string, value: string, language = 'EN') {
-    this.db[language][key] = value
-  }
+  // add(key: string, value: string, language = 'EN') {
+  //   this.db[language][key] = value
+  // }
 
   // remove(key: string, language = 'EN') {
   //   const languageContext = this.db[language]

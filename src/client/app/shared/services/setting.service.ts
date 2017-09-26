@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs/Observable'
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { ISetting } from '../../../../server/api/services/setting.service'
 
 export interface ISettingService {
-  settings$: Observable<any>
+  settings$: Observable<ISetting>
 }
 
 @Injectable()
