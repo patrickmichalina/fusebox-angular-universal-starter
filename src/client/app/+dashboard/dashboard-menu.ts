@@ -9,8 +9,7 @@ export const DASHBOARD_MENU = [
       {
         path: 'test/test-child-1',
         title: 'Test Child 1'
-      } 
-
+      }
     ]
   },
   {

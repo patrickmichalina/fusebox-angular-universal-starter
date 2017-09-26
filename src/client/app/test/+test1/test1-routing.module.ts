@@ -7,11 +7,7 @@ import { MetaGuard } from '@ngx-meta/core'
   imports: [
     RouterModule.forChild([
       {
-        path: '', redirectTo: 'test1'
-      },
-
-      {
-        path: 'test1',
+        path: '',
         component: Test1Component,
         canActivate: [MetaGuard],
         data: {
