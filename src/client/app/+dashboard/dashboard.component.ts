@@ -9,11 +9,11 @@ import { DASHBOARD_MENU } from './dashboard-menu'
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DashboardComponent implements OnInit{ 
+export class DashboardComponent implements OnInit {
 
   pageTitle: string
 
-  isMobile: boolean= false
+  isMobile = false
 
   dashboardMenu: any = DASHBOARD_MENU
 
@@ -21,27 +21,27 @@ export class DashboardComponent implements OnInit{
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-      if (event.target.innerWidth < 840) {
-          this.sidenav.close()
-      }
-      if (event.target.innerWidth >= 840) {
-        this.sidenav.open()
-      }
+    if (event.target.innerWidth < 840) {
+      this.sidenav.close()
+    }
+    if (event.target.innerWidth >= 840) {
+      this.sidenav.open()
+    }
   }
-  
-  constructor(private title: Title){
+
+  constructor(private title: Title) {
   }
 
   ngOnInit() {
-    let title = this.title.getTitle()
-    this.setPageTitle(title.substr(0, title.indexOf('-')))    
+    const title = this.title.getTitle()
+    this.setPageTitle(title.substr(0, title.indexOf('-')))
   }
 
-  toggleSidenav(event: any){
-      this.sidenav.toggle()
+  toggleSidenav(event: any) {
+    this.sidenav.toggle()
   }
 
-  setPageTitle(title: string){
+  setPageTitle(title: string) {
     this.pageTitle = title
   }
 

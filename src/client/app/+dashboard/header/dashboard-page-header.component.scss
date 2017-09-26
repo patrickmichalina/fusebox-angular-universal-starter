@@ -1,0 +1,36 @@
+:host {
+  .docs-primary-header {
+    background: #9ba0a5;
+    padding-left: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    h1 {
+      font-size: 30px;
+      font-weight: 300;
+      margin: 0;
+      padding: 20px 20px 20px 10px;
+      color: hsla(0, 0%, 100%, .87);
+    }
+  }
+  .side-nav-toggle {
+    padding-top: 14px;
+    margin: 8px;
+    min-width: 64px;
+    display: none;
+  }
+  .mat-icon {
+    color: white;
+  }
+  @media (max-width: 840px) {
+    .side-nav-toggle {
+      display: block;
+    }
+    .docs-primary-header {
+      padding-left: 0px;
+    }
+  }
+}

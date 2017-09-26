@@ -9,7 +9,7 @@ import { DashboardComponent } from './dashboard.component'
         path: '',
         component: DashboardComponent,
         children: [
-          { path: '', redirectTo: 'test1' },
+          { path: '', redirectTo: 'test' },
           {
             path: 'test',
             loadChildren: '~/client/app/+dashboard/+test/test.module#TestModule'

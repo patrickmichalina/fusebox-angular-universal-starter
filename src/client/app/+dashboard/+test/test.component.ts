@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
-
 @Component({
   selector: 'pm-test',
   templateUrl: './test.component.html',
@@ -8,5 +7,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestComponent {
-  constructor() { }
 }

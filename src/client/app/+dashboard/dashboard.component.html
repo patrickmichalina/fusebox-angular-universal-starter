@@ -1,48 +1,48 @@
 <md-sidenav-container class="dashboard-container">
-    <md-sidenav #sidenav class="dashboard-sidenav" mode="side" opened="true">
-        <nav class="nav-back-button">
-            <button md-button="" (click)="toggleSidenav(true)">
+  <md-sidenav #sidenav class="dashboard-sidenav" mode="side" opened="true">
+    <nav class="nav-back-button">
+      <button md-button="" (click)="toggleSidenav(true)">
                 <span>
                     <md-icon role="img" aria-hidden="true">
                             arrow_back
                     </md-icon>
                 </span>
             </button>
-        </nav>
-        <nav *ngFor="let menu of dashboardMenu; index as i;">
-            <h3>{{menu.heading}}</h3>
-            <ul>
-                <li *ngFor="let child of menu.children; index as y;">
-                    <a md-button [routerLink]="[child.path]" routerLinkActive="dashboard-sidenav-item-selected" (click)="setPageTitle(child.title)">
+    </nav>
+    <nav *ngFor="let menu of dashboardMenu; index as i;">
+      <h3>{{menu.heading}}</h3>
+      <ul>
+        <li *ngFor="let child of menu.children; index as y;">
+          <a md-button [routerLink]="[child.path]" routerLinkActive="dashboard-sidenav-item-selected" (click)="setPageTitle(child.title)">
                         {{child.title}}
                     </a>
-                </li>
-            </ul>
-        </nav>
-        <nav>
-            <h3>Forms Control</h3>
-            <ul>
-                <li>
-                    <a routerlinkactive="dashboard-sidenav-item-selected">
+        </li>
+      </ul>
+    </nav>
+    <nav>
+      <h3>Forms Control</h3>
+      <ul>
+        <li>
+          <a routerlinkactive="dashboard-sidenav-item-selected">
                         Autocomplete
                     </a>
-                </li>
-            </ul>
-        </nav>
-        <nav>
-            <h3>Forms Control</h3>
-            <ul>
-                <li>
-                    <a routerlinkactive="dashboard-sidenav-item-selected">
+        </li>
+      </ul>
+    </nav>
+    <nav>
+      <h3>Forms Control</h3>
+      <ul>
+        <li>
+          <a routerlinkactive="dashboard-sidenav-item-selected">
                         Autocomplete
                     </a>
-                </li>
-            </ul>
-        </nav>
-    </md-sidenav>
-    <div class="dashboard-sidenav-content">
-        <pm-dashboard-page-header (toggleSidenav)="toggleSidenav(event)" [title]="pageTitle"></pm-dashboard-page-header>
-        <router-outlet></router-outlet>
-        <pm-dashboard-page-footer></pm-dashboard-page-footer>
-    </div>
+        </li>
+      </ul>
+    </nav>
+  </md-sidenav>
+  <div class="dashboard-sidenav-content">
+    <pm-dashboard-page-header (toggleSidenav)="toggleSidenav(event)" [title]="pageTitle"></pm-dashboard-page-header>
+    <router-outlet></router-outlet>
+    <pm-dashboard-page-footer></pm-dashboard-page-footer>
+  </div>
 </md-sidenav-container>

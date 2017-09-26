@@ -3,7 +3,6 @@ import { Test1Component } from './test1.component'
 import { NgModule } from '@angular/core'
 import { SharedModule } from '../../shared/shared.module'
 
-
 @NgModule({
   imports: [Test1RoutingModule, SharedModule],
   declarations: [Test1Component],
