@@ -40,13 +40,33 @@ exports[`App component should build without a problem 1`] = `
   
         <a
           class="nav-button mat-button"
+          href="/api-docs"
+          md-button=""
+        >
+          <span
+            class="mat-button-wrapper"
+          >
+            API
+          </span>
+          <div
+            class="mat-button-ripple mat-ripple"
+            mat-ripple=""
+          />
+          <div
+            class="mat-button-focus-overlay"
+          />
+        </a>
+        
+  
+        <a
+          class="nav-button mat-button"
           href="/sitemap.xml"
           md-button=""
         >
           <span
             class="mat-button-wrapper"
           >
-            
+            Sitemap
           </span>
           <div
             class="mat-button-ripple mat-ripple"
@@ -66,7 +86,7 @@ exports[`App component should build without a problem 1`] = `
           <span
             class="mat-button-wrapper"
           >
-            
+            Robots
           </span>
           <div
             class="mat-button-ripple mat-ripple"
