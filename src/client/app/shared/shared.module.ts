@@ -10,9 +10,11 @@ import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.servic
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
-import { MdButtonModule, MdCardModule } from '@angular/material'
+import { MdButtonModule, MdCardModule,MdIconModule } from '@angular/material'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
+import { DashboardPageHeaderComponent } from './dashboard-page-header/dashboard-page-header.component'
+import { DashboardPageFooterComponent } from './dashboard-page-footer/dashboard-page-footer.component'
 
 declare var __process_env__: any
 
@@ -51,6 +53,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     RouterModule,
     MdButtonModule,
     MdCardModule,
+    MdIconModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
@@ -62,10 +65,13 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     Angulartics2Module,
     MdButtonModule,
     MdCardModule,
-    // FlexLayoutModule,
-    MarkdownToHtmlModule
+    //FlexLayoutModule,
+    MarkdownToHtmlModule,
+    DashboardPageHeaderComponent,
+    DashboardPageFooterComponent
+
   ],
-  declarations: [NavbarComponent],
+  declarations: [NavbarComponent, DashboardPageHeaderComponent, DashboardPageFooterComponent],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
     { provide: COOKIE_HOST_WHITELIST, useValue: ['angular.patrickmichalina.com'] },
