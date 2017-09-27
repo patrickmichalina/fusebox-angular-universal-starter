@@ -85,7 +85,7 @@
     "hash-files": "^1.1.1",
     "html-minifier": "^3.5.5",
     "husky": "^0.14.3",
-    "jest": "21.1.0",
+    "jest": "21.2.0",
     "jest-junit-reporter": "^1.1.0",
     "jest-preset-angular": "^3.0.2",
     "jsdom": "^11.2.0",
