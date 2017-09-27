@@ -12,8 +12,8 @@ import { MetaGuard } from '@ngx-meta/core'
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Admin',
-            description: 'For application management'
+            title: 'i18n.admin.title',
+            description: 'i18n.admin.description'
           }
         }
       }

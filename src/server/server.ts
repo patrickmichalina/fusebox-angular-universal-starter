@@ -5,7 +5,6 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
-import * as bodyParser from 'body-parser'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
 import { ngExpressEngine } from '@nguniversal/express-engine'
@@ -44,18 +43,12 @@ const staticOptions = {
 }
 const logger = createLogger({
   name: 'Angular Universal App',
-  type: 'http-access',
-  streams: [
-    // {
-    //   level: 'info',
-    //   stream: { write: (err: any) => console.log(err) },
-    //   type: 'raw'
-    // },
-    {
-      level: 'error',
-      stream: { write: (err: any) => console.log(err) },
-      type: 'raw'
-    }] as any
+  type: 'http',
+  streams: [{
+    level: 'error',
+    stream: { write: (err: any) => console.log },
+    type: 'raw'
+  }] as any
 })
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
@@ -64,12 +57,12 @@ app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
-app.use('/api/**', bodyParser.json())
-app.use('/api/**', bodyParser.urlencoded({ extended: false }))
 app.use(shrinkRay())
 
+// You can remove the Identity and API servers by deleteing these two lines
 useIdentity(app)
 useApi(app)
+app.set('ignore-routes', ['/api/', '/oidc', '/.well-known'])
 
 if (isProd) {
   app.use(minifyHTML({
@@ -107,9 +100,7 @@ app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
 })
 
 app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  if (req.url.includes('/api/')) return next()
-  if (req.url.includes('/oidc')) return next()
-  if (req.url.includes('/.well-known')) return next()
+  if ((req.app.get('ignore-routes') as string[]).some(a => req.url.includes(a))) return next()
   return res.render('index', {
     req,
     res

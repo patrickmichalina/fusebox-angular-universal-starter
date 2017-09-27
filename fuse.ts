@@ -103,7 +103,7 @@ Sparky.task('build.server', () => {
             proxy: `${BUILD_CONFIG.host}:${BUILD_CONFIG.port}`
           });
         }
-      }, 1300)
+      }, 2000)
     });
   }
 

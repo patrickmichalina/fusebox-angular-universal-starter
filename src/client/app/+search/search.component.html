@@ -6,7 +6,7 @@
     </div>
     <button class="btn btn-primary">Search</button>
   </form>
-  <div *ngIf="$items | async as item">
-    {{ item | json }}
-  </div>
+  <ul>
+    <li *ngFor="let item of $items | async">{{ item?.name }}!</li>
+  </ul>
 </md-card>

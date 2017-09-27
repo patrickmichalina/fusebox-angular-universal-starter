@@ -3,6 +3,7 @@ import { Service } from 'typedi'
 import { SETTINGS } from './settings'
 
 export interface ISetting {
+  host: string
   og: {
     title: string
     description: string
@@ -13,7 +14,7 @@ export interface ISetting {
   tokens: {
     facebookAppId: string
   },
-  translations: {
+  i18n: {
     [key: string]: any
   }
 }
@@ -32,7 +33,10 @@ export class SettingRepository implements ISettingRepository {
   }
 
   // add(key: string, value: string, language = 'EN') {
-  //   this.db[language][key] = value
+  //   key.split('.').reduce((a, b) => {
+  //     return a
+  //   })
+  //   // this.db[language][key] = value
   // }
 
   // remove(key: string, language = 'EN') {

@@ -5,14 +5,18 @@ import { ISetting } from '../../../../server/api/services/setting.service'
 
 export interface ISettingService {
   settings$: Observable<ISetting>
+  pluck(key: string): Observable<string>
 }
 
 @Injectable()
 export class SettingService implements ISettingService {
-  settings$: Observable<any>
-  private dict$ = this.http.get<any>('settings').shareReplay()
 
-  constructor(private http: HttpClient) {
-    this.dict$.take(1).subscribe(console.log)
+  public settings$ = this.http.get<ISetting>('settings').shareReplay()
+
+  public pluck(key: string) {
+    return this.settings$.map(dict => key.split('.')
+      .reduce((o, k) => (o || {})[k], dict as any))
   }
+
+  constructor(private http: HttpClient) { }
 }

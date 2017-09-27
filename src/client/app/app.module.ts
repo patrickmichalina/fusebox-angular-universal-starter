@@ -15,17 +15,26 @@ import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
 
 export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLoader {
+  const locale = 'en' // TODO: make this dynamic
+  const urlKey = 'host'
   return new MetaStaticLoader({
-    // callback: (key: string) => ts.translate(key),
+    callback: (key: string) => {
+      if (key && key.includes(urlKey)) {
+        return ss.pluck(urlKey).map(a => a ? key.replace(urlKey, a) : key)
+      }
+      return (key.includes('i18n')
+        ? ss.pluck(key.replace('i18n', `i18n.${locale}`))
+        : ss.pluck(key)).map(a => a ? a : '')
+    },
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: env.config.pageTitleSeparator,
     applicationName: env.config.name,
-    applicationUrl: env.config.host,
+    applicationUrl: 'host',
     defaults: {
-      // title: env.config.name,
-      // description: env.config.description,
-      'og:image': (env.config.og && env.config.og.defaultSocialImage) || '',
-      'og:type': 'website',
+      title: 'og.title',
+      description: 'og.description',
+      'og:image': 'og.image',
+      'og:type': 'og.type',
       'og:locale': 'en_US',
       'og:locale:alternate': 'en_US'
     }

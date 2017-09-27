@@ -9,7 +9,8 @@ import { SearchService } from './search.service'
 })
 export class SearchComponent {
   public $results = this.searchService.search()
-  public $items = this.$results
+  public $items = this.$results.map((a: any) => a.items)
+  public $count = this.$results.map((a: any) => a.total_count)
 
   constructor(private searchService: SearchService) { }
 }
