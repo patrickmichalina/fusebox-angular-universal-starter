@@ -28,7 +28,7 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
     },
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
     pageTitleSeparator: env.config.pageTitleSeparator,
-    applicationName: env.config.name,
+    applicationName: 'og.title',
     applicationUrl: 'host',
     defaults: {
       title: 'og.title',
