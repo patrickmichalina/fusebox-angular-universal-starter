@@ -16,6 +16,17 @@ export const useApi = (app: express.Application) => {
     swaggerDefinition: {
       info: {
         title: 'fusebox-angular-universal-starter',
+        description: '',
+        termsOfService: '',
+        contact: {
+          name: 'Patrick Michalina',
+          url: 'https://github.com/patrickmichalina/fusebox-angular-universal-starter/issues',
+          email: 'patrickmichalina@mac.com'
+        },
+        license: {
+          name: 'MIT',
+          url: 'https://github.com/patrickmichalina/fusebox-angular-universal-starter/blob/master/LICENSE'
+        },
         version: '1.0.0'
       }
     },

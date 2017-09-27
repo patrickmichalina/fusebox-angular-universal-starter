@@ -28,14 +28,10 @@ describe(NavbarComponent.name, () => {
     TestBed.resetTestingModule()
   })
 
-  it('should match snapshot', () => {
-    fixture.detectChanges()
-    expect(fixture.nativeElement).toMatchSnapshot()
-  })
-
   it('should compile', async(() => {
     fixture.detectChanges()
     expect(fixture.nativeElement).toBeDefined()
+    expect(fixture.nativeElement).toMatchSnapshot()
   }))
 
   it('should contain a list of links', async(() => {
@@ -44,7 +40,7 @@ describe(NavbarComponent.name, () => {
     expect(buttonLinks).toBeDefined()
 
     navbarService.menu$.subscribe(items => {
-      expect(buttonLinks.length).toEqual(items.length + 3)
+      expect(buttonLinks.length).toEqual(items.length + 4)
     })
     expect(fixture.nativeElement).toMatchSnapshot()
   }))
