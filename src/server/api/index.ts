@@ -6,7 +6,7 @@ import { controllers } from './controllers'
 import { middlewares } from './middlewares'
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
-import swaggerJSDoc = require('swagger-jsdoc')
+const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
 
 useContainer(Container)
