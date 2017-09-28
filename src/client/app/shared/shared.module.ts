@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component'
 import { CookieService } from './services/cookie.service'
 import { CommonModule } from '@angular/common'
 import { PlatformService } from './services/platform.service'
+import { WebSocketService } from './services/web-socket.service'
 import { LOGGER_CONFIG, LoggingService } from './services/logging.service'
 import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.service'
 import { ENV_CONFIG } from '../app.config'
@@ -78,7 +79,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     CookieService,
     EnvironmentService,
     NavbarService,
-    LoggingService
+    LoggingService,
+    WebSocketService
   ]
 })
 export class SharedModule {
