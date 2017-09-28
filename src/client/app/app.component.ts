@@ -1,3 +1,4 @@
+import { WebSocketService } from './shared/services/web-socket.service'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { Meta } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
@@ -10,9 +11,11 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics) {
+  constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, private wss: WebSocketService) {
     ss.settings$.take(1).subscribe(s => {
       meta.addTag({ property: 'fb:app_id', content: s.tokens.facebookAppId })
     })
+    this.wss.messageBus$.subscribe()
+    this.wss.send({ message: 'ws test' })
   }
 }
