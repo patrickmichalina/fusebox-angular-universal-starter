@@ -8,15 +8,15 @@ export class SettingsController {
   /**
    * @swagger
    * tags:
-   *   - name: Settings
-   *     description: The application's settings
+   *   - name: settings
+   *     description: operations on the application's settings
    */
 
   /**
    * @swagger
    * /api/settings:
    *   get:
-   *     tags: [Settings]
+   *     tags: [settings]
    *     description: get the site settings
    *     produces:
    *       - application/json

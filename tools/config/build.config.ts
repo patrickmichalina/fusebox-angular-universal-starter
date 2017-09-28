@@ -3,6 +3,7 @@ import { Dependency } from '../plugins/web-index';
 import { argv } from 'yargs';
 import { EnvConfig } from '../config/app.config';
 import { basename } from 'path';
+import { OVERRIDES } from './build.ci.replace'
 
 export const BUILD_CONFIG: BuildConfiguration = {
   baseHref: '/',
@@ -83,7 +84,7 @@ try {
 const TypeHelper = require('fuse-box-typechecker').TypeHelper
 
 export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '');
-export const ENV_CONFIG_INSTANCE = envConfig as EnvConfig;
+export const ENV_CONFIG_INSTANCE = { ...envConfig, ...OVERRIDES } as EnvConfig;
 export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
 export const cachebuster = Math.round(new Date().getTime() / 1000);
 export const isBuildServer: boolean = argv.ci
