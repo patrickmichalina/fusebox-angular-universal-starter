@@ -50,7 +50,7 @@ const logger = createLogger({
     type: 'raw'
   }] as any
 })
-
+console.log('HEROKU_APP_NAME', process.env['HEROKU_APP_NAME'])
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
