@@ -132,11 +132,11 @@
     "body-parser": "^1.18.2",
     "bunyan-middleware": "^0.8.0",
     "compressible": "^2.0.11",
-    "compression": "^1.7.0",
+    "compression": "^1.7.1",
     "cookie-parser": "^1.4.3",
     "core-js": "^2.5.1",
     "cors": "^2.8.4",
-    "express": "^4.15.5",
+    "express": "^4.16.0",
     "express-urlrewrite": "^1.2.0",
     "getos": "^3.0.1",
     "hammerjs": "^2.0.8",
@@ -157,7 +157,7 @@
     "typedi": "^0.5.2",
     "url-parse": "^1.1.9",
     "ws": "^3.2.0",
-    "zone.js": "^0.8.17"
+    "zone.js": "^0.8.18"
   },
   "engines": {
     "node": ">= 8.6.0",
