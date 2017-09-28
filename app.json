@@ -1,8 +1,5 @@
 {
   "name": "fusebox-angular-universal-star",
-  "scripts":{
-    "postdeploy":"ECHO $HEROKU_APP_NAME"
-  },
   "env": {
     "CI": {
       "required": true

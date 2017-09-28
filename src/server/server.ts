@@ -50,7 +50,7 @@ const logger = createLogger({
     type: 'raw'
   }] as any
 })
-console.log(process.env)
+
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
