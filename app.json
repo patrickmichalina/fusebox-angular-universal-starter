@@ -1,10 +1,8 @@
 {
   "name": "fusebox-angular-universal-star",
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ],
+  "scripts":{
+    "postdeploy":"ECHO $HEROKU_APP_NAME"
+  },
   "env": {
     "CI": {
       "required": true
