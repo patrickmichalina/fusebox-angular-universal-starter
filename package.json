@@ -67,6 +67,7 @@
     "@types/serve-favicon": "^2.2.29",
     "@types/stacktrace-js": "^0.0.32",
     "@types/string-hash": "^1.1.1",
+    "@types/ws": "^3.0.2",
     "@types/yargs": "^8.0.2",
     "angular-tslint-rules": "^1.0.4",
     "browser-sync": "^2.18.13",
@@ -143,6 +144,7 @@
     "systemjs": "^0.20.19",
     "tsickle": "^0.24.1",
     "url-parse": "^1.1.9",
+    "ws": "^3.2.0",
     "zone.js": "^0.8.17"
   },
   "engines": {

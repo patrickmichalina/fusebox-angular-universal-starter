@@ -14,6 +14,8 @@ import { AppServerModule } from './server.angular.module'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
+import { useWebSockets } from './server.web-socket'
+import http = require('http')
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -25,6 +27,7 @@ xhr2.prototype._restrictedHeaders.cookie = false
 require('ts-node/register')
 
 const app = express()
+const server = http.createServer(app)
 const root = './dist'
 const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
@@ -41,6 +44,7 @@ const staticOptions = {
   }
 }
 
+useWebSockets(server)
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
@@ -88,6 +92,6 @@ app.get('/*', (req, res) => {
   })
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   logger.info(`Angular Universal Server listening at ${host}:${port}`)
 })

@@ -11,7 +11,8 @@ const BaseConfig: EnvConfig = {
     defaultSocialImage: "https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/android-chrome-512x512.png",
     facebookAppId: "117309532219749"
   },
-  host: 'http://localhost:8000'
+  host: 'http://localhost:8000',
+  socketHost: 'ws://localhost:8001'
 };
 
 export = BaseConfig;

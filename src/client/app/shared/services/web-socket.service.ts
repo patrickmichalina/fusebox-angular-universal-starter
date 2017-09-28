@@ -1,0 +1,24 @@
+import { EnvironmentService } from './environment.service'
+import { Subject } from 'rxjs/Subject'
+import { PlatformService } from './platform.service'
+import { Injectable } from '@angular/core'
+import { WebSocketSubject, WebSocketSubjectConfig } from 'rxjs/observable/dom/WebSocketSubject'
+
+@Injectable()
+export class WebSocketService {
+  private source = this.ps.isBrowser && this.es.config.socketHost
+    ? new WebSocketSubject(
+      {
+        url: this.es.config.socketHost
+      } as WebSocketSubjectConfig
+    )
+    : new Subject()
+
+  public messageBus$ = this.source.asObservable()
+
+  constructor(private ps: PlatformService, private es: EnvironmentService) { }
+
+  send(obj: Object) {
+    this.source.next(JSON.stringify(obj))
+  }
+}
