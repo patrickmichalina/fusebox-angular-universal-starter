@@ -68,6 +68,7 @@
     "@types/serve-favicon": "^2.2.29",
     "@types/stacktrace-js": "^0.0.32",
     "@types/string-hash": "^1.1.1",
+    "@types/supertest": "^2.0.3",
     "@types/ws": "^3.0.2",
     "@types/yargs": "^8.0.2",
     "angular-tslint-rules": "^1.0.4",
