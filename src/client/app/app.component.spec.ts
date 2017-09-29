@@ -1,5 +1,4 @@
 import { AppBrowserModule, getRequest } from './app.browser.module'
-import { TransferState } from './shared/transfer-state/transfer-state'
 import { AboutComponent } from './+about/about.component'
 import { async, TestBed } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
@@ -17,6 +16,7 @@ import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarService } from './shared/navbar/navbar.service'
 import { MdCardModule } from '@angular/material'
+import { TransferState } from '@angular/platform-browser'
 import '../operators'
 
 export const TESTING_CONFIG: EnvConfig = {
@@ -72,14 +72,6 @@ describe('App component', () => {
         expect(compiled).toBeTruthy()
         expect(compiled).toMatchSnapshot()
       })
-  }))
-
-  it('should call factory getRequest', async(() => {
-    const ts = TestBed.get(TransferState)
-    const spy = jest.spyOn(ts, 'get')
-    getRequest(ts)
-    expect(ts).toBeTruthy()
-    expect(spy).toHaveBeenCalledWith('req')
   }))
 })
 

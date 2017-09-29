@@ -1,6 +1,6 @@
-import { TransferState } from './../transfer-state/transfer-state'
 import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
+import { makeStateKey, TransferState } from '@angular/platform-browser'
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http'
 
 @Injectable()
@@ -10,7 +10,7 @@ export class HttpStateTransferInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const cachedHttpEvent = this.transferState.get(this.createCacheKey(req))
+    const cachedHttpEvent = this.transferState.get<HttpResponse<any> | HttpErrorResponse | undefined>(this.createCacheKey(req), undefined)
 
     if (cachedHttpEvent) {
       if (cachedHttpEvent.status < 200 || cachedHttpEvent.status >= 300) {
@@ -40,7 +40,7 @@ export class HttpStateTransferInterceptor implements HttpInterceptor {
     })
   }
 
-  createCacheKey(req: HttpRequest<any>): string {
-    return `${req.urlWithParams}_${req.method}`
+  createCacheKey(req: HttpRequest<any>) {
+    return makeStateKey<any>(`${req.urlWithParams}_${req.method}`)
   }
 }
