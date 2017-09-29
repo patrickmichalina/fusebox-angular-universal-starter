@@ -25,7 +25,8 @@ export const TESTING_CONFIG: EnvConfig = {
   description: 'Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator. Created by Patrick Michalina',
   pageTitleSeparator: ' - ',
   endpoints: {
-    api: 'http://localhost:8000/api'
+    api: 'http://localhost:8000/api',
+    websocketServer: 'ws://localhost:8001'
   },
   og: {
     defaultSocialImage: 'https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/android-chrome-512x512',

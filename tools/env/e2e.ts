@@ -5,7 +5,8 @@ const DevConfig: EnvConfig = {
   ...base,
   env: 'e2e',
   endpoints: {
-    api: 'http://localhost:8000/api'
+    api: 'http://localhost:8000/api',
+    websocketServer: 'ws://localhost:80001'
   },
 };
 
