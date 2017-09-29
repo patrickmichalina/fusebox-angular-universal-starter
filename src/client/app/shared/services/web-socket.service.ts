@@ -6,7 +6,8 @@ import { WebSocketSubject, WebSocketSubjectConfig } from 'rxjs/observable/dom/We
 
 @Injectable()
 export class WebSocketService {
-  private source = this.ps.isBrowser && this.es.config.endpoints && this.es.config.endpoints.websocketServer
+  private source = this.ps.isBrowser && typeof window !== 'undefined' && (window as any).WebSocket &&
+    this.es.config.endpoints && this.es.config.endpoints.websocketServer
     ? new WebSocketSubject(
       {
         url: this.es.config.endpoints.websocketServer
