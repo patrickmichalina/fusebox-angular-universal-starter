@@ -18,6 +18,6 @@ export class SearchService implements ISearchService {
       .set('sort', sort)
       .set('order', order)
 
-    return this.http.get(this.url, { withCredentials: false, params  })
+    return this.http.get(this.url, { withCredentials: false, params  })
   }
 }

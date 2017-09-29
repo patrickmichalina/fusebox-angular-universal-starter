@@ -27,12 +27,9 @@ describe(HomeComponent.name, () => {
     TestBed.resetTestingModule()
   }))
 
-  it('should match snapshot', async(() => {
-    expect(fixture).toMatchSnapshot()
-  }))
-
   it('should compile', async(() => {
     expect(fixture.nativeElement).toBeDefined()
+    expect(fixture).toMatchSnapshot()
   }))
 
   it('should track event when link clicked', async(() => {

@@ -6,6 +6,6 @@ const browser = require('nightmare')({
   show: false
 }) as Nightmare
 
-const baseUrl = 'http://localhost:8001'
+const baseUrl = 'http://localhost:8000'
 
 export { browser, baseUrl }

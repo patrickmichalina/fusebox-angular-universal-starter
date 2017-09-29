@@ -12,8 +12,8 @@ import { MetaGuard } from '@ngx-meta/core'
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Changelog',
-            description: 'Version history of the application'
+            title: 'i18n.changelog.title',
+            description: 'i18n.changelog.description'
           }
         }
       }

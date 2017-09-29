@@ -93,17 +93,18 @@ Sparky.task('build.server', () => {
   const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
 
   if (!isBuildServer && !argv['build-only']) {
+    const reloadDelay = 2000;
     serverBundle.watch('src/**').completed(proc => {
       proc.start();
       setTimeout(() => {
         if (!active) {
           init({
-            reloadDelay: 2000,
+            reloadDelay,
             port: BUILD_CONFIG.browserSyncPort,
             proxy: `${BUILD_CONFIG.host}:${BUILD_CONFIG.port}`
           });
         }
-      }, 1300)
+      }, reloadDelay)
     });
   }
 

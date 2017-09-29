@@ -12,8 +12,8 @@ import { MetaGuard } from '@ngx-meta/core'
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Login',
-            description: 'Login to your account now.'
+            title: 'i18n.login.title',
+            description: 'i18n.login.description'
           }
         }
       }

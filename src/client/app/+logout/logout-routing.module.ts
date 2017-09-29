@@ -12,8 +12,8 @@ import { MetaGuard } from '@ngx-meta/core'
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Logged Out',
-            description: 'Come back again!'
+            title: 'i18n.logout.title',
+            description: 'i18n.logout.description'
           }
         }
       }
