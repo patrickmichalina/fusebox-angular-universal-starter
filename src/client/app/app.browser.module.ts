@@ -1,16 +1,15 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule, BrowserTransferStateModule, makeStateKey, TransferState } from '@angular/platform-browser'
 import { AppModule } from './app.module'
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
-import { BrowserTransferStateModule } from './shared/transfer-state/browser-transfer-state.module'
-import { TransferState } from './shared/transfer-state/transfer-state'
-
 import 'hammerjs'
 
+export const REQ_KEY = makeStateKey<string>('req')
+
 export function getRequest(transferState: TransferState): any {
-  return transferState.get('req')
+  return transferState.get<any>(REQ_KEY, {})
 }
 
 @NgModule({

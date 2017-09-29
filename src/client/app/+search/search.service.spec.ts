@@ -1,6 +1,6 @@
-import { TransferState } from '../shared/transfer-state/transfer-state'
 import { ISearchService, SearchService } from './search.service'
 import { async, TestBed } from '@angular/core/testing'
+import { TransferState } from '@angular/platform-browser'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { Observable } from 'rxjs/Observable'
 import '../../operators'
