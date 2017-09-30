@@ -53,7 +53,7 @@ describe(HttpStateTransferInterceptor.name, () => {
     req.flush({ hello: 'world' })
     httpMock.verify()
     const cachedVal = transferState.get(makeStateKey<any>('http://www.google.com/api/thing/1_GET'), {})
-    expect(cachedVal.body).toEqual({ hello: 'world' })
+    expect((cachedVal as any).body).toEqual({ hello: 'world' })
   }))
 
   it('should retrieve cached HttpResponse instead of firing an http request', async(() => {
