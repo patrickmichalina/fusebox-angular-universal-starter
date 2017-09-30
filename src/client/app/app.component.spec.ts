@@ -1,4 +1,4 @@
-import { AppBrowserModule, getRequest } from './app.browser.module'
+import { AppBrowserModule } from './app.browser.module'
 import { AboutComponent } from './+about/about.component'
 import { async, TestBed } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
@@ -16,7 +16,6 @@ import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarService } from './shared/navbar/navbar.service'
 import { MdCardModule } from '@angular/material'
-import { TransferState } from '@angular/platform-browser'
 import '../operators'
 
 export const TESTING_CONFIG: EnvConfig = {
