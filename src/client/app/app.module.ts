@@ -6,13 +6,15 @@ import { AppRoutingModule } from './app-routing.module'
 import { TransferHttpModule } from './shared/transfer-http/transfer-http.module'
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core'
 import { NotFoundModule } from './not-found/not-found.module'
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule, makeStateKey } from '@angular/platform-browser'
 import { APP_ID, ErrorHandler, NgModule } from '@angular/core'
 import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
 import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
+
+export const REQ_KEY = makeStateKey<string>('req')
 
 export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLoader {
   const locale = 'en' // TODO: make this dynamic
