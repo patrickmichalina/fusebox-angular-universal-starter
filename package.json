@@ -93,6 +93,7 @@
     "last-release-git": "0.0.3",
     "mkdirp": "^0.5.1",
     "ng2-fused": "^0.5.0",
+    "node-run-cmd": "^1.0.1",
     "node-sass": "^4.5.3",
     "opn": "^5.1.0",
     "rollup": "^0.50.0",

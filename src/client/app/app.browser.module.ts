@@ -4,6 +4,7 @@ import { AppModule } from './app.module'
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
+// import { ServiceWorkerModule } from '@angular/service-worker'
 import 'hammerjs'
 
 export const REQ_KEY = makeStateKey<string>('req')
@@ -19,6 +20,7 @@ export function getRequest(transferState: TransferState): any {
     BrowserTransferStateModule,
     BrowserAnimationsModule,
     AppModule
+    // ServiceWorkerModule.register('/js/ngsw-worker.js')
   ],
   providers: [
     {
