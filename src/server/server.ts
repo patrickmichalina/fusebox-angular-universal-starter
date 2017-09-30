@@ -87,6 +87,7 @@ if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
 }
 app.use('/css', express.static('dist/css', staticOptions))
 app.use('/js', express.static('dist/js', staticOptions))
+app.use('/ngsw.json', express.static('dist/ngsw.json', staticOptions))
 app.use('/robots.txt', express.static('dist/web/robots.txt', staticOptions))
 app.use('/assets', express.static('dist/assets', { ...staticOptions, fallthrough: false }))
 app.use('/changelog.md', express.static('dist/web/changelog.md', { ...staticOptions, fallthrough: false }))
