@@ -12,9 +12,8 @@ import { MetaGuard } from '@ngx-meta/core'
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Signup',
-            description: `Sign up for an account with us. Create an account to start doing cool things with our application.
-            It's easy to register`
+            title: 'i18n.signup.title',
+            description: 'i18n.signup.description'
           }
         }
       }

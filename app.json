@@ -1,10 +1,5 @@
 {
   "name": "fusebox-angular-universal-star",
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ],
   "env": {
     "CI": {
       "required": true
@@ -19,6 +14,12 @@
       "required": true
     },
     "NPM_CONFIG_PRODUCTION": {
+      "required": true
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "HEROKU_PARENT_APP_NAME": {
       "required": true
     }
   }

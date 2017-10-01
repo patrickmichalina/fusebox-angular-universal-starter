@@ -1,16 +1,14 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { BrowserModule } from '@angular/platform-browser'
-import { AppModule } from './app.module'
+import { BrowserModule, BrowserTransferStateModule, TransferState } from '@angular/platform-browser'
+import { AppModule, REQ_KEY } from './app.module'
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
-import { BrowserTransferStateModule } from './shared/transfer-state/browser-transfer-state.module'
-import { TransferState } from './shared/transfer-state/transfer-state'
-
+// import { ServiceWorkerModule } from '@angular/service-worker'
 import 'hammerjs'
 
 export function getRequest(transferState: TransferState): any {
-  return transferState.get('req')
+  return transferState.get<any>(REQ_KEY, {})
 }
 
 @NgModule({
@@ -20,6 +18,7 @@ export function getRequest(transferState: TransferState): any {
     BrowserTransferStateModule,
     BrowserAnimationsModule,
     AppModule
+    // ServiceWorkerModule.register('/js/ngsw-worker.js')
   ],
   providers: [
     {

@@ -5,7 +5,8 @@ export interface EnvConfig {
   host: string
   env?: string
   endpoints?: {
-    api?: string
+    api: string,
+    websocketServer: string
   },
   og?: {
     defaultSocialImage?: string

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomeComponent should match snapshot 1`] = `
+exports[`HomeComponent should compile 1`] = `
 <pm-home>
   <md-card
     class="mat-card"

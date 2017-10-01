@@ -12,8 +12,8 @@ import { MetaGuard } from '@ngx-meta/core'
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Not Found',
-            description: 'The page you requested can not be found.'
+            title: 'i18n.not-found.title',
+            description: 'i18n.not-found.description'
           }
         }
       }

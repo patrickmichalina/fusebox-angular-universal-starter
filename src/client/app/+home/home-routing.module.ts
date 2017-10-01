@@ -12,7 +12,8 @@ import { MetaGuard } from '@ngx-meta/core'
         canActivate: [MetaGuard],
         data: {
           meta: {
-            title: 'Home'
+            title: 'i18n.home.title',
+            description: 'i18n.home.description'
           }
         }
       }

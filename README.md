@@ -21,8 +21,8 @@ This seed project is designed to get some of the best techniques running on your
 - [ ] As reactive and immutable as possible
 - [x] Provide common performance optimizations to deploy a fast, lean applications from day one.
 - [ ] Provide all boilerplate services, routes, and components that are almost always used in medium to large web applications.
-- [ ] Provide an ejectable OpenID Identity Server for managing user authentication
-- [ ] Provide an ejectable API with some common endpoints
+- [ ] Provide an OpenID Identity Server for managing user authentication
+- [x] Provide an [API](/docs/api-server.md) with some common endpoints
 
 # Features
 - [x] [Angular](https://github.com/angular/angular/blob/master/CHANGELOG.md) as the application framework

@@ -1,5 +1,4 @@
 // tslint:disable:no-require-imports
-
 import 'reflect-metadata'
 import 'zone.js/dist/zone-node'
 import 'zone.js/dist/long-stack-trace-zone'
@@ -8,12 +7,16 @@ import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
 import ms = require('ms')
 import { createLogger } from '@expo/bunyan'
-import { join, resolve } from 'path'
 import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './server.angular.module'
 import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
+import { useApi } from './api'
+import { useIdentity } from './identity'
+import { join, resolve } from 'path'
+import { useWebSockets } from './server.web-socket'
+import http = require('http')
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -25,12 +28,13 @@ xhr2.prototype._restrictedHeaders.cookie = false
 require('ts-node/register')
 
 const app = express()
+const server = http.createServer(app)
 const root = './dist'
 const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
 const isProd = argv['build-type'] === 'prod' || argv['prod']
 const isTest = argv['e2e']
-const logger = createLogger({ name: 'Angular Universal App', type: 'http-access' })
+
 const staticOptions = {
   index: false,
   maxAge: isProd ? ms('1yr') : ms('0'),
@@ -40,13 +44,30 @@ const staticOptions = {
       : new Date(Date.now() + ms('0')).toUTCString())
   }
 }
+const logger = createLogger({
+  name: 'Angular Universal App',
+  type: 'http',
+  streams: [{
+    level: 'error',
+    stream: { write: (err: any) => console.log },
+    type: 'raw'
+  }] as any
+})
 
+if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
+
+useWebSockets(server)
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
 app.use(cookieParser())
 app.use(shrinkRay())
-if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
+
+// You can remove the Identity and API servers by deleteing these two lines
+useIdentity(app)
+useApi(app)
+app.set('ignore-routes', ['/api/', '/oidc', '/.well-known'])
+
 if (isProd) {
   app.use(minifyHTML({
     override: true,
@@ -66,10 +87,11 @@ if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
 }
 app.use('/css', express.static('dist/css', staticOptions))
 app.use('/js', express.static('dist/js', staticOptions))
+app.use('/ngsw.json', express.static('dist/ngsw.json', staticOptions))
 app.use('/robots.txt', express.static('dist/web/robots.txt', staticOptions))
 app.use('/assets', express.static('dist/assets', { ...staticOptions, fallthrough: false }))
 app.use('/changelog.md', express.static('dist/web/changelog.md', { ...staticOptions, fallthrough: false }))
-app.get('/sitemap.xml', (req, res) => {
+app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
   const fileLocation = resolve(root, 'sitemap.xml')
   const url = isProd ? host : `${host}:${port}`
 
@@ -81,13 +103,15 @@ app.get('/sitemap.xml', (req, res) => {
         .catch(err => res.sendStatus(500))
   })
 })
-app.get('/*', (req, res) => {
+
+app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  if ((req.app.get('ignore-routes') as string[]).some(a => req.url.includes(a))) return next()
   return res.render('index', {
     req,
     res
   })
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   logger.info(`Angular Universal Server listening at ${host}:${port}`)
 })

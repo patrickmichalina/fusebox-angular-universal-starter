@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NavbarComponent should contain a list of links 1`] = `
+exports[`NavbarComponent should compile 1`] = `
 <div
-  id="root2"
-  ng-version="5.0.0-beta.7"
+  id="root0"
+  ng-version="5.0.0-rc.0"
 >
   <nav>
     
@@ -290,6 +290,31 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         
       Changelog
     
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        mat-ripple=""
+        ng-reflect-_mat-ripple-centered="false"
+        ng-reflect-_mat-ripple-disabled="false"
+        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/api-docs"
+      md-button=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        API
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -358,10 +383,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
 </div>
 `;
 
-exports[`NavbarComponent should match snapshot 1`] = `
+exports[`NavbarComponent should contain a list of links 1`] = `
 <div
-  id="root0"
-  ng-version="5.0.0-beta.7"
+  id="root1"
+  ng-version="5.0.0-rc.0"
 >
   <nav>
     
@@ -648,6 +673,31 @@ exports[`NavbarComponent should match snapshot 1`] = `
         
       Changelog
     
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        mat-ripple=""
+        ng-reflect-_mat-ripple-centered="false"
+        ng-reflect-_mat-ripple-disabled="false"
+        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/api-docs"
+      md-button=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        API
       </span>
       <div
         class="mat-button-ripple mat-ripple"

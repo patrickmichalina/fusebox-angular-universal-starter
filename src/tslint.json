@@ -7,6 +7,7 @@
   ],
   "rules": {
     "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
+    "space-within-parens": [false],
     "object-literal-key-quotes": [
       false
     ],
@@ -28,7 +29,8 @@
       false
     ],
     "member-access": [
-      "no-public",false
+     false,
+     "no-public"
     ],
     "newline-before-return": false,
     "directive-selector": [

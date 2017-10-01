@@ -1,5 +1,4 @@
-import { AppBrowserModule, getRequest } from './app.browser.module'
-import { TransferState } from './shared/transfer-state/transfer-state'
+import { AppBrowserModule } from './app.browser.module'
 import { AboutComponent } from './+about/about.component'
 import { async, TestBed } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
@@ -7,7 +6,7 @@ import { Route } from '@angular/router'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Component } from '@angular/core'
 import { HomeComponent } from './+home/home.component'
-import { AppModule, metaFactory } from './app.module'
+import { AppModule } from './app.module'
 import { SharedModule } from './shared/shared.module'
 import { EnvConfig } from '../../../tools/config/app.config'
 import { SearchComponent } from './+search/search.component'
@@ -17,7 +16,6 @@ import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarService } from './shared/navbar/navbar.service'
 import { MdCardModule } from '@angular/material'
-import { MetaStaticLoader } from '@ngx-meta/core'
 import '../operators'
 
 export const TESTING_CONFIG: EnvConfig = {
@@ -25,6 +23,10 @@ export const TESTING_CONFIG: EnvConfig = {
   // tslint:disable-next-line:max-line-length
   description: 'Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator. Created by Patrick Michalina',
   pageTitleSeparator: ' - ',
+  endpoints: {
+    api: 'http://localhost:8000/api',
+    websocketServer: 'ws://localhost:8001'
+  },
   og: {
     defaultSocialImage: 'https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/android-chrome-512x512',
     facebookAppId: '117309532219749'
@@ -69,20 +71,6 @@ describe('App component', () => {
         expect(compiled).toBeTruthy()
         expect(compiled).toMatchSnapshot()
       })
-  }))
-
-  it('should call factory getRequest', async(() => {
-    const ts = TestBed.get(TransferState)
-    const spy = jest.spyOn(ts, 'get')
-    getRequest(ts)
-    expect(ts).toBeTruthy()
-    expect(spy).toHaveBeenCalledWith('req')
-  }))
-
-  it('should call factory metaFactory', async(() => {
-    const es = TestBed.get(EnvironmentService)
-    const val = metaFactory(es)
-    expect(val).toBeInstanceOf(MetaStaticLoader)
   }))
 })
 
