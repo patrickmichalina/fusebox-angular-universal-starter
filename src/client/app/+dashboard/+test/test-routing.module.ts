@@ -13,7 +13,7 @@ import { TestChildComponent } from './testChild/testChild.component'
         component: TestComponent,
         canActivateChild: [MetaGuard],
         children: [
-          { path: '', redirectTo: 'test-child' },
+          { path: '', redirectTo: 'test-child', pathMatch: 'full'  },
           {
             path: 'test-child',
             component: TestChildComponent,
