@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TestChild1Component should match snapshot 1`] = `
+<pm-test-child-2>
+  <md-card
+    class="mat-card"
+  >
+    
+    Test Child 1 Project
+  
+  </md-card>
+</pm-test-child-2>
+`;

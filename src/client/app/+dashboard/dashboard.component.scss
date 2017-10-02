@@ -1,0 +1,92 @@
+:host {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  .dashboard-container {
+    //background-color: #fafafa;
+    //color: rgba(0, 0, 0, 0.87);
+    width: 100%;
+    height: 700px;
+    .dashboard-sidenav {
+      box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
+      width: 240px;
+      bottom: 0;
+      overflow: auto;
+      height: 100%;
+      z-index: 1;
+      .nav-back-button {
+        display: none;
+      }
+      .mat-icon {
+        padding: 10px 30px 0px 0px;
+      }
+      @media (max-width: 840px) {
+        .nav-back-button {
+          display: block;
+        }
+      }
+      h3 {
+        border: none;
+        font-size: 10px;
+        letter-spacing: 1px;
+        line-height: 24px;
+        text-transform: uppercase;
+        font-weight: 400;
+        margin: 0;
+        padding: 0 16px;
+        background: #9ba0a5;
+        color: rgba(255, 255, 255, 0.87);
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        margin: 0;
+        padding: 0;
+        border-color: rgba(0, 0, 0, 0.06);
+        color: rgba(0, 0, 0, 0.54);
+        a {
+          box-sizing: border-box;
+          display: flex;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 47px;
+          text-decoration: none;
+          transition: all .3s;
+          padding: 0 16px;
+          position: relative;
+          color: rgba(0, 0, 0, 0.54);
+        }
+      }
+    }
+    /deep/ .mat-drawer-content {
+      margin-left: 240px !important;
+    }
+    @media (max-width: 840px) {
+      /deep/ .mat-drawer-content {
+        margin-left: 0px !important;
+      }
+    }
+    .dashboard-sidenav-content {
+      min-height: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+    }
+    .dashboard-sidenav-item-selected {
+      background-color: #2196f3;
+      color: white !important;
+    }
+  }
+}
