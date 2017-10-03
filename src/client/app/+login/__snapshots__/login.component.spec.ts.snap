@@ -2,16 +2,8 @@
 
 exports[`LoginComponent should match snapshot 1`] = `
 <pm-login>
-  <md-card
-    class="mat-card"
-  >
-    
-    Your 
-    <strong>
-      login
-    </strong>
-     form goes here!
-  
-  </md-card>
+  Your <strong>
+    login
+  </strong> form goes here!
 </pm-login>
 `;

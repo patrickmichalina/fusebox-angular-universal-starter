@@ -2,16 +2,8 @@
 
 exports[`LogoutComponent should match snapshot 1`] = `
 <pm-logout>
-  <md-card
-    class="mat-card"
-  >
-    
-    Your 
-    <strong>
-      logout
-    </strong>
-     info page goes here!
-  
-  </md-card>
+  Your <strong>
+    logout
+  </strong> info page goes here!
 </pm-logout>
 `;
