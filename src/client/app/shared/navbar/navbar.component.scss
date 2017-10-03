@@ -1,36 +1,30 @@
 :host {
-    z-index: 10;
-    nav {
-        background-color: #2196F3;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        padding: 8px 16px;
-        color: rgba(255, 255, 255, 0.87);
-        a:hover {
-            box-shadow: 2px 4px 8px 2px #155e99;
-        }
-        img {
-            width: 96px;
-        }
-        box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
-        0 6px 10px 0 rgba(0, 0, 0, .14),
-        0 1px 18px 0 rgba(0, 0, 0, .12);
-        .active {
-            box-shadow: 2px 4px 8px 2px #155e99;
-        }
+  z-index: 10;
+  nav {
+    background-color: #2196F3;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 8px 16px;
+    color: rgba(255, 255, 255, 0.87);
+    img {
+      width: 96px;
     }
-    .flex-spacer {
-        -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-        flex-grow: 1;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2),
+    0 6px 10px 0 rgba(0, 0, 0, .14),
+    0 1px 18px 0 rgba(0, 0, 0, .12);
+    .active {
+      box-shadow: 2px 4px 8px 2px #155e99;
     }
-    .nav-button {
-        //text-transform: uppercase;
-    }
+  }
+  .flex-spacer {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+  }
 }

@@ -7,55 +7,43 @@ exports[`SearchComponent should match snapshot 1`] = `
   $results={[Function Observable]}
   searchService={[Function MockSearchService]}
 >
-  <md-card
-    class="mat-card"
+  <h1>
+    Search Angular Projects on Github
+  </h1>
+  <form
+    class="form-inline"
   >
     
     
-    <h1>
-      Search Angular Projects on Github
-    </h1>
-    
-    
-    <form
-      class="form-inline"
+    <div
+      class="form-group mx-lg-3"
     >
       
       
-      <div
-        class="form-group mx-lg-3"
-      >
-        
-        
-        <input
-          class="form-control"
-          placeholder="Search Angular projects"
-          type="text"
-        />
-        
-      
-      </div>
-      
-      
-      <button
-        class="btn btn-primary"
-      >
-        Search
-      </button>
+      <input
+        class="form-control"
+        placeholder="Search Angular projects"
+        type="text"
+      />
       
     
-    </form>
+    </div>
     
     
-    <ul>
-      
-      
-      
-      
-    
-    </ul>
+    <button
+      class="btn btn-primary"
+    >
+      Search
+    </button>
     
   
-  </md-card>
+  </form>
+  <ul>
+    
+    
+    
+    
+  
+  </ul>
 </pm-search>
 `;
