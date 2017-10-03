@@ -1,12 +1,10 @@
-<md-card>
-  <h1>Search Angular Projects on Github</h1>
-  <form class="form-inline">
-    <div class="form-group mx-lg-3">
-      <input type="text" class="form-control" placeholder="Search Angular projects">
-    </div>
-    <button class="btn btn-primary">Search</button>
-  </form>
-  <ul>
-    <li *ngFor="let item of $items | async">{{ item?.name }}!</li>
-  </ul>
-</md-card>
+<h1>Search Angular Projects on Github</h1>
+<form class="form-inline">
+  <div class="form-group mx-lg-3">
+    <input type="text" class="form-control" placeholder="Search Angular projects">
+  </div>
+  <button class="btn btn-primary">Search</button>
+</form>
+<ul>
+  <li *ngFor="let item of $items | async">{{ item?.name }}!</li>
+</ul>
