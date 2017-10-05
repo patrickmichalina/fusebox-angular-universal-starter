@@ -14,22 +14,49 @@ export const SETTINGS: ISetting = {
   'tokens': {
     'facebookAppId': '117309532219749'
   },
-  'injections': [{
-    'inHead': false,
-    'element': 'link',
-    'attributes': {
-      'href': 'https://fonts.googleapis.com/css?family=Roboto',
-      'rel': 'stylesheet'
+  'injections': [
+    {
+      'inHead': false,
+      'element': 'link',
+      'attributes': {
+        'href': 'https://fonts.googleapis.com/css?family=Roboto',
+        'rel': 'stylesheet'
+      }
+    },
+    {
+      'inHead': false,
+      'element': 'link',
+      'attributes': {
+        'href': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+        'rel': 'stylesheet'
+      }
+    },
+    {
+      'inHead': true,
+      'element': 'meta',
+      'attributes': {
+        'name': 'google-site-verification',
+        'content': 'RW-hcjXEgPMoy2NF8pTl8IEzP8gnj3cEZ6aF1HDUiOc'
+      }
+    },
+    {
+      'inHead': false,
+      'element': 'script',
+      'value': "window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-107089312-2', 'auto');",
+      'attributes': {
+        'type': 'text/javascript'
+      }
+    },
+    {
+      'inHead': false,
+      'element': 'script',
+      'attributes': {
+        'async': 'true',
+        'type': 'text/javascript',
+        'src': 'https://www.google-analytics.com/analytics.js'
+      }
     }
-  },
-  {
-    'inHead': false,
-    'element': 'link',
-    'attributes': {
-      'href': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-      'rel': 'stylesheet'
-    }
-  }],
+  ],
   'i18n': {
     'en': {
       'about': {
