@@ -1,5 +1,4 @@
 import { BuildConfiguration } from './build.interfaces';
-import { Dependency } from '../plugins/web-index';
 import { argv } from 'yargs';
 import { EnvConfig } from '../config/app.config';
 import { basename } from 'path';
@@ -27,37 +26,6 @@ export const BUILD_CONFIG: BuildConfiguration = {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1'
       }
-    },
-    {
-      order: 3,
-      inHead: true,
-      element: 'meta',
-      attributes: {
-        name: 'google-site-verification',
-        content: process.env.GA_VERIFICATION_CODE
-      },
-      shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
-    },
-    {
-      order: 4,
-      inHead: false,
-      element: 'script',
-      content: `window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', '${process.env.GA_TRACKING_ID}', 'auto');`,
-      attributes: {
-        type: 'text/javascript',
-      },
-      shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE
-    },
-    {
-      order: 5,
-      inHead: false,
-      element: 'script',
-      attributes: {
-        async: 'true',
-        type: 'text/javascript',
-        src: 'https://www.google-analytics.com/analytics.js'
-      },
-      shouldExecute: (dep: Dependency) => process.env.GA_TRACKING_ID && process.env.GA_VERIFICATION_CODE,
     }
   ]
 };

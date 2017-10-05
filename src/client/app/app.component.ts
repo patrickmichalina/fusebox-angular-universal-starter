@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, Inject, Renderer2 } from '@angular/
 import { DOCUMENT, Meta } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
-import { keysMD5 } from 'object-hash'
+import { sha1 } from 'object-hash'
 
 @Component({
   selector: 'pm-app',
@@ -19,6 +19,7 @@ export class AppComponent {
     ss.settings$
       .take(1)
       .subscribe(settings => {
+
         meta.addTag({ property: 'fb:app_id', content: settings.tokens.facebookAppId })
         settings.injections.forEach(link => this.inject(doc, renderer, link))
       })
@@ -37,7 +38,7 @@ export class AppComponent {
 
   inject(doc: HTMLDocument, renderer: Renderer2, injectable: Injectable) {
     const st = renderer.createElement(injectable.element) as HTMLElement
-    const id = keysMD5(injectable)
+    const id = sha1(JSON.stringify(injectable))
 
     if (doc.getElementById(id)) return
 
