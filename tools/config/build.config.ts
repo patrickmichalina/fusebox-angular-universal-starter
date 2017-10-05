@@ -29,15 +29,6 @@ export const BUILD_CONFIG: BuildConfiguration = {
       }
     },
     {
-      order: 2,
-      inHead: false,
-      element: 'link',
-      attributes: {
-        rel: 'stylesheet',
-        href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
-      }
-    },
-    {
       order: 3,
       inHead: true,
       element: 'meta',

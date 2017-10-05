@@ -14,9 +14,17 @@ export interface ISetting {
   tokens: {
     facebookAppId: string
   },
+  injections: Injectable[],
   i18n: {
     [key: string]: any
   }
+}
+
+export interface Injectable {
+  inHead: boolean
+  element: string
+  value?: string
+  attributes?: { [key: string]: string | boolean }
 }
 
 export interface ISettingRepository {
