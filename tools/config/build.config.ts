@@ -30,7 +30,7 @@ export const BUILD_CONFIG: BuildConfiguration = {
     },
     {
       order: 2,
-      inHead: true,
+      inHead: false,
       element: 'link',
       attributes: {
         rel: 'stylesheet',
