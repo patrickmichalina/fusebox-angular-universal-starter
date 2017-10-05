@@ -79,7 +79,8 @@ export class WebIndexPluginClass {
           attributes: {
             src: bundle.context.output.folderFromBundleName
               ? `/${bundle.context.output.folderFromBundleName}/${bundle.context.output.lastPrimaryOutput.filename}`
-              : `/${bundle.context.output.lastPrimaryOutput.filename}`
+              : `/${bundle.context.output.lastPrimaryOutput.filename}`,
+            defer: true
           }
         } as Dependency;
       }), ...this.opts.additionalDeps as Dependency[], ...baseDeps]
@@ -119,7 +120,7 @@ export const WebIndexPlugin = (options: WebIndexPluginOptions = { bundles: [], a
 export interface Dependency {
   order?: number;
   inHead?: boolean;
-  attributes?: { [key: string]: string };
+  attributes?: { [key: string]: string | boolean };
   element: string;
   content?: string;
   shouldExecute?: (dep: Dependency) => boolean;
