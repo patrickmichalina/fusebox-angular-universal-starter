@@ -2,6 +2,7 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, typeHelper } from './tools/config/build.config';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
+import { PwaFusedPlugin } from './tools/plugins/pwa-fused';
 import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
 import {
@@ -39,6 +40,12 @@ const baseOptions = {
       SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
     HTMLPlugin({ useDefault: false }),
+    PwaFusedPlugin({
+      distPath: 'dist',
+      manifest: {
+        name: 'Fusebox Angular Universal Starter',
+      }
+    })
   ]
 }
 

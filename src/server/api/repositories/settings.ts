@@ -16,11 +16,28 @@ export const SETTINGS: ISetting = {
   },
   'injections': [
     {
+      'inHead': true,
+      'element': 'link',
+      'attributes': {
+        'href': '/manifest.json',
+        'rel': 'manifest'
+      }
+    },
+    {
+      'inHead': true,
+      'element': 'meta',
+      'attributes': {
+        'name': 'theme-color',
+        'content': '#2196F3'
+      }
+    },
+    {
       'inHead': false,
       'element': 'link',
       'attributes': {
         'href': 'https://fonts.googleapis.com/css?family=Roboto',
-        'rel': 'stylesheet'
+        'rel': 'stylesheet',
+        'type': 'text/css'
       }
     },
     {
@@ -28,7 +45,8 @@ export const SETTINGS: ISetting = {
       'element': 'link',
       'attributes': {
         'href': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
-        'rel': 'stylesheet'
+        'rel': 'stylesheet',
+        'type': 'text/css'
       }
     },
     {
