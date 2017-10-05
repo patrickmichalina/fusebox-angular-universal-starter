@@ -27,7 +27,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -64,7 +64,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -93,7 +93,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/dashboard"
       />
       <div
         class="mat-button-focus-overlay"
@@ -122,7 +122,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/about"
       />
       <div
         class="mat-button-focus-overlay"
@@ -151,7 +151,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/search"
       />
       <div
         class="mat-button-focus-overlay"
@@ -180,7 +180,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/login"
       />
       <div
         class="mat-button-focus-overlay"
@@ -209,7 +209,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/logout"
       />
       <div
         class="mat-button-focus-overlay"
@@ -238,7 +238,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/signup"
       />
       <div
         class="mat-button-focus-overlay"
@@ -267,7 +267,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/admin"
       />
       <div
         class="mat-button-focus-overlay"
@@ -296,7 +296,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/changelog"
       />
       <div
         class="mat-button-focus-overlay"
@@ -321,7 +321,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/api-docs"
       />
       <div
         class="mat-button-focus-overlay"
@@ -346,7 +346,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/sitemap.xml"
       />
       <div
         class="mat-button-focus-overlay"
@@ -371,7 +371,7 @@ exports[`NavbarComponent should compile 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/robots.txt"
       />
       <div
         class="mat-button-focus-overlay"
@@ -410,7 +410,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -447,7 +447,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -476,7 +476,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/dashboard"
       />
       <div
         class="mat-button-focus-overlay"
@@ -505,7 +505,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/about"
       />
       <div
         class="mat-button-focus-overlay"
@@ -534,7 +534,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/search"
       />
       <div
         class="mat-button-focus-overlay"
@@ -563,7 +563,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/login"
       />
       <div
         class="mat-button-focus-overlay"
@@ -592,7 +592,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/logout"
       />
       <div
         class="mat-button-focus-overlay"
@@ -621,7 +621,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/signup"
       />
       <div
         class="mat-button-focus-overlay"
@@ -650,7 +650,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/admin"
       />
       <div
         class="mat-button-focus-overlay"
@@ -679,7 +679,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/changelog"
       />
       <div
         class="mat-button-focus-overlay"
@@ -704,7 +704,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/api-docs"
       />
       <div
         class="mat-button-focus-overlay"
@@ -729,7 +729,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/sitemap.xml"
       />
       <div
         class="mat-button-focus-overlay"
@@ -754,7 +754,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         mat-ripple=""
         ng-reflect-_mat-ripple-centered="false"
         ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="[object HTMLAnchorElement]"
+        ng-reflect-_mat-ripple-trigger="/robots.txt"
       />
       <div
         class="mat-button-focus-overlay"
