@@ -14,6 +14,22 @@ export const SETTINGS: ISetting = {
   'tokens': {
     'facebookAppId': '117309532219749'
   },
+  'injections': [{
+    'inHead': false,
+    'element': 'link',
+    'attributes': {
+      'href': 'https://fonts.googleapis.com/css?family=Roboto',
+      'rel': 'stylesheet'
+    }
+  },
+  {
+    'inHead': false,
+    'element': 'link',
+    'attributes': {
+      'href': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+      'rel': 'stylesheet'
+    }
+  }],
   'i18n': {
     'en': {
       'about': {

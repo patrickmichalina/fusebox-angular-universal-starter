@@ -11,7 +11,13 @@ export interface ISettingService {
 @Injectable()
 export class SettingService implements ISettingService {
 
-  public settings$ = this.http.get<ISetting>('settings').shareReplay()
+  public settings$ = this.http.get<ISetting>('settings')
+    .map(settings => {
+      return {
+        injections: [],
+        ...settings
+      }
+    }).shareReplay()
 
   public pluck(key: string) {
     return this.settings$.map(dict => key.split('.')
