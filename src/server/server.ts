@@ -88,9 +88,11 @@ if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
 app.use('/css', express.static('dist/css', staticOptions))
 app.use('/js', express.static('dist/js', staticOptions))
 app.use('/ngsw.json', express.static('dist/ngsw.json', staticOptions))
+app.use('/ngsw-worker.js', express.static('dist/ngsw-worker.js', staticOptions))
 app.use('/robots.txt', express.static('dist/web/robots.txt', staticOptions))
 app.use('/assets', express.static('dist/assets', { ...staticOptions, fallthrough: false }))
 app.use('/changelog.md', express.static('dist/web/changelog.md', { ...staticOptions, fallthrough: false }))
+app.use('/manifest.json', express.static('dist/manifest.json', staticOptions))
 app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
   const fileLocation = resolve(root, 'sitemap.xml')
   const url = isProd ? host : `${host}:${port}`
