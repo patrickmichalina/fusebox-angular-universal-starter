@@ -5,7 +5,6 @@ Sparky.task(taskName(__filename), () => {
   return Sparky.start('clean')
     .then(() => Sparky.start('mk-dist'))
     .then(() => Sparky.start('changelog'))
-    .then(() => Sparky.start('ngsw'))
     .then(() => isAot ? Sparky.start('ngc') : Promise.resolve())
     .then(() => Sparky.start('web'))
     .then(() => Sparky.start('index.copy'))
@@ -14,6 +13,7 @@ Sparky.task(taskName(__filename), () => {
     .then(() => Sparky.start('build.app'))
     .then(() => Sparky.start('build.server'))
     .then(() => Sparky.start('sass'))
+    .then(() => Sparky.start('ngsw'))
     .then(() => Sparky.start('index.minify'))
     .then(() => Sparky.start('banner'));
 });
