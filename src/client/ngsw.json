@@ -1,5 +1,5 @@
 {
-  "index": "/index.html",
+  "index": "",
   "appData": {
     "test": true
   },
@@ -12,7 +12,10 @@
           "/**/*.js",
           "/**/*.css",
           "/assets/**/*",
-          "!/ngsw-worker.js"
+          "!/ngsw-worker.js",
+          "!/server.js",
+          "!/keystore.json",
+          "!/web/ping.html"
         ],
         "versionedFiles": [],
         "urls": [
@@ -26,12 +29,11 @@
     {
       "name": "api",
       "urls": [
-        "/favorites/**",
-        "/timeline/**"
+        "/api/**"
       ],
       "cacheConfig": {
         "maxSize": 100,
-        "maxAge": "3d",
+        "maxAge": "1d",
         "timeout": "1m",
         "strategy": "freshness"
       }
