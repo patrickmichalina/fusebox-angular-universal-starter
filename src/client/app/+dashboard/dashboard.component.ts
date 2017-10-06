@@ -1,6 +1,6 @@
 import { Title } from '@angular/platform-browser'
 import { ChangeDetectionStrategy, Component, HostListener, OnInit, ViewChild } from '@angular/core'
-import { MdSidenav } from '@angular/material'
+import { MatSidenav } from '@angular/material'
 import { DASHBOARD_MENU } from './dashboard-menu'
 
 @Component({
@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
 
   dashboardMenu: any = DASHBOARD_MENU
 
-  @ViewChild('sidenav') public sidenav: MdSidenav
+  @ViewChild('sidenav') public sidenav: MatSidenav
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {

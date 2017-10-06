@@ -4,7 +4,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { INavbarService, NavbarService } from './navbar.service'
 import { By } from '@angular/platform-browser'
 import { Component } from '@angular/core'
-import { MdButtonModule, MdRipple } from '@angular/material'
+import { MatButtonModule, MatRipple } from '@angular/material'
 import '../../../operators'
 
 describe(NavbarComponent.name, () => {
@@ -13,7 +13,7 @@ describe(NavbarComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, MdButtonModule],
+      imports: [RouterTestingModule, MatButtonModule],
       declarations: [NavbarComponent, TestComponent],
       providers: [NavbarService]
     }).compileComponents()
@@ -36,7 +36,7 @@ describe(NavbarComponent.name, () => {
 
   it('should contain a list of links', async(() => {
     fixture.detectChanges()
-    const buttonLinks = fixture.debugElement.queryAll(By.directive(MdRipple))
+    const buttonLinks = fixture.debugElement.queryAll(By.directive(MatRipple))
     expect(buttonLinks).toBeDefined()
 
     navbarService.menu$.subscribe(items => {

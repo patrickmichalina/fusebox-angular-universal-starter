@@ -12,7 +12,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link=""
       routerlink=""
       tabindex="0"
@@ -24,10 +24,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -45,7 +45,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link=""
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -61,10 +61,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -74,7 +74,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/dashboard"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="dashboard"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -90,10 +90,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/dashboard"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/dashboard"
       />
       <div
         class="mat-button-focus-overlay"
@@ -103,7 +103,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/about"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="about"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -119,10 +119,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/about"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/about"
       />
       <div
         class="mat-button-focus-overlay"
@@ -132,7 +132,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/search"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="search"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -148,10 +148,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/search"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/search"
       />
       <div
         class="mat-button-focus-overlay"
@@ -161,7 +161,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/login"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="login"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -177,10 +177,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/login"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/login"
       />
       <div
         class="mat-button-focus-overlay"
@@ -190,7 +190,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/logout"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="logout"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -206,10 +206,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/logout"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/logout"
       />
       <div
         class="mat-button-focus-overlay"
@@ -219,7 +219,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/signup"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="signup"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -235,10 +235,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/signup"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/signup"
       />
       <div
         class="mat-button-focus-overlay"
@@ -248,7 +248,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/admin"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="admin"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -264,10 +264,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/admin"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/admin"
       />
       <div
         class="mat-button-focus-overlay"
@@ -277,7 +277,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/changelog"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="changelog"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -293,10 +293,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/changelog"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/changelog"
       />
       <div
         class="mat-button-focus-overlay"
@@ -308,7 +308,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/api-docs"
-      md-button=""
+      mat-button=""
       tabindex="0"
     >
       <span
@@ -318,10 +318,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/api-docs"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/api-docs"
       />
       <div
         class="mat-button-focus-overlay"
@@ -333,7 +333,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/sitemap.xml"
-      md-button=""
+      mat-button=""
       tabindex="0"
     >
       <span
@@ -343,10 +343,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/sitemap.xml"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/sitemap.xml"
       />
       <div
         class="mat-button-focus-overlay"
@@ -358,7 +358,7 @@ exports[`NavbarComponent should compile 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/robots.txt"
-      md-button=""
+      mat-button=""
       tabindex="0"
     >
       <span
@@ -368,10 +368,10 @@ exports[`NavbarComponent should compile 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/robots.txt"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/robots.txt"
       />
       <div
         class="mat-button-focus-overlay"
@@ -395,7 +395,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link=""
       routerlink=""
       tabindex="0"
@@ -407,10 +407,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -428,7 +428,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link=""
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -444,10 +444,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/"
       />
       <div
         class="mat-button-focus-overlay"
@@ -457,7 +457,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/dashboard"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="dashboard"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -473,10 +473,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/dashboard"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/dashboard"
       />
       <div
         class="mat-button-focus-overlay"
@@ -486,7 +486,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/about"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="about"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -502,10 +502,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/about"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/about"
       />
       <div
         class="mat-button-focus-overlay"
@@ -515,7 +515,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/search"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="search"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -531,10 +531,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/search"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/search"
       />
       <div
         class="mat-button-focus-overlay"
@@ -544,7 +544,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/login"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="login"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -560,10 +560,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/login"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/login"
       />
       <div
         class="mat-button-focus-overlay"
@@ -573,7 +573,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/logout"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="logout"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -589,10 +589,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/logout"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/logout"
       />
       <div
         class="mat-button-focus-overlay"
@@ -602,7 +602,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/signup"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="signup"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -618,10 +618,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/signup"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/signup"
       />
       <div
         class="mat-button-focus-overlay"
@@ -631,7 +631,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/admin"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="admin"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -647,10 +647,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/admin"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/admin"
       />
       <div
         class="mat-button-focus-overlay"
@@ -660,7 +660,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/changelog"
-      md-button=""
+      mat-button=""
       ng-reflect-router-link="changelog"
       ng-reflect-router-link-active="active"
       ng-reflect-router-link-active-options="[object Object]"
@@ -676,10 +676,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/changelog"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/changelog"
       />
       <div
         class="mat-button-focus-overlay"
@@ -691,7 +691,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/api-docs"
-      md-button=""
+      mat-button=""
       tabindex="0"
     >
       <span
@@ -701,10 +701,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/api-docs"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/api-docs"
       />
       <div
         class="mat-button-focus-overlay"
@@ -716,7 +716,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/sitemap.xml"
-      md-button=""
+      mat-button=""
       tabindex="0"
     >
       <span
@@ -726,10 +726,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/sitemap.xml"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/sitemap.xml"
       />
       <div
         class="mat-button-focus-overlay"
@@ -741,7 +741,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       aria-disabled="false"
       class="nav-button mat-button"
       href="/robots.txt"
-      md-button=""
+      mat-button=""
       tabindex="0"
     >
       <span
@@ -751,10 +751,10 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
-        ng-reflect-_mat-ripple-centered="false"
-        ng-reflect-_mat-ripple-disabled="false"
-        ng-reflect-_mat-ripple-trigger="/robots.txt"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/robots.txt"
       />
       <div
         class="mat-button-focus-overlay"

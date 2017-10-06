@@ -12,7 +12,7 @@ exports[`App component should build without a problem 1`] = `
   
         <a
           class="nav-button mat-button"
-          md-button=""
+          mat-button=""
           routerlink=""
         >
           <span
@@ -22,7 +22,7 @@ exports[`App component should build without a problem 1`] = `
           </span>
           <div
             class="mat-button-ripple mat-ripple"
-            mat-ripple=""
+            matripple=""
           />
           <div
             class="mat-button-focus-overlay"
@@ -41,7 +41,7 @@ exports[`App component should build without a problem 1`] = `
         <a
           class="nav-button mat-button"
           href="/api-docs"
-          md-button=""
+          mat-button=""
         >
           <span
             class="mat-button-wrapper"
@@ -50,7 +50,7 @@ exports[`App component should build without a problem 1`] = `
           </span>
           <div
             class="mat-button-ripple mat-ripple"
-            mat-ripple=""
+            matripple=""
           />
           <div
             class="mat-button-focus-overlay"
@@ -61,7 +61,7 @@ exports[`App component should build without a problem 1`] = `
         <a
           class="nav-button mat-button"
           href="/sitemap.xml"
-          md-button=""
+          mat-button=""
         >
           <span
             class="mat-button-wrapper"
@@ -70,7 +70,7 @@ exports[`App component should build without a problem 1`] = `
           </span>
           <div
             class="mat-button-ripple mat-ripple"
-            mat-ripple=""
+            matripple=""
           />
           <div
             class="mat-button-focus-overlay"
@@ -81,7 +81,7 @@ exports[`App component should build without a problem 1`] = `
         <a
           class="nav-button mat-button"
           href="/robots.txt"
-          md-button=""
+          mat-button=""
         >
           <span
             class="mat-button-wrapper"
@@ -90,7 +90,7 @@ exports[`App component should build without a problem 1`] = `
           </span>
           <div
             class="mat-button-ripple mat-ripple"
-            mat-ripple=""
+            matripple=""
           />
           <div
             class="mat-button-focus-overlay"
