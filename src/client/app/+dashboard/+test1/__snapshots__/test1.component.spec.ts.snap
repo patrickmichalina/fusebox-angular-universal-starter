@@ -2,12 +2,12 @@
 
 exports[`Test1Component should match snapshot 1`] = `
 <pm-test1>
-  <md-card
+  <mat-card
     class="mat-card"
   >
     
     Test 1 Project
   
-  </md-card>
+  </mat-card>
 </pm-test1>
 `;

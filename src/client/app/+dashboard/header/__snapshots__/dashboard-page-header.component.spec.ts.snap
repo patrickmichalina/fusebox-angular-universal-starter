@@ -11,7 +11,7 @@ exports[`DashboardPageHeaderComponent should match snapshot 1`] = `
     
     <button
       class="side-nav-toggle mat-button"
-      md-button=""
+      mat-button=""
     >
       <span
         class="mat-button-wrapper"
@@ -21,7 +21,7 @@ exports[`DashboardPageHeaderComponent should match snapshot 1`] = `
         <span>
           
         
-          <md-icon
+          <mat-icon
             aria-hidden="true"
             class="mat-icon"
             role="img"
@@ -29,7 +29,7 @@ exports[`DashboardPageHeaderComponent should match snapshot 1`] = `
             
           menu
         
-          </md-icon>
+          </mat-icon>
           
       
         </span>
@@ -38,7 +38,7 @@ exports[`DashboardPageHeaderComponent should match snapshot 1`] = `
       </span>
       <div
         class="mat-button-ripple mat-ripple"
-        mat-ripple=""
+        matripple=""
       />
       <div
         class="mat-button-focus-overlay"

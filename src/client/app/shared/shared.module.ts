@@ -12,7 +12,7 @@ import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.servic
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
-import { MdButtonModule, MdCardModule, MdIconModule } from '@angular/material'
+import { MatButtonModule, MatCardModule, MatIconModule } from '@angular/material'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
@@ -51,9 +51,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
   imports: [
     CommonModule,
     RouterModule,
-    MdButtonModule,
-    MdCardModule,
-    MdIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
@@ -63,8 +63,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     RouterModule,
     NavbarComponent,
     Angulartics2Module,
-    MdButtonModule,
-    MdCardModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule
   ],

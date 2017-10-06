@@ -5,7 +5,7 @@ import { HomeComponent } from './home.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { HomeModule } from './home.module'
-import { MdButtonModule, MdCardModule, MdRaisedButtonCssMatStyler } from '@angular/material'
+import { MatButtonModule, MatCardModule, MatRaisedButtonCssMatStyler } from '@angular/material'
 
 describe(HomeComponent.name, () => {
   let fixture: ComponentFixture<HomeComponent>
@@ -14,7 +14,7 @@ describe(HomeComponent.name, () => {
     TestBed.configureTestingModule({
       imports: [HomeModule, RouterTestingModule,
         Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
-        MdCardModule, MdButtonModule],
+        MatCardModule, MatButtonModule],
       declarations: [TestComponent]
     }).compileComponents()
   }))
@@ -35,7 +35,7 @@ describe(HomeComponent.name, () => {
   it('should track event when link clicked', async(() => {
     const analytics = TestBed.get(Angulartics2) as Angulartics2
     expect(analytics).toBeDefined()
-    const button = fixture.debugElement.query(By.directive(MdRaisedButtonCssMatStyler))
+    const button = fixture.debugElement.query(By.directive(MatRaisedButtonCssMatStyler))
     expect(button).toBeTruthy()
     const link = button.nativeElement as HTMLAnchorElement
     expect(link).toBeTruthy()

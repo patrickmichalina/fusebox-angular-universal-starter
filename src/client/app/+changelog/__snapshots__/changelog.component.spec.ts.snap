@@ -5,7 +5,7 @@ exports[`ChangelogComponent should compile 1`] = `
   changelog$={[Function Observable]}
   http={[Function HttpClient]}
 >
-  <md-card
+  <mat-card
     class="mat-card"
   >
     
@@ -13,7 +13,7 @@ exports[`ChangelogComponent should compile 1`] = `
     <div />
     
   
-  </md-card>
+  </mat-card>
 </pm-changelog>
 `;
 
@@ -22,7 +22,7 @@ exports[`ChangelogComponent should handle failure to load file gracefully 1`] = 
   id="root2"
   ng-version="5.0.0-rc.0"
 >
-  <md-card
+  <mat-card
     class="mat-card"
   >
     
@@ -36,7 +36,7 @@ exports[`ChangelogComponent should handle failure to load file gracefully 1`] = 
     </div>
     
 
-  </md-card>
+  </mat-card>
 </div>
 `;
 
@@ -45,7 +45,7 @@ exports[`ChangelogComponent should render changelog 1`] = `
   id="root1"
   ng-version="5.0.0-rc.0"
 >
-  <md-card
+  <mat-card
     class="mat-card"
   >
     
@@ -59,6 +59,6 @@ exports[`ChangelogComponent should render changelog 1`] = `
     </div>
     
 
-  </md-card>
+  </mat-card>
 </div>
 `;

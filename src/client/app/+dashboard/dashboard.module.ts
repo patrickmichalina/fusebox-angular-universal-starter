@@ -4,10 +4,10 @@ import { DashboardPageHeaderComponent } from './header/dashboard-page-header.com
 import { DashboardPageFooterComponent } from './footer/dashboard-page-footer.component'
 import { NgModule } from '@angular/core'
 import { SharedModule } from '../shared/shared.module'
-import { MdIconModule, MdSidenavModule } from '@angular/material'
+import { MatIconModule, MatSidenavModule } from '@angular/material'
 
 @NgModule({
-  imports: [DashboardRoutingModule, SharedModule, MdSidenavModule, MdIconModule],
+  imports: [DashboardRoutingModule, SharedModule, MatSidenavModule, MatIconModule],
   declarations: [DashboardComponent, DashboardPageHeaderComponent, DashboardPageFooterComponent],
   exports: [DashboardComponent, DashboardPageHeaderComponent, DashboardPageFooterComponent]
 })
