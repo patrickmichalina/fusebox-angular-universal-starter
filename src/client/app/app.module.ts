@@ -13,6 +13,7 @@ import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
+// import { ServiceWorkerModule } from '@angular/service-worker'
 
 export const REQ_KEY = makeStateKey<string>('req')
 
@@ -52,6 +53,7 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
     Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+    // ServiceWorkerModule.register('/ngsw-worker.js'), // TODO: this is broken in JIT
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory),

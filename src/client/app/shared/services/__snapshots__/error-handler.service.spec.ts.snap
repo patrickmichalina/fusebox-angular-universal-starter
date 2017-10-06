@@ -3,7 +3,7 @@
 exports[`App component should build without a problem 1`] = `
 <div
   id="root0"
-  ng-version="5.0.0-rc.0"
+  ng-version="5.0.0-rc.1"
 >
   <pm-app>
     <pm-navbar>
