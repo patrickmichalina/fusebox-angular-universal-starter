@@ -25,6 +25,7 @@ export interface ITokenSchema {
   email_verified: string
   roles: string
   roleDelimeter: string
+  adminRoleNames: string[]
 }
 
 export interface IAuthServiceConfig {
@@ -39,7 +40,7 @@ export interface IAuthService {
   userIdentity$: Observable<IUserIdentity | undefined>
   loggedIn$: Observable<boolean>
   isAdmin$: Observable<boolean>
-  // getTokenFromStore(): string
+  getTokenFromStore(): string
   // authorize(token: string): IUserIdentity | undefined
   // authorizeAsync(tokenRequest: Observable<string>): Observable<IUserIdentity | undefined>
   logout(): void
@@ -51,12 +52,11 @@ export const AUTH_CONFIG = new InjectionToken<IAuthServiceConfig>('app.config.au
 export class AuthService implements IAuthService {
   private jwtHelper = new JwtHelper()
   private userIdentitySource = new BehaviorSubject<IUserIdentity | undefined>(this.getUserFromStoredToken())
-  public userIdentity$ = this.userIdentitySource.asObservable()
+  public userIdentity$ = this.userIdentitySource.asObservable().throttleTime(100)
   public loggedIn$ = this.userIdentity$.map(res => res ? true : false)
   public isAdmin$ = this.userIdentity$.map(res => res ? res.isAdmin() ? true : false : false)
 
   constructor( @Inject(AUTH_CONFIG) private config: IAuthServiceConfig, private cookieService: CookieService) {
-    console.log(config)
     if (!config) throw new Error('Missing config')
     if (!config.tokenSchema) throw new Error('Missing config.tokenSchema')
     if (!config.authTokenStorageKey) throw new Error('Missing config.authTokenStorageKey')
@@ -100,8 +100,8 @@ export class AuthService implements IAuthService {
   private setToken(rawToken: string, domain: string): IUserIdentity | undefined {
     if (!rawToken) return undefined
     this.cookieService.set(this.config.authTokenStorageKey, rawToken, {
-      secure: this.config.useSecureCookies,
       domain,
+      secure: this.config.useSecureCookies,
       expires: this.jwtHelper.getTokenExpirationDate(rawToken)
     })
     return this.getUserFromStoredToken()

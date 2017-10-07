@@ -10,6 +10,8 @@ import 'rxjs/add/operator/share'
 import 'rxjs/add/operator/shareReplay'
 import 'rxjs/add/operator/toPromise'
 import 'rxjs/add/operator/take'
+import 'rxjs/add/operator/throttleTime'
+import 'rxjs/add/operator/distinctUntilChanged'
 
 import 'rxjs/operator/finally'
 import 'rxjs/operator/startWith'

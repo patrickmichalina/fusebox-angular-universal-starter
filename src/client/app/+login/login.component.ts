@@ -1,5 +1,4 @@
-import { CookieService } from './../shared/services/cookie.service';
-import { PlatformService } from './../shared/services/platform.service'
+import { AuthService } from './../shared/services/auth.service'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
 import * as firebase from 'firebase/app'
@@ -11,19 +10,23 @@ import * as firebase from 'firebase/app'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
-  constructor(public afAuth: AngularFireAuth, private ps: PlatformService, private cs: CookieService) {
-    // afAuth.authState.subscribe(console.log)
+  constructor(public afAuth: AngularFireAuth, public auth: AuthService) { }
+
+  login(provider: string) {
+    switch (provider) {
+      case 'facebook': this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        break
+      case 'google': this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        break
+      case 'github': this.afAuth.auth.signInWithPopup(new firebase.auth.GithubAuthProvider())
+        break
+      case 'twitter': this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider())
+        break
+      default:
+    }
   }
-  login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-  }
-  // login2() {
-  //   this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-  // }
-  login2() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-  }
+
   logout() {
-    this.afAuth.auth.signOut()
+    this.afAuth.auth.signOut().then(() => this.auth.logout())
   }
 }

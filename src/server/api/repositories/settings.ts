@@ -11,6 +11,17 @@ export const SETTINGS: ISetting = {
     'type': 'website',
     'locale': 'en_US'
   },
+  'firebase': {
+    'appName': 'fuse-angular-universal-starter',
+    'config': {
+      'apiKey': 'AIzaSyC1gmUNs2mtG0K5Yt_Zy14pDve5MG26FQ0',
+      'authDomain': 'fuse-angular-universal-starter.firebaseapp.com',
+      'databaseURL': 'https://fuse-angular-universal-starter.firebaseio.com',
+      'projectId': 'fuse-angular-universal-starter',
+      'storageBucket': '<your-storage-bucket>',
+      'messagingSenderId': '146311846251'
+    }
+  },
   'tokens': {
     'facebookAppId': '117309532219749'
   },

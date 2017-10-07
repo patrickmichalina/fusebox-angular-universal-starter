@@ -1,3 +1,4 @@
+import { PlatformService } from './shared/services/platform.service'
 import { AuthService } from './shared/services/auth.service'
 import { Injectable } from '../../server/api/repositories/setting.repository'
 import { HttpClient } from '@angular/common/http'
@@ -7,8 +8,8 @@ import { DOCUMENT, Meta } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { sha1 } from 'object-hash'
-import { AngularFireAuth } from 'angularfire2/auth';
-import { CookieService } from './shared/services/cookie.service';
+import { AngularFireAuth } from 'angularfire2/auth'
+import { MatIconRegistry } from '@angular/material'
 
 @Component({
   selector: 'pm-app',
@@ -17,20 +18,30 @@ import { CookieService } from './shared/services/cookie.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, private wss: WebSocketService,
-    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, public afAuth: AngularFireAuth,
-    private cs: CookieService, private auth: AuthService) {
+  constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
+    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, afAuth: AngularFireAuth,
+    auth: AuthService, matIconRegistry: MatIconRegistry, ps: PlatformService) {
 
-    afAuth.idToken.subscribe(a => {
-      if (a) {
-        this.cs.set('jwt_token', a)
+    afAuth.idToken.subscribe(idToken => {
+      if (idToken) {
+        auth.authorize(idToken)
       } else {
-        this.cs.remove('jwt_token')
+        auth.logout()
       }
     })
 
-    auth.userIdentity$.subscribe(console.log)
+    auth.userIdentity$.subscribe(user => {
+      if (ps.isBrowser && user) {
+        analytics.setUsername(user.id)
+        analytics.setUserProperties({
+          email: user.email,
+          name: user.name
+        })
+        analytics.eventTrack('test', { test: 1 })
+      }
+    })
 
+    matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
 
     ss.settings$
       .take(1)
@@ -48,8 +59,10 @@ export class AppComponent {
         inHead: true
       }))
 
-    this.wss.messageBus$.subscribe()
-    this.wss.send({ message: 'ws test' })
+    if (ps.isBrowser) {
+      wss.messageBus$.subscribe()
+      wss.send({ message: 'ws test' })
+    }
   }
 
   inject(doc: HTMLDocument, renderer: Renderer2, injectable: Injectable) {

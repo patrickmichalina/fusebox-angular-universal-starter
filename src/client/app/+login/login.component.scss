@@ -1,0 +1,9 @@
+:host {
+  // .buttons {
+  //   display: flex;
+  //   flex-direction: column;
+  // }
+  ng::deep .mat-raised-button .mat-button-wrapper>* {
+    vertical-align: inherit
+  }
+}

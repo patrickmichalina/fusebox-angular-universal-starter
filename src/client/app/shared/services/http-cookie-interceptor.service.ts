@@ -19,7 +19,7 @@ export class HttpCookieInterceptor implements HttpInterceptor {
     const whitelistedDomains = this.injector.get(COOKIE_HOST_WHITELIST) as string[]
     const url = new URL(req.url)
 
-    if (!whitelistedDomains.some(a => a === url.hostname)) return next.handle(req)
+    if (whitelistedDomains && !whitelistedDomains.some(a => a === url.hostname)) return next.handle(req)
 
     if (this.ps.isServer) {
       const serverRequest = this.injector.get(REQUEST) as express.Request

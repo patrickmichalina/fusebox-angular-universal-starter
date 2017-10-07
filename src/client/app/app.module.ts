@@ -1,5 +1,5 @@
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
-import { APP_ID, ErrorHandler, NgModule } from '@angular/core'
+import { APP_ID, APP_INITIALIZER, ErrorHandler, NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module'
@@ -13,7 +13,7 @@ import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
-import { AngularFireModule } from 'angularfire2'
+import { AngularFireModule, FirebaseAppConfigToken, FirebaseAppName } from 'angularfire2'
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth'
 import { AUTH_CONFIG, AuthService, ITokenSchema, IUserIdentity } from './shared/services/auth.service'
 
@@ -23,9 +23,9 @@ export const REQ_KEY = makeStateKey<string>('req')
 
 export function authConfiguration(afAuth: AngularFireAuth) {
   return {
-    authTokenStorageKey: 'jwt_token',
-    authTokenPayloadKey: 'token',
-    cookieDomain: 'scowtee',
+    authTokenStorageKey: 'auth',
+    cookieDomain: 'localhost',
+    useSecureCookies: false,
     tokenSchema: {
       id: 'user_id',
       name: 'name',
@@ -96,6 +96,18 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
   })
 }
 
+export function firebaseConfigLoader(ss: SettingService) {
+  return ss.initialSettings.firebase.config
+}
+
+export function firebaseAppNameLoader(ss: SettingService) {
+  return ss.initialSettings.firebase.appName
+}
+
+export function initialSettingsLoader(ss: SettingService) {
+  return () => ss.settings$.take(1).toPromise()
+}
+
 @NgModule({
   imports: [
     HttpClientModule,
@@ -105,14 +117,7 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
     Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
-    AngularFireModule.initializeApp({
-      apiKey: 'AIzaSyC1gmUNs2mtG0K5Yt_Zy14pDve5MG26FQ0',
-      authDomain: 'fuse-angular-universal-starter.firebaseapp.com',
-      databaseURL: 'https://fuse-angular-universal-starter.firebaseio.com',
-      projectId: 'fuse-angular-universal-starter',
-      storageBucket: '<your-storage-bucket>',
-      messagingSenderId: '146311846251'
-    }, 'fuse-angular-universal-starter'),
+    AngularFireModule,
     AngularFireAuthModule,
     // ServiceWorkerModule.register('/ngsw-worker.js'), // TODO: this is broken in JIT
     MetaModule.forRoot({
@@ -127,6 +132,22 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },
     { provide: APP_ID, useValue: 'pm-app' },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initialSettingsLoader,
+      deps: [SettingService],
+      multi: true
+    },
+    {
+      provide: FirebaseAppName,
+      useFactory: firebaseAppNameLoader,
+      deps: [SettingService]
+    },
+    {
+      provide: FirebaseAppConfigToken,
+      useFactory: firebaseConfigLoader,
+      deps: [SettingService]
+    },
     AuthService
   ],
   declarations: [AppComponent],

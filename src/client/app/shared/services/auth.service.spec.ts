@@ -5,18 +5,24 @@ import { Observable } from 'rxjs/Observable'
 import '../../../operators'
 
 export const authConfg: IAuthServiceConfig = {
-  authTokenStorageKey: 'pm_jwt',
-  authTokenPayloadKey: 'token',
+  authTokenStorageKey: 'auth',
   cookieDomain: 'localhost',
-  useSecureCookies: true,
+  useSecureCookies: false,
   tokenSchema: {
-    id: 'id',
-    username: 'username',
+    id: 'user_id',
+    name: 'name',
+    email: 'email',
+    email_verified: 'email_verified',
     roles: 'roles',
     roleDelimeter: ',',
-    adminRoleNames: ['admin']
+    picture: 'picture',
+    adminRoleNames: ['ROLE_ADMIN']
   },
-  userFactory: (tokenJson: any, schema: ITokenSchema) => {
+  userFactory: (tokenJson: any, schema: ITokenSchema): IUserIdentity => {
+
+    if (!tokenJson) throw new Error('')
+    if (!schema) throw new Error('')
+
     const roles = tokenJson[schema.roles] as string[] || []
     const roleSet = new Set<string>()
 
@@ -25,9 +31,12 @@ export const authConfg: IAuthServiceConfig = {
       : roleSet.add(roles)
 
     const user: IUserIdentity = {
-      id: tokenJson[schema.id] as string,
       claims: tokenJson,
-      username: tokenJson[schema.username] as string,
+      id: tokenJson[schema.id] as string,
+      name: tokenJson[schema.name] as string,
+      email: tokenJson[schema.email] as string,
+      email_verified: tokenJson[schema.email_verified] as boolean,
+      picture: tokenJson[schema.picture] as string,
       roles: roleSet,
       isInRole(name: string) {
         return roleSet.has(name)

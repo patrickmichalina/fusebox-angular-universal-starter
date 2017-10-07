@@ -1,9 +1,11 @@
-<div *ngIf="afAuth.authState | async; let user; else showLogin">
-  <h1>Hello {{ user.displayName }}!</h1>
+<div *ngIf="this.auth.userIdentity$ | async; let user; else showLogin">
+  <h1>Hello {{ user.name }}!</h1>
   <button (click)="logout()">Logout</button>
 </div>
 <ng-template #showLogin>
   <p>Please login.</p>
-  <button (click)="login()">Login with Google</button>
-  <button (click)="login2()">Login with Facebook</button>
+  <button mat-raised-button (click)="login('facebook')"><mat-icon fontSet="fa" fontIcon="fa-facebook"></mat-icon> Login using Facebook</button>
+  <button mat-raised-button (click)="login('google')"><mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon> Login using Google</button>
+  <button mat-raised-button (click)="login('github')"><mat-icon fontSet="fa" fontIcon="fa-github"></mat-icon> Login with Github</button>
+  <button mat-raised-button (click)="login('twitter')"><mat-icon fontSet="fa" fontIcon="fa-twitter"></mat-icon> Login using Twitter</button>
 </ng-template>
