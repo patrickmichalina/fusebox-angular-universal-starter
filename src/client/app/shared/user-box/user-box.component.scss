@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  height: 140px;
+  .avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  button {
+    width: 100%
+  }
+}

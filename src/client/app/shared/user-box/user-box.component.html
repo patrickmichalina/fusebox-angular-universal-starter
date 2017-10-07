@@ -1,1 +1,7 @@
-user info here!
+<button mat-button *ngIf="isLoggedIn">
+  <div class="avatar" [style.background-image]="imageUrl" [style.background-size]="'cover'"></div>
+  <span>{{ name | uppercase }}</span>
+</button>
+<button mat-button *ngIf="!isLoggedIn">
+  LOGIN
+</button>
