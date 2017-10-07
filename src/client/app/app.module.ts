@@ -1,5 +1,5 @@
+import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { APP_ID, ErrorHandler, NgModule } from '@angular/core'
-import { EnvironmentService } from './shared/services/environment.service'
 import { AppComponent } from './app.component'
 import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module'
@@ -7,72 +7,67 @@ import { TransferHttpModule } from './shared/transfer-http/transfer-http.module'
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core'
 import { NotFoundModule } from './not-found/not-found.module'
 import { BrowserModule, makeStateKey } from '@angular/platform-browser'
-import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
+import { EnvironmentService } from './shared/services/environment.service'
 import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
 import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
 import { AngularFireModule } from 'angularfire2'
-import { AngularFireAuthModule } from 'angularfire2/auth'
-import { AUTH_CONFIG, IAuthServiceConfig, AuthService } from './shared/services/auth.service'
+import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth'
+import { AUTH_CONFIG, AuthService, ITokenSchema, IUserIdentity } from './shared/services/auth.service'
 
 // import { ServiceWorkerModule } from '@angular/service-worker'
 
-export const authConfg: IAuthServiceConfig = {
-  authTokenStorageKey: 'jwt_token',
-  authTokenPayloadKey: 'token',
-  cookieDomain: 'scowtee',
-  tokenSchema: {
-    id: 'id',
-    username: 'username',
-    firstName: 'firstName',
-    lastName: 'lastName',
-    roles: 'roles',
-    roleDelimeter: ',',
-    adminRoleNames: ['ROLE_ADMIN'],
-    adFreeRoleNames: ['ROLE_AD_FREE']
-  },
-  userFactory: (tokenJson: any, schema: ITokenSchema): IUserIdentity => {
+export const REQ_KEY = makeStateKey<string>('req')
 
-    if (!tokenJson) throw new Error('')
-    if (!schema) throw new Error('')
+export function authConfiguration(afAuth: AngularFireAuth) {
+  return {
+    authTokenStorageKey: 'jwt_token',
+    authTokenPayloadKey: 'token',
+    cookieDomain: 'scowtee',
+    tokenSchema: {
+      id: 'user_id',
+      name: 'name',
+      email: 'email',
+      email_verified: 'email_verified',
+      roles: 'roles',
+      roleDelimeter: ',',
+      picture: 'picture',
+      adminRoleNames: ['ROLE_ADMIN']
+    },
+    userFactory: (tokenJson: any, schema: ITokenSchema): IUserIdentity => {
 
-    const roles = tokenJson[schema.roles] as string[] || []
-    const roleSet = new Set<string>()
+      if (!tokenJson) throw new Error('')
+      if (!schema) throw new Error('')
 
-    Array.isArray(roles)
-      ? roles.forEach(role => roleSet.add(role))
-      : roleSet.add(roles)
+      const roles = tokenJson[schema.roles] as string[] || []
+      const roleSet = new Set<string>()
 
-    const user: IUserIdentity = {
-      claims: tokenJson,
-      analyticsData: tokenJson[schema.analyticsData] as IAnalyticsData,
-      id: tokenJson[schema.id] as string,
-      username: tokenJson[schema.username] as string,
-      email: tokenJson[schema.email] as string,
-      roles: roleSet,
-      isInRole(name: string) {
-        return roleSet.has(name)
-      },
-      isAdmin() {
-        return schema.adminRoleNames.some(role => roleSet.has(role))
-      },
-      isPremium() {
-        return tokenJson.isPremiumSubscriber
-      },
-      isAdFree() {
-        return schema.adFreeRoleNames.some(role => roleSet.has(role))
+      Array.isArray(roles)
+        ? roles.forEach(role => roleSet.add(role))
+        : roleSet.add(roles)
+
+      const user: IUserIdentity = {
+        claims: tokenJson,
+        id: tokenJson[schema.id] as string,
+        name: tokenJson[schema.name] as string,
+        email: tokenJson[schema.email] as string,
+        email_verified: tokenJson[schema.email_verified] as boolean,
+        picture: tokenJson[schema.picture] as string,
+        roles: roleSet,
+        isInRole(name: string) {
+          return roleSet.has(name)
+        },
+        isAdmin() {
+          return schema.adminRoleNames.some(role => roleSet.has(role))
+        }
       }
-    }
 
-    return user
+      return user
+    }
   }
 }
-
-
-
-export const REQ_KEY = makeStateKey<string>('req')
 
 export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLoader {
   const locale = 'en' // TODO: make this dynamic
@@ -127,7 +122,7 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
     })
   ],
   providers: [
-    { provide: AUTH_CONFIG, useValue: authConfg },
+    { provide: AUTH_CONFIG, useFactory: authConfiguration, deps: [AngularFireAuth] },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },

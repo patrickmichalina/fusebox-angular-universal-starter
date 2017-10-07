@@ -7,8 +7,11 @@ import { Observable } from 'rxjs/Observable'
 
 export interface IUserIdentity {
   id: string
-  username: string
+  name: string
   claims: any
+  picture: string
+  email: string
+  email_verified: boolean
   roles: Set<string>
   isAdmin(): boolean
   isInRole(role: string): boolean
@@ -16,7 +19,10 @@ export interface IUserIdentity {
 
 export interface ITokenSchema {
   id: string
-  username: string
+  name: string
+  picture: string
+  email: string
+  email_verified: string
   roles: string
   roleDelimeter: string
 }
@@ -50,6 +56,7 @@ export class AuthService implements IAuthService {
   public isAdmin$ = this.userIdentity$.map(res => res ? res.isAdmin() ? true : false : false)
 
   constructor( @Inject(AUTH_CONFIG) private config: IAuthServiceConfig, private cookieService: CookieService) {
+    console.log(config)
     if (!config) throw new Error('Missing config')
     if (!config.tokenSchema) throw new Error('Missing config.tokenSchema')
     if (!config.authTokenStorageKey) throw new Error('Missing config.authTokenStorageKey')

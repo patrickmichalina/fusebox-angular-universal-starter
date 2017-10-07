@@ -1,4 +1,4 @@
-import { AuthService } from './shared/services/auth.service';
+import { AuthService } from './shared/services/auth.service'
 import { Injectable } from '../../server/api/repositories/setting.repository'
 import { HttpClient } from '@angular/common/http'
 import { WebSocketService } from './shared/services/web-socket.service'
@@ -21,9 +21,12 @@ export class AppComponent {
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, public afAuth: AngularFireAuth,
     private cs: CookieService, private auth: AuthService) {
 
-    afAuth.idToken.filter(Boolean).subscribe(a => {
-      console.log(a)
-      this.cs.set('jwt_token', a)
+    afAuth.idToken.subscribe(a => {
+      if (a) {
+        this.cs.set('jwt_token', a)
+      } else {
+        this.cs.remove('jwt_token')
+      }
     })
 
     auth.userIdentity$.subscribe(console.log)

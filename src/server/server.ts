@@ -13,7 +13,6 @@ import { sitemap } from './server.sitemap'
 import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
 import { useApi } from './api'
-import { useIdentity } from './identity'
 import { join, resolve } from 'path'
 import { useWebSockets } from './server.web-socket'
 import http = require('http')
@@ -24,8 +23,8 @@ const bunyanMiddleware = require('bunyan-middleware')
 const xmlhttprequest = require('xmlhttprequest').XMLHttpRequest
 const xhr2 = require('xhr2')
 
-xhr2.prototype._restrictedHeaders.cookie = false
-global.XMLHttpRequest = xmlhttprequest
+xhr2.prototype._restrictedHeaders.cookie = false;
+(global as any).XMLHttpRequest = xmlhttprequest
 
 require('ts-node/register')
 
@@ -66,7 +65,6 @@ app.use(cookieParser())
 app.use(shrinkRay())
 
 // You can remove the Identity and API servers by deleteing these two lines
-useIdentity(app)
 useApi(app)
 app.set('ignore-routes', ['/api/', '/oidc', '/.well-known'])
 
@@ -109,7 +107,6 @@ app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
 })
 
 app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  console.log(req.cookies)
   if ((req.app.get('ignore-routes') as string[]).some(a => req.url.includes(a))) return next()
   return res.render('index', {
     req,
