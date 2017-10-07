@@ -21,9 +21,11 @@ import http = require('http')
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
+const xmlhttprequest = require('xmlhttprequest').XMLHttpRequest
 const xhr2 = require('xhr2')
 
 xhr2.prototype._restrictedHeaders.cookie = false
+global.XMLHttpRequest = xmlhttprequest
 
 require('ts-node/register')
 
@@ -107,6 +109,7 @@ app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
 })
 
 app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.log(req.cookies)
   if ((req.app.get('ignore-routes') as string[]).some(a => req.url.includes(a))) return next()
   return res.render('index', {
     req,

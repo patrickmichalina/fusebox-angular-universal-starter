@@ -1,3 +1,4 @@
+import { AuthService } from './shared/services/auth.service';
 import { Injectable } from '../../server/api/repositories/setting.repository'
 import { HttpClient } from '@angular/common/http'
 import { WebSocketService } from './shared/services/web-socket.service'
@@ -6,6 +7,8 @@ import { DOCUMENT, Meta } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { sha1 } from 'object-hash'
+import { AngularFireAuth } from 'angularfire2/auth';
+import { CookieService } from './shared/services/cookie.service';
 
 @Component({
   selector: 'pm-app',
@@ -15,7 +18,17 @@ import { sha1 } from 'object-hash'
 })
 export class AppComponent {
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, private wss: WebSocketService,
-    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient) {
+    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, public afAuth: AngularFireAuth,
+    private cs: CookieService, private auth: AuthService) {
+
+    afAuth.idToken.filter(Boolean).subscribe(a => {
+      console.log(a)
+      this.cs.set('jwt_token', a)
+    })
+
+    auth.userIdentity$.subscribe(console.log)
+
+
     ss.settings$
       .take(1)
       .subscribe(settings => {

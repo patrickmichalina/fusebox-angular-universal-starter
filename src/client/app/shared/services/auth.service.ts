@@ -19,12 +19,10 @@ export interface ITokenSchema {
   username: string
   roles: string
   roleDelimeter: string
-  adminRoleNames: string[]
 }
 
 export interface IAuthServiceConfig {
   authTokenStorageKey: string
-  authTokenPayloadKey: string
   tokenSchema: ITokenSchema
   cookieDomain: string
   useSecureCookies: boolean
@@ -35,9 +33,9 @@ export interface IAuthService {
   userIdentity$: Observable<IUserIdentity | undefined>
   loggedIn$: Observable<boolean>
   isAdmin$: Observable<boolean>
-  getTokenFromStore(): string
-  authorize(token: string): IUserIdentity | undefined
-  authorizeAsync(tokenRequest: Observable<string>): Observable<IUserIdentity | undefined>
+  // getTokenFromStore(): string
+  // authorize(token: string): IUserIdentity | undefined
+  // authorizeAsync(tokenRequest: Observable<string>): Observable<IUserIdentity | undefined>
   logout(): void
 }
 
@@ -51,7 +49,7 @@ export class AuthService implements IAuthService {
   public loggedIn$ = this.userIdentity$.map(res => res ? true : false)
   public isAdmin$ = this.userIdentity$.map(res => res ? res.isAdmin() ? true : false : false)
 
-  constructor(@Inject(AUTH_CONFIG) private config: IAuthServiceConfig, private cookieService: CookieService) {
+  constructor( @Inject(AUTH_CONFIG) private config: IAuthServiceConfig, private cookieService: CookieService) {
     if (!config) throw new Error('Missing config')
     if (!config.tokenSchema) throw new Error('Missing config.tokenSchema')
     if (!config.authTokenStorageKey) throw new Error('Missing config.authTokenStorageKey')

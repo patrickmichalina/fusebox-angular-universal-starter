@@ -11,5 +11,13 @@ export interface EnvConfig {
   og?: {
     defaultSocialImage?: string
     facebookAppId?: string
+  },
+  firebase: {
+    apiKey: string
+    authDomain: string
+    databaseURL: string
+    projectId: string
+    storageBucket: string
+    messagingSenderId: string
   }
 }

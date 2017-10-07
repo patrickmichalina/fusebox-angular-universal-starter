@@ -1,9 +1,9 @@
+import { EnvConfig } from '../../tools/config/app.config'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
-import { AppComponent } from './../client/app/app.component'
-import { APP_BOOTSTRAP_LISTENER, ApplicationRef, enableProdMode, NgModule } from '@angular/core'
+import { APP_BOOTSTRAP_LISTENER, ApplicationRef, enableProdMode, Inject, NgModule } from '@angular/core'
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server'
 import { AppModule, REQ_KEY } from './../client/app/app.module'
-import { EnvConfig } from '../../tools/config/app.config'
+import { AppComponent } from './../client/app/app.component'
 import { TransferState } from '@angular/platform-browser'
 import * as express from 'express'
 import 'rxjs/add/operator/filter'
@@ -13,6 +13,10 @@ import '../client/operators'
 declare var __process_env__: EnvConfig
 
 if (__process_env__.env !== 'prod') enableProdMode()
+
+export function createAngularFireServer() {
+  return new AngularFireServer()
+}
 
 export function onBootstrap(appRef: ApplicationRef, transferState: TransferState, req: express.Request) {
   return () => {
@@ -44,8 +48,38 @@ export function onBootstrap(appRef: ApplicationRef, transferState: TransferState
         TransferState,
         REQUEST
       ]
-    }
+    },
+    // { provide: AngularFire, useFactory: createAngularFireServer }
   ],
   bootstrap: [AppComponent]
 })
 export class AppServerModule { }
+
+import { ReplaySubject } from 'rxjs/ReplaySubject'
+
+export class AngularFireServer {
+
+  auth$ = new ReplaySubject(1)
+  auth = this.auth$.asObservable()
+
+  constructor( @Inject('req') private req: any) {
+
+    let token = this.req.cookies['token']
+    let user
+    if (token) {
+      user = {
+        auth: {
+          getToken: () => {
+            return new Promise((resolve) => {
+              resolve(token)
+            })
+          }
+        }
+      }
+    }
+
+    this.auth$.next(user)
+
+  }
+
+}
