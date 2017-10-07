@@ -1,2 +1,8 @@
-<pm-navbar></pm-navbar>
-<router-outlet></router-outlet>
+<pm-navbar (onMenuIconClick)="sidenav.open()" (onClicked)="sidenav.close()"></pm-navbar>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav">
+    <pm-user-box></pm-user-box>
+    put content here!
+  </mat-sidenav>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

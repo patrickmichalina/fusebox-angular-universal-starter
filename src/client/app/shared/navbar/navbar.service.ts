@@ -8,7 +8,6 @@ export interface INavbarService {
 @Injectable()
 export class NavbarService implements INavbarService {
   menu$ = Observable.of([
-    { route: '', name: 'Home' },
     { route: 'dashboard', name: 'Dashboard' },
     { route: 'about', name: 'About' },
     { route: 'search', name: 'Search' },

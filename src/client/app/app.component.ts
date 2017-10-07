@@ -80,4 +80,8 @@ export class AppComponent {
       ? renderer.appendChild(doc.head, st)
       : renderer.appendChild(doc.body, st)
   }
+
+  print() {
+    console.log('asdadsasd')
+  }
 }

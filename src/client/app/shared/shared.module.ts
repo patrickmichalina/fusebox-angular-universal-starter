@@ -2,6 +2,7 @@ import { EnvironmentService } from './services/environment.service'
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { NavbarComponent } from './navbar/navbar.component'
+import { UserBoxComponent } from './user-box/user-box.component'
 import { CookieService } from './services/cookie.service'
 import { CommonModule } from '@angular/common'
 import { PlatformService } from './services/platform.service'
@@ -12,7 +13,7 @@ import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.servic
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
-import { MatButtonModule, MatCardModule, MatIconModule } from '@angular/material'
+import { MatButtonModule, MatCardModule, MatIconModule, MatSidenavModule } from '@angular/material'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
@@ -54,6 +55,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    MatSidenavModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
@@ -62,15 +64,18 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     CommonModule,
     RouterModule,
     NavbarComponent,
+    UserBoxComponent,
     Angulartics2Module,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    MatSidenavModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule
   ],
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    UserBoxComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
