@@ -11,6 +11,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { sha1 } from 'object-hash'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { MatIconRegistry } from '@angular/material'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'pm-app',
@@ -19,19 +20,29 @@ import { MatIconRegistry } from '@angular/material'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  public user$ = this.auth.userIdentity$.map(user => {
+    return {
+      name: user && user.name,
+      picture: user && user.picture,
+      loggedIn: user ? true : false
+    }
+  })
+
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, afAuth: AngularFireAuth,
-    auth: AuthService, matIconRegistry: MatIconRegistry, ps: PlatformService) {
+    private auth: AuthService, matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router) {
 
     afAuth.idToken.flatMap(firebaseUser => firebaseUser ? firebaseUser.getIdToken() : Observable.of(undefined)).subscribe(token => {
       if (token) {
         auth.authorize(token)
+        router.navigate(['/'])
       } else {
         auth.logout()
       }
     })
 
     auth.userIdentity$.subscribe(user => {
+      console.log(user)
       if (ps.isBrowser && user) {
         analytics.setUsername(user.id)
         analytics.setUserProperties({

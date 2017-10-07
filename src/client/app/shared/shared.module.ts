@@ -1,19 +1,20 @@
+import { SettingService } from './services/setting.service'
 import { EnvironmentService } from './services/environment.service'
-import { ModuleWithProviders, NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { NavbarComponent } from './navbar/navbar.component'
 import { UserBoxComponent } from './user-box/user-box.component'
 import { CookieService } from './services/cookie.service'
 import { CommonModule } from '@angular/common'
 import { PlatformService } from './services/platform.service'
-import { SettingService } from './services/setting.service'
+import { ModuleWithProviders, NgModule } from '@angular/core'
 import { WebSocketService } from './services/web-socket.service'
 import { LOGGER_CONFIG, LoggingService } from './services/logging.service'
 import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.service'
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
-import { MatButtonModule, MatCardModule, MatIconModule, MatSidenavModule } from '@angular/material'
+import { MaterialModule } from './material.module'
+import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
@@ -52,10 +53,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
   imports: [
     CommonModule,
     RouterModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatSidenavModule,
+    MaterialModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
@@ -66,16 +64,15 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     NavbarComponent,
     UserBoxComponent,
     Angulartics2Module,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatSidenavModule,
+    MaterialModule,
+    ClickOutsideDirective,
     // FlexLayoutModule,
     MarkdownToHtmlModule
   ],
   declarations: [
     NavbarComponent,
-    UserBoxComponent
+    UserBoxComponent,
+    ClickOutsideDirective
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },

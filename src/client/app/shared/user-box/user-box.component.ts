@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core'
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser'
 
 @Component({
@@ -18,6 +18,10 @@ export class UserBoxComponent {
   }
   @Input() name: string
   @Input() isLoggedIn: boolean
+  @HostListener('click', ['$event.target']) clicked() {
+    this.onClicked.next()
+  }
+  @Output() onClicked = new EventEmitter()
 
   constructor(private sanitizer: DomSanitizer) {}
 }

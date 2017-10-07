@@ -27,7 +27,6 @@ export class NgLazyPluginClass {
 
     const getName = (str: string) => (str.split('/').pop() || '')
     const replaceBackSlash = (str: string) => (str.replace(/\\/g, "/"))
-    
 
     readdirSync(resolve(parentPath))
       .filter(dir => dir.includes(lazyPrefix))
@@ -42,58 +41,21 @@ export class NgLazyPluginClass {
           .map(d => getName(replaceBackSlash(d)))
           .join('|')
 
-        //path = path + '\\';
-
         path = replaceBackSlash(path);
-
-        console.log("path is "+path)
-
         const moduleName = getName(path)
-
-        console.log("module name is "+moduleName)
-        
-
         const hash = hashFiles.sync({ files: resolve(path, '**') });
-
-        console.log("hash is "+hash)
-
         parentPath = replaceBackSlash(parentPath);
-
         context.homeDir = replaceBackSlash(context.homeDir);
-        
-        console.log("parentPath is "+parentPath + " and context.homeDir "+context.homeDir);
-
         const relativeBasePath = `${parentPath.replace(`${context.homeDir}/`, '')}/${moduleName}`
-        
-        console.log("relative base path is "+ relativeBasePath)
-        
         const relativeModulePath = `${relativeBasePath}/${moduleName.replace(lazyPrefix, '')}.module`
-        
-        console.log("relative module path is "+ relativeModulePath)
-        
-        
         const entryPoint = `client/app/${moduleName}/${moduleName.replace(lazyPrefix, '')}.module.ts`
-
-        console.log("entryPoint is "+ entryPoint)
-        
-
         this.moduleMap[`~/${relativeModulePath}`] = `${hash}.js`;
-
-        console.log("this.moduleMap[`~/${relativeModulePath}`] is "+ this.moduleMap[`~/${relativeModulePath}`])
-
-        console.log("relativeDirs are "+relativeDirs);
 
         if (relativeDirs) {
           context.bundle.split(`${relativeBasePath.replace(moduleName, `(${moduleName}|${relativeDirs})/**`)}`, `${hash} > ${entryPoint}`)
-          console.log("true")
         } else {
-          console.log("false")          
           context.bundle.split(`${relativeBasePath}/**`, `${hash} > ${entryPoint}`)
         }
-
-        console.log("context is "+context)
-
-        console.log("==============================================================================")
 
         this.getDirDeep(context, path)
       })

@@ -1,0 +1,12 @@
+<div *ngIf="user$ | async as user">
+  <div></div>
+  <mat-form-field>
+    <input matInput placeholder="Name" [value]="user.name" disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Email" [value]="user.email" disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Identity Source" [value]="user.claims.firebase.sign_in_provider" disabled>
+  </mat-form-field>
+</div>

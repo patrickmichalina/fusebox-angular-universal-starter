@@ -1,0 +1,24 @@
+import { AccountComponent } from './account.component'
+import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { MetaGuard } from '@ngx-meta/core'
+
+@NgModule({
+  imports: [
+    RouterModule.forChild([
+      {
+        path: '',
+        component: AccountComponent,
+        canActivate: [MetaGuard],
+        data: {
+          meta: {
+            title: 'i18n.account.title',
+            description: 'i18n.account.description'
+          }
+        }
+      }
+    ])
+  ],
+  exports: [RouterModule]
+})
+export class AccountRoutingModule { }

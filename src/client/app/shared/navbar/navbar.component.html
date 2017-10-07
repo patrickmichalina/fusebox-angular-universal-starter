@@ -1,5 +1,5 @@
 <nav>
-  <button mat-icon-button (click)="onMenuIconClick.next()">
+  <button mat-icon-button (click)="onMenuIconClick.next()" angulartics2On="click" angularticsEvent="ToggleSideMenu">
     <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
   </button>
   <a class="nav-button" mat-button routerLink>FUSEBOX-ANGULAR-UNIVERSAL-STARTER</a>
@@ -9,6 +9,4 @@
     {{ item.name }}
   </a>
   <a class="nav-button" mat-button href="/api-docs">API</a>
-  <a class="nav-button" mat-button href="/sitemap.xml">Sitemap</a>
-  <a class="nav-button" mat-button href="/robots.txt">Robots</a>
 </nav>

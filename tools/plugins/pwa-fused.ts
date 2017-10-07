@@ -25,7 +25,7 @@ export class PwaFusedPluginClass {
         name: 'Fusebox Angular Universal Starter',
         short_name: 'Angular Universal',
         lang: 'en',
-        start_url: 'index.html',
+        start_url: '/',
         display: 'standalone',
         theme_color: '#FFFFFF',
         background_color: '#3F51B5',

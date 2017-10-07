@@ -23,3 +23,10 @@ body {
   flex-direction: column;
   height: 100%;
 }
+
+.avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: inline-block;
+}

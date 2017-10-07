@@ -1,3 +1,4 @@
+import { AuthService } from './../shared/services/auth.service'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
@@ -6,4 +7,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   styleUrls: ['./logout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LogoutComponent { }
+export class LogoutComponent {
+  constructor(auth: AuthService) {
+    auth.logout()
+  }
+}
