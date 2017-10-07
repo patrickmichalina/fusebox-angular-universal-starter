@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable'
 import { PlatformService } from './shared/services/platform.service'
 import { AuthService } from './shared/services/auth.service'
 import { Injectable } from '../../server/api/repositories/setting.repository'
@@ -22,9 +23,9 @@ export class AppComponent {
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, afAuth: AngularFireAuth,
     auth: AuthService, matIconRegistry: MatIconRegistry, ps: PlatformService) {
 
-    afAuth.idToken.subscribe(idToken => {
-      if (idToken) {
-        auth.authorize(idToken)
+    afAuth.idToken.flatMap(firebaseUser => firebaseUser ? firebaseUser.getIdToken() : Observable.of(undefined)).subscribe(token => {
+      if (token) {
+        auth.authorize(token)
       } else {
         auth.logout()
       }
@@ -37,7 +38,6 @@ export class AppComponent {
           email: user.email,
           name: user.name
         })
-        analytics.eventTrack('test', { test: 1 })
       }
     })
 
@@ -46,7 +46,6 @@ export class AppComponent {
     ss.settings$
       .take(1)
       .subscribe(settings => {
-
         meta.addTag({ property: 'fb:app_id', content: settings.tokens.facebookAppId })
         settings.injections.forEach(link => this.inject(doc, renderer, link))
       })
