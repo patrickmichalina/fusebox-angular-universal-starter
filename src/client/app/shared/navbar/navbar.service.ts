@@ -9,8 +9,6 @@ export interface INavbarService {
 export class NavbarService implements INavbarService {
   menu$ = Observable.of([
     { route: 'dashboard', name: 'Dashboard' },
-    { route: 'about', name: 'About' },
-    { route: 'admin', name: 'Admin' },
-    { route: 'changelog', name: 'Changelog' }
+    { route: 'about', name: 'About' }
   ])
 }
