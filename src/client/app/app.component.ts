@@ -29,10 +29,10 @@ export class AppComponent {
   })
 
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
-    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, afAuth: AngularFireAuth,
+    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, private afAuth: AngularFireAuth,
     private auth: AuthService, matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router) {
 
-    afAuth.idToken.flatMap(firebaseUser => firebaseUser ? firebaseUser.getIdToken() : Observable.of(undefined)).subscribe(token => {
+      this.afAuth.idToken.flatMap(firebaseUser => firebaseUser ? firebaseUser.getIdToken() : Observable.of(undefined)).subscribe(token => {
       if (token) {
         auth.authorize(token)
         // router.navigate(['/'])

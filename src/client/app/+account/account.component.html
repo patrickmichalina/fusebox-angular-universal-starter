@@ -5,14 +5,20 @@
   <mat-card-content>
     <img [src]="user.picture" class="avatar">
     <mat-form-field>
-      <input matInput placeholder="Name" [value]="user.name" disabled>
+      <input matInput placeholder="Name" [value]="user.name">
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Email" [value]="user.email" disabled>
+      <input matInput placeholder="Display Name">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Email" [value]="user.email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Phone" [value]="user.phone">
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Identity Source" [value]="user.claims.firebase.sign_in_provider" disabled>
     </mat-form-field>
   </mat-card-content>
-  <div></div>
+  <button mat-button>Update</button>
 </mat-card>
