@@ -5,7 +5,7 @@
     button,
     p {
       align-self: center;
-      width: 236px;
+      width: 190px;
       margin-bottom: 1em;
     }
   }
@@ -57,6 +57,11 @@
   #socialNetworkErr {
     max-width: 300px;
     margin-bottom: 2em;
+  }
+  .social-spacer {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
   }
 }
 

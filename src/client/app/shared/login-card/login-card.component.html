@@ -4,20 +4,28 @@
     {{ socialNetworkErr }}
   </mat-error>
   <button mat-raised-button (click)="login('facebook')" class="facebook">
-    <mat-icon fontSet="fa" fontIcon="fa-facebook-official"></mat-icon>
-    <span>Sign in with Facebook</span>
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-facebook-official"></mat-icon>
+      <span>Sign in with Facebook</span>
+    </div>
   </button>
   <button mat-raised-button (click)="login('google')" class="google">
-    <mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon>
-    <span>Sign in with Google</span>
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon>
+      <span>Sign in with Google</span>
+    </div>
   </button>
   <button mat-raised-button (click)="login('github')" class="github">
-    <mat-icon fontSet="fa" fontIcon="fa-github"></mat-icon>
-    <span>Sign in with Github</span>
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-github"></mat-icon>
+      <span>Sign in with Github</span>
+    </div>
   </button>
   <button mat-raised-button (click)="login('twitter')" class="twitter">
-    <mat-icon fontSet="fa" fontIcon="fa-twitter"></mat-icon>
-    <span>Sign in with Twitter</span>
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-twitter"></mat-icon>
+      <span>Sign in with Twitter</span>
+    </div>
   </button>
   <mat-expansion-panel hideToggle="true">
     <mat-expansion-panel-header>
@@ -50,7 +58,9 @@
     </form>
     <mat-action-row>
       <button mat-button color="accent" (click)="login('email_new')" [disabled]="!form.valid">Signup</button>
-      <button mat-button color="primary" (click)="login('email_login')" [disabled]="!form.valid">Sign In</button>
+      <button mat-button color="primary" (click)="login('email_login')" [disabled]="!form.valid">
+
+        Sign In</button>
       <!-- <p>Please check your email for an activation link</p> -->
     </mat-action-row>
   </mat-expansion-panel>
