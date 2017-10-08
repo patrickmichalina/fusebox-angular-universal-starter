@@ -50,3 +50,7 @@ body {
 .mat-form-field.mat-form-field {
   width: auto;
 }
+
+.mat-raised-button .mat-button-wrapper>* {
+  vertical-align: inherit !important;
+}

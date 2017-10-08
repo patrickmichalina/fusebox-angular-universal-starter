@@ -3,6 +3,7 @@
 exports[`LoginComponent should match snapshot 1`] = `
 <pm-login
   afAuth={[Function AngularFireAuth]}
+  containerClass={[Function Boolean]}
 >
   <mat-card
     class="mat-card"

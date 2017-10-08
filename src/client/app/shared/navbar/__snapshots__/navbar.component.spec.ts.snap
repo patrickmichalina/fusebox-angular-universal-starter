@@ -5,7 +5,9 @@ exports[`NavbarComponent should compile 1`] = `
   id="root0"
   ng-version="5.0.0-rc.1"
 >
-  <nav>
+  <nav
+    class="mat-elevation-z6"
+  >
     
   
     <button
@@ -51,7 +53,7 @@ exports[`NavbarComponent should compile 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        FUSEBOX-ANGULAR-UNIVERSAL-STARTER
+        FB-ANGULAR-UNIVERSAL-STARTER
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -72,152 +74,45 @@ exports[`NavbarComponent should compile 1`] = `
     
   
     
-    <a
-      aria-disabled="false"
-      class="nav-button mat-button"
-      href="/dashboard"
-      mat-button=""
-      ng-reflect-router-link="dashboard"
-      ng-reflect-router-link-active="active"
-      ng-reflect-router-link-active-options="[object Object]"
-      routerlinkactive="active"
-      tabindex="0"
+  
+    <button
+      aria-haspopup="true"
+      class="mat-icon-button"
+      id="user-menu-btn"
+      mat-icon-button=""
+      ng-reflect-menu="[object Object]"
     >
       <span
         class="mat-button-wrapper"
       >
         
-    Dashboard
-  
-      </span>
-      <div
-        class="mat-button-ripple mat-ripple"
-        matripple=""
-        ng-reflect-centered="false"
-        ng-reflect-disabled="false"
-        ng-reflect-trigger="/dashboard"
-      />
-      <div
-        class="mat-button-focus-overlay"
-      />
-    </a>
-    <a
-      aria-disabled="false"
-      class="nav-button mat-button"
-      href="/about"
-      mat-button=""
-      ng-reflect-router-link="about"
-      ng-reflect-router-link-active="active"
-      ng-reflect-router-link-active-options="[object Object]"
-      routerlinkactive="active"
-      tabindex="0"
-    >
-      <span
-        class="mat-button-wrapper"
-      >
+    
+        <mat-icon
+          fonticon="fa-user-circle-o"
+          fontset="fa"
+        />
         
-    About
   
       </span>
       <div
-        class="mat-button-ripple mat-ripple"
+        class="mat-button-ripple mat-ripple mat-button-ripple-round"
         matripple=""
-        ng-reflect-centered="false"
+        ng-reflect-centered="true"
         ng-reflect-disabled="false"
-        ng-reflect-trigger="/about"
+        ng-reflect-trigger="[object HTMLButtonElement]"
       />
       <div
         class="mat-button-focus-overlay"
       />
-    </a>
-    <a
-      aria-disabled="false"
-      class="nav-button mat-button"
-      href="/admin"
-      mat-button=""
-      ng-reflect-router-link="admin"
-      ng-reflect-router-link-active="active"
-      ng-reflect-router-link-active-options="[object Object]"
-      routerlinkactive="active"
-      tabindex="0"
-    >
-      <span
-        class="mat-button-wrapper"
-      >
-        
-    Admin
-  
-      </span>
-      <div
-        class="mat-button-ripple mat-ripple"
-        matripple=""
-        ng-reflect-centered="false"
-        ng-reflect-disabled="false"
-        ng-reflect-trigger="/admin"
-      />
-      <div
-        class="mat-button-focus-overlay"
-      />
-    </a>
-    <a
-      aria-disabled="false"
-      class="nav-button mat-button"
-      href="/changelog"
-      mat-button=""
-      ng-reflect-router-link="changelog"
-      ng-reflect-router-link-active="active"
-      ng-reflect-router-link-active-options="[object Object]"
-      routerlinkactive="active"
-      tabindex="0"
-    >
-      <span
-        class="mat-button-wrapper"
-      >
-        
-    Changelog
-  
-      </span>
-      <div
-        class="mat-button-ripple mat-ripple"
-        matripple=""
-        ng-reflect-centered="false"
-        ng-reflect-disabled="false"
-        ng-reflect-trigger="/changelog"
-      />
-      <div
-        class="mat-button-focus-overlay"
-      />
-    </a>
+    </button>
     
   
-    <a
-      aria-disabled="false"
-      class="nav-button mat-button"
-      href="/api-docs"
-      mat-button=""
-      tabindex="0"
-    >
-      <span
-        class="mat-button-wrapper"
-      >
-        API
-      </span>
-      <div
-        class="mat-button-ripple mat-ripple"
-        matripple=""
-        ng-reflect-centered="false"
-        ng-reflect-disabled="false"
-        ng-reflect-trigger="/api-docs"
-      />
-      <div
-        class="mat-button-focus-overlay"
-      />
-    </a>
+    <mat-menu>
+      
+    </mat-menu>
     
 
   </nav>
-  
-
 </div>
 `;
 
