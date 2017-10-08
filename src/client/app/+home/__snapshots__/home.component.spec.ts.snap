@@ -9,49 +9,57 @@ exports[`HomeComponent should compile 1`] = `
   >
     
     
-    <h1
-      class="display-3"
+    <div
+      id="hero"
     >
-      Hello, Angular Developer!
-    </h1>
-    
-    
-    <p
-      class="lead"
-    >
-      Welcome to a blazing fast Angular Universal development starter
-    </p>
-    
-    
-    <a
-      angulartics2on="click"
-      angularticsevent="ViewRepo"
-      class="mat-raised-button"
-      color="primary"
-      href="https://github.com/patrickmichalina/fusebox-angular-universal-starter"
-      mat-raised-button=""
-      role="button"
-    >
-      <span
-        class="mat-button-wrapper"
-      >
-        
       
-        <mat-icon
-          aria-hidden="true"
-          class="fa fa-github mat-icon"
-          role="img"
+      
+      <h1
+        class="display-3"
+      >
+        Hello, Angular Developer!
+      </h1>
+      
+      
+      <p
+        class="lead"
+      >
+        Welcome to a blazing fast Angular Universal development starter
+      </p>
+      
+      
+      <a
+        angulartics2on="click"
+        angularticsevent="ViewRepo"
+        class="mat-raised-button"
+        color="primary"
+        href="https://github.com/patrickmichalina/fusebox-angular-universal-starter"
+        mat-raised-button=""
+        role="button"
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+          
+        
+          <mat-icon
+            aria-hidden="true"
+            class="fa fa-github mat-icon"
+            role="img"
+          />
+           Github
+        </span>
+        <div
+          class="mat-button-ripple mat-ripple"
+          matripple=""
         />
-         Github
-      </span>
-      <div
-        class="mat-button-ripple mat-ripple"
-        matripple=""
-      />
-      <div
-        class="mat-button-focus-overlay"
-      />
-    </a>
+        <div
+          class="mat-button-focus-overlay"
+        />
+      </a>
+      
+    
+    </div>
     
     
     <mat-tab-group

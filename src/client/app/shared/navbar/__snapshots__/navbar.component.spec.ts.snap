@@ -74,6 +74,90 @@ exports[`NavbarComponent should compile 1`] = `
     
   
     
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/dashboard"
+      mat-button=""
+      ng-reflect-router-link="dashboard"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+    Dashboard
+  
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/dashboard"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/about"
+      mat-button=""
+      ng-reflect-router-link="about"
+      ng-reflect-router-link-active="active"
+      ng-reflect-router-link-active-options="[object Object]"
+      routerlinkactive="active"
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        
+    About
+  
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/about"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="/api-docs"
+      mat-button=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        API
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="/api-docs"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
   
     <button
       aria-haspopup="true"
