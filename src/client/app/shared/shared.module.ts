@@ -2,9 +2,7 @@ import { SettingService } from './services/setting.service'
 import { EnvironmentService } from './services/environment.service'
 import { RouterModule } from '@angular/router'
 import { NavbarComponent } from './navbar/navbar.component'
-import { UserBoxComponent } from './user-box/user-box.component'
 import { LoginCardComponent } from './login-card/login-card.component'
-import { EmailSignupCardComponent } from './email-signup-card/email-signup-card.component'
 import { CookieService } from './services/cookie.service'
 import { CommonModule } from '@angular/common'
 import { PlatformService } from './services/platform.service'
@@ -66,22 +64,18 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     CommonModule,
     RouterModule,
     NavbarComponent,
-    UserBoxComponent,
     Angulartics2Module,
     MaterialModule,
     ClickOutsideDirective,
     LoginCardComponent,
-    EmailSignupCardComponent,
     ReactiveFormsModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule
   ],
   declarations: [
     NavbarComponent,
-    UserBoxComponent,
     ClickOutsideDirective,
-    LoginCardComponent,
-    EmailSignupCardComponent
+    LoginCardComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },

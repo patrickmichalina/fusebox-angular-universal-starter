@@ -184,7 +184,6 @@ exports[`LoginComponent should match snapshot 1`] = `
               
       
               
-  
       
               <form
                 novalidate=""
@@ -212,6 +211,8 @@ exports[`LoginComponent should match snapshot 1`] = `
                           matinput=""
                           placeholder="Email"
                         />
+                        
+          
                         
           
                         
@@ -311,7 +312,7 @@ exports[`LoginComponent should match snapshot 1`] = `
                 <span
                   class="mat-button-wrapper"
                 >
-                  New Account
+                  Signup
                 </span>
                 <div
                   class="mat-button-ripple mat-ripple"

@@ -26,13 +26,15 @@ export class LoginCardComponent {
         break
       case 'email_new':
         this.afAuth.auth.createUserWithEmailAndPassword(this.form.value.email, this.form.value.password)
-          .then(a => {
-            console.log(a)
-            a.sendEmailVerification()
+          .then(res => {
+            console.log(res)
+            res.sendEmailVerification()
           })
         break
       case 'email_login':
-        this.afAuth.auth.signInWithEmailAndPassword(this.form.value.email, this.form.value.password)
+        this.afAuth.auth.signInWithEmailAndPassword(this.form.value.email, this.form.value.password).then(res => {
+          console.log(res)
+        })
         break
       default:
     }
