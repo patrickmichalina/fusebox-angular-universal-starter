@@ -1,7 +1,7 @@
-<pm-navbar (onMenuIconClick)="sidenav.open()"></pm-navbar>
+<pm-navbar (onMenuIconClick)="sidenav.open()" *ngIf="user$ | async as user" [user]="user.loggedIn ? user : undefined"></pm-navbar>
 <mat-sidenav-container class="sidenav-container" (pmClickOutside)="sidenav.close()">
   <mat-sidenav #sidenav class="sidenav">
-    <pm-user-box *ngIf="user$ | async as user" [imageUrl]="user.picture" [name]="user.name" [isLoggedIn]="user.loggedIn" (onClicked)="sidenav.close()"></pm-user-box>
+    <!-- <pm-user-box *ngIf="user$ | async as user" [imageUrl]="user.picture" [name]="user.name" [isLoggedIn]="user.loggedIn" (onClicked)="sidenav.close()"></pm-user-box> -->
   </mat-sidenav>
   <router-outlet></router-outlet>
 </mat-sidenav-container>

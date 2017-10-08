@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs/Subject'
 import { TransferState } from '@angular/platform-browser'
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AUTH_TS_KEY } from '../app.module'
 
@@ -11,6 +11,8 @@ import { AUTH_TS_KEY } from '../app.module'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent {
+  @HostBinding('class.card-float-container') containerClass = true
+
   private userSource = new Subject()
   public user$ = this.userSource
     .startWith(this.ts.get(AUTH_TS_KEY, {}))

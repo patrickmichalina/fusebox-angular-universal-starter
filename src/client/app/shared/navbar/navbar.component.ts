@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Output } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core'
 import { NavbarService } from './navbar.service'
 
 @Component({
@@ -13,5 +13,11 @@ export class NavbarComponent {
   }
   @Output() onMenuIconClick = new EventEmitter()
   @Output() onClicked = new EventEmitter()
+  @Input() user: {
+    name: string
+    pictureURL: string
+    loggedIn: boolean
+  }
+
   constructor(public navbarService: NavbarService) { }
 }

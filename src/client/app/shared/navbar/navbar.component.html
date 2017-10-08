@@ -2,11 +2,29 @@
   <button mat-icon-button (click)="onMenuIconClick.next()" angulartics2On="click" angularticsEvent="ToggleSideMenu">
     <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
   </button>
-  <a class="nav-button" mat-button routerLink>FUSEBOX-ANGULAR-UNIVERSAL-STARTER</a>
+  <a class="nav-button" mat-button routerLink>FB-ANGULAR-UNIVERSAL-STARTER</a>
   <div class="flex-spacer"></div>
-  <a class="nav-button" mat-button *ngFor="let item of navbarService.menu$ | async" [routerLink]="item.route" routerLinkActive="active"
+  <!-- <a class="nav-button" mat-button *ngFor="let item of navbarService.menu$ | async" [routerLink]="item.route" routerLinkActive="active"
     [routerLinkActiveOptions]="{exact: true}">
     {{ item.name }}
   </a>
   <a class="nav-button" mat-button href="/api-docs">API</a>
+ -->
+  <button id="user-menu-btn" mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon fontSet="fa" fontIcon="fa-user-circle-o"></mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <div *ngIf="!user">
+      <button mat-menu-item routerLink="/login">Login</button>
+    </div>
+    <div *ngIf="user">
+      {{ user.name }}
+      <button mat-menu-item routerLink="/account">
+        <span>Account</span>
+      </button>
+      <button mat-menu-item routerLink="/logout">
+        <span>Logout</span>
+      </button>
+    </div>
+  </mat-menu>
 </nav>

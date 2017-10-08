@@ -1,7 +1,4 @@
 <mat-card *ngIf="user$ | async as user">
-  <mat-card-header>
-    <mat-card-title>Account</mat-card-title>
-  </mat-card-header>
   <mat-card-content>
     <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar">
     <mat-form-field>

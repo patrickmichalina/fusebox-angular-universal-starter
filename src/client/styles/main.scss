@@ -30,3 +30,13 @@ body {
   border-radius: 50%;
   display: inline-block;
 }
+
+.card-float-container {
+  display: flex;
+  justify-content: center;
+  margin: 1em;
+}
+
+.mat-card-header-text {
+  width: 100%;
+}
