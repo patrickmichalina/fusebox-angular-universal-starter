@@ -1,6 +1,13 @@
 :host {
   display: block;
   height: 140px;
+  div {
+    display: flex;
+    .email {
+      font-size: 12px;
+      flex: 1;
+    }
+  }
   .avatar {
     height: 40px;
     width: 40px;

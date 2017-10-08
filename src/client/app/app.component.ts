@@ -22,7 +22,7 @@ import { Router } from '@angular/router'
 export class AppComponent {
   public user$ = this.auth.userIdentity$.map(user => {
     return {
-      name: user && user.name,
+      name: user && (user.name || user.email),
       picture: user && user.picture,
       loggedIn: user ? true : false
     }

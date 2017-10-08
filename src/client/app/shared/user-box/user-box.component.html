@@ -1,7 +1,7 @@
 <div *ngIf="isLoggedIn">
-  <button mat-button matTooltip="view account info" routerLink="/account">
-    <div class="avatar" [style.background-image]="imageUrl" [style.background-size]="'cover'"></div>
-    <span>{{ name | uppercase }}</span>
+  <button class="email" mat-button matTooltip="view account info" routerLink="/account">
+    <div class="avatar" *ngIf="imageUrl" [style.background-image]="imageUrl" [style.background-size]="'cover'"></div>
+    <span>{{ name }}</span>
   </button>
   <button mat-icon-button angulartics2On="click" angularticsEvent="Logout" matTooltip="logout" routerLink="/logout">
     <mat-icon fontSet="fa" fontIcon="fa-sign-out"></mat-icon>

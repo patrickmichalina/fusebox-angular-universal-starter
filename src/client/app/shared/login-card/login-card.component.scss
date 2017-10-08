@@ -41,8 +41,25 @@
       background-color: #2b2b2b;
     }
   }
+  mat-expansion-panel {
+    max-width: 300px;
+    align-self: center;
+  }
+  form {
+    mat-form-field {
+      width: 100%;
+    }
+    
+  }
 }
 
 mat-icon {
   vertical-align: inherit !important;
+}
+mat-action-row {
+  justify-content: inherit;
+  padding: 8px;
+  button {
+    margin: 0 !important;
+  }
 }

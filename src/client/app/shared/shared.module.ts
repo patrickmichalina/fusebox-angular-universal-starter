@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router'
 import { NavbarComponent } from './navbar/navbar.component'
 import { UserBoxComponent } from './user-box/user-box.component'
 import { LoginCardComponent } from './login-card/login-card.component'
+import { EmailSignupCardComponent } from './email-signup-card/email-signup-card.component'
 import { CookieService } from './services/cookie.service'
 import { CommonModule } from '@angular/common'
 import { PlatformService } from './services/platform.service'
@@ -17,6 +18,7 @@ import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { MaterialModule } from './material.module'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
+import { ReactiveFormsModule } from '@angular/forms';
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
@@ -55,6 +57,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     CommonModule,
     RouterModule,
     MaterialModule,
+    ReactiveFormsModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
@@ -68,6 +71,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     MaterialModule,
     ClickOutsideDirective,
     LoginCardComponent,
+    EmailSignupCardComponent,
+    ReactiveFormsModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule
   ],
@@ -75,7 +80,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     NavbarComponent,
     UserBoxComponent,
     ClickOutsideDirective,
-    LoginCardComponent
+    LoginCardComponent,
+    EmailSignupCardComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
