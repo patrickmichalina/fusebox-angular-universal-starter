@@ -1,6 +1,7 @@
+import { JwtHelper } from 'angular2-jwt'
 import { Observable } from 'rxjs/Observable'
+import { CookieService } from './shared/services/cookie.service'
 import { PlatformService } from './shared/services/platform.service'
-import { AuthService } from './shared/services/auth.service'
 import { Injectable } from '../../server/api/repositories/setting.repository'
 import { HttpClient } from '@angular/common/http'
 import { WebSocketService } from './shared/services/web-socket.service'
@@ -20,37 +21,50 @@ import { Router } from '@angular/router'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public user$ = this.auth.userIdentity$.map(user => {
+  public user$ = this.afAuth.idToken.map(user => {
     return {
-      name: user && (user.name || user.email),
-      picture: user && user.picture,
+      name: user && (user.displayName || user.email),
+      picture: user && user.photoURL,
       loggedIn: user ? true : false
     }
   })
 
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, private afAuth: AngularFireAuth,
-    private auth: AuthService, matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router) {
+    matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router, cs: CookieService) {
 
-      this.afAuth.idToken.flatMap(firebaseUser => firebaseUser ? firebaseUser.getIdToken() : Observable.of(undefined)).subscribe(token => {
-      if (token) {
-        auth.authorize(token)
-        // router.navigate(['/'])
-      } else {
-        auth.logout()
-      }
-    })
+    const fbUser$ = this.afAuth.idToken
+      .flatMap(a => a ? a.getIdToken() : Observable.of(undefined), (fbUser, jwt) => ({ fbUser, jwt }))
 
-    auth.userIdentity$.subscribe(user => {
-      // console.log(user)
-      if (ps.isBrowser && user) {
-        analytics.setUsername(user.id)
-        analytics.setUserProperties({
-          email: user.email,
-          name: user.name
-        })
-      }
-    })
+    Observable.combineLatest(fbUser$, ss.settings$, (fbUser, settings) => ({ ...fbUser, ...settings }))
+      .subscribe(res => {
+        if (res && res.jwt) {
+          const jwtHelper = new JwtHelper()
+          const expires = jwtHelper.getTokenExpirationDate(res.jwt)
+          const claims = jwtHelper.decodeToken(res.jwt)
+          cs.set('fbJwt', res.jwt, { expires })
+
+          // once firebase auth supports native universal data exhange,
+          // we are stucking passing the cookies to the server
+          if (res.fbUser && res.fbUser.providerData) {
+            if (res.fbUser.providerId) cs.set('fbProviderId', res.fbUser.providerId, { expires })
+            if (res.fbUser.displayName) cs.set('fbDisplayName', res.fbUser.displayName, { expires })
+            if (res.fbUser.email) cs.set('fbEmail', res.fbUser.email, { expires })
+            if (res.fbUser.photoURL) cs.set('fbPhotoURL', res.fbUser.photoURL, { expires })
+            if (res.fbUser.phoneNumber) cs.set('fbPhoneNumber', res.fbUser.phoneNumber, { expires })
+          }
+
+          if (ps.isBrowser) {
+            analytics.setUsername(res.fbUser.uid)
+            analytics.setUserProperties({
+              email: res.fbUser.email,
+              displayName: res.fbUser.displayName,
+              name: claims.name,
+              signInProvider: claims.firebase.sign_in_provider
+            })
+          }
+        }
+      })
 
     matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
 

@@ -20,6 +20,7 @@ import { AUTH_CONFIG, AuthService, ITokenSchema, IUserIdentity } from './shared/
 // import { ServiceWorkerModule } from '@angular/service-worker'
 
 export const REQ_KEY = makeStateKey<string>('req')
+export const AUTH_TS_KEY = makeStateKey<string>('auth')
 
 export function authConfiguration(afAuth: AngularFireAuth) {
   return {

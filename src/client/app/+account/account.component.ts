@@ -1,6 +1,8 @@
-import { AuthService } from './../shared/services/auth.service'
+import { Subject } from 'rxjs/Subject'
+import { TransferState } from '@angular/platform-browser'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
+import { AUTH_TS_KEY } from '../app.module'
 
 @Component({
   selector: 'pm-account',
@@ -9,21 +11,13 @@ import { AngularFireAuth } from 'angularfire2/auth'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent {
-  public user$ = this.auth.userIdentity$.share()
+  private userSource = new Subject()
+  public user$ = this.userSource
+    .startWith(this.ts.get(AUTH_TS_KEY, {}))
 
-  constructor(private auth: AuthService, private afAuth: AngularFireAuth) {
-
-    auth.userIdentity$.flatMap(a => this.afAuth.auth.fetchProvidersForEmail(a.email)).subscribe(id => {
-      console.log(id)
-    })
-    this.afAuth.idToken.take(1).subscribe(a => {
-      // a.updatePassword()
-      a.updateEmail('patrickmichalina@icloud.com')
-      // a.updateProfile({
-      //   displayName: 'asdasdasd',
-      //   // tslint:disable-next-line:max-line-length
-      //   photoURL: 'https://somefile.com'
-      // }).then(console.log)
-    })
+  constructor(private afAuth: AngularFireAuth, private ts: TransferState) {
+    const authFromServer = this.ts.get(AUTH_TS_KEY, {})
+    this.userSource.next(authFromServer)
+    this.afAuth.idToken.subscribe(a => this.userSource.next(a))
   }
 }

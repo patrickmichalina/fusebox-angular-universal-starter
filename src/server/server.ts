@@ -64,9 +64,9 @@ app.set('views', root)
 app.use(cookieParser())
 app.use(shrinkRay())
 
-// You can remove the Identity and API servers by deleteing these two lines
+// You can remove the API server by deleteing these two lines
 useApi(app)
-app.set('ignore-routes', ['/api/', '/oidc', '/.well-known'])
+app.set('ignore-routes', ['/api/'])
 
 if (isProd) {
   app.use(minifyHTML({
@@ -106,7 +106,7 @@ app.get('/sitemap.xml', (req: express.Request, res: express.Response) => {
   })
 })
 
-app.get('/*', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.get('**', (req: express.Request, res: express.Response, next: express.NextFunction) => {
   if ((req.app.get('ignore-routes') as string[]).some(a => req.url.includes(a))) return next()
   return res.render('index', {
     req,

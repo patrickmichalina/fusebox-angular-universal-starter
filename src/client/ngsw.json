@@ -8,7 +8,7 @@
       "name": "appshell",
       "resources": {
         "files": [
-          "/**/*.html",
+          "/**/*!(index).html",
           "/**/*.js",
           "/**/*.css",
           "/assets/**/*",
