@@ -49,13 +49,21 @@
     mat-form-field {
       width: 100%;
     }
-    
+  }
+  h1 {
+    margin-top: 0;
+    text-align: center;
+  }
+  #socialNetworkErr {
+    max-width: 300px;
+    margin-bottom: 2em;
   }
 }
 
 mat-icon {
   vertical-align: inherit !important;
 }
+
 mat-action-row {
   justify-content: inherit;
   padding: 8px;

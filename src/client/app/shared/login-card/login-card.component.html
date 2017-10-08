@@ -1,4 +1,8 @@
 <div>
+  <h1>Log in</h1>
+  <mat-error id="socialNetworkErr" *ngIf="socialNetworkErr">
+    {{ socialNetworkErr }}
+  </mat-error>
   <button mat-raised-button (click)="login('facebook')" class="facebook">
     <mat-icon fontSet="fa" fontIcon="fa-facebook-official"></mat-icon>
     <span>Sign in with Facebook</span>
@@ -22,6 +26,10 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <form [formGroup]="form" novalidate>
+      <mat-error *ngIf="form.hasError('network')">
+        {{ form.getError('network') }}
+      </mat-error>
+      <br *ngIf="form.hasError('network')">
       <mat-form-field>
         <input matInput placeholder="Email" formControlName="email">
         <mat-error *ngIf="form.controls.email.hasError('pattern')">
@@ -43,6 +51,7 @@
     <mat-action-row>
       <button mat-button color="accent" (click)="login('email_new')" [disabled]="!form.valid">Signup</button>
       <button mat-button color="primary" (click)="login('email_login')" [disabled]="!form.valid">Sign In</button>
+      <!-- <p>Please check your email for an activation link</p> -->
     </mat-action-row>
   </mat-expansion-panel>
 </div>
