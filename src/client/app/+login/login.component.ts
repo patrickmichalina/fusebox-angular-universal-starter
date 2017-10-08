@@ -1,4 +1,3 @@
-import { AuthService } from './../shared/services/auth.service'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
 import * as firebase from 'firebase/app'
@@ -10,7 +9,7 @@ import * as firebase from 'firebase/app'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
-  constructor(public afAuth: AngularFireAuth, public auth: AuthService) { }
+  constructor(public afAuth: AngularFireAuth) { }
 
   login(provider: string) {
     switch (provider) {
@@ -24,9 +23,5 @@ export class LoginComponent {
         break
       default:
     }
-  }
-
-  logout() {
-    this.afAuth.auth.signOut().then(() => this.auth.logout())
   }
 }

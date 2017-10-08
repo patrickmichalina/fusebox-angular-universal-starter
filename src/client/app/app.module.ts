@@ -14,61 +14,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
 import { AngularFireModule, FirebaseAppConfigToken, FirebaseAppName } from 'angularfire2'
-import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth'
-import { AUTH_CONFIG, AuthService, ITokenSchema, IUserIdentity } from './shared/services/auth.service'
+import { AngularFireAuthModule } from 'angularfire2/auth'
 
 // import { ServiceWorkerModule } from '@angular/service-worker'
 
 export const REQ_KEY = makeStateKey<string>('req')
 export const AUTH_TS_KEY = makeStateKey<string>('auth')
-
-export function authConfiguration(afAuth: AngularFireAuth) {
-  return {
-    authTokenStorageKey: 'auth',
-    cookieDomain: 'localhost',
-    useSecureCookies: false,
-    tokenSchema: {
-      id: 'user_id',
-      name: 'name',
-      email: 'email',
-      email_verified: 'email_verified',
-      roles: 'roles',
-      roleDelimeter: ',',
-      picture: 'picture',
-      adminRoleNames: ['ROLE_ADMIN']
-    },
-    userFactory: (tokenJson: any, schema: ITokenSchema): IUserIdentity => {
-
-      if (!tokenJson) throw new Error('')
-      if (!schema) throw new Error('')
-
-      const roles = tokenJson[schema.roles] as string[] || []
-      const roleSet = new Set<string>()
-
-      Array.isArray(roles)
-        ? roles.forEach(role => roleSet.add(role))
-        : roleSet.add(roles)
-
-      const user: IUserIdentity = {
-        claims: tokenJson,
-        id: tokenJson[schema.id] as string,
-        name: tokenJson[schema.name] as string,
-        email: tokenJson[schema.email] as string,
-        email_verified: tokenJson[schema.email_verified] as boolean,
-        picture: tokenJson[schema.picture] as string,
-        roles: roleSet,
-        isInRole(name: string) {
-          return roleSet.has(name)
-        },
-        isAdmin() {
-          return schema.adminRoleNames.some(role => roleSet.has(role))
-        }
-      }
-
-      return user
-    }
-  }
-}
 
 export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLoader {
   const locale = 'en' // TODO: make this dynamic
@@ -128,7 +79,6 @@ export function initialSettingsLoader(ss: SettingService) {
     })
   ],
   providers: [
-    { provide: AUTH_CONFIG, useFactory: authConfiguration, deps: [AngularFireAuth] },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },
@@ -148,8 +98,7 @@ export function initialSettingsLoader(ss: SettingService) {
       provide: FirebaseAppConfigToken,
       useFactory: firebaseConfigLoader,
       deps: [SettingService]
-    },
-    AuthService
+    }
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

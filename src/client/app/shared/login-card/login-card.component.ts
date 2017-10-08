@@ -33,9 +33,6 @@ export class LoginCardComponent {
         break
       case 'email_login':
         this.afAuth.auth.signInWithEmailAndPassword(this.form.value.email, this.form.value.password)
-          .then(a => {
-
-          })
         break
       default:
     }

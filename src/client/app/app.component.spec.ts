@@ -9,7 +9,6 @@ import { HomeComponent } from './+home/home.component'
 import { AppModule } from './app.module'
 import { SharedModule } from './shared/shared.module'
 import { EnvConfig } from '../../../tools/config/app.config'
-import { SearchComponent } from './+search/search.component'
 import { ENV_CONFIG } from './app.config'
 import { EnvironmentService } from './shared/services/environment.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
@@ -37,8 +36,7 @@ export const TESTING_CONFIG: EnvConfig = {
 describe('App component', () => {
   const config: Array<Route> = [
     { path: '', component: HomeComponent },
-    { path: 'about', component: AboutComponent },
-    { path: 'search', component: SearchComponent }
+    { path: 'about', component: AboutComponent }
   ]
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -51,7 +49,7 @@ describe('App component', () => {
         Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
         MatCardModule
       ],
-      declarations: [TestComponent, HomeComponent, AboutComponent, SearchComponent],
+      declarations: [TestComponent, HomeComponent, AboutComponent],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: ENV_CONFIG, useValue: TESTING_CONFIG },

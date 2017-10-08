@@ -1,9 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginComponent should match snapshot 1`] = `
-<pm-login>
-  Your <strong>
-    login
-  </strong> form goes here!
-</pm-login>
-`;
+exports[`LoginComponent should match snapshot 1`] = `undefined`;

@@ -18,7 +18,7 @@ import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { MaterialModule } from './material.module'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
