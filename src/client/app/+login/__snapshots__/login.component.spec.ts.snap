@@ -14,6 +14,14 @@ exports[`LoginComponent should match snapshot 1`] = `
       <div>
         
     
+        <h1>
+          Log in
+        </h1>
+        
+    
+        
+        
+    
         <button
           class="facebook mat-raised-button"
           mat-raised-button=""
@@ -23,18 +31,26 @@ exports[`LoginComponent should match snapshot 1`] = `
           >
             
       
-            <mat-icon
-              aria-hidden="true"
-              class="mat-icon"
-              fonticon="fa-facebook-official"
-              fontset="fa"
-              role="img"
-            />
-            
+            <div
+              class="social-spacer"
+            >
+              
+        
+              <mat-icon
+                aria-hidden="true"
+                class="mat-icon"
+                fonticon="fa-facebook-official"
+                fontset="fa"
+                role="img"
+              />
+              
+        
+              <span>
+                Sign in with Facebook
+              </span>
+              
       
-            <span>
-              Sign in with Facebook
-            </span>
+            </div>
             
     
           </span>
@@ -57,18 +73,26 @@ exports[`LoginComponent should match snapshot 1`] = `
           >
             
       
-            <mat-icon
-              aria-hidden="true"
-              class="mat-icon"
-              fonticon="fa-google"
-              fontset="fa"
-              role="img"
-            />
-            
+            <div
+              class="social-spacer"
+            >
+              
+        
+              <mat-icon
+                aria-hidden="true"
+                class="mat-icon"
+                fonticon="fa-google"
+                fontset="fa"
+                role="img"
+              />
+              
+        
+              <span>
+                Sign in with Google
+              </span>
+              
       
-            <span>
-              Sign in with Google
-            </span>
+            </div>
             
     
           </span>
@@ -91,18 +115,26 @@ exports[`LoginComponent should match snapshot 1`] = `
           >
             
       
-            <mat-icon
-              aria-hidden="true"
-              class="mat-icon"
-              fonticon="fa-github"
-              fontset="fa"
-              role="img"
-            />
-            
+            <div
+              class="social-spacer"
+            >
+              
+        
+              <mat-icon
+                aria-hidden="true"
+                class="mat-icon"
+                fonticon="fa-github"
+                fontset="fa"
+                role="img"
+              />
+              
+        
+              <span>
+                Sign in with Github
+              </span>
+              
       
-            <span>
-              Sign in with Github
-            </span>
+            </div>
             
     
           </span>
@@ -125,18 +157,26 @@ exports[`LoginComponent should match snapshot 1`] = `
           >
             
       
-            <mat-icon
-              aria-hidden="true"
-              class="mat-icon"
-              fonticon="fa-twitter"
-              fontset="fa"
-              role="img"
-            />
-            
+            <div
+              class="social-spacer"
+            >
+              
+        
+              <mat-icon
+                aria-hidden="true"
+                class="mat-icon"
+                fonticon="fa-twitter"
+                fontset="fa"
+                role="img"
+              />
+              
+        
+              <span>
+                Sign in with Twitter
+              </span>
+              
       
-            <span>
-              Sign in with Twitter
-            </span>
+            </div>
             
     
           </span>
@@ -188,6 +228,12 @@ exports[`LoginComponent should match snapshot 1`] = `
               <form
                 novalidate=""
               >
+                
+        
+                
+                
+        
+                
                 
         
                 <mat-form-field
@@ -332,7 +378,9 @@ exports[`LoginComponent should match snapshot 1`] = `
                 <span
                   class="mat-button-wrapper"
                 >
-                  Sign In
+                  
+  
+          Sign In
                 </span>
                 <div
                   class="mat-button-ripple mat-ripple"
@@ -342,6 +390,8 @@ exports[`LoginComponent should match snapshot 1`] = `
                   class="mat-button-focus-overlay"
                 />
               </button>
+              
+        
               
       
             </mat-action-row>
