@@ -1,5 +1,5 @@
-import { PlatformService } from './../shared/services/platform.service';
-import { CookieService } from './../shared/services/cookie.service';
+import { PlatformService } from './../shared/services/platform.service'
+import { CookieService } from './../shared/services/cookie.service'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
@@ -17,9 +17,7 @@ export class LogoutComponent {
     cs.remove('fbEmail')
     cs.remove('fbDisplayName')
     if (ps.isBrowser) {
-      afAuth.auth.signOut().then(() => {
-
-      })
+      afAuth.auth.signOut()
     }
   }
 }

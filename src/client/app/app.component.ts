@@ -6,13 +6,14 @@ import { Injectable } from '../../server/api/repositories/setting.repository'
 import { HttpClient } from '@angular/common/http'
 import { WebSocketService } from './shared/services/web-socket.service'
 import { ChangeDetectionStrategy, Component, Inject, Renderer2 } from '@angular/core'
-import { DOCUMENT, Meta } from '@angular/platform-browser'
+import { DOCUMENT, Meta, TransferState } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { sha1 } from 'object-hash'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { MatIconRegistry } from '@angular/material'
 import { Router } from '@angular/router'
+// import { AUTH_TS_KEY } from './app.module'
 
 @Component({
   selector: 'pm-app',
@@ -31,14 +32,14 @@ export class AppComponent {
 
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, private afAuth: AngularFireAuth,
-    matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router, cs: CookieService) {
+    matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router, cs: CookieService, ts: TransferState) {
 
     const fbUser$ = this.afAuth.idToken
       .flatMap(a => a ? a.getIdToken() : Observable.of(undefined), (fbUser, jwt) => ({ fbUser, jwt }))
 
     Observable.combineLatest(fbUser$, ss.settings$, (fbUser, settings) => ({ ...fbUser, ...settings }))
       .subscribe(res => {
-        if (res && res.jwt) {
+        if (res.jwt) {
           const jwtHelper = new JwtHelper()
           const expires = jwtHelper.getTokenExpirationDate(res.jwt)
           const claims = jwtHelper.decodeToken(res.jwt)
@@ -52,6 +53,9 @@ export class AppComponent {
             if (res.fbUser.email) cs.set('fbEmail', res.fbUser.email, { expires })
             if (res.fbUser.photoURL) cs.set('fbPhotoURL', res.fbUser.photoURL, { expires })
             if (res.fbUser.phoneNumber) cs.set('fbPhoneNumber', res.fbUser.phoneNumber, { expires })
+            // ts.set(AUTH_TS_KEY, {
+            //   email: res.fbUser.email
+            // })
           }
 
           if (ps.isBrowser) {
@@ -63,6 +67,12 @@ export class AppComponent {
               signInProvider: claims.firebase.sign_in_provider
             })
           }
+        } else {
+          cs.remove('fbJwt')
+          cs.remove('fbPhotoURL')
+          cs.remove('fbProviderId')
+          cs.remove('fbEmail')
+          cs.remove('fbDisplayName')
         }
       })
 
