@@ -1,6 +1,6 @@
-<pm-navbar (onMenuIconClick)="sidenav.open()" *ngIf="user$ | async as user" [user]="user.loggedIn ? user : undefined"></pm-navbar>
+<pm-navbar (onMenuIconClick)="sidenav.toggle()" [user]="user$ | async"></pm-navbar>
 <mat-sidenav-container class="sidenav-container" (pmClickOutside)="sidenav.close()">
-  <mat-sidenav #sidenav class="sidenav">
+  <mat-sidenav #sidenav class="sidenav mat-elevation-z6" mode="over">
     <!-- <pm-user-box *ngIf="user$ | async as user" [imageUrl]="user.picture" [name]="user.name" [isLoggedIn]="user.loggedIn" (onClicked)="sidenav.close()"></pm-user-box> -->
   </mat-sidenav>
   <router-outlet></router-outlet>

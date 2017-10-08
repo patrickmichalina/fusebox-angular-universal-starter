@@ -13,11 +13,7 @@ export class NavbarComponent {
   }
   @Output() onMenuIconClick = new EventEmitter()
   @Output() onClicked = new EventEmitter()
-  @Input() user: {
-    name: string
-    pictureURL: string
-    loggedIn: boolean
-  }
+  @Input() user: any
 
   constructor(public navbarService: NavbarService) { }
 }

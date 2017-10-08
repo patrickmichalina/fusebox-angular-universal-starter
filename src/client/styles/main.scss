@@ -35,8 +35,18 @@ body {
   display: flex;
   justify-content: center;
   margin: 1em;
+  @media only screen and (max-width: 959px) {
+    display: block;
+    margin: 0;
+  }
 }
 
+// TODO remove in future
 .mat-card-header-text {
   width: 100%;
+}
+
+// TODO remove in future
+.mat-form-field.mat-form-field {
+  width: auto;
 }

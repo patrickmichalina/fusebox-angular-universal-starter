@@ -1,4 +1,4 @@
-<nav>
+<nav class="mat-elevation-z6">
   <button mat-icon-button (click)="onMenuIconClick.next()" angulartics2On="click" angularticsEvent="ToggleSideMenu">
     <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
   </button>
@@ -18,7 +18,10 @@
       <button mat-menu-item routerLink="/login">Login</button>
     </div>
     <div *ngIf="user">
-      {{ user.name }}
+      <div id="user-box">
+        <img [src]="user.photoURL" class="avatar">
+        <div>{{ user.email }}</div>
+      </div>
       <button mat-menu-item routerLink="/account">
         <span>Account</span>
       </button>

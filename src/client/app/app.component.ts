@@ -13,7 +13,6 @@ import { sha1 } from 'object-hash'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { MatIconRegistry } from '@angular/material'
 import { Router } from '@angular/router'
-// import { AUTH_TS_KEY } from './app.module'
 
 @Component({
   selector: 'pm-app',
@@ -23,10 +22,10 @@ import { Router } from '@angular/router'
 })
 export class AppComponent {
   public user$ = this.afAuth.idToken.map(user => {
+    if (!user) return undefined
     return {
-      name: user && (user.displayName || user.email),
-      picture: user && user.photoURL,
-      loggedIn: user ? true : false
+      email: user.email,
+      photoURL: user.photoURL
     }
   })
 
@@ -53,9 +52,6 @@ export class AppComponent {
             if (res.fbUser.email) cs.set('fbEmail', res.fbUser.email, { expires })
             if (res.fbUser.photoURL) cs.set('fbPhotoURL', res.fbUser.photoURL, { expires })
             if (res.fbUser.phoneNumber) cs.set('fbPhoneNumber', res.fbUser.phoneNumber, { expires })
-            // ts.set(AUTH_TS_KEY, {
-            //   email: res.fbUser.email
-            // })
           }
 
           if (ps.isBrowser) {
