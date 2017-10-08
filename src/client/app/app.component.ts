@@ -35,7 +35,7 @@ export class AppComponent {
     afAuth.idToken.flatMap(firebaseUser => firebaseUser ? firebaseUser.getIdToken() : Observable.of(undefined)).subscribe(token => {
       if (token) {
         auth.authorize(token)
-        router.navigate(['/'])
+        // router.navigate(['/'])
       } else {
         auth.logout()
       }

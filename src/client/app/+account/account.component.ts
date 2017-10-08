@@ -1,4 +1,4 @@
-import { AuthService } from './../shared/services/auth.service';
+import { AuthService } from './../shared/services/auth.service'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({

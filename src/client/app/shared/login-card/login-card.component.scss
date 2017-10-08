@@ -1,0 +1,48 @@
+:host {
+  mat-card {
+    display: flex;
+    flex-direction: column;
+    button,
+    p {
+      align-self: center;
+      width: 236px;
+      margin-bottom: 1em;
+    }
+  }
+  .facebook {
+    background-color: #4267b2;
+    border-bottom: 1px solid #29487d;
+    color: #fff;
+    &:hover {
+      background-color: #2d4373;
+    }
+  }
+  .google {
+    background-color: #dd4b39;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    color: #fff;
+    &:hover {
+      background-color: #c23321
+    }
+  }
+  .twitter {
+    background-color: #55acee;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    color: #fff;
+    &:hover {
+      background-color: #2795e9;
+    }
+  }
+  .github {
+    background-color: #444;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    color: #fff;
+    &:hover {
+      background-color: #2b2b2b;
+    }
+  }
+}
+
+mat-icon {
+  vertical-align: inherit !important;
+}
