@@ -42,7 +42,7 @@ export class AppComponent {
     })
 
     auth.userIdentity$.subscribe(user => {
-      console.log(user)
+      // console.log(user)
       if (ps.isBrowser && user) {
         analytics.setUsername(user.id)
         analytics.setUserProperties({

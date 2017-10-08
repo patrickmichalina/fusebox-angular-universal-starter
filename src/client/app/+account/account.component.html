@@ -3,7 +3,7 @@
     <mat-card-title>Account</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <img [src]="user.picture" class="avatar">
+    <img *ngIf="user.picture" [src]="user.picture" class="avatar">
     <mat-form-field>
       <input matInput placeholder="Name" [value]="user.name">
     </mat-form-field>
@@ -15,6 +15,9 @@
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Phone" [value]="user.phone">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="New Password" type="password" [value]="user.newPassword">
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Identity Source" [value]="user.claims.firebase.sign_in_provider" disabled>
