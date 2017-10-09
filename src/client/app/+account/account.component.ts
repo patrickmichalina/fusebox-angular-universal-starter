@@ -16,10 +16,23 @@ export class AccountComponent {
   private userSource = new Subject()
   public user$ = this.userSource
     .startWith(this.ts.get(AUTH_TS_KEY, {}))
+    .map(a => {
+      const emailVerified = (a as any).emailVerified
+      return {
+        ...a,
+        emailColor: emailVerified ? 'primary' : 'accent',
+        emailIcon: emailVerified ? 'fa-check-circle' : 'fa-question-circle',
+        emailTooltip: emailVerified ? 'confirmed email' : 'unconfirmed email'
+      }
+    })
 
   constructor(private afAuth: AngularFireAuth, private ts: TransferState) {
     const authFromServer = this.ts.get(AUTH_TS_KEY, {})
     this.userSource.next(authFromServer)
-    this.afAuth.idToken.subscribe(a => this.userSource.next(a))
+    this.afAuth.idToken.subscribe(a => {
+      console.log(a)
+      // emailVerified
+      this.userSource.next(a)
+    })
   }
 }

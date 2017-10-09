@@ -6,4 +6,10 @@
   mat-card {
     min-width: 300px;
   }
+  #update-btn {
+    width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
