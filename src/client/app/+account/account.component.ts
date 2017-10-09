@@ -3,6 +3,8 @@ import { TransferState } from '@angular/platform-browser'
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AUTH_TS_KEY } from '../app.module'
+import { MatSnackBar } from '@angular/material'
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'pm-account',
@@ -26,13 +28,35 @@ export class AccountComponent {
       }
     })
 
-  constructor(private afAuth: AngularFireAuth, private ts: TransferState) {
+  public form = new FormGroup({
+    displayName: new FormControl('', [
+      Validators.required
+    ]),
+    email: new FormControl('', [
+      Validators.required
+    ]),
+    phoneNumber: new FormControl('', [
+      Validators.required
+    ]),
+    newPassword: new FormControl('', [
+      Validators.required
+    ])
+  })
+
+  constructor(private afAuth: AngularFireAuth, private ts: TransferState, private snackBar: MatSnackBar) {
     const authFromServer = this.ts.get(AUTH_TS_KEY, {})
     this.userSource.next(authFromServer)
     this.afAuth.idToken.subscribe(a => {
-      console.log(a)
-      // emailVerified
       this.userSource.next(a)
+    })
+    // this.openSnackBar('asd', 'Dismiss')
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3500,
+      horizontalPosition: 'right',
+      verticalPosition: 'top'
     })
   }
 }

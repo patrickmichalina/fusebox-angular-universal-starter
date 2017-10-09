@@ -1,7 +1,9 @@
 :host {
   mat-card-content {
-    display: flex;
-    flex-direction: column;
+    form {
+      display: flex;
+      flex-direction: column;
+    }
   }
   mat-card {
     min-width: 300px;

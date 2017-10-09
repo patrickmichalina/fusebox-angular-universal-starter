@@ -1,12 +1,35 @@
 <mat-card *ngIf="user$ | async as user">
   <mat-card-content>
     <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
+    <form [formGroup]="form" novalidate>
+      <mat-form-field>
+        <input matInput formControlName="displayName" type="text" placeholder="Name" angulartics2On="focus" angularticsEvent="FocusedOnAccountDisplayNameInput">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="email" type="email" placeholder="Email" angulartics2On="focus" angularticsEvent="FocusedOnAccountEmailInput">
+        <mat-icon matSuffix [matTooltip]="user.emailTooltip" [color]="user.emailColor" fontSet="fa" [fontIcon]="user.emailIcon" angulartics2On="mouseover"
+          angularticsEvent="HoveredOverAccountEmailCheckmarkIcon"></mat-icon>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="phoneNumber" type="text" placeholder="Phone" angulartics2On="focus" angularticsEvent="FocusedOnAccountPhonenumberInput">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="newPassword" type="password" placeholder="New Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
+      </mat-form-field>
+      <button mat-button id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Update</button>
+    </form>
+  </mat-card-content>
+
+
+  <!-- <mat-card-content>
+    <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
     <mat-form-field>
       <input matInput type="text" placeholder="Name" [value]="user.displayName" angulartics2On="focus" angularticsEvent="FocusedOnAccountDisplayNameInput">
     </mat-form-field>
     <mat-form-field>
       <input matInput type="email" placeholder="Email" [value]="user.email" angulartics2On="focus" angularticsEvent="FocusedOnAccountEmailInput">
-      <mat-icon matSuffix [matTooltip]="user.emailTooltip" [color]="user.emailColor" fontSet="fa" [fontIcon]="user.emailIcon" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountEmailCheckmarkIcon"></mat-icon>
+      <mat-icon matSuffix [matTooltip]="user.emailTooltip" [color]="user.emailColor" fontSet="fa" [fontIcon]="user.emailIcon" angulartics2On="mouseover"
+        angularticsEvent="HoveredOverAccountEmailCheckmarkIcon"></mat-icon>
     </mat-form-field>
     <mat-form-field>
       <input matInput type="text" placeholder="Phone" [value]="user.phoneNumber" angulartics2On="focus" angularticsEvent="FocusedOnAccountPhonenumberInput">
@@ -15,5 +38,5 @@
       <input matInput type="password" placeholder="New Password" [value]="user.newPassword" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
     </mat-form-field>
   </mat-card-content>
-  <button mat-button id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Update</button>
+  <button mat-button id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Update</button> -->
 </mat-card>
