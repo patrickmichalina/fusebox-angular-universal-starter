@@ -14,12 +14,12 @@ export const SETTINGS: ISetting = {
   'firebase': {
     'appName': 'fuse-angular-universal-starter',
     'config': {
-      'apiKey': 'AIzaSyC1gmUNs2mtG0K5Yt_Zy14pDve5MG26FQ0',
-      'authDomain': 'fuse-angular-universal-starter.firebaseapp.com',
-      'databaseURL': 'https://fuse-angular-universal-starter.firebaseio.com',
-      'projectId': 'fuse-angular-universal-starter',
-      'storageBucket': '<your-storage-bucket>',
-      'messagingSenderId': '146311846251'
+      'apiKey': 'AIzaSyDfE1owJZCbvasXieCKjMoGZddRhqcp7RM',
+      'authDomain': 'fuse-angular-universal-s-67402.firebaseapp.com',
+      'databaseURL': 'https://fuse-angular-universal-s-67402.firebaseio.com',
+      'projectId': 'fuse-angular-universal-s-67402',
+      'storageBucket': 'fuse-angular-universal-s-67402.appspot.com',
+      'messagingSenderId': '883416191164'
     }
   },
   'tokens': {
