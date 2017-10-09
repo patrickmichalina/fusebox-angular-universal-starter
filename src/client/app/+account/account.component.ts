@@ -1,4 +1,4 @@
-import { PlatformService } from './../shared/services/platform.service';
+import { PlatformService } from './../shared/services/platform.service'
 import { Subject } from 'rxjs/Subject'
 import { TransferState } from '@angular/platform-browser'
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
