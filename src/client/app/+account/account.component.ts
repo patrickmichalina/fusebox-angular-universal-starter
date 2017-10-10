@@ -15,7 +15,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class AccountComponent {
   @HostBinding('class.card-float-container') containerClass = true
-  public form = new FormGroup({
+  public detailForm = new FormGroup({
     displayName: new FormControl('', [
       Validators.required
     ]),
@@ -23,6 +23,12 @@ export class AccountComponent {
       Validators.required
     ]),
     phoneNumber: new FormControl('', [
+      Validators.required
+    ])
+  })
+
+  public passForm = new FormGroup({
+    currentPassword: new FormControl('', [
       Validators.required
     ]),
     newPassword: new FormControl('', [
@@ -50,9 +56,9 @@ export class AccountComponent {
     })
 
     if (ps.isBrowser) {
-      this.form.controls['displayName'].valueChanges.debounceTime(500).subscribe(console.log)
-      this.form.controls['phoneNumber'].valueChanges.debounceTime(500).subscribe(console.log)
-      this.form.controls['email'].valueChanges.debounceTime(500).subscribe(console.log)
+      this.detailForm.controls['displayName'].valueChanges.debounceTime(500).subscribe(console.log)
+      this.detailForm.controls['phoneNumber'].valueChanges.debounceTime(500).subscribe(console.log)
+      this.detailForm.controls['email'].valueChanges.debounceTime(500).subscribe(console.log)
     }
   }
 
