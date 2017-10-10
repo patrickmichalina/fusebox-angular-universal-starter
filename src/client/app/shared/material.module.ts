@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core'
 import {
-  MatButtonModule, MatCardModule, MatExpansionModule, MatFormFieldModule,
-  MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatProgressSpinnerModule,
-  MatSidenavModule, MatSnackBarModule, MatTooltipModule
+  MatButtonModule, MatCardModule, MatExpansionModule, MatExpansionPanel,
+  MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatProgressSpinnerModule, MatSidenavModule, MatSnackBarModule, MatTooltipModule
 } from '@angular/material'
+import { OverlayModule } from '@angular/cdk/overlay'
 
 @NgModule({
   imports: [
@@ -18,8 +19,10 @@ import {
     MatMenuModule,
     MatProgressSpinnerModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    OverlayModule
   ],
+  entryComponents: [MatExpansionPanel],
   exports: [
     MatButtonModule,
     MatCardModule,
@@ -32,7 +35,8 @@ import {
     MatMenuModule,
     MatProgressSpinnerModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    OverlayModule
   ]
 })
 export class MaterialModule { }

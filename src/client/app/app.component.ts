@@ -37,7 +37,8 @@ export class AppComponent {
     if (ps.isBrowser) {
       // this.afAuth.auth.onIdTokenChanged(a => console.log(a), a => console.log(a))
       // this.afAuth.auth.onAuthStateChanged(a => console.log(a), a => console.log(a))
-      this.afAuth.authState.subscribe(console.log)
+      // this.afAuth.authState.subscribe(console.log)
+      this.afAuth.idToken.subscribe(s => console.log('idToken', s))
     }
 
     const fbUser$ = this.afAuth.idToken

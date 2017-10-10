@@ -1,13 +1,13 @@
+import { AUTH_TS_KEY } from '../app.module'
 import { Observable } from 'rxjs/Observable'
-import { PlatformService } from './../shared/services/platform.service'
 import { Subject } from 'rxjs/Subject'
 import { TransferState } from '@angular/platform-browser'
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostBinding, ViewChild, ViewContainerRef } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
-import { AUTH_TS_KEY } from '../app.module'
+import { PlatformService } from './../shared/services/platform.service'
 import { MatSnackBar } from '@angular/material'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-// import * as firebase from 'firebase/app'
+import * as firebase from 'firebase/app'
 
 @Component({
   selector: 'pm-account',
@@ -82,9 +82,7 @@ export class AccountComponent {
         this.us$,
         this.detailForm.controls['email'].valueChanges.debounceTime(2500).distinctUntilChanged(),
         (user, email) => {
-          console.log(user.providerData)
-          // user.
-          // user.reauthenticateWithPopup(firebase.auth.)
+
           return {
             user,
             email
@@ -122,12 +120,17 @@ export class AccountComponent {
   }
 
   updatePassword() {
-    // console.log(this.passForm.value.currentPassword)
-    // this.us$.flatMap(user => user.updatePassword(this.passForm.value.newPassword))
-    //   .take(1)
-    //   .subscribe(user => {
-    //     user
-    //     console.log(user)
-    //   })
+    this.us$.flatMap(user => {
+      const credentials = firebase.auth.EmailAuthProvider.credential(user.email as string, this.passForm.value.currentPassword)
+      return user.reauthenticateWithCredential(credentials)
+    }, (user, res) => user)
+      .flatMap(user => user.updatePassword(this.passForm.value.newPassword))
+      .take(1)
+      .subscribe(
+      () => {
+        this.openSnackBar('password updated')
+      },
+      console.log
+      )
   }
 }

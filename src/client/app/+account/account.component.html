@@ -13,7 +13,7 @@
           Name, email, and phone number
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <form [formGroup]="detailForm" (ngSubmit)="updateDetail()">
+      <form [formGroup]="detailForm" (ngSubmit)="updateDetail()" >
         <mat-form-field>
           <input matInput formControlName="displayName" type="text" placeholder="Name" angulartics2On="focus" angularticsEvent="FocusedOnAccountDisplayNameInput">
         </mat-form-field>
@@ -28,7 +28,7 @@
         <button mat-button type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel [disabled]="test">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Password
@@ -40,11 +40,18 @@
       <form [formGroup]="passForm" (ngSubmit)="updatePassword()">
         <mat-form-field>
           <input matInput formControlName="currentPassword" type="password" placeholder="Current Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
+          <mat-error *ngIf="passForm.controls.currentPassword.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput formControlName="newPassword" type="password" placeholder="New Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
+          <mat-error *ngIf="passForm.controls.newPassword.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
         </mat-form-field>
-        <button mat-button type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
+        <button mat-button [disabled]="passForm.invalid" type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click"
+          angularticsEvent="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
   </mat-accordion>
