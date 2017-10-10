@@ -34,8 +34,15 @@ export class AppComponent {
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, private afAuth: AngularFireAuth,
     matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router, cs: CookieService, ts: TransferState) {
 
+    if (ps.isBrowser) {
+      // this.afAuth.auth.onIdTokenChanged(a => console.log(a), a => console.log(a))
+      // this.afAuth.auth.onAuthStateChanged(a => console.log(a), a => console.log(a))
+      this.afAuth.authState.subscribe(console.log)
+    }
+
     const fbUser$ = this.afAuth.idToken
       .flatMap(a => a ? a.getIdToken() : Observable.of(undefined), (fbUser, jwt) => ({ fbUser, jwt }))
+      .share()
 
     Observable.combineLatest(fbUser$, ss.settings$, (fbUser, settings) => ({ ...fbUser, ...settings }))
       .subscribe(res => {

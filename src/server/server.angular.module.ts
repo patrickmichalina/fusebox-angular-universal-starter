@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import { AppModule, AUTH_TS_KEY, REQ_KEY } from './../client/app/app.module'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
@@ -94,10 +96,13 @@ export class AngularFireServer {
             resolve(jwt)
           })
         },
+        authState: new Subject(),
         ...authData
       })
     } else {
-      this.authSource.next(undefined)
+      this.authSource.next({
+        authState: new Subject()
+      })
     }
   }
 }
