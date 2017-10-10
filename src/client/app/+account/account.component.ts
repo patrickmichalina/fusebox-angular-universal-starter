@@ -69,4 +69,12 @@ export class AccountComponent {
       verticalPosition: 'top'
     })
   }
+
+  updateDetail() {
+    console.log('detail')
+  }
+
+  updatePassword() {
+    console.log('pass')
+  }
 }

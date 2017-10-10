@@ -1,5 +1,8 @@
-<div *ngIf="user$ | async as user">
-  <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
+<div *ngIf="user$ | async as user" class="flex-center">
+  <a class="flex-center">
+    <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
+    <a mat-button>Update Photo</a>
+  </a>
   <mat-accordion class="headers-align">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
@@ -10,8 +13,7 @@
           Name, email, and phone number
         </mat-panel-description>
       </mat-expansion-panel-header>
-
-      <form [formGroup]="detailForm" novalidate>
+      <form [formGroup]="detailForm" (ngSubmit)="updateDetail()">
         <mat-form-field>
           <input matInput formControlName="displayName" type="text" placeholder="Name" angulartics2On="focus" angularticsEvent="FocusedOnAccountDisplayNameInput">
         </mat-form-field>
@@ -23,7 +25,7 @@
         <mat-form-field>
           <input matInput formControlName="phoneNumber" type="text" placeholder="Phone" angulartics2On="focus" angularticsEvent="FocusedOnAccountPhonenumberInput">
         </mat-form-field>
-        <button mat-button color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
+        <button mat-button type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
     <mat-expansion-panel>
@@ -32,46 +34,18 @@
           Password
         </mat-panel-title>
         <mat-panel-description>
-          Update your passwword
+          Update your password
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <form [formGroup]="passForm">
+      <form [formGroup]="passForm" (ngSubmit)="updatePassword()">
         <mat-form-field>
           <input matInput formControlName="currentPassword" type="password" placeholder="Current Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
         </mat-form-field>
         <mat-form-field>
           <input matInput formControlName="newPassword" type="password" placeholder="New Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
         </mat-form-field>
-        <button mat-button color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
+        <button mat-button type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-
-
-
-
-
-<!-- <mat-card *ngIf="user$ | async as user">
-  <mat-card-content>
-    <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
-  </mat-card-content>
-  <mat-card-content>
-    <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
-    <mat-form-field>
-      <input matInput type="text" placeholder="Name" [value]="user.displayName" angulartics2On="focus" angularticsEvent="FocusedOnAccountDisplayNameInput">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="email" placeholder="Email" [value]="user.email" angulartics2On="focus" angularticsEvent="FocusedOnAccountEmailInput">
-      <mat-icon matSuffix [matTooltip]="user.emailTooltip" [color]="user.emailColor" fontSet="fa" [fontIcon]="user.emailIcon" angulartics2On="mouseover"
-        angularticsEvent="HoveredOverAccountEmailCheckmarkIcon"></mat-icon>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="text" placeholder="Phone" [value]="user.phoneNumber" angulartics2On="focus" angularticsEvent="FocusedOnAccountPhonenumberInput">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput type="password" placeholder="New Password" [value]="user.newPassword" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
-    </mat-form-field>
-  </mat-card-content>
-  <button mat-button id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Update</button>
-</mat-card> -->

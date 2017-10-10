@@ -1,11 +1,14 @@
 :host {
-  div {
+  .flex-center {
     display: flex;
     flex-direction: column;
     align-items: center;
+    img {
+      cursor: pointer;
+    }
   }
-  img {
-    margin: 1em;
+  mat-accordion {
+    margin-top: 1em;
   }
   form {
     display: flex;
