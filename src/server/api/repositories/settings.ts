@@ -22,6 +22,9 @@ export const SETTINGS: ISetting = {
       'messagingSenderId': '883416191164'
     }
   },
+  'assets': {
+    'userAvatarImage': 'https://firebasestorage.googleapis.com/v0/b/fuse-angular-universal-s-67402.appspot.com/o/avatar.jpg?alt=media&token=9a153021-6e12-460b-9d87-40c2eed02c82'
+  },
   'tokens': {
     'facebookAppId': '117309532219749'
   },

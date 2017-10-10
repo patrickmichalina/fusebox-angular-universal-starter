@@ -12,6 +12,9 @@ export interface ISetting {
     type: string
     locale: string
   },
+  assets: {
+    userAvatarImage: string
+  }
   tokens: {
     facebookAppId: string
   },

@@ -25,7 +25,10 @@ export class AppComponent {
     if (!user) return undefined
     return {
       email: user.email,
-      photoURL: user.photoURL,
+      photoURL: user.photoURL
+        ? user.photoURL
+        // tslint:disable-next-line:max-line-length
+        : '',
       name: user.displayName
     }
   })
