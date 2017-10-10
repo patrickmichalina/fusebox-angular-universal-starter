@@ -100,9 +100,7 @@ export class AngularFireServer {
         ...authData
       })
     } else {
-      this.authSource.next({
-        authState: new Subject()
-      })
+      this.authSource.next(undefined)
     }
   }
 }

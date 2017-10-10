@@ -7,7 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth'
 import { AUTH_TS_KEY } from '../app.module'
 import { MatSnackBar } from '@angular/material'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import * as firebase from 'firebase/app'
+// import * as firebase from 'firebase/app'
 
 @Component({
   selector: 'pm-account',
