@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, Output } from '@angular/core'
 import { NavbarService } from './navbar.service'
 
+export interface User {
+  photoURL: string
+  email: string
+  name: string
+}
+
 @Component({
   selector: 'pm-navbar',
   templateUrl: './navbar.component.html',
@@ -13,7 +19,7 @@ export class NavbarComponent {
   }
   @Output() onMenuIconClick = new EventEmitter()
   @Output() onClicked = new EventEmitter()
-  @Input() user: any
+  @Input() user: User
 
   constructor(public navbarService: NavbarService) { }
 }

@@ -25,7 +25,8 @@ export class AppComponent {
     if (!user) return undefined
     return {
       email: user.email,
-      photoURL: user.photoURL
+      photoURL: user.photoURL,
+      name: user.displayName
     }
   })
 

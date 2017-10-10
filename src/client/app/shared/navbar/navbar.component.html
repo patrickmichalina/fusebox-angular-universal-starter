@@ -19,7 +19,10 @@
     <div *ngIf="user">
       <div id="user-box">
         <img [src]="user.photoURL" class="avatar">
-        <div>{{ user.email }}</div>
+        <div>
+          <h3>{{ user.name }}</h3>
+          <h4>{{ user.email }}</h4>
+        </div>
       </div>
       <button mat-menu-item routerLink="/account">
         <span>Account</span>
