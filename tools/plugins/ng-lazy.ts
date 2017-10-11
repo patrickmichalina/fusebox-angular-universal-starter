@@ -128,10 +128,10 @@ export class NgLazyPluginClass {
       return `loadChildren: function() { return new Promise(function (resolve, reject) {
           return FuseBox.exists('${modulePath}')
             ? resolve(require('${modulePath}')['${moduleRef}'])
-            : FuseBox.import('${moduleLoaderPath}', (loaded) => 
-              loaded 
+            : FuseBox.import('${moduleLoaderPath}', function (loaded) { 
+              return loaded 
                 ? resolve(require('${modulePath}')['${moduleRef}']) 
-                : reject('failed to load ${moduleRef}'))})}`;
+                : reject('failed to load ${moduleRef}')})})}`;
     });
   }
 }
