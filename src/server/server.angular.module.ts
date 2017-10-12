@@ -1,5 +1,4 @@
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject'
 import { AppModule, AUTH_TS_KEY, REQ_KEY } from './../client/app/app.module'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
