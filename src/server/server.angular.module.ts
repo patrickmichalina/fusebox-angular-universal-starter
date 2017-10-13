@@ -15,7 +15,7 @@ import '../client/operators'
 
 declare var __process_env__: EnvConfig
 
-if (__process_env__.env !== 'prod') enableProdMode()
+if (__process_env__.env !== 'dev') enableProdMode()
 
 export function onBootstrap(appRef: ApplicationRef, transferState: TransferState, req: express.Request) {
   return () => {

@@ -20,11 +20,10 @@ import http = require('http')
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
-const xmlhttprequest = require('xmlhttprequest').XMLHttpRequest
 const xhr2 = require('xhr2')
 
 xhr2.prototype._restrictedHeaders.cookie = false;
-(global as any).XMLHttpRequest = xmlhttprequest
+(global as any).XMLHttpRequest = xhr2
 
 require('ts-node/register')
 
