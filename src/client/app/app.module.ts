@@ -15,11 +15,11 @@ import { SettingService } from './shared/services/setting.service'
 import { AngularFireModule, FirebaseAppConfigToken, FirebaseAppName } from 'angularfire2'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { TransferHttpCacheModule } from '@nguniversal/common'
-
+import { LoginGuard } from './shared/services/guard-login.service'
+import { AuthService, FB_COOKIE_KEY } from './shared/services/auth.service'
 // import { ServiceWorkerModule } from '@angular/service-worker'
 
 export const REQ_KEY = makeStateKey<string>('req')
-export const AUTH_TS_KEY = makeStateKey<string>('auth')
 
 export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLoader {
   const locale = 'en' // TODO: make this dynamic
@@ -76,6 +76,7 @@ export function firebaseAppNameLoader(ss: SettingService) {
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: FB_COOKIE_KEY, useValue: 'fbAuth' },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },
     {
@@ -87,7 +88,9 @@ export function firebaseAppNameLoader(ss: SettingService) {
       provide: FirebaseAppConfigToken,
       useFactory: firebaseConfigLoader,
       deps: [SettingService]
-    }
+    },
+    AuthService,
+    LoginGuard
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject'
-import { AppModule, AUTH_TS_KEY, REQ_KEY } from './../client/app/app.module'
+import { AppModule, REQ_KEY } from './../client/app/app.module'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { APP_BOOTSTRAP_LISTENER, ApplicationRef, enableProdMode, Inject, NgModule } from '@angular/core'
@@ -87,7 +87,6 @@ export class AngularFireServer {
       phoneNumber
     }
 
-    ts.set(AUTH_TS_KEY, authData)
     if (jwt) {
       this.authSource.next({
         getIdToken: () => {

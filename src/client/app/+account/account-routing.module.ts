@@ -2,6 +2,7 @@ import { AccountComponent } from './account.component'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { MetaGuard } from '@ngx-meta/core'
+import { LoginGuard } from '../shared/services/guard-login.service'
 
 @NgModule({
   imports: [
@@ -9,7 +10,7 @@ import { MetaGuard } from '@ngx-meta/core'
       {
         path: '',
         component: AccountComponent,
-        canActivate: [MetaGuard],
+        canActivate: [MetaGuard, LoginGuard],
         data: {
           meta: {
             title: 'i18n.account.title',
