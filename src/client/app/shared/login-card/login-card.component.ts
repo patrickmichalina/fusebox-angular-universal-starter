@@ -1,6 +1,5 @@
+import { AuthService } from './../services/auth.service'
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core'
-import { AngularFireAuth } from 'angularfire2/auth'
-import * as firebase from 'firebase/app'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -12,30 +11,32 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginCardComponent {
-  constructor(public afAuth: AngularFireAuth, private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef, private auth: AuthService) { }
   public socialNetworkErr: string
 
   login(provider: string) {
     switch (provider) {
-      case 'facebook': this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).catch(err => this.socialNetworkError(err))
+      case 'facebook': this.auth.signInWithFacebookPopup().catch(err => this.socialNetworkError(err))
         break
-      case 'google': this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(err => this.socialNetworkError(err))
+      case 'google': this.auth.signInWithGooglePopup().catch(err => this.socialNetworkError(err))
         break
-      case 'github': this.afAuth.auth.signInWithPopup(new firebase.auth.GithubAuthProvider()).catch(err => this.socialNetworkError(err))
+      case 'github': this.auth.signInWithGithubPopup().catch(err => this.socialNetworkError(err))
         break
-      case 'twitter': this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()).catch(err => this.socialNetworkError(err))
+      case 'twitter': this.auth.signInWithTwitterPopup().catch(err => this.socialNetworkError(err))
         break
       case 'email_new':
-        this.afAuth.auth.createUserWithEmailAndPassword(this.form.value.email, this.form.value.password)
-          .then(res => {
+        this.auth.createUserWithEmailAndPassword(this.form.value.email, this.form.value.password)
+          .take(1)
+          .subscribe(res => {
             res.sendEmailVerification()
-          }).catch(err => this.networkError(err))
+          }, err => this.networkError(err))
         break
       case 'email_login':
-        this.afAuth.auth.signInWithEmailAndPassword(this.form.value.email, this.form.value.password).then(res => {
-          console.log(res)
-        })
-          .catch(err => this.networkError(err))
+        this.auth.signInWithEmailAndPassword(this.form.value.email, this.form.value.password)
+          .take(1)
+          .subscribe(res => {
+            console.log(res)
+          }, err => this.networkError(err))
         break
       default:
     }

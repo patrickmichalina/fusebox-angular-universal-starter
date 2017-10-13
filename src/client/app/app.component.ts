@@ -9,7 +9,6 @@ import { DOCUMENT, Meta, TransferState } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { sha1 } from 'object-hash'
-import { AngularFireAuth } from 'angularfire2/auth'
 import { MatIconRegistry } from '@angular/material'
 import { Router } from '@angular/router'
 
@@ -20,34 +19,12 @@ import { Router } from '@angular/router'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  public user$ = this.afAuth.idToken.map(user => {
-    if (!user) return undefined
-    return {
-      email: user.email,
-      photoURL: user.photoURL
-        ? user.photoURL
-        // tslint:disable-next-line:max-line-length
-        : '',
-      name: user.displayName
-    }
-  })
+  public user$ = this.auth.user$
 
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
-    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, private afAuth: AngularFireAuth,
-    matIconRegistry: MatIconRegistry, ps: PlatformService, router: Router, cs: CookieService, ts: TransferState,
-    auth: AuthService) {
-
-    auth.user$.subscribe(console.log)
-
-    // if (ps.isBrowser) {
-    //   analytics.setUsername(res.fbUser.uid)
-    //   analytics.setUserProperties({
-    //     email: res.fbUser.email,
-    //     displayName: res.fbUser.displayName,
-    //     name: claims.name,
-    //     signInProvider: claims.firebase.sign_in_provider
-    //   })
-    // }
+    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,
+    ps: PlatformService, router: Router, cs: CookieService, ts: TransferState,
+    private auth: AuthService) {
 
     matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
 

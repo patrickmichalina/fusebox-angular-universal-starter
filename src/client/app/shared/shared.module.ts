@@ -9,7 +9,7 @@ import { PlatformService } from './services/platform.service'
 import { ModuleWithProviders, NgModule } from '@angular/core'
 import { WebSocketService } from './services/web-socket.service'
 import { LOGGER_CONFIG, LoggingService } from './services/logging.service'
-import { AuthService } from './services/auth.service'
+import { AuthService, FB_COOKIE_KEY } from './services/auth.service'
 import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.service'
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
@@ -80,6 +80,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
+    { provide: FB_COOKIE_KEY, useValue: 'fbAuth' },
     { provide: COOKIE_HOST_WHITELIST, useValue: ['angular.patrickmichalina.com'] },
     {
       provide: LOGGER_CONFIG,

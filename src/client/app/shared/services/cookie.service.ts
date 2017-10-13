@@ -31,8 +31,6 @@ export class CookieService implements ICookieService {
     if (this.platformService.isBrowser) {
       remove(name, options)
       this.updateSource()
-    } else {
-      // TODO: server side cookie handling
     }
   }
 
@@ -40,7 +38,11 @@ export class CookieService implements ICookieService {
     if (this.platformService.isBrowser) {
       return getJSON(name)
     } else {
-      if (this.req) return this.req.cookies[name]
+      try {
+        return JSON.parse(this.req.cookies[name])
+      } catch {
+        return this.req ? this.req.cookies[name] : undefined
+      }
     }
   }
 
