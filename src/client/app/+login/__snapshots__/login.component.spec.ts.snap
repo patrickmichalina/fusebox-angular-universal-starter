@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginComponent should match snapshot 1`] = `
+exports[`LoginComponent should compile 1`] = `
 <pm-login
   afAuth={[Function AngularFireAuth]}
   containerClass={[Function Boolean]}
@@ -23,8 +23,9 @@ exports[`LoginComponent should match snapshot 1`] = `
         
     
         <button
-          class="facebook mat-raised-button"
+          class="mat-raised-button"
           mat-raised-button=""
+          pmsocialbutton="facebook"
         >
           <span
             class="mat-button-wrapper"
@@ -65,8 +66,9 @@ exports[`LoginComponent should match snapshot 1`] = `
         
     
         <button
-          class="google mat-raised-button"
+          class="mat-raised-button"
           mat-raised-button=""
+          pmsocialbutton="google"
         >
           <span
             class="mat-button-wrapper"
@@ -107,8 +109,9 @@ exports[`LoginComponent should match snapshot 1`] = `
         
     
         <button
-          class="github mat-raised-button"
+          class="mat-raised-button"
           mat-raised-button=""
+          pmsocialbutton="github"
         >
           <span
             class="mat-button-wrapper"
@@ -149,8 +152,9 @@ exports[`LoginComponent should match snapshot 1`] = `
         
     
         <button
-          class="twitter mat-raised-button"
+          class="mat-raised-button"
           mat-raised-button=""
+          pmsocialbutton="twitter"
         >
           <span
             class="mat-button-wrapper"

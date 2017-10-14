@@ -1,3 +1,4 @@
+import { AuthService } from './../shared/services/auth.service';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { LoginComponent } from './login.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
@@ -17,7 +18,12 @@ describe(LoginComponent.name, () => {
         'projectId': 'firebase-app',
         'messagingSenderId': '1'
       }), AngularFireAuthModule],
-      declarations: [TestComponent]
+      declarations: [TestComponent],
+      providers: [
+        { provide: AuthService, userValue: {
+
+        }}
+      ]
     }).compileComponents()
   }))
 
@@ -29,12 +35,9 @@ describe(LoginComponent.name, () => {
     TestBed.resetTestingModule()
   }))
 
-  it('should match snapshot', async(() => {
-    expect(fixture).toMatchSnapshot()
-  }))
-
   it('should compile', async(() => {
     expect(fixture.nativeElement).toBeDefined()
+    expect(fixture).toMatchSnapshot()
   }))
 })
 
