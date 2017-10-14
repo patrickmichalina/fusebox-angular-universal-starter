@@ -1,5 +1,6 @@
 import { Sparky } from 'fuse-box'
 import { BUILD_CONFIG, taskName } from '../../config/build.config'
+// tslint:disable-next-line:no-require-imports
 const nrc = require('node-run-cmd')
 
 Sparky.task(taskName(__filename), () => {

@@ -1,7 +1,7 @@
 import { Sparky } from 'fuse-box'
-import { taskName } from '../../config/build.config'
-import { BUILD_CONFIG } from '../../config/build.config'
+import { BUILD_CONFIG, taskName } from '../../config/build.config'
 import { createWriteStream } from 'fs'
+// tslint:disable-next-line:no-require-imports
 const conventionalChangelog = require('conventional-changelog')
 
 Sparky.task(taskName(__filename), () => {
