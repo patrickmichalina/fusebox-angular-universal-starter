@@ -95,6 +95,14 @@ export const SETTINGS: ISetting = {
         'title': 'About',
         'description': 'See contact information and details about the Angular Universal seed at angular.patrickmichalina.com'
       },
+      'account': {
+        'title': 'Account',
+        'description': 'Update your profile and account settings'
+      },
+      'dashboard': {
+        'title': 'Dashboard',
+        'description': 'An example dashboard page'
+      },
       'admin': {
         'title': 'Admin',
         'description': 'For application management'

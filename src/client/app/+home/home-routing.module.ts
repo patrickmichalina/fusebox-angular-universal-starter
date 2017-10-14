@@ -14,6 +14,16 @@ import { MetaGuard } from '@ngx-meta/core'
           meta: {
             title: 'i18n.home.title',
             description: 'i18n.home.description'
+          },
+          response: {
+            cache: {
+              directive: 'public',
+              maxage: '7d',
+              smaxage: '7d'
+            },
+            headers: {
+              'X-Cool-Tag': 'some-value'
+            }
           }
         }
       }
