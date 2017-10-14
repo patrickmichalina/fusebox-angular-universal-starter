@@ -1,5 +1,5 @@
+import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
-import { ErrorHandler, NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module'
@@ -8,7 +8,8 @@ import { NotFoundModule } from './not-found/not-found.module'
 import { BrowserModule, makeStateKey } from '@angular/platform-browser'
 import { EnvironmentService } from './shared/services/environment.service'
 import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
-import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
+import { ErrorHandler, NgModule } from '@angular/core'
+import { CACHE_TAG_CONFIG, HttpCacheTagInterceptor } from './shared/services/http-cache-tag-interceptor.service'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
@@ -76,9 +77,17 @@ export function firebaseAppNameLoader(ss: SettingService) {
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: FB_COOKIE_KEY, useValue: 'fbAuth' },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpCacheTagInterceptor, multi: true },
+    { provide: FB_COOKIE_KEY, useValue: 'fbAuth' },
+    {
+      provide: CACHE_TAG_CONFIG,
+      useValue: {
+        headerKey: 'Cache-Tag',
+        cacheableResponseCodes: [200]
+      }
+    },
     {
       provide: FirebaseAppName,
       useFactory: firebaseAppNameLoader,
