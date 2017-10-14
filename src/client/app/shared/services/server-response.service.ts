@@ -14,11 +14,10 @@ export interface IServerResponseService {
 
 @Injectable()
 export class ServerResponseService implements IServerResponseService {
-
   private response: Response
 
-  constructor(@Optional() @Inject(RESPONSE) res: any) {
-    this.response = res
+  constructor( @Optional() @Inject(RESPONSE) response: any) {
+    this.response = response
   }
 
   getHeader(key: string): string {

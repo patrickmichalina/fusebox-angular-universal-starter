@@ -7,6 +7,7 @@ const mock = () => {
     clear: () => storage = {},
   };
 };
+// Object.defineProperty(window, 'Hammer', { value: {} });
 Object.defineProperty(window, 'CSS', { value: mock() });
 Object.defineProperty(window, 'matchMedia', { value: jest.fn(() => ({ matches: true }))});
 Object.defineProperty(window, 'localStorage', { value: mock() });
@@ -19,3 +20,6 @@ Object.defineProperty(window, 'getComputedStyle', {
     };
   }
 });
+
+// For Angular Material
+(window as any).Hammer = {}
