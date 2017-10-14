@@ -56,7 +56,7 @@ describe(HttpCacheTagInterceptor.name, () => {
           }
         }
       ]
-    }).compileComponents()
+    })
   }))
 
   beforeEach(() => {

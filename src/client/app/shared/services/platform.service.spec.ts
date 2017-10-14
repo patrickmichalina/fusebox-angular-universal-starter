@@ -12,7 +12,7 @@ describe(PlatformService.name, () => {
           PlatformService,
           { provide: PLATFORM_ID, useValue: 'browser' }
         ]
-      }).compileComponents()
+      })
     }))
 
     beforeEach(async(() => {
@@ -40,7 +40,7 @@ describe(PlatformService.name, () => {
           PlatformService,
           { provide: PLATFORM_ID, useValue: 'server' }
         ]
-      }).compileComponents()
+      })
     }))
 
     beforeEach(async(() => {

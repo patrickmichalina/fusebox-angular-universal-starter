@@ -1,11 +1,12 @@
-import { Sparky } from 'fuse-box';
-import { readFile, writeFile } from 'fs';
-import { sync as mkdirp } from 'mkdirp';
-import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, taskName } from '../../config/build.config';
+import { Sparky } from 'fuse-box'
+import { readFile, writeFile } from 'fs'
+import { sync as mkdirp } from 'mkdirp'
+import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, taskName } from '../../config/build.config'
 
-const favicons = require('favicons');
-const jsdom = require('jsdom');
-const { JSDOM } = jsdom;
+// tslint:disable:no-require-imports
+const favicons = require('favicons')
+const jsdom = require('jsdom')
+const { JSDOM } = jsdom
 
 Sparky.task(taskName(__filename), () => {
   return new Promise((resolve, reject) => {
@@ -16,50 +17,50 @@ Sparky.task(taskName(__filename), () => {
     }, (error: any, response: any) => {
       if (error) {
         // tslint:disable:no-console
-        console.log(error.status);
-        console.log(error.name);
-        console.log(error.message);
+        console.log(error.status)
+        console.log(error.name)
+        console.log(error.message)
 
-        return;
+        return
       }
 
       const htmlHeadBlock = (response.html as Array<string>).reduce((prev, curr) => {
-        return `${prev}\n${curr}`;
-      });
+        return `${prev}\n${curr}`
+      })
 
-      mkdirp(`./${BUILD_CONFIG.outputDir}/assets/favicons`);
+      mkdirp(`./${BUILD_CONFIG.outputDir}/assets/favicons`)
 
       const imagePromises = (response.images as Array<{ name: string, contents: Buffer }>).map(image =>
-        new Promise((resolve, reject) => {
+        new Promise((resolve1, reject1) => {
           return writeFile(`./${BUILD_CONFIG.outputDir}/assets/favicons/${image.name}`, image.contents, (err: any) => {
-            if (err) reject(err);
+            if (err) reject1(err)
 
-            return resolve(image.contents);
-          });
-        }));
+            return resolve1(image.contents)
+          })
+        }))
 
       const filePromises = (response.files as Array<{ name: string, contents: string }>).map(file =>
-        new Promise((resolve, reject) => {
+        new Promise((resolve2, reject2) => {
           writeFile(`./dist/${file.name}`, file.contents, (err: any) => {
-            if (err) reject(err);
+            if (err) reject2(err)
 
-            return resolve(file.contents);
-          });
-        }));
+            return resolve2(file.contents)
+          })
+        }))
 
       return Promise.all<any>([...imagePromises, ...filePromises]).then(() => {
-        const filePath = `./${BUILD_CONFIG.outputDir}/index.html`;
+        const filePath = `./${BUILD_CONFIG.outputDir}/index.html`
         readFile(filePath, 'utf-8', (err, data) => {
-          if (err) return reject(err);
+          if (err) return reject(err)
           const dom = new JSDOM(data);
-          (dom.window.document.head as HTMLHeadElement).innerHTML = `${dom.window.document.head.innerHTML}\n${htmlHeadBlock}`;
+          (dom.window.document.head as HTMLHeadElement).innerHTML = `${dom.window.document.head.innerHTML}\n${htmlHeadBlock}`
           writeFile(filePath, dom.serialize(), { encoding: 'utf-8' }, writeErr => {
-            if (writeErr) return reject(writeErr);
+            if (writeErr) return reject(writeErr)
 
-            return resolve();
-          });
-        });
-      });
-    });
-  });
-});
+            return resolve()
+          })
+        })
+      })
+    })
+  })
+})

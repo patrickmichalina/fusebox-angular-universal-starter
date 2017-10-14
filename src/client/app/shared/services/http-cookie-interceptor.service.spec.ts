@@ -36,7 +36,7 @@ describe(HttpCookieInterceptor.name, () => {
             }
           }
         ]
-      }).compileComponents()
+      })
     }))
 
     beforeEach(() => {

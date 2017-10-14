@@ -1,7 +1,7 @@
-import { BuildConfiguration } from './build.interfaces';
-import { argv } from 'yargs';
-import { EnvConfig } from '../config/app.config';
-import { basename } from 'path';
+import { BuildConfiguration } from './build.interfaces'
+import { argv } from 'yargs'
+import { EnvConfig } from '../config/app.config'
+import { basename } from 'path'
 import { OVERRIDES } from './build.ci.replace'
 
 export const BUILD_CONFIG: BuildConfiguration = {
@@ -28,31 +28,32 @@ export const BUILD_CONFIG: BuildConfiguration = {
       }
     }
   ]
-};
+}
 
-let envConfig;
-let selectedEnv = argv['env-config'] || 'dev';
-let selectedBuildType = argv['build-type'] || 'dev';
+let envConfig
+const selectedEnv = argv['env-config'] || 'dev'
+const selectedBuildType = argv['build-type'] || 'dev'
 
+// tslint:disable:no-require-imports
 try {
-  envConfig = require(`../env/${selectedEnv}`);
+  envConfig = require(`../env/${selectedEnv}`)
 } catch (err) {
-  throw new Error(`Unable to find environment configuration for '${selectedEnv}' `);
+  throw new Error(`Unable to find environment configuration for '${selectedEnv}' `)
 }
 
 const TypeHelper = require('fuse-box-typechecker').TypeHelper
 
-export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '');
-export const ENV_CONFIG_INSTANCE = { ...envConfig, ...OVERRIDES } as EnvConfig;
-export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined;
-export const cachebuster = Math.round(new Date().getTime() / 1000);
+export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '')
+export const ENV_CONFIG_INSTANCE = { ...envConfig, ...OVERRIDES } as EnvConfig
+export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined
+export const cachebuster = Math.round(new Date().getTime() / 1000)
 export const isBuildServer: boolean = argv.ci
 export const isAot: boolean = argv.aot
 export const isProdBuild =
   selectedBuildType === 'prod' ||
   selectedBuildType === 'production' ||
   process.env.NODE_ENV === 'prod' ||
-  process.env.NODE_ENV === 'production';
+  process.env.NODE_ENV === 'production'
 
 export const typeHelper = (sync = true, throwOnTsLint = true) => {
   const _runner = TypeHelper({

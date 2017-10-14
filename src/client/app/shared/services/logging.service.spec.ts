@@ -20,7 +20,7 @@ describe(LoggingService.name, () => {
             }
           }
         ]
-      }).compileComponents()
+      })
     }))
 
     beforeEach(async(() => {

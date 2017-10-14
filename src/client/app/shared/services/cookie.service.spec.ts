@@ -13,7 +13,7 @@ describe(CookieService.name, () => {
         PlatformService,
         { provide: REQUEST, useValue: {} }
       ]
-    }).compileComponents()
+    })
   }))
 
   beforeEach(() => {

@@ -22,7 +22,7 @@ describe(HttpConfigInterceptor.name, () => {
         { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
         { provide: EnvironmentService, useValue: new MockEnvironmentService() }
       ]
-    }).compileComponents()
+    })
   }))
 
   beforeEach(() => {

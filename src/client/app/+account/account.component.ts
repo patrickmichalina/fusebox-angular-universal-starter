@@ -1,4 +1,3 @@
-import { ServerResponseService } from './../shared/services/server-response.service'
 import { AuthService } from './../shared/services/auth.service'
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
 import { PlatformService } from './../shared/services/platform.service'
@@ -51,8 +50,7 @@ export class AccountComponent {
   //     }
   //   })
 
-  constructor(private auth: AuthService, private snackBar: MatSnackBar, ps: PlatformService, srs: ServerResponseService) {
-    srs.setPrivateCache()
+  constructor(private auth: AuthService, private snackBar: MatSnackBar, ps: PlatformService) {
     // if (ps.isBrowser) {
     //   Observable.combineLatest(
     //     this.us$,

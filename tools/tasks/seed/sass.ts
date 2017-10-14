@@ -1,22 +1,22 @@
-import { Sparky } from 'fuse-box';
-import { isProdBuild, isBuildServer } from '../../config/build.config';
-import { renderSync } from 'node-sass';
-import { writeFileSync, unlinkSync } from 'fs';
-import { sync as mkdirp } from 'mkdirp';
-import { taskName } from '../../config/build.config';
-import hash = require('string-hash');
-import { sync as glob } from 'glob';
+import { Sparky } from 'fuse-box'
+import { isBuildServer, isProdBuild, taskName } from '../../config/build.config'
+import { renderSync } from 'node-sass'
+import { unlinkSync, writeFileSync } from 'fs'
+import { sync as mkdirp } from 'mkdirp'
+import { sync as glob } from 'glob'
+// tslint:disable-next-line:no-require-imports
+import hash = require('string-hash')
 // import { ConfigurationTransformer } from '../../plugins/web-index';
 
 Sparky.task(taskName(__filename), () => {
-  let src;
-  mkdirp('./dist/css');
+  let src
+  mkdirp('./dist/css')
 
   const sass = () => {
     const result = renderSync({
       file: './src/client/styles/main.scss',
       outputStyle: 'compressed'
-    });
+    })
     const hashed = hash(result.css.toString())
 
     return {
@@ -27,10 +27,10 @@ Sparky.task(taskName(__filename), () => {
 
   const process = () => {
     const _sass = sass()
-    const name = `main.css`
+    const name = 'main.css'
 
     glob('./dist/css/main-*').forEach(file => unlinkSync(file))
-    writeFileSync(`./dist/css/${name}`, _sass.css);
+    writeFileSync(`./dist/css/${name}`, _sass.css)
 
     // const indexPath = './dist/index.html'
     // const index = readFileSync(indexPath)
@@ -48,11 +48,9 @@ Sparky.task(taskName(__filename), () => {
     // writeFileSync(indexPath, html);
   }
 
-  if (isProdBuild || isBuildServer) {
-    src = Sparky.src('src/client/styles/**/**/*.scss').file('main.scss', () => process());
-  } else {
-    src = Sparky.watch('src/client/styles/**/**/*.scss').file('main.scss', () => process());
-  }
+  src = isProdBuild || isBuildServer
+    ? Sparky.src('src/client/styles/**/**/*.scss').file('main.scss', () => process())
+    : Sparky.watch('src/client/styles/**/**/*.scss').file('main.scss', () => process())
 
-  return src;
-});
+  return src
+})

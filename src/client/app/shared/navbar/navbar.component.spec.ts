@@ -34,13 +34,13 @@ describe(NavbarComponent.name, () => {
     expect(fixture.nativeElement).toMatchSnapshot()
   }))
 
-  test.skip('should contain a list of links', async(() => {
+  it('should contain a list of links', async(() => {
     fixture.detectChanges()
     const buttonLinks = fixture.debugElement.queryAll(By.directive(MatRipple))
     expect(buttonLinks).toBeDefined()
 
     navbarService.menu$.subscribe(items => {
-      expect(buttonLinks.length).toEqual(items.length + 3)
+      expect(buttonLinks.length).toEqual(items.length + 4)
     })
     expect(fixture.nativeElement).toMatchSnapshot()
   }))

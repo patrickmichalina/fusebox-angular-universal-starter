@@ -1,5 +1,5 @@
-import { Sparky } from 'fuse-box';
-import { taskName, isProdBuild, BUILD_CONFIG, isAot } from '../../config/build.config';
+import { Sparky } from 'fuse-box'
+import { BUILD_CONFIG, isAot, isProdBuild, taskName } from '../../config/build.config'
 
 Sparky.task(taskName(__filename), () => {
   return Sparky.start('clean')
@@ -15,5 +15,5 @@ Sparky.task(taskName(__filename), () => {
     .then(() => Sparky.start('sass'))
     .then(() => Sparky.start('ngsw'))
     .then(() => Sparky.start('index.minify'))
-    .then(() => Sparky.start('banner'));
-});
+    .then(() => Sparky.start('banner'))
+})

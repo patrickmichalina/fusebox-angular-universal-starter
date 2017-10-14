@@ -15,6 +15,11 @@ import { LoginGuard } from '../shared/services/guard-login.service'
           meta: {
             title: 'i18n.account.title',
             description: 'i18n.account.description'
+          },
+          response: {
+            cache: {
+              directive: 'private'
+            }
           }
         }
       }
