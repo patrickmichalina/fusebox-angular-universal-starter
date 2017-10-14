@@ -26,7 +26,7 @@ describe(GlobalErrorHandler.name, () => {
           }
         }
       ]
-    }).compileComponents()
+    })
   }))
 
   beforeEach(async(() => {

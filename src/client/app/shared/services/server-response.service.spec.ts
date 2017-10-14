@@ -12,7 +12,7 @@ describe(ServerResponseService.name, () => {
         ServerResponseService,
         { provide: RESPONSE, useValue: new MockResponse() }
       ]
-    }).compileComponents()
+    })
   }))
 
   beforeEach(() => {

@@ -11,7 +11,7 @@ describe(EnvironmentService.name, () => {
         EnvironmentService,
         { provide: ENV_CONFIG, useValue: { someValue: 1 } }
       ]
-    }).compileComponents()
+    })
   }))
 
   beforeEach(() => {
