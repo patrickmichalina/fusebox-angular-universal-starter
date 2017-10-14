@@ -12,7 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class AccountComponent {
   @HostBinding('class.card-float-container') containerClass = true
-  private DEBOUNCE_TIME = 750
+  // private DEBOUNCE_TIME = 750
 
   public detailForm = new FormGroup({
     displayName: new FormControl('', [

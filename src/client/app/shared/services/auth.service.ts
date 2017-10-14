@@ -60,13 +60,8 @@ export class AuthService implements IAuthService {
 
   constructor(private cs: CookieService, private fbAuth: AngularFireAuth, ss: SettingService, ps: PlatformService,
     @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string) {
-      this.user$.subscribe(console.log)
     this.viaCookies$.subscribe(a => this.userSource.next(a))
-      // this.fbUser$.subscribe(a => {
-      //   if (a.fbUser) {
-      //     a.fbUser.
-      //   }
-      // })
+
     if (ps.isServer) return
 
     Observable.combineLatest(this.fbUser$, ss.settings$, (fbUser, settings) => ({ ...fbUser, ...settings }))
@@ -75,11 +70,7 @@ export class AuthService implements IAuthService {
           this.logout()
           return
         }
-        
-        if (res.fbUser) {
-          // res.fbUser.providerData.map(a => a.providerId)
-          console.log(res.fbUser.providerData)
-        }
+
         const expires = this.jwtHelper.getTokenExpirationDate(res.idToken)
 
         // once firebase auth supports native universal data exhange,
@@ -92,7 +83,7 @@ export class AuthService implements IAuthService {
             email: res.fbUser.email,
             photoURL: res.fbUser.photoURL ? res.fbUser.photoURL : res.assets.userAvatarImage,
             phoneNumber: res.fbUser.phoneNumber,
-            providers: ((res.fbUser && res.fbUser.providerData) || []).map(a => a.providerId)
+            providers: ((res.fbUser && res.fbUser.providerData) || []).map(a => a && a.providerId)
           }, { expires })
         }
       })

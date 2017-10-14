@@ -1,4 +1,5 @@
 <div *ngIf="user$ | async as user" class="flex-center">
+  <h2>{{ user.displayName }}</h2>
   <a class="flex-center">
     <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
     <a mat-button>Update Photo</a>
@@ -30,20 +31,40 @@
         <button mat-button type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
-    <mat-expansion-panel>
+    <mat-expansion-panel disabled=true>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Social Logins
+          Social Login
         </mat-panel-title>
         <mat-panel-description>
           manage your accounts
         </mat-panel-description>
       </mat-expansion-panel-header>
       <section class="demo-section">
-        <button mat-button>Link Facebook</button>
-        <button mat-button>Link Google</button>
-        <button mat-button>Link Twitter</button>
-        <button mat-button>Link Github</button>
+        <button mat-button pmSocialButton="facebook">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-facebook-official"></mat-icon>
+            <span>Link Facebook</span>
+          </div>
+        </button>
+        <button mat-button pmSocialButton="google">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon>
+            <span>Link Google</span>
+          </div>
+        </button>
+        <button mat-button pmSocialButton="twitter">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-twitter"></mat-icon>
+            <span>Link Twitter</span>
+          </div>
+        </button>
+        <button mat-button pmSocialButton="github">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-github"></mat-icon>
+            <span>Link Github</span>
+          </div>
+        </button>
       </section>
     </mat-expansion-panel>
     <mat-expansion-panel [disabled]="test">

@@ -3,25 +3,25 @@
   <mat-error id="socialNetworkErr" *ngIf="socialNetworkErr">
     {{ socialNetworkErr }}
   </mat-error>
-  <button mat-raised-button (click)="login('facebook')" class="facebook">
+  <button mat-raised-button (click)="login('facebook')" pmSocialButton="facebook">
     <div class="social-spacer">
       <mat-icon fontSet="fa" fontIcon="fa-facebook-official"></mat-icon>
       <span>Sign in with Facebook</span>
     </div>
   </button>
-  <button mat-raised-button (click)="login('google')" class="google">
+  <button mat-raised-button (click)="login('google')" pmSocialButton="google">
     <div class="social-spacer">
       <mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon>
       <span>Sign in with Google</span>
     </div>
   </button>
-  <button mat-raised-button (click)="login('github')" class="github">
+  <button mat-raised-button (click)="login('github')" pmSocialButton="github">
     <div class="social-spacer">
       <mat-icon fontSet="fa" fontIcon="fa-github"></mat-icon>
       <span>Sign in with Github</span>
     </div>
   </button>
-  <button mat-raised-button (click)="login('twitter')" class="twitter">
+  <button mat-raised-button (click)="login('twitter')" pmSocialButton="twitter">
     <div class="social-spacer">
       <mat-icon fontSet="fa" fontIcon="fa-twitter"></mat-icon>
       <span>Sign in with Twitter</span>

@@ -17,11 +17,10 @@ A live example [can be found here](https://angular.patrickmichalina.com)
 This seed project is designed to get some of the best techniques running on your new fullstack Node/Angular project right away. It is not shy about being overly opinionted or more "complicated" than similiar projects. Some of the more imporant goals are:
 
 - [x] Provide a project with very fast feedback loops so developers can code, test, and integrate quickly.
+- [x] Provide common performance optimizations to deploy a fast, lean applications from day one.
 - [ ] Fully tested and ready to customize
 - [ ] As reactive and immutable as possible
-- [x] Provide common performance optimizations to deploy a fast, lean applications from day one.
 - [ ] Provide all boilerplate services, routes, and components that are almost always used in medium to large web applications.
-- [ ] Provide an OpenID Identity Server for managing user authentication
 - [x] Provide an [API](/docs/api-server.md) with some common endpoints
 
 # Features

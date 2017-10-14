@@ -15,6 +15,7 @@ import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { MaterialModule } from './material.module'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
+import { SocialButtonDirective } from './directives/social-button.directive'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 import { ReactiveFormsModule } from '@angular/forms'
 
@@ -68,6 +69,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     Angulartics2Module,
     MaterialModule,
     ClickOutsideDirective,
+    SocialButtonDirective,
     LoginCardComponent,
     ReactiveFormsModule,
     // FlexLayoutModule,
@@ -76,6 +78,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
   declarations: [
     NavbarComponent,
     ClickOutsideDirective,
+    SocialButtonDirective,
     LoginCardComponent
   ],
   providers: [
