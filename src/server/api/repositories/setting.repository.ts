@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable'
 import { Service } from 'typedi'
 import { SETTINGS } from './settings'
+import { FirebaseAppConfig } from 'angularfire2'
 
 export interface ISetting {
   host: string
@@ -11,12 +12,19 @@ export interface ISetting {
     type: string
     locale: string
   },
+  assets: {
+    userAvatarImage: string
+  }
   tokens: {
     facebookAppId: string
   },
   injections: Injectable[],
   i18n: {
     [key: string]: any
+  },
+  firebase: {
+    appName: string
+    config: FirebaseAppConfig
   }
 }
 

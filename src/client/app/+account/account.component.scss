@@ -1,0 +1,40 @@
+:host {
+  .flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img {
+      cursor: pointer;
+    }
+  }
+  mat-accordion {
+    margin-top: 1em;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  #update-btn {
+    width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .headers-align .mat-expansion-panel-header-title,
+  .headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  .headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .avatar {
+    height: 95px;
+    width: 95px;
+  }
+  .social-spacer {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+}

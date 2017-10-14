@@ -1,19 +1,22 @@
-import { EnvironmentService } from './shared/services/environment.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
+import { ErrorHandler, NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module'
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core'
 import { NotFoundModule } from './not-found/not-found.module'
 import { BrowserModule, makeStateKey } from '@angular/platform-browser'
-import { ErrorHandler, NgModule } from '@angular/core'
+import { EnvironmentService } from './shared/services/environment.service'
 import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
 import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
+import { AngularFireModule, FirebaseAppConfigToken, FirebaseAppName } from 'angularfire2'
+import { AngularFireAuthModule } from 'angularfire2/auth'
 import { TransferHttpCacheModule } from '@nguniversal/common'
-
+import { LoginGuard } from './shared/services/guard-login.service'
+import { AuthService, FB_COOKIE_KEY } from './shared/services/auth.service'
 // import { ServiceWorkerModule } from '@angular/service-worker'
 
 export const REQ_KEY = makeStateKey<string>('req')
@@ -45,16 +48,26 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
   })
 }
 
+export function firebaseConfigLoader(ss: SettingService) {
+  return ss.initialSettings.firebase.config
+}
+
+export function firebaseAppNameLoader(ss: SettingService) {
+  return ss.initialSettings.firebase.appName
+}
+
 @NgModule({
   imports: [
     HttpClientModule,
     AppRoutingModule,
     NotFoundModule,
+    AngularFireModule,
+    AngularFireAuthModule,
     TransferHttpCacheModule,
-    BrowserModule.withServerTransition({ appId: 'pm-app' }),
     SharedModule.forRoot(),
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
     // ServiceWorkerModule.register('/ngsw-worker.js'), // TODO: this is broken in JIT
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+    BrowserModule.withServerTransition({ appId: 'pm-app' }),
     MetaModule.forRoot({
       provide: MetaLoader,
       useFactory: (metaFactory),
@@ -63,8 +76,21 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: FB_COOKIE_KEY, useValue: 'fbAuth' },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },
+    {
+      provide: FirebaseAppName,
+      useFactory: firebaseAppNameLoader,
+      deps: [SettingService]
+    },
+    {
+      provide: FirebaseAppConfigToken,
+      useFactory: firebaseConfigLoader,
+      deps: [SettingService]
+    },
+    AuthService,
+    LoginGuard
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

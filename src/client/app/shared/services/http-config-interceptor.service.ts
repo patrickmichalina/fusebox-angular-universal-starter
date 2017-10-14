@@ -9,7 +9,6 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   constructor(private env: EnvironmentService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     // handles absolute http requests
     if (req.url.includes('http')) return next.handle(req)
 

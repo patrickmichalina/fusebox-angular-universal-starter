@@ -1,19 +1,24 @@
+import { SettingService } from './services/setting.service'
 import { EnvironmentService } from './services/environment.service'
-import { ModuleWithProviders, NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { NavbarComponent } from './navbar/navbar.component'
+import { LoginCardComponent } from './login-card/login-card.component'
 import { CookieService } from './services/cookie.service'
 import { CommonModule } from '@angular/common'
 import { PlatformService } from './services/platform.service'
-import { SettingService } from './services/setting.service'
+import { ModuleWithProviders, NgModule } from '@angular/core'
 import { WebSocketService } from './services/web-socket.service'
 import { LOGGER_CONFIG, LoggingService } from './services/logging.service'
 import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.service'
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
-import { MatButtonModule, MatCardModule, MatIconModule } from '@angular/material'
+import { MaterialModule } from './material.module'
+import { ClickOutsideDirective } from './directives/click-outside.directive'
+import { SocialButtonDirective } from './directives/social-button.directive'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
+import { ReactiveFormsModule } from '@angular/forms'
+
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
@@ -51,9 +56,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
   imports: [
     CommonModule,
     RouterModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
+    MaterialModule,
+    ReactiveFormsModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
@@ -63,14 +67,19 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     RouterModule,
     NavbarComponent,
     Angulartics2Module,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
+    MaterialModule,
+    ClickOutsideDirective,
+    SocialButtonDirective,
+    LoginCardComponent,
+    ReactiveFormsModule,
     // FlexLayoutModule,
     MarkdownToHtmlModule
   ],
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    ClickOutsideDirective,
+    SocialButtonDirective,
+    LoginCardComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },

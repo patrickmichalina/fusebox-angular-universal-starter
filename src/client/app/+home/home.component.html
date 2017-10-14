@@ -1,57 +1,88 @@
-<h1 class="display-3">Hello, Angular Developer!</h1>
-<p class="lead">Welcome to a blazing fast Angular Universal development starter</p>
-<a mat-raised-button color="primary" href="https://github.com/patrickmichalina/fusebox-angular-universal-starter" role="button"
-  angulartics2On="click" angularticsEvent="ViewRepo">
-  <mat-icon class="fa fa-github" aria-hidden="true"></mat-icon> Github</a>
-<mat-tab-group>
-  <mat-tab label="Developer Experience">
-    <ul>
-      <li><a href="https://github.com/angular/angular/blob/master/CHANGELOG.md" target="_blank" rel="noopener">Angular 5</a> as the application
-        framework
-      </li>
-      <li><a href="https://material.angular.io" target="_blank" rel="noopener">Angular Material 2</a> as the UI language and component library</li>
-      <li><a href="https://github.com/angular/flex-layout">Angular Flex Layout</a> for dynamic responsive layouts
-        <li>Fully typed build tools and application using <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript</a></li>
-        <li>Manage your type definitions using @types (easier than using <a href="https://github.com/typings/typings">typings</a>)</li>
-        <li>Automatic sitemap generation</li>
-        <li><a href="https://mobile.angular.io" target="_blank" rel="noopener">SCSS</a> support for professional grade CSS management</li>
-        <li>Full favicon icon generation for multiple devices derived from a single seed image</li>
-        <li>Analyze bundle sizes by using <a href="https://github.com/danvk/source-map-explorer">source-map-explorer</a></li>
-        <li>Cookies Support</li>
-        <li>Simple Ad-Blocker detection service</li>
-        <li>Generic token based Authentication service with <a href="https://jwt.io">JWT</a> cookie support.
-    </ul>
-  </mat-tab>
-  <mat-tab label="Testing">
-    <ul>
-      <li>Angular testing with <a href="https://facebook.github.io/jest" target="_blank" rel="noopener">Jest</a> (faster than Karma)</li>
-      <li>End-to-end (e2e) testing with <a href="https://github.com/segmentio/nightmare" target="_blank" rel="noopener">Nightmare</a></li>
-      <li><a href="https://circleci.com" target="_blank" rel="noopener">CircleCI</a> unit testing support</li>
-    </ul>
-  </mat-tab>
-  <mat-tab label="Performance">
-    <ul>
-      <li><a href="http://fuse-box.org/">FuseBox</a> bundling (faster than <a href="https://webpack.github.io/" target="_blank" rel="noopener">Webpack</a>        and <a href="http://jspm.io/" target="_blank" rel="noopener">JSPM</a>)</li>
-      <li><a href="https://github.com/google/brotli" target="_blank" rel="noopener">Brotli compression</a> with <a href="http://www.gzip.org"
-          target="_blank" rel="noopener">gzip</a> fallback</li>
-      <li><a href="https://angular.io/guide/aot-compiler#tree-shaking-1" target="_blank" rel="noopener">Lazy Loaded</a> modules</li>
-      <li><strong>Coming Soon</strong>: <a href="https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html"
-          target="_blank" rel="noopener">Tree-Shaking</a> builds</li>
-      <li><strong>Coming Soon</strong>: Support for <a href="https://mobile.angular.io" target="_blank" rel="noopener">Angular Mobile Toolkit</a>        (Service Worker)</li>
-    </ul>
-  </mat-tab>
-  <mat-tab label="Deployments">
-    <ul>
-      <li>Production and development builds</li>
-      <li>Simple <a href="https://heroku.com" target="_blank" rel="noopener">Heroku</a> deployment</li>
-    </ul>
-  </mat-tab>
-  <mat-tab label="SEO">
-    <ul>
-      <li>HttpStateTransfer for caching server responses on client boostrap (no flickering on load)</li>
-      <li>SEO support for Title and Meta tags</li>
-      <li><a href="http://ogp.me" target="_blank" rel="noopener">OG (Open Graph)</a> tags for social sharing</li>
-      <li>Vendor-agnostic analytics using <a href="https://angulartics.github.io">angulartics2</a></li>
-    </ul>
-  </mat-tab>
-</mat-tab-group>
+<mat-card>
+  <div id="hero">
+    <h1 class="display-3">Hello, Angular Developer!</h1>
+    <p class="lead">Welcome to a blazing fast Angular Universal development starter</p>
+    <a mat-raised-button color="primary" href="https://github.com/patrickmichalina/fusebox-angular-universal-starter" role="button"
+      angulartics2On="click" angularticsEvent="ViewRepo">
+      <mat-icon class="fa fa-github" aria-hidden="true"></mat-icon> Github</a>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Developer Experience">
+      <ul>
+        <li>
+          <a href="https://github.com/angular/angular/blob/master/CHANGELOG.md" target="_blank" rel="noopener">Angular</a> as the application framework
+        </li>
+        <li>
+          <a href="https://material.angular.io" target="_blank" rel="noopener">Angular Material</a> as the UI language and component library</li>
+        <li>
+          <a href="https://github.com/angular/angularfire2" target="_blank" rel="noopener">Angular Firebase</a> for easy user authentication
+        </li>
+        <li>
+          <a href="https://github.com/angular/flex-layout">Angular Flex Layout</a> for dynamic responsive layouts
+          <li>Fully typed build tools and application using
+            <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener">TypeScript</a>
+          </li>
+
+          <li>Manage your type definitions using @types (easier than using
+            <a href="https://github.com/typings/typings">typings</a>)</li>
+          <li>Automatic sitemap generation</li>
+          <li>
+            <a href="https://mobile.angular.io" target="_blank" rel="noopener">SCSS</a> support for professional grade CSS management</li>
+          <li>Full favicon icon generation for multiple devices derived from a single seed image</li>
+          <li>Analyze bundle sizes by using
+            <a href="https://github.com/danvk/source-map-explorer">source-map-explorer</a>
+          </li>
+          <li>Cookies Support</li>
+          <li>Simple Ad-Blocker detection service</li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="Testing">
+      <ul>
+        <li>Angular testing with
+          <a href="https://facebook.github.io/jest" target="_blank" rel="noopener">Jest</a> (faster than Karma)</li>
+        <li>End-to-end (e2e) testing with
+          <a href="https://github.com/segmentio/nightmare" target="_blank" rel="noopener">Nightmare</a>
+        </li>
+        <li>
+          <a href="https://circleci.com" target="_blank" rel="noopener">CircleCI</a> unit testing support</li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="Performance">
+      <ul>
+        <li>
+          <a href="http://fuse-box.org/">FuseBox</a> bundling (faster than
+          <a href="https://webpack.github.io/" target="_blank" rel="noopener">Webpack</a> and
+          <a href="http://jspm.io/" target="_blank" rel="noopener">JSPM</a>)</li>
+        <li>
+          <a href="https://github.com/google/brotli" target="_blank" rel="noopener">Brotli compression</a> with
+          <a href="http://www.gzip.org" target="_blank" rel="noopener">gzip</a> fallback</li>
+        <li>
+          <a href="https://angular.io/guide/aot-compiler#tree-shaking-1" target="_blank" rel="noopener">Lazy Loaded</a> modules</li>
+        <li>
+          <strong>Coming Soon</strong>:
+          <a href="https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html" target="_blank" rel="noopener">Tree-Shaking</a> builds</li>
+        <li>
+          <strong>Coming Soon</strong>: Support for
+          <a href="https://mobile.angular.io" target="_blank" rel="noopener">Angular Mobile Toolkit</a> (Service Worker)</li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="Deployments">
+      <ul>
+        <li>Production and development builds</li>
+        <li>Simple
+          <a href="https://heroku.com" target="_blank" rel="noopener">Heroku</a> deployment</li>
+      </ul>
+    </mat-tab>
+    <mat-tab label="SEO">
+      <ul>
+        <li>HttpStateTransfer for caching server responses on client boostrap (no flickering on load)</li>
+        <li>SEO support for Title and Meta tags</li>
+        <li>
+          <a href="http://ogp.me" target="_blank" rel="noopener">OG (Open Graph)</a> tags for social sharing</li>
+        <li>Vendor-agnostic analytics using
+          <a href="https://angulartics.github.io">angulartics2</a>
+        </li>
+      </ul>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

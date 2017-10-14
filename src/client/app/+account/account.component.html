@@ -1,0 +1,97 @@
+<div *ngIf="user$ | async as user" class="flex-center">
+  <h2>{{ user.displayName }}</h2>
+  <a class="flex-center">
+    <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
+    <a mat-button>Update Photo</a>
+  </a>
+  <mat-accordion class="headers-align">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Profile Info
+        </mat-panel-title>
+        <mat-panel-description>
+          name, email, and phone
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="detailForm" (ngSubmit)="updateDetail()">
+        <mat-form-field>
+          <input matInput formControlName="displayName" [value]="user.displayName" type="text" placeholder="Name" angulartics2On="focus"
+            angularticsEvent="FocusedOnAccountDisplayNameInput">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="email" type="email" [value]="user.email" placeholder="Email" angulartics2On="focus" angularticsEvent="FocusedOnAccountEmailInput">
+          <!-- <mat-icon matSuffix [matTooltip]="user.emailTooltip" [color]="user.emailColor" fontSet="fa" [fontIcon]="user.emailIcon" angulartics2On="mouseover"
+                angularticsEvent="HoveredOverAccountEmailCheckmarkIcon"></mat-icon> -->
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="phoneNumber" type="text" [value]="user.phone || ''" placeholder="Phone" angulartics2On="focus"
+            angularticsEvent="FocusedOnAccountPhonenumberInput">
+        </mat-form-field>
+        <button mat-button type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
+      </form>
+    </mat-expansion-panel>
+    <mat-expansion-panel disabled=true>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Social Login
+        </mat-panel-title>
+        <mat-panel-description>
+          manage your accounts
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <section class="demo-section">
+        <button mat-button pmSocialButton="facebook">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-facebook-official"></mat-icon>
+            <span>Link Facebook</span>
+          </div>
+        </button>
+        <button mat-button pmSocialButton="google">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon>
+            <span>Link Google</span>
+          </div>
+        </button>
+        <button mat-button pmSocialButton="twitter">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-twitter"></mat-icon>
+            <span>Link Twitter</span>
+          </div>
+        </button>
+        <button mat-button pmSocialButton="github">
+          <div class="social-spacer">
+            <mat-icon fontSet="fa" fontIcon="fa-github"></mat-icon>
+            <span>Link Github</span>
+          </div>
+        </button>
+      </section>
+    </mat-expansion-panel>
+    <mat-expansion-panel [disabled]="test">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Password
+        </mat-panel-title>
+        <mat-panel-description>
+          update your password
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form [formGroup]="passForm" (ngSubmit)="updatePassword()">
+        <mat-form-field>
+          <input matInput formControlName="currentPassword" type="password" placeholder="Current Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
+          <mat-error *ngIf="passForm.controls.currentPassword.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="newPassword" type="password" placeholder="New Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
+          <mat-error *ngIf="passForm.controls.newPassword.hasError('required')">
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <button mat-button [disabled]="passForm.invalid" type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click"
+          angularticsEvent="ClickUpdateProfile">Save Changes</button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

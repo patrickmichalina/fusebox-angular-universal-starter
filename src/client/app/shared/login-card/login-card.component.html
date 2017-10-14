@@ -1,0 +1,67 @@
+<div>
+  <h1>Log in</h1>
+  <mat-error id="socialNetworkErr" *ngIf="socialNetworkErr">
+    {{ socialNetworkErr }}
+  </mat-error>
+  <button mat-raised-button (click)="login('facebook')" pmSocialButton="facebook">
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-facebook-official"></mat-icon>
+      <span>Sign in with Facebook</span>
+    </div>
+  </button>
+  <button mat-raised-button (click)="login('google')" pmSocialButton="google">
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-google"></mat-icon>
+      <span>Sign in with Google</span>
+    </div>
+  </button>
+  <button mat-raised-button (click)="login('github')" pmSocialButton="github">
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-github"></mat-icon>
+      <span>Sign in with Github</span>
+    </div>
+  </button>
+  <button mat-raised-button (click)="login('twitter')" pmSocialButton="twitter">
+    <div class="social-spacer">
+      <mat-icon fontSet="fa" fontIcon="fa-twitter"></mat-icon>
+      <span>Sign in with Twitter</span>
+    </div>
+  </button>
+  <mat-expansion-panel hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Sign in with email
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="form" novalidate>
+      <mat-error *ngIf="form.hasError('network')">
+        {{ form.getError('network') }}
+      </mat-error>
+      <br *ngIf="form.hasError('network')">
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="form.controls.email.hasError('pattern')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="form.controls.email.hasError('required')">
+          Email is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" formControlName="password">
+        <mat-error *ngIf="form.controls.password.hasError('required')">
+          Password is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <mat-action-row>
+      <button mat-button color="accent" (click)="login('email_new')" [disabled]="!form.valid">Signup</button>
+      <button mat-button color="primary" (click)="login('email_login')" [disabled]="!form.valid">
+
+        Sign In</button>
+      <!-- <p>Please check your email for an activation link</p> -->
+    </mat-action-row>
+  </mat-expansion-panel>
+</div>

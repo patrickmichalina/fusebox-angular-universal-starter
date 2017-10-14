@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
 
 @Component({
   selector: 'pm-home',
@@ -6,4 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent { }
+export class HomeComponent {
+  @HostBinding('class.card-float-container') containerClass = true
+}

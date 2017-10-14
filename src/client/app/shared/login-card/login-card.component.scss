@@ -1,0 +1,46 @@
+:host {
+  div {
+    display: flex;
+    flex-direction: column;
+    button,
+    p {
+      align-self: center;
+      width: 190px;
+      margin-bottom: 1em;
+    }
+  }
+  mat-expansion-panel {
+    max-width: 300px;
+    align-self: center;
+  }
+  form {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  h1 {
+    margin-top: 0;
+    text-align: center;
+  }
+  #socialNetworkErr {
+    max-width: 300px;
+    margin-bottom: 2em;
+  }
+  .social-spacer {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+}
+
+mat-icon {
+  vertical-align: inherit !important;
+}
+
+mat-action-row {
+  justify-content: inherit;
+  padding: 8px;
+  button {
+    margin: 0 !important;
+  }
+}

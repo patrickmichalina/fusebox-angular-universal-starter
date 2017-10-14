@@ -37,7 +37,8 @@
       true,
       "attribute",
       [
-        "app"
+        "app",
+        "pm"
       ],
       "camelCase"
     ],

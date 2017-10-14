@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LogoutComponent should match snapshot 1`] = `
+exports[`LogoutComponent should compile 1`] = `
 <pm-logout>
-  Your <strong>
-    logout
-  </strong> info page goes here!
+  You have been logged out. Come back soon!
 </pm-logout>
 `;

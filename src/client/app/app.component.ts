@@ -1,11 +1,16 @@
+import { CookieService } from './shared/services/cookie.service'
+import { PlatformService } from './shared/services/platform.service'
+import { AuthService } from './shared/services/auth.service'
 import { Injectable } from '../../server/api/repositories/setting.repository'
 import { HttpClient } from '@angular/common/http'
 import { WebSocketService } from './shared/services/web-socket.service'
 import { ChangeDetectionStrategy, Component, Inject, Renderer2 } from '@angular/core'
-import { DOCUMENT, Meta } from '@angular/platform-browser'
+import { DOCUMENT, Meta, TransferState } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { sha1 } from 'object-hash'
+import { MatIconRegistry } from '@angular/material'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'pm-app',
@@ -14,12 +19,18 @@ import { sha1 } from 'object-hash'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, private wss: WebSocketService,
-    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient) {
+  public user$ = this.auth.user$
+
+  constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
+    renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,
+    ps: PlatformService, router: Router, cs: CookieService, ts: TransferState,
+    private auth: AuthService) {
+
+    matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
+
     ss.settings$
       .take(1)
       .subscribe(settings => {
-
         meta.addTag({ property: 'fb:app_id', content: settings.tokens.facebookAppId })
         settings.injections.forEach(link => this.inject(doc, renderer, link))
       })
@@ -32,8 +43,10 @@ export class AppComponent {
         inHead: true
       }))
 
-    this.wss.messageBus$.subscribe()
-    this.wss.send({ message: 'ws test' })
+    if (ps.isBrowser) {
+      wss.messageBus$.subscribe()
+      wss.send({ message: 'ws test' })
+    }
   }
 
   inject(doc: HTMLDocument, renderer: Renderer2, injectable: Injectable) {

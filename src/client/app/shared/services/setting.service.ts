@@ -10,19 +10,22 @@ export interface ISettingService {
 
 @Injectable()
 export class SettingService implements ISettingService {
-
+  public initialSettings: ISetting
   public settings$ = this.http.get<ISetting>('settings')
     .map(settings => {
       return {
         injections: [],
         ...settings
       }
-    }).shareReplay()
+    })
+    .shareReplay()
 
   public pluck(key: string) {
     return this.settings$.map(dict => key.split('.')
       .reduce((o, k) => (o || {})[k], dict as any))
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.settings$.take(1).subscribe(set => this.initialSettings = set)
+  }
 }
