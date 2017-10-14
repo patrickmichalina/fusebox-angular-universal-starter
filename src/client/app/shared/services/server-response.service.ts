@@ -68,6 +68,13 @@ export class ServerResponseService implements IServerResponseService {
     return this
   }
 
+  setPrivateCache(): this {
+    if (this.response) {
+      this.setHeader('Cache-Control', 'private, max-age=0, no-cache')
+    }
+    return this
+  }
+
   setError(message = 'internal server error'): this {
     if (this.response) {
       this.response.statusCode = 500
