@@ -1,6 +1,6 @@
 <pm-navbar (onMenuIconClick)="sidenav.toggle()" [user]="user$ | async"></pm-navbar>
-<mat-sidenav-container class="sidenav-container" (pmClickOutside)="sidenav.close()">
-  <mat-sidenav #sidenav class="sidenav mat-elevation-z6" mode="over">
+<mat-sidenav-container class="sidenav-container" (pmClickOutside)="sidenav.close()" exclude="#toggle-menu-button">
+  <mat-sidenav #sidenav class="sidenav mat-elevation-z6">
     <mat-list>
       <h3 matSubheader>Pages</h3>
       <mat-list-item>
