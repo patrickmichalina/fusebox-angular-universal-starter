@@ -55,8 +55,6 @@ export class AuthService implements IAuthService {
   public user$ = this.userSource.asObservable()
   private fbUser$ = this.fbAuth.idToken
     .flatMap(a => a ? a.getIdToken() : Observable.of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
-    .share()
-  // private fbUserWithActions$ = this.fbUser$.map(a => a.fbUser)
 
   constructor(private cs: CookieService, private fbAuth: AngularFireAuth, ss: SettingService, ps: PlatformService,
     @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string) {
@@ -115,5 +113,29 @@ export class AuthService implements IAuthService {
 
   logout(): void {
     this.cs.remove(this.COOKIE_KEY)
+  }
+
+  updateEmailPassword(currentPassword: string, newPassword: string) {
+    return this.fbUser$
+      .map(a => a.fbUser)
+      .map(user => {
+        if (!user) return Observable.throw('missing user')
+        return {
+          user,
+          credentials: firebase.auth.EmailAuthProvider.credential(user.email as string, currentPassword)
+        }
+      })
+      .flatMap((userObj: {
+        user: firebase.User,
+        credentials: firebase.auth.AuthCredential
+      }) => userObj.user.reauthenticateWithCredential(userObj.credentials), (userObj: {
+        user: firebase.User,
+        credentials: firebase.auth.AuthCredential
+      }, res) => userObj.user)
+      .flatMap(user => user.updatePassword(newPassword))
+  }
+
+  updateProfile(displayName: string, pictureUrl: string) {
+    // 
   }
 }

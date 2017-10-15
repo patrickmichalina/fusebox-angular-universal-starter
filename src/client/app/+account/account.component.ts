@@ -1,7 +1,7 @@
 import { AuthService } from './../shared/services/auth.service'
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostBinding, ViewChild, ChangeDetectorRef } from '@angular/core'
 import { PlatformService } from './../shared/services/platform.service'
-import { MatSnackBar } from '@angular/material'
+import { MatExpansionPanel, MatSnackBar } from '@angular/material'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class AccountComponent {
   @HostBinding('class.card-float-container') containerClass = true
+  @ViewChild('passwordPanel') passwordPanel: MatExpansionPanel
   // private DEBOUNCE_TIME = 750
 
   public detailForm = new FormGroup({
@@ -50,7 +51,7 @@ export class AccountComponent {
   //     }
   //   })
 
-  constructor(private auth: AuthService, private snackBar: MatSnackBar, ps: PlatformService) {
+  constructor(private auth: AuthService, private snackBar: MatSnackBar, ps: PlatformService, private cd: ChangeDetectorRef) {
     // if (ps.isBrowser) {
     //   Observable.combineLatest(
     //     this.us$,
@@ -111,17 +112,23 @@ export class AccountComponent {
   }
 
   updatePassword() {
-    // this.us$.flatMap(user => {
-    //   const credentials = firebase.auth.EmailAuthProvider.credential(user.email as string, this.passForm.value.currentPassword)
-    //   return user.reauthenticateWithCredential(credentials)
-    // }, (user, res) => user)
-    //   .flatMap(user => user.updatePassword(this.passForm.value.newPassword))
-    //   .take(1)
-    //   .subscribe(
-    //   () => {
-    //     this.openSnackBar('password updated')
-    //   },
-    //   console.log
-    //   )
+    const permuteError = (err?: string) => {
+      this.passwordError = err
+      this.cd.markForCheck()
+    }
+
+    this.auth
+      .updateEmailPassword(this.passForm.value.currentPassword, this.passForm.value.newPassword)
+      .take(1)
+      .subscribe(res => {
+        permuteError()
+        this.passForm.reset()
+        this.passwordPanel.close()
+        this.openSnackBar('password updated')
+      }, err => {
+        permuteError(err.message)
+      })
   }
+
+  passwordError: string | undefined
 }
