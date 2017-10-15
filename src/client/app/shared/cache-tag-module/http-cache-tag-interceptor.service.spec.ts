@@ -1,12 +1,12 @@
+import { CACHE_TAG_CONFIG, CACHE_TAG_FACTORY, CacheTagConfig } from './http-cache-tag.module'
 import { RESPONSE } from '@nguniversal/express-engine/tokens'
 import { ENV_CONFIG } from './../../app.config'
-import { EnvironmentService } from './environment.service'
-import { ServerResponseService } from './server-response.service'
-import { CACHE_TAG_CONFIG, CacheTagConfig, HttpCacheTagInterceptor } from './http-cache-tag-interceptor.service'
+import { HttpCacheTagInterceptor } from './http-cache-tag-interceptor.service'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { async, TestBed } from '@angular/core/testing'
 import { Response } from 'express'
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHeaders, HttpInterceptor } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpHeaders, HttpInterceptor, HttpResponse } from '@angular/common/http'
+import { ServerResponseService } from '../services/server-response.service'
 import '../../../operators'
 
 // for testing purposes
@@ -32,14 +32,9 @@ describe(HttpCacheTagInterceptor.name, () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, HttpClientModule],
       providers: [
-        HttpCacheTagInterceptor,
-        EnvironmentService,
-        ServerResponseService,
-        { provide: HTTP_INTERCEPTORS, useClass: HttpCacheTagInterceptor, multi: true },
-        {
-          provide: RESPONSE,
-          useClass: ExpressResponse
-        },
+        { provide: HttpCacheTagInterceptor, useClass: HttpCacheTagInterceptor, deps: [CACHE_TAG_CONFIG, CACHE_TAG_FACTORY] },
+        { provide: HTTP_INTERCEPTORS, useExisting: HttpCacheTagInterceptor, multi: true },
+        { provide: RESPONSE, useClass: ExpressResponse },
         {
           provide: ENV_CONFIG,
           useValue: {
@@ -54,6 +49,19 @@ describe(HttpCacheTagInterceptor.name, () => {
             headerKey: 'Cache-Tag',
             cacheableResponseCodes: [200, 201]
           }
+        },
+        ServerResponseService,
+        {
+          provide: CACHE_TAG_FACTORY,
+          useFactory: (srs: ServerResponseService) => {
+            return (httpResponse: HttpResponse<any>, d: CacheTagConfig) => {
+              const cacheHeader = httpResponse.headers.get(config.headerKey)
+              if (cacheHeader) {
+                srs.appendHeader(config.headerKey, cacheHeader)
+              }
+            }
+          },
+          deps: [ServerResponseService]
         }
       ]
     })
