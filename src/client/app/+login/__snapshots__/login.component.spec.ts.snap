@@ -5,408 +5,441 @@ exports[`LoginComponent should compile 1`] = `
   afAuth={[Function AngularFireAuth]}
   containerClass={[Function Boolean]}
 >
-  <mat-card
-    class="mat-card"
-  >
+  <h1>
+    Login
+  </h1>
+  <pm-login-card>
+    <mat-accordion
+      class="headers-align mat-accordion"
+    >
+      
     
-    
-    <pm-login-card>
-      <div>
-        
-    
-        <h1>
-          Log in
-        </h1>
-        
-    
-        
-        
-    
-        <button
-          class="mat-raised-button"
-          mat-raised-button=""
-          pmsocialbutton="facebook"
+      <mat-expansion-panel
+        class="mat-expansion-panel"
+        expanded="true"
+        hidetoggle="true"
+      >
+        <mat-expansion-panel-header
+          class="mat-expansion-panel-header"
+          role="button"
         >
           <span
-            class="mat-button-wrapper"
+            class="mat-content"
           >
-            
-      
-            <div
-              class="social-spacer"
+            <mat-panel-title
+              class="mat-expansion-panel-header-title"
             >
               
+          Social in with social network
         
-              <mat-icon
-                aria-hidden="true"
-                class="mat-icon"
-                fonticon="fa-facebook-official"
-                fontset="fa"
-                role="img"
-              />
-              
-        
-              <span>
-                Sign in with Facebook
-              </span>
-              
-      
-            </div>
+            </mat-panel-title>
             
-    
+        
+            
+      
           </span>
-          <div
-            class="mat-button-ripple mat-ripple"
-            matripple=""
-          />
-          <div
-            class="mat-button-focus-overlay"
-          />
-        </button>
-        
-    
-        <button
-          class="mat-raised-button"
-          mat-raised-button=""
-          pmsocialbutton="google"
+          
+        </mat-expansion-panel-header>
+        <div
+          class="mat-expansion-panel-content"
         >
-          <span
-            class="mat-button-wrapper"
+          <div
+            class="mat-expansion-panel-body"
           >
             
       
-            <div
-              class="social-spacer"
+            
+            
+      
+            
+      
+            <button
+              class="mat-raised-button"
+              mat-raised-button=""
+              pmsocialbutton="facebook"
             >
-              
-        
-              <mat-icon
-                aria-hidden="true"
-                class="mat-icon"
-                fonticon="fa-google"
-                fontset="fa"
-                role="img"
-              />
-              
-        
-              <span>
-                Sign in with Google
-              </span>
-              
-      
-            </div>
-            
-    
-          </span>
-          <div
-            class="mat-button-ripple mat-ripple"
-            matripple=""
-          />
-          <div
-            class="mat-button-focus-overlay"
-          />
-        </button>
-        
-    
-        <button
-          class="mat-raised-button"
-          mat-raised-button=""
-          pmsocialbutton="github"
-        >
-          <span
-            class="mat-button-wrapper"
-          >
-            
-      
-            <div
-              class="social-spacer"
-            >
-              
-        
-              <mat-icon
-                aria-hidden="true"
-                class="mat-icon"
-                fonticon="fa-github"
-                fontset="fa"
-                role="img"
-              />
-              
-        
-              <span>
-                Sign in with Github
-              </span>
-              
-      
-            </div>
-            
-    
-          </span>
-          <div
-            class="mat-button-ripple mat-ripple"
-            matripple=""
-          />
-          <div
-            class="mat-button-focus-overlay"
-          />
-        </button>
-        
-    
-        <button
-          class="mat-raised-button"
-          mat-raised-button=""
-          pmsocialbutton="twitter"
-        >
-          <span
-            class="mat-button-wrapper"
-          >
-            
-      
-            <div
-              class="social-spacer"
-            >
-              
-        
-              <mat-icon
-                aria-hidden="true"
-                class="mat-icon"
-                fonticon="fa-twitter"
-                fontset="fa"
-                role="img"
-              />
-              
-        
-              <span>
-                Sign in with Twitter
-              </span>
-              
-      
-            </div>
-            
-    
-          </span>
-          <div
-            class="mat-button-ripple mat-ripple"
-            matripple=""
-          />
-          <div
-            class="mat-button-focus-overlay"
-          />
-        </button>
-        
-    
-        <mat-expansion-panel
-          class="mat-expansion-panel"
-          hidetoggle="true"
-        >
-          <mat-expansion-panel-header
-            class="mat-expansion-panel-header"
-            role="button"
-          >
-            <span
-              class="mat-content"
-            >
-              <mat-panel-title
-                class="mat-expansion-panel-header-title"
-              >
-                
-          Sign in with email
-        
-              </mat-panel-title>
-              
-        
-              
-      
-            </span>
-            
-          </mat-expansion-panel-header>
-          <div
-            class="mat-expansion-panel-content"
-          >
-            <div
-              class="mat-expansion-panel-body"
-            >
-              
-      
-              
-      
-              <form
-                novalidate=""
+              <span
+                class="mat-button-wrapper"
               >
                 
         
-                
-                
-        
-                
-                
-        
-                <mat-form-field
-                  class="mat-input-container mat-form-field"
-                >
-                  <div
-                    class="mat-input-wrapper mat-form-field-wrapper"
-                  >
-                    <div
-                      class="mat-input-flex mat-form-field-flex"
-                    >
-                      
-                      <div
-                        class="mat-input-infix mat-form-field-infix"
-                      >
-                        
-          
-                        <input
-                          class="mat-input-element mat-form-field-autofill-control"
-                          formcontrolname="email"
-                          matinput=""
-                          placeholder="Email"
-                        />
-                        
-          
-                        
-          
-                        
-        
-                        <span
-                          class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
-                        >
-                          
-                        </span>
-                      </div>
-                      
-                    </div>
-                    <div
-                      class="mat-input-underline mat-form-field-underline"
-                    >
-                      <span
-                        class="mat-input-ripple mat-form-field-ripple"
-                      />
-                    </div>
-                    <div
-                      class="mat-input-subscript-wrapper mat-form-field-subscript-wrapper"
-                    >
-                      
-                      
-                    </div>
-                  </div>
-                </mat-form-field>
-                
-        
-                <mat-form-field
-                  class="mat-input-container mat-form-field"
-                >
-                  <div
-                    class="mat-input-wrapper mat-form-field-wrapper"
-                  >
-                    <div
-                      class="mat-input-flex mat-form-field-flex"
-                    >
-                      
-                      <div
-                        class="mat-input-infix mat-form-field-infix"
-                      >
-                        
-          
-                        <input
-                          class="mat-input-element mat-form-field-autofill-control"
-                          formcontrolname="password"
-                          matinput=""
-                          placeholder="Password"
-                          type="password"
-                        />
-                        
-          
-                        
-        
-                        <span
-                          class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
-                        >
-                          
-                        </span>
-                      </div>
-                      
-                    </div>
-                    <div
-                      class="mat-input-underline mat-form-field-underline"
-                    >
-                      <span
-                        class="mat-input-ripple mat-form-field-ripple"
-                      />
-                    </div>
-                    <div
-                      class="mat-input-subscript-wrapper mat-form-field-subscript-wrapper"
-                    >
-                      
-                      
-                    </div>
-                  </div>
-                </mat-form-field>
-                
-      
-              </form>
-              
-      
-              
-    
-            </div>
-            <mat-action-row
-              class="mat-action-row"
-            >
-              
-        
-              <button
-                class="mat-button"
-                color="accent"
-                mat-button=""
-              >
-                <span
-                  class="mat-button-wrapper"
-                >
-                  Signup
-                </span>
                 <div
-                  class="mat-button-ripple mat-ripple"
-                  matripple=""
-                />
-                <div
-                  class="mat-button-focus-overlay"
-                />
-              </button>
-              
-        
-              <button
-                class="mat-button"
-                color="primary"
-                mat-button=""
-              >
-                <span
-                  class="mat-button-wrapper"
+                  class="social-spacer"
                 >
                   
-  
-          Sign In
-                </span>
+          
+                  <mat-icon
+                    aria-hidden="true"
+                    class="mat-icon"
+                    fonticon="fa-facebook-official"
+                    fontset="fa"
+                    role="img"
+                  />
+                  
+          
+                  <span>
+                    Sign in with Facebook
+                  </span>
+                  
+        
+                </div>
+                
+      
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+            
+      
+            <button
+              class="mat-raised-button"
+              mat-raised-button=""
+              pmsocialbutton="google"
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                
+        
                 <div
-                  class="mat-button-ripple mat-ripple"
-                  matripple=""
-                />
+                  class="social-spacer"
+                >
+                  
+          
+                  <mat-icon
+                    aria-hidden="true"
+                    class="mat-icon"
+                    fonticon="fa-google"
+                    fontset="fa"
+                    role="img"
+                  />
+                  
+          
+                  <span>
+                    Sign in with Google
+                  </span>
+                  
+        
+                </div>
+                
+      
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+            
+      
+            <button
+              class="mat-raised-button"
+              mat-raised-button=""
+              pmsocialbutton="github"
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                
+        
                 <div
-                  class="mat-button-focus-overlay"
-                />
-              </button>
+                  class="social-spacer"
+                >
+                  
+          
+                  <mat-icon
+                    aria-hidden="true"
+                    class="mat-icon"
+                    fonticon="fa-github"
+                    fontset="fa"
+                    role="img"
+                  />
+                  
+          
+                  <span>
+                    Sign in with Github
+                  </span>
+                  
+        
+                </div>
+                
+      
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+            
+      
+            <button
+              class="mat-raised-button"
+              mat-raised-button=""
+              pmsocialbutton="twitter"
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                
+        
+                <div
+                  class="social-spacer"
+                >
+                  
+          
+                  <mat-icon
+                    aria-hidden="true"
+                    class="mat-icon"
+                    fonticon="fa-twitter"
+                    fontset="fa"
+                    role="img"
+                  />
+                  
+          
+                  <span>
+                    Sign in with Twitter
+                  </span>
+                  
+        
+                </div>
+                
+      
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+            
+    
+          </div>
+        </div>
+      </mat-expansion-panel>
+      
+    
+      <mat-expansion-panel
+        class="mat-expansion-panel"
+        hidetoggle="true"
+      >
+        <mat-expansion-panel-header
+          class="mat-expansion-panel-header"
+          role="button"
+        >
+          <span
+            class="mat-content"
+          >
+            <mat-panel-title
+              class="mat-expansion-panel-header-title"
+            >
+              
+          Sign in with email
+        
+            </mat-panel-title>
+            
+        
+            
+      
+          </span>
+          
+        </mat-expansion-panel-header>
+        <div
+          class="mat-expansion-panel-content"
+        >
+          <div
+            class="mat-expansion-panel-body"
+          >
+            
+      
+            
+      
+            <form
+              novalidate=""
+            >
               
         
+              
+              
+        
+              
+              
+        
+              <mat-form-field
+                class="mat-input-container mat-form-field"
+              >
+                <div
+                  class="mat-input-wrapper mat-form-field-wrapper"
+                >
+                  <div
+                    class="mat-input-flex mat-form-field-flex"
+                  >
+                    
+                    <div
+                      class="mat-input-infix mat-form-field-infix"
+                    >
+                      
+          
+                      <input
+                        class="mat-input-element mat-form-field-autofill-control"
+                        formcontrolname="email"
+                        matinput=""
+                        placeholder="Email"
+                      />
+                      
+          
+                      
+          
+                      
+        
+                      <span
+                        class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
+                      >
+                        
+                      </span>
+                    </div>
+                    
+                  </div>
+                  <div
+                    class="mat-input-underline mat-form-field-underline"
+                  >
+                    <span
+                      class="mat-input-ripple mat-form-field-ripple"
+                    />
+                  </div>
+                  <div
+                    class="mat-input-subscript-wrapper mat-form-field-subscript-wrapper"
+                  >
+                    
+                    
+                  </div>
+                </div>
+              </mat-form-field>
+              
+        
+              <mat-form-field
+                class="mat-input-container mat-form-field"
+              >
+                <div
+                  class="mat-input-wrapper mat-form-field-wrapper"
+                >
+                  <div
+                    class="mat-input-flex mat-form-field-flex"
+                  >
+                    
+                    <div
+                      class="mat-input-infix mat-form-field-infix"
+                    >
+                      
+          
+                      <input
+                        class="mat-input-element mat-form-field-autofill-control"
+                        formcontrolname="password"
+                        matinput=""
+                        placeholder="Password"
+                        type="password"
+                      />
+                      
+          
+                      
+        
+                      <span
+                        class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
+                      >
+                        
+                      </span>
+                    </div>
+                    
+                  </div>
+                  <div
+                    class="mat-input-underline mat-form-field-underline"
+                  >
+                    <span
+                      class="mat-input-ripple mat-form-field-ripple"
+                    />
+                  </div>
+                  <div
+                    class="mat-input-subscript-wrapper mat-form-field-subscript-wrapper"
+                  >
+                    
+                    
+                  </div>
+                </div>
+              </mat-form-field>
               
       
-            </mat-action-row>
-          </div>
-        </mat-expansion-panel>
-        
-  
-      </div>
-    </pm-login-card>
+            </form>
+            
+      
+            
     
+          </div>
+          <mat-action-row
+            class="mat-action-row"
+          >
+            
+        
+            <button
+              class="mat-button"
+              color="accent"
+              mat-button=""
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                Signup
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+            
+        
+            <button
+              class="mat-button"
+              color="primary"
+              mat-button=""
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                
   
-  </mat-card>
+          Sign In
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+            
+        
+            
+      
+          </mat-action-row>
+        </div>
+      </mat-expansion-panel>
+      
+  
+    </mat-accordion>
+  </pm-login-card>
 </pm-login>
 `;
