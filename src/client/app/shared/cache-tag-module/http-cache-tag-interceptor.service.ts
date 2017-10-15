@@ -1,21 +1,12 @@
-import { ServerResponseService } from './server-response.service'
-import { Inject, Injectable, InjectionToken } from '@angular/core'
+// import { ServerResponseService } from './server-response.service'
+import { Inject, Injectable } from '@angular/core'
 import { HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http'
-
-export const CACHE_TAG_CONFIG = new InjectionToken<CacheTagConfig>('app.config.http.cachetag')
-
-export interface CacheTagConfig {
-  headerKey: string
-  cacheableResponseCodes: number[]
-
-  // if empty, defaults to ALL urls
-  cacheableUrls: RegExp
-}
+import { CACHE_TAG_CONFIG, CacheTagConfig } from './http-cache-tag.module'
 
 @Injectable()
 export class HttpCacheTagInterceptor implements HttpInterceptor {
 
-  constructor(private serverResponseService: ServerResponseService, @Inject(CACHE_TAG_CONFIG) private config: CacheTagConfig) {
+  constructor( @Inject(CACHE_TAG_CONFIG) private config: CacheTagConfig) {
     if (!config.headerKey) throw new Error('missing config.headerKey')
     if (!config.cacheableResponseCodes) throw new Error('missing config.cacheableResponseCodes')
   }
@@ -32,10 +23,12 @@ export class HttpCacheTagInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).map(event => {
       if (event instanceof HttpResponse && this.isCacheableCode(event.status) && this.isCacheableUrl(event.url)) {
-        const cacheHeader = event.headers.get(this.config.headerKey)
-        if (cacheHeader) {
-          this.serverResponseService.appendHeader(this.config.headerKey, cacheHeader)
-        }
+        // console.log(this.factory)
+        this.config.factory(event, this.config)
+        // const cacheHeader = event.headers.get(this.config.headerKey)
+        // if (cacheHeader) {
+        //   this.serverResponseService.appendHeader(this.config.headerKey, cacheHeader)
+        // }
       }
       return event
     })
