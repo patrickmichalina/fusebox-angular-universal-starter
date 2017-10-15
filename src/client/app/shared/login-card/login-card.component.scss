@@ -40,16 +40,16 @@
       width: 200px;
     }
   }
+  ::ng-deep mat-action-row {
+    justify-content: space-between;
+    padding: 8px;
+    button {
+      margin: 0 !important;
+    }
+  }
 }
 
 mat-icon {
   vertical-align: inherit !important;
 }
 
-mat-action-row {
-  justify-content: inherit;
-  padding: 8px;
-  button {
-    margin: 0 !important;
-  }
-}
