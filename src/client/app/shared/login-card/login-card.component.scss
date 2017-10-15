@@ -31,6 +31,15 @@
     flex-direction: row;
     align-items: baseline;
   }
+  ::ng-deep .mat-expansion-panel-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    button {
+      margin-bottom: 1em;
+      width: 200px;
+    }
+  }
 }
 
 mat-icon {

@@ -21,9 +21,9 @@ function registerServiceWorker(swName: string) {
         console.log('[App] Successful service worker registration', reg)
       })
       .catch(err =>
-        console.error('[App] Service worker registration failed', err)
+        console.warn('[App] Service worker registration failed', err)
       )
   } else {
-    console.error('[App] Service Worker API is not supported in current browser')
+    console.warn('[App] Service Worker API is not supported in current browser')
   }
 }
