@@ -3,27 +3,30 @@ import { HTTP_INTERCEPTORS, HttpResponse } from '@angular/common/http'
 import { HttpCacheTagInterceptor } from './http-cache-tag-interceptor.service'
 
 export const CACHE_TAG_CONFIG = new InjectionToken<CacheTagConfig>('app.config.http.cachetag')
+export const CACHE_TAG_FACTORY = new InjectionToken<CacheFactory>('app.config.http.cachetag')
 
 export interface CacheTagConfig {
   headerKey: string
   cacheableResponseCodes: number[]
   cacheableUrls?: RegExp,
-  factory(httpResponse: HttpResponse<any>, config: CacheTagConfig): void
 }
+
+export type CacheFactory = (httpResponse: HttpResponse<any>, config: CacheTagConfig) => void
 
 @NgModule()
 export class HttpCacheTageModule {
-  static forRoot(configuredProvider: any = {
-    provide: CACHE_TAG_CONFIG,
-    useValue: {}
-  }): ModuleWithProviders {
+  static forRoot(configProvider: any, factoryProvider: any): ModuleWithProviders {
     return {
       ngModule: HttpCacheTageModule,
       providers: [
-        configuredProvider,
-        HttpCacheTagInterceptor,
-        { provide: HTTP_INTERCEPTORS, useExisting: HttpCacheTagInterceptor, multi: true }
-        // { provide: CACHE_TAG_CONFIG, useValue: cacheTagConfig }
+        {
+          provide: HttpCacheTagInterceptor,
+          useClass: HttpCacheTagInterceptor,
+          deps: [CACHE_TAG_CONFIG, CACHE_TAG_FACTORY]
+        },
+        { provide: HTTP_INTERCEPTORS, useExisting: HttpCacheTagInterceptor, multi: true },
+        configProvider,
+        factoryProvider
       ]
     }
   }

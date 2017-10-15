@@ -1,4 +1,5 @@
-import { ErrorHandler, NgModule } from '@angular/core'
+import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
+import { ServerResponseService } from './shared/services/server-response.service'
 import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { AppComponent } from './app.component'
 import { SharedModule } from './shared/shared.module'
@@ -7,7 +8,7 @@ import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '
 import { NotFoundModule } from './not-found/not-found.module'
 import { BrowserModule, makeStateKey } from '@angular/platform-browser'
 import { EnvironmentService } from './shared/services/environment.service'
-import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
+import { ErrorHandler, NgModule } from '@angular/core'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpResponse } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
@@ -17,7 +18,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth'
 import { TransferHttpCacheModule } from '@nguniversal/common'
 import { LoginGuard } from './shared/services/guard-login.service'
 import { AuthService, FB_COOKIE_KEY } from './shared/services/auth.service'
-import { CACHE_TAG_CONFIG,
+import {
+  CACHE_TAG_CONFIG, CACHE_TAG_FACTORY,
   CacheTagConfig, HttpCacheTageModule
 } from './shared/cache-tag-module/http-cache-tag.module'
 // import { ServiceWorkerModule } from '@angular/service-worker'
@@ -59,9 +61,12 @@ export function firebaseAppNameLoader(ss: SettingService) {
   return ss.initialSettings.firebase.appName
 }
 
-export function cacheTagFactory(): CacheTagFactory {
+export function cacheTagFactory(srs: ServerResponseService): any {
   return (httpResponse: HttpResponse<any>, config: CacheTagConfig) => {
-    console.log(config)
+    const cacheHeader = httpResponse.headers.get(config.headerKey)
+    if (cacheHeader) {
+      srs.appendHeader(config.headerKey, cacheHeader)
+    }
   }
 }
 
@@ -82,34 +87,25 @@ export function cacheTagFactory(): CacheTagFactory {
       useFactory: (metaFactory),
       deps: [EnvironmentService, SettingService]
     }),
-    HttpCacheTageModule.forRoot({
-      provide: CACHE_TAG_CONFIG,
-      useValue: {
-        headerKey: 'Cache-Tag',
-        cacheableResponseCodes: [200]
-      }
-      // headerKey: 'Cache-Tag',
-      // cacheableResponseCodes: [200],
-      // factory: (httpResponse: HttpResponse<any>, config: CacheTagConfig) => {
-      //   console.log('asdasd')
-      // }
-    })
+    HttpCacheTageModule.forRoot(
+      {
+        provide: CACHE_TAG_CONFIG,
+        useValue: {
+          headerKey: 'Cache-Tag',
+          cacheableResponseCodes: [200]
+        }
+      },
+      {
+        provide: CACHE_TAG_FACTORY,
+        useFactory: cacheTagFactory,
+        deps: [ServerResponseService]
+      })
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCookieInterceptor, multi: true },
     { provide: FB_COOKIE_KEY, useValue: 'fbAuth' },
-
-    // { provide: CACHE_TAG_FACTORY, useFactory: cacheTagFactory },
-    // {
-    //   provide: CACHE_TAG_CONFIG,
-    //   useValue: {
-    //     headerKey: 'Cache-Tag',
-    //     cacheableResponseCodes: [200]
-    //   }
-    // },
-
     {
       provide: FirebaseAppName,
       useFactory: firebaseAppNameLoader,
