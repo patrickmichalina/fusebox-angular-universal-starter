@@ -20,8 +20,8 @@ import { LoginGuard } from './shared/services/guard-login.service'
 import { AuthService, FB_COOKIE_KEY } from './shared/services/auth.service'
 import {
   CACHE_TAG_CONFIG, CACHE_TAG_FACTORY,
-  CacheTagConfig, HttpCacheTageModule
-} from './shared/cache-tag-module/http-cache-tag.module'
+  CacheTagConfig, HttpCacheTagModule
+} from './shared/http-cache-tag/http-cache-tag.module'
 // import { ServiceWorkerModule } from '@angular/service-worker'
 
 export const REQ_KEY = makeStateKey<string>('req')
@@ -87,7 +87,7 @@ export function cacheTagFactory(srs: ServerResponseService): any {
       useFactory: (metaFactory),
       deps: [EnvironmentService, SettingService]
     }),
-    HttpCacheTageModule.forRoot(
+    HttpCacheTagModule.forRoot(
       {
         provide: CACHE_TAG_CONFIG,
         useValue: {

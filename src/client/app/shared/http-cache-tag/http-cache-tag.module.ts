@@ -14,10 +14,10 @@ export interface CacheTagConfig {
 export type CacheFactory = (httpResponse: HttpResponse<any>, config: CacheTagConfig) => void
 
 @NgModule()
-export class HttpCacheTageModule {
+export class HttpCacheTagModule {
   static forRoot(configProvider: any, factoryProvider: any): ModuleWithProviders {
     return {
-      ngModule: HttpCacheTageModule,
+      ngModule: HttpCacheTagModule,
       providers: [
         {
           provide: HttpCacheTagInterceptor,
@@ -31,7 +31,7 @@ export class HttpCacheTageModule {
     }
   }
 
-  constructor( @Optional() @SkipSelf() parentModule: HttpCacheTageModule) {
+  constructor( @Optional() @SkipSelf() parentModule: HttpCacheTagModule) {
     if (parentModule)
       throw new Error('HttpCachTageModule already loaded. Import in root module only.')
   }
