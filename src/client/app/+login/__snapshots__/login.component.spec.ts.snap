@@ -30,7 +30,7 @@ exports[`LoginComponent should compile 1`] = `
               class="mat-expansion-panel-header-title"
             >
               
-          Social in with social network
+          Sign in with social network
         
             </mat-panel-title>
             
@@ -266,6 +266,7 @@ exports[`LoginComponent should compile 1`] = `
             
       
             <form
+              id="emailForm"
               novalidate=""
             >
               
@@ -411,16 +412,16 @@ exports[`LoginComponent should compile 1`] = `
             
         
             <button
-              class="mat-button"
+              class="mat-raised-button"
               color="primary"
-              mat-button=""
+              form="emailForm"
+              mat-raised-button=""
+              type="submit"
             >
               <span
                 class="mat-button-wrapper"
               >
-                
-  
-          Sign In
+                Sign In
               </span>
               <div
                 class="mat-button-ripple mat-ripple"
@@ -430,8 +431,6 @@ exports[`LoginComponent should compile 1`] = `
                 class="mat-button-focus-overlay"
               />
             </button>
-            
-        
             
       
           </mat-action-row>

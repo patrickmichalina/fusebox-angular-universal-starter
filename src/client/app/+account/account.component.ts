@@ -1,5 +1,5 @@
 import { AuthService } from './../shared/services/auth.service'
-import { ChangeDetectionStrategy, Component, HostBinding, ViewChild, ChangeDetectorRef } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, ViewChild } from '@angular/core'
 import { PlatformService } from './../shared/services/platform.service'
 import { MatExpansionPanel, MatSnackBar } from '@angular/material'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
