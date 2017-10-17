@@ -8,20 +8,12 @@
 [![Angular Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
 [![Fusebox-bundler](https://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/fusebox-angular-universal-starter/Lobby)
 
-Provides an extremely fast seed project for the development of Angular Universal (isomorphic) projects.
-
-This is early work and under heavy development.
-A live example [can be found here](https://angular.patrickmichalina.com)
+Provides an extremely fast seed project for the development of Angular Universal (isomorphic) projects. Check out the [live app](https://angular.patrickmichalina.com)
 
 # Project Goals
-This seed project is designed to get some of the best techniques running on your new fullstack Node/Angular project right away. It is not shy about being overly opinionted or more "complicated" than similiar projects. Some of the more imporant goals are:
+This starter project is designed to get a basic application up and running with basic implementations of core features most applications need. It uses [Firebase](https://firebase.google.com) for the authentication and the database layers.
 
-- [x] Provide a project with very fast feedback loops so developers can code, test, and integrate quickly.
-- [x] Provide common performance optimizations to deploy a fast, lean applications from day one.
-- [ ] Fully tested and ready to customize
-- [ ] As reactive and immutable as possible
-- [ ] Provide all boilerplate services, routes, and components that are almost always used in medium to large web applications.
-- [x] Provide an [API](/docs/api-server.md) with some common endpoints
+Note: Firebase doesn't have official support for Angular Universal at this time. However, we have implemented some of the basic features to render and transfer server state to the browser. Once an official support is released, we will use that.
 
 # Features
 - [x] [Angular](https://github.com/angular/angular/blob/master/CHANGELOG.md) as the application framework
@@ -68,23 +60,13 @@ To start the seed use:
 $ git clone --depth 1 https://github.com/patrickmichalina/fusebox-angular-universal-starter
 $ cd fusebox-angular-universal-starter
 
+# Add Firebase Admin values to your project
+# in a ".env" file for local deveopment
+# in environment variables for other environments
+See [Environment Variables](#environment-variables)
+
 # install the project's dependencies
 $ npm install
-
-# single test run
-$ npm test 
-
-# single test with coverage results
-$ npm run test.coverage
-
-# continuous testing
-$ npm run test.watch
-
-# e2e testing (primarilly for CI builds)
-$ npm run test.e2e.ci
-
-# continuous e2e testing
-$ npm run test.e2e.watch
 
 # start the Angular Universal server
 $ npm start
@@ -120,7 +102,22 @@ Checkout how blazing fast bundling can be using FuseBox!
 ![fuse-box](https://thumbs.gfycat.com/WarmheartedUnfinishedHind-small.gif)
 
 # Testing
-Checkout how blazing fast testing can be using Jest!
+```bash
+# single test run
+$ npm test 
+
+# single test with coverage results
+$ npm run test.coverage
+
+# continuous testing
+$ npm run test.watch
+
+# e2e testing (primarilly for CI builds)
+$ npm run test.e2e.ci
+
+# continuous e2e testing
+$ npm run test.e2e.watch
+```
 
 ![jest](https://thumbs.gfycat.com/CooperativeMammothEland-small.gif)
 
@@ -141,19 +138,18 @@ npm i -D @types/youtube @types/gapi @types/gapi.youtube
 
 ```bash
 # it is important to set the following environmental variables on your CI server (examples below)
-HOST : angular.patrickmichalina.com # the root origin of the application server
+HOST : angular.patrickmichalina.com # the root origin of your application server
 CI : true 
 
-# for Heroku
+# for Heroku Builds
 HEROKU : true # to build on heroku, ssl settings are setup using this flag
 NPM_CONFIG_PRODUCTION : false # to download all depenedencies on Heroku, including devDependencies
 
-# cdn origin for assets will only be injected if the following environment variable is set
-CDN_ORIGIN : https://my-distro.some-awesome-cdn.net
+# Firebase Admin SDK
+FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID: Some_Secret
+FB_SERVICE_ACCOUNT_PRIVATE_KEY: Some_Secret
+FB_AUTH_KEY: Some_Secret
 
-# google analytics settings will only be injected if the following environment variables are set
-GA_TRACKING_ID : UA-18280491-Z
-GA_VERIFICATION_CODE : RW-some-crazy-number
 ```
 
 ## File Structure

@@ -100,7 +100,7 @@ Sparky.task('build.server', () => {
   const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
 
   if (!isBuildServer && !argv['build-only']) {
-    const reloadDelay = 1800;
+    const reloadDelay = 3000;
     serverBundle.watch('src/**').completed(proc => {
       proc.start();
       setTimeout(() => {
