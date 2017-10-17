@@ -6,7 +6,7 @@
     },
     "posts": {
       ".read": "true",
-      ".write": "auth != null"
+      ".write": "true"
     },
     "users": {
       "$uid": {
