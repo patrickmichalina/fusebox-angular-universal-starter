@@ -14,6 +14,11 @@ import { MetaGuard } from '@ngx-meta/core'
           meta: {
             title: 'i18n.about.title',
             description: 'i18n.about.description'
+          },
+          response: {
+            cache: {
+              directive: 'no-cache'
+            }
           }
         }
       }

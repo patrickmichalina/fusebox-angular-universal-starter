@@ -51,7 +51,9 @@ export const SETTINGS: ISetting = {
       'attributes': {
         'href': 'https://fonts.googleapis.com/css?family=Roboto',
         'rel': 'stylesheet',
-        'type': 'text/css'
+        'type': 'text/css',
+        'media': 'none',
+        'onload': 'if(media!=="all")media="all"'
       }
     },
     {
@@ -60,7 +62,9 @@ export const SETTINGS: ISetting = {
       'attributes': {
         'href': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
         'rel': 'stylesheet',
-        'type': 'text/css'
+        'type': 'text/css',
+        'media': 'none',
+        'onload': 'if(media!=="all")media="all"'
       }
     },
     {

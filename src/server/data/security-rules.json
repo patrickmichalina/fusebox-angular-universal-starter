@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "site-settings": {
+      ".read": "true",
+      ".write": "root.child('users').child(auth.uid).child('roles/superadmin').val() === true"
+    },
+    "posts": {
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid || root.child('users').child(auth.uid).child('roles/superadmin').val() === true",
+        ".write": "root.child('users').child(auth.uid).child('roles/superadmin').val() === true"
+      }
+    }
+  }
+}

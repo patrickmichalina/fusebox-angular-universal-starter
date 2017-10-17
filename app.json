@@ -21,6 +21,15 @@
     },
     "HEROKU_PARENT_APP_NAME": {
       "required": true
+    },
+    "FB_SERVICE_ACCOUNT_PRIVATE_KEY": {
+      "required": true
+    },
+    "FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID": {
+      "required": true
+    },
+    "FB_AUTH_KEY": {
+      "required": true
     }
   }
 }

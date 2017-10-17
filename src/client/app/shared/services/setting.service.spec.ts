@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http'
 import { IPlatformService, PlatformService } from './platform.service'
 import { SettingService } from './setting.service'
 import { async, TestBed } from '@angular/core/testing'
+import { FirebaseDatabaseService } from './firebase-database.service'
+import { of } from 'rxjs/observable/of'
 import '../../../operators'
 
 describe(SettingService.name, () => {
@@ -15,7 +17,8 @@ describe(SettingService.name, () => {
       imports: [HttpClientTestingModule],
       providers: [
         SettingService,
-        { provide: PlatformService, useValue: new MockPlatformService() }
+        { provide: PlatformService, useValue: new MockPlatformService() },
+        { provide: FirebaseDatabaseService, useValue: new MockDb() }
       ]
     })
   }))
@@ -35,4 +38,10 @@ describe(SettingService.name, () => {
 class MockPlatformService implements IPlatformService {
   public isBrowser = true
   public isServer= false
+}
+
+class MockDb {
+  get() {
+    return of('test')
+  }
 }

@@ -5,7 +5,7 @@
     <a mat-button>Update Photo</a>
   </a>
   <mat-accordion class="headers-align">
-    <mat-expansion-panel>
+    <mat-expansion-panel #profilePanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Profile Info
@@ -28,10 +28,12 @@
           <input matInput formControlName="phoneNumber" type="text" [value]="user.phone || ''" placeholder="Phone" angulartics2On="focus"
             angularticsEvent="FocusedOnAccountPhonenumberInput">
         </mat-form-field>
-        <button mat-button type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
+        <button mat-raised-button type="submit" 
+        [disabled]="!detailForm.dirty"
+        color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
-    <mat-expansion-panel disabled=true>
+    <mat-expansion-panel disabled=true #socialPanel>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Social Login
@@ -67,7 +69,10 @@
         </button>
       </section>
     </mat-expansion-panel>
-    <mat-expansion-panel [disabled]="test">
+    <mat-expansion-panel #passwordPanel>
+      <mat-error *ngIf="passwordError">
+        {{ passwordError }}
+      </mat-error>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Password
@@ -89,8 +94,8 @@
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
-        <button mat-button [disabled]="passForm.invalid" type="submit" color="primary" id="update-btn" angulartics2On="input" angulartics2On="click"
-          angularticsEvent="ClickUpdateProfile">Save Changes</button>
+        <button mat-raised-button [disabled]="passForm.invalid" type="submit" color="primary" id="update-btn" angulartics2On="input"
+          angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
   </mat-accordion>
