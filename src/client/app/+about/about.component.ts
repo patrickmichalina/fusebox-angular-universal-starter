@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { FirebaseDatabaseService } from '../shared/services/firebase-database.service'
 
 @Component({
   selector: 'pm-about',
@@ -7,4 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent {
+  test$ = this.db.get('site-settings')
+
+  constructor(private db: FirebaseDatabaseService) { }
 }

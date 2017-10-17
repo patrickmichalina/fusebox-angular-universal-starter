@@ -23,14 +23,12 @@ export const TESTING_CONFIG: EnvConfig = {
   name: 'Fusebox Angular Universal Starter',
   // tslint:disable-next-line:max-line-length
   description: 'Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator. Created by Patrick Michalina',
-  pageTitleSeparator: ' - ',
+  firebase: {
+
+  } as any,
   endpoints: {
     api: 'http://localhost:8000/api',
     websocketServer: 'ws://localhost:8001'
-  },
-  og: {
-    defaultSocialImage: 'https://d3anl5a3ibkrdg.cloudfront.net/assets/favicons/android-chrome-512x512',
-    facebookAppId: '117309532219749'
   },
   host: 'http://localhost:8083'
 }

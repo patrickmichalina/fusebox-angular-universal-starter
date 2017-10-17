@@ -18,13 +18,13 @@ import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { SocialButtonDirective } from './directives/social-button.directive'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 import { ReactiveFormsModule } from '@angular/forms'
-
+import { FirebaseDatabaseService } from './services/firebase-database.service'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
 
 export function fuseBoxConfigFactory() {
-  return __process_env__
+  return JSON.parse(__process_env__.angularAppConfig)
 }
 
 export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angulartics2GoogleAnalytics) {
@@ -58,9 +58,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     RouterModule,
     MaterialModule,
     ReactiveFormsModule,
-    // FlexLayoutModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
+    // FlexLayoutModule,
   ],
   exports: [
     CommonModule,
@@ -72,8 +72,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     SocialButtonDirective,
     LoginCardComponent,
     ReactiveFormsModule,
-    // FlexLayoutModule,
     MarkdownToHtmlModule
+    // FlexLayoutModule,
   ],
   declarations: [
     NavbarComponent,
@@ -95,7 +95,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     NavbarService,
     LoggingService,
     SettingService,
-    WebSocketService
+    WebSocketService,
+    FirebaseDatabaseService
   ]
 })
 export class SharedModule {

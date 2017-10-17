@@ -16,13 +16,13 @@ export class LoginCardComponent {
 
   login(provider: string) {
     switch (provider) {
-      case 'facebook': this.auth.signInWithFacebookPopup().catch(err => this.socialNetworkError(err))
+      case 'facebook': this.auth.signInWithFacebookPopup().take(1).subscribe(res => undefined, err => this.socialNetworkError(err))
         break
-      case 'google': this.auth.signInWithGooglePopup().catch(err => this.socialNetworkError(err))
+      case 'google': this.auth.signInWithGooglePopup().take(1).subscribe(res => undefined, err => this.socialNetworkError(err))
         break
-      case 'github': this.auth.signInWithGithubPopup().catch(err => this.socialNetworkError(err))
+      case 'github': this.auth.signInWithGithubPopup().take(1).subscribe(res => undefined, err => this.socialNetworkError(err))
         break
-      case 'twitter': this.auth.signInWithTwitterPopup().catch(err => this.socialNetworkError(err))
+      case 'twitter': this.auth.signInWithTwitterPopup().take(1).subscribe(res => undefined, err => this.socialNetworkError(err))
         break
       case 'email_new':
         this.auth.createUserWithEmailAndPassword(this.form.value.email, this.form.value.password)

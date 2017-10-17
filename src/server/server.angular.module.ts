@@ -1,13 +1,16 @@
+import { TransferState } from '@angular/platform-browser'
 import { Subject } from 'rxjs/Subject'
-import { AppModule, REQ_KEY } from './../client/app/app.module'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
-import { APP_BOOTSTRAP_LISTENER, ApplicationRef, enableProdMode, Inject, NgModule } from '@angular/core'
+import { APP_BOOTSTRAP_LISTENER, ApplicationRef, enableProdMode, Inject, NgModule, NgZone } from '@angular/core'
 import { ServerModule, ServerTransferStateModule } from '@angular/platform-server'
 import { AppComponent } from './../client/app/app.component'
 import { EnvConfig } from '../../tools/config/app.config'
-import { TransferState } from '@angular/platform-browser'
+import { AppModule, REQ_KEY } from './../client/app/app.module'
 import { ReplaySubject } from 'rxjs/ReplaySubject'
+import { AngularFireDatabase } from 'angularfire2/database'
+import { FIREBASE_ADMIN_INSTANCE, FirebaseAdminService } from './server.angular-fire.service'
+import { fbAdmin } from './server'
 import * as express from 'express'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/first'
@@ -35,6 +38,14 @@ export function createAngularFireServer(req: express.Request, transferState: Tra
   return new AngularFireServer(req, transferState)
 }
 
+export function getFirebaseAdmin() {
+  return fbAdmin
+}
+
+export function getFirebaseServerModule(d: any, zone: NgZone, ts: TransferState) {
+  return new FirebaseAdminService(d, zone, ts)
+}
+
 @NgModule({
   imports: [
     ServerModule,
@@ -59,6 +70,15 @@ export function createAngularFireServer(req: express.Request, transferState: Tra
         REQUEST,
         TransferState
       ]
+    },
+    {
+      provide: FIREBASE_ADMIN_INSTANCE,
+      useFactory: getFirebaseAdmin
+    },
+    {
+      provide: AngularFireDatabase,
+      useFactory: getFirebaseServerModule,
+      deps: [FIREBASE_ADMIN_INSTANCE, NgZone, TransferState]
     }
   ],
   bootstrap: [AppComponent]

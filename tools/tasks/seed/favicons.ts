@@ -10,10 +10,11 @@ const { JSDOM } = jsdom
 
 Sparky.task(taskName(__filename), () => {
   return new Promise((resolve, reject) => {
+    const config = JSON.parse(ENV_CONFIG_INSTANCE.angularAppConfig)
     favicons(BUILD_CONFIG.faviconSource, {
       path: '/assets/favicons',
-      appDescription: ENV_CONFIG_INSTANCE.description,
-      appName: ENV_CONFIG_INSTANCE.name
+      appDescription: config.description,
+      appName: config.name
     }, (error: any, response: any) => {
       if (error) {
         // tslint:disable:no-console

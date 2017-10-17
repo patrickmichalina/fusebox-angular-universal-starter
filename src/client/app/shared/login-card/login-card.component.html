@@ -5,7 +5,7 @@
     </mat-error>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Social in with social network
+        Sign in with social network
       </mat-panel-title>
     </mat-expansion-panel-header>
     <button mat-raised-button (click)="login('facebook')" pmSocialButton="facebook">
@@ -39,7 +39,7 @@
         Sign in with email
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <form [formGroup]="form" novalidate>
+    <form [formGroup]="form" id="emailForm" novalidate>
       <mat-error *ngIf="form.hasError('network')">
         {{ form.getError('network') }}
       </mat-error>
@@ -64,10 +64,7 @@
     </form>
     <mat-action-row>
       <button mat-button color="accent" (click)="login('email_new')" [disabled]="!form.valid">Signup</button>
-      <button mat-button color="primary" (click)="login('email_login')" [disabled]="!form.valid">
-
-        Sign In</button>
-      <!-- <p>Please check your email for an activation link</p> -->
+      <button type="submit" form="emailForm" mat-raised-button color="primary" (click)="login('email_login')" [disabled]="!form.valid">Sign In</button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>

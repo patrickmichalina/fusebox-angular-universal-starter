@@ -1,5 +1,5 @@
+import { ErrorHandler, NgModule } from '@angular/core'
 import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
-import { ServerResponseService } from './shared/services/server-response.service'
 import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { AppComponent } from './app.component'
 import { SharedModule } from './shared/shared.module'
@@ -8,20 +8,19 @@ import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '
 import { NotFoundModule } from './not-found/not-found.module'
 import { BrowserModule, makeStateKey } from '@angular/platform-browser'
 import { EnvironmentService } from './shared/services/environment.service'
-import { ErrorHandler, NgModule } from '@angular/core'
+import { ServerResponseService } from './shared/services/server-response.service'
 import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpResponse } from '@angular/common/http'
 import { GlobalErrorHandler } from './shared/services/error-handler.service'
 import { SettingService } from './shared/services/setting.service'
 import { AngularFireModule, FirebaseAppConfigToken, FirebaseAppName } from 'angularfire2'
 import { AngularFireAuthModule } from 'angularfire2/auth'
+import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { TransferHttpCacheModule } from '@nguniversal/common'
 import { LoginGuard } from './shared/services/guard-login.service'
 import { AuthService, FB_COOKIE_KEY } from './shared/services/auth.service'
-import {
-  CACHE_TAG_CONFIG, CACHE_TAG_FACTORY,
-  CacheTagConfig, HttpCacheTagModule
-} from './shared/http-cache-tag/http-cache-tag.module'
+import { CACHE_TAG_CONFIG, CACHE_TAG_FACTORY, CacheTagConfig, HttpCacheTagModule } from './shared/http-cache-tag/http-cache-tag.module'
+
 // import { ServiceWorkerModule } from '@angular/service-worker'
 
 export const REQ_KEY = makeStateKey<string>('req')
@@ -39,7 +38,7 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
         : ss.pluck(key)).map(a => a ? a : '')
     },
     pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
-    pageTitleSeparator: env.config.pageTitleSeparator,
+    pageTitleSeparator: ' - ',
     applicationName: 'og.title',
     applicationUrl: 'host',
     defaults: {
@@ -53,12 +52,12 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
   })
 }
 
-export function firebaseConfigLoader(ss: SettingService) {
-  return ss.initialSettings.firebase.config
+export function firebaseConfigLoader(env: EnvironmentService) {
+  return env.config.firebase.config
 }
 
-export function firebaseAppNameLoader(ss: SettingService) {
-  return ss.initialSettings.firebase.appName
+export function firebaseAppNameLoader(env: EnvironmentService) {
+  return env.config.firebase.appName
 }
 
 export function cacheTagFactory(srs: ServerResponseService): any {
@@ -76,6 +75,7 @@ export function cacheTagFactory(srs: ServerResponseService): any {
     AppRoutingModule,
     NotFoundModule,
     AngularFireModule,
+    AngularFireDatabaseModule,
     AngularFireAuthModule,
     TransferHttpCacheModule,
     SharedModule.forRoot(),
@@ -109,12 +109,12 @@ export function cacheTagFactory(srs: ServerResponseService): any {
     {
       provide: FirebaseAppName,
       useFactory: firebaseAppNameLoader,
-      deps: [SettingService]
+      deps: [EnvironmentService]
     },
     {
       provide: FirebaseAppConfigToken,
       useFactory: firebaseConfigLoader,
-      deps: [SettingService]
+      deps: [EnvironmentService]
     },
     AuthService,
     LoginGuard
