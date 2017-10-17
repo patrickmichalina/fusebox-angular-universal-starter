@@ -5,7 +5,7 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
-import ms = require('ms')
+import * as admin from 'firebase-admin'
 import { createLogger } from '@expo/bunyan'
 import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './server.angular.module'
@@ -14,8 +14,12 @@ import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
 import { useApi } from './api'
 import { join, resolve } from 'path'
-import { useWebSockets } from './server.web-socket'
+import { dbSeed } from './data/index'
+import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
 import http = require('http')
+import ms = require('ms')
+
+// import { useWebSockets } from './server.web-socket'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -36,7 +40,7 @@ const isTest = argv['e2e']
 
 const staticOptions = {
   index: false,
-  maxAge: isProd ? ms('1yr') : ms('0'),
+  maxAge: isProd ? ms('1yr') / 1000 : ms('0'),
   setHeaders: (res: express.Response, path: any) => {
     res.setHeader('Expires', isProd
       ? new Date(Date.now() + ms('1yr')).toUTCString()
@@ -55,7 +59,7 @@ const logger = createLogger({
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
-useWebSockets(server)
+// useWebSockets(server) // uncommne to activate manual web-sockets
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
@@ -112,6 +116,17 @@ app.get('**', (req: express.Request, res: express.Response, next: express.NextFu
   })
 })
 
-server.listen(port, () => {
-  logger.info(`Angular Universal Server listening at ${host}:${port}`)
+export const fbAdmin = admin.initializeApp({
+  credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
+  databaseURL: ANGULAR_APP_CONFIG.firebase.config.databaseURL
 })
+
+const serve = () => {
+  server.listen(port, () => {
+    logger.info(`Angular Universal Server listening at ${host}:${port}`)
+  })
+}
+// serve()
+dbSeed(fbAdmin.database())
+  .take(1)
+  .subscribe(res => serve(), console.error)

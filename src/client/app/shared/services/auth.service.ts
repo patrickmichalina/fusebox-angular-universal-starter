@@ -7,6 +7,9 @@ import { Inject, Injectable, InjectionToken } from '@angular/core'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { JwtHelper } from 'angular2-jwt'
 import { fromPromise } from 'rxjs/observable/fromPromise'
+import { of } from 'rxjs/observable/of'
+import { combineLatest } from 'rxjs/observable/combineLatest'
+import { FirebaseDatabaseService } from './firebase-database.service'
 import * as firebase from 'firebase/app'
 
 export interface ExtendedUser {
@@ -53,16 +56,33 @@ export class AuthService implements IAuthService {
 
   private userSource = new BehaviorSubject<ExtendedUser>(this.cookieMapper(this.cs.get(this.COOKIE_KEY)))
   public user$ = this.userSource.asObservable()
+  public userVer$ = this.user$.filter(Boolean)
   private fbUser$ = this.fbAuth.idToken
-    .flatMap(a => a ? a.getIdToken() : Observable.of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
+    .flatMap(a => a ? a.getIdToken() : of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
 
   constructor(private cs: CookieService, private fbAuth: AngularFireAuth, ss: SettingService, ps: PlatformService,
-    @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string) {
+    private db: FirebaseDatabaseService, @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string) {
     this.viaCookies$.subscribe(a => this.userSource.next(a))
 
     if (ps.isServer) return
 
-    Observable.combineLatest(this.fbUser$, ss.settings$, (fbUser, settings) => ({ ...fbUser, ...settings }))
+    combineLatest(this.fbUser$, ss.settings$, (fbUser, settings) => ({ ...fbUser, ...settings }))
+      .flatMap(res => {
+        if (res.fbUser && res.fbUser.uid) {
+          return this.db
+            .get(`users/${res.fbUser.uid}`)
+            .pluck('roles')
+        } else {
+          return of(res)
+        }
+      }, (user, roles) => {
+        return {
+          ...user,
+          roles: {
+            ...roles
+          }
+        }
+      })
       .subscribe(res => {
         if (!res.idToken) {
           this.logout()
@@ -76,6 +96,7 @@ export class AuthService implements IAuthService {
         if (res.fbUser && res.fbUser.providerData) {
           cs.set(this.COOKIE_KEY, {
             jwt: res.idToken,
+            roles: res.roles,
             providerId: res.fbUser.providerId,
             displayName: res.fbUser.displayName,
             email: res.fbUser.email,
@@ -88,19 +109,19 @@ export class AuthService implements IAuthService {
   }
 
   signInWithFacebookPopup() {
-    return this.fbAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()))
   }
 
   signInWithGooglePopup() {
-    return this.fbAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
   }
 
   signInWithGithubPopup() {
-    return this.fbAuth.auth.signInWithPopup(new firebase.auth.GithubAuthProvider())
+    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.GithubAuthProvider()))
   }
 
   signInWithTwitterPopup() {
-    return this.fbAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider())
+    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()))
   }
 
   createUserWithEmailAndPassword(email: string, password: string) {
@@ -115,16 +136,20 @@ export class AuthService implements IAuthService {
     this.cs.remove(this.COOKIE_KEY)
   }
 
-  updateEmailPassword(currentPassword: string, newPassword: string) {
+  refreshEmailCredentials(paswword: string) {
     return this.fbUser$
       .map(a => a.fbUser)
       .map(user => {
         if (!user) return Observable.throw('missing user')
         return {
           user,
-          credentials: firebase.auth.EmailAuthProvider.credential(user.email as string, currentPassword)
+          credentials: firebase.auth.EmailAuthProvider.credential(user.email as string, paswword)
         }
       })
+  }
+
+  updateEmailPassword(currentPassword: string, newPassword: string) {
+    return this.refreshEmailCredentials(currentPassword)
       .flatMap((userObj: {
         user: firebase.User,
         credentials: firebase.auth.AuthCredential
@@ -135,7 +160,18 @@ export class AuthService implements IAuthService {
       .flatMap(user => user.updatePassword(newPassword))
   }
 
-  updateProfile(displayName: string, pictureUrl: string) {
-    // 
+  updateProfile(displayName?: string, photoURL?: string) {
+    return this.fbUser$
+      .map(a => a.fbUser)
+      .flatMap(user => {
+        if (!user) return Observable.throw('missing user')
+        return user.updateProfile({
+          // tslint:disable:no-null-keyword
+          displayName: displayName || null,
+          photoURL: photoURL || null
+        })
+      }, (user, e) => user)
+      .flatMap(user => user ? user.getIdToken(true) : of(undefined))
+      .flatMap(() => this.fbAuth.idToken)
   }
 }

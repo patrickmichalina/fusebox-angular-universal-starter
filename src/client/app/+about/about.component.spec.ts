@@ -2,6 +2,8 @@ import { AboutComponent } from './about.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { AboutModule } from './about.module'
+import { FirebaseDatabaseService } from '../shared/services/firebase-database.service'
+import { of } from 'rxjs/observable/of'
 
 describe(AboutComponent.name, () => {
   let fixture: ComponentFixture<AboutComponent>
@@ -9,7 +11,10 @@ describe(AboutComponent.name, () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AboutModule],
-      declarations: [TestComponent]
+      declarations: [TestComponent],
+      providers: [
+        { provide: FirebaseDatabaseService, useValue: new MockDb() }
+      ]
     }).compileComponents()
   }))
 
@@ -37,3 +42,9 @@ describe(AboutComponent.name, () => {
   template: '<pm-about></pm-about>'
 })
 class TestComponent {}
+
+class MockDb {
+  get() {
+    return of('test')
+  }
+}

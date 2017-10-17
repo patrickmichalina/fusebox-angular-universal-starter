@@ -13,6 +13,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 export class AccountComponent {
   @HostBinding('class.card-float-container') containerClass = true
   @ViewChild('passwordPanel') passwordPanel: MatExpansionPanel
+  @ViewChild('profilePanel') profilePanel: MatExpansionPanel
+  @ViewChild('socialPanel') socialPanel: MatExpansionPanel
   // private DEBOUNCE_TIME = 750
 
   public detailForm = new FormGroup({
@@ -103,12 +105,14 @@ export class AccountComponent {
   }
 
   updateDetail() {
-    // this.us$.flatMap(user => user.update(this.passForm.value.newPassword))
-    //   .take(1)
-    //   .subscribe(user => {
-    //     user
-    //     console.log(user)
-    //   })
+    this.auth
+      .updateProfile(this.detailForm.value.displayName)
+      .take(1)
+      .subscribe(() => {
+        this.openSnackBar('name updated')
+      }, err => {
+        console.log(err)
+      })
   }
 
   updatePassword() {

@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable'
-import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { ISetting } from '../../../../server/api/services/setting.service'
+import { FirebaseDatabaseService } from './firebase-database.service'
 
 export interface ISettingService {
   settings$: Observable<ISetting>
@@ -11,12 +11,13 @@ export interface ISettingService {
 @Injectable()
 export class SettingService implements ISettingService {
   public initialSettings: ISetting
-  public settings$ = this.http.get<ISetting>('settings')
+  public settings$ = this.db
+    .get<ISetting>('site-settings')
     .map(settings => {
       return {
         injections: [],
         ...settings
-      }
+      } as ISetting
     })
     .shareReplay()
 
@@ -25,7 +26,7 @@ export class SettingService implements ISettingService {
       .reduce((o, k) => (o || {})[k], dict as any))
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private db: FirebaseDatabaseService) {
     this.settings$.take(1).subscribe(set => this.initialSettings = set)
   }
 }
