@@ -27,6 +27,9 @@
     },
     "FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID": {
       "required": true
+    },
+    "FB_AUTH_KEY": {
+      "required": true
     }
   }
 }
