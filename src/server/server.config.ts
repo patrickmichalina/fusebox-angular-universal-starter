@@ -1,5 +1,10 @@
 import { config as dotenv } from 'dotenv'
 import { EnvConfig } from '../../tools/config/app.config'
+declare var __process_env__: any
+
+export function fuseBoxConfigFactory() {
+  return JSON.parse(__process_env__.angularAppConfig) as EnvConfig
+}
 
 export interface ServerEnvironmentConfig {
   FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID: string
@@ -10,7 +15,7 @@ export interface ServerEnvironmentConfig {
 dotenv()
 
 // this comes from fusebox
-export const ANGULAR_APP_CONFIG = JSON.parse(process.env.angularAppConfig) as EnvConfig
+export const ANGULAR_APP_CONFIG = fuseBoxConfigFactory()
 
 const errors: string[] = []
 
