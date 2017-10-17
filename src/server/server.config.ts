@@ -1,4 +1,5 @@
 import { config as dotenv } from 'dotenv'
+import { writeFileSync } from 'fs'
 import { EnvConfig } from '../../tools/config/app.config'
 declare var __process_env__: any
 
@@ -12,10 +13,17 @@ export interface ServerEnvironmentConfig {
   FB_AUTH_KEY: string
 }
 
-dotenv()
-
 // this comes from fusebox
 export const ANGULAR_APP_CONFIG = fuseBoxConfigFactory()
+
+const env = dotenv()
+if (env.error && ANGULAR_APP_CONFIG.env === 'dev') {
+  console.error('.env development file created!\nYOU MUST ADD YOUR CONFIGURATION VALUES TO IT')
+  writeFileSync('.env',
+`FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID=
+FB_SERVICE_ACCOUNT_PRIVATE_KEY=
+FB_AUTH_KEY=`)
+}
 
 const errors: string[] = []
 
@@ -36,6 +44,6 @@ const base = require('./data/service-account.json')
 export const FB_SERVICE_ACCOUNT_CONFIG = {
   ...base,
   private_key_id: SERVER_CONFIG.FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID,
-  private_key: SERVER_CONFIG.FB_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  private_key: SERVER_CONFIG.FB_SERVICE_ACCOUNT_PRIVATE_KEY && SERVER_CONFIG.FB_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n'),
   project_id: ANGULAR_APP_CONFIG.firebase.config.projectId
 }
