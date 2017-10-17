@@ -61,7 +61,7 @@
     "@types/jest": "^21.1.2",
     "@types/js-cookie": "^2.1.0",
     "@types/jsdom": "^11.0.2",
-    "@types/memory-cache": "^0.0.31",
+    "@types/memory-cache": "^0.2.0",
     "@types/mkdirp": "^0.5.1",
     "@types/ms": "^0.7.30",
     "@types/nightmare": "^1.6.36",
