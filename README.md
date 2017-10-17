@@ -11,7 +11,9 @@
 Provides an extremely fast seed project for the development of Angular Universal (isomorphic) projects. Check out the [live app](https://angular.patrickmichalina.com)
 
 # Project Goals
-This seed project is designed to get a basic application up and running with common feature most applications need. It uses [Firebase](https://firebase.google.com) for Authentication and the database layer. Firebase isn't official supported with Universal at this time, however, we were ablet to implement some of the basic features to render and transfer state to the browser. Once an official realease occurs, we can better integrate Firebase.
+This starter project is designed to get a basic application up and running with basic implementations of core features most applications need. It uses [Firebase](https://firebase.google.com) for the authentication and the database layers.
+
+Note: Firebase doesn't have official support for Angular Universal at this time. However, we have implemented some of the basic features to render and transfer server state to the browser. Once an official support is released, we will use that.
 
 # Features
 - [x] [Angular](https://github.com/angular/angular/blob/master/CHANGELOG.md) as the application framework
