@@ -1,4 +1,22 @@
 <h1>About</h1>
 <p>An Angular starter with all the tools necessary to create server rendered Angular applications.</p>
 
-<div [innerHTML]="test$ | async | json"></div>
+<form [formGroup]="form" novalidate>
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="html" formControlName="html"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="create()" [disabled]="!form.valid">
+    Post
+  </button>
+  <button mat-raised-button color="warn" (click)="removeAll()">
+    Delete All Posts
+  </button>
+</form>
+
+<mat-card *ngFor="let post of posts$ | async">
+  <h4>{{ post.title }}</h4>
+  <div [innerHTML]="post.html"></div>
+</mat-card>
