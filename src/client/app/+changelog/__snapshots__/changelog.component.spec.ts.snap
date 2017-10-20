@@ -20,7 +20,7 @@ exports[`ChangelogComponent should compile 1`] = `
 exports[`ChangelogComponent should handle failure to load file gracefully 1`] = `
 <div
   id="root2"
-  ng-version="5.0.0-rc.2"
+  ng-version="5.0.0-rc.3"
 >
   <mat-card
     class="mat-card"
@@ -43,7 +43,7 @@ exports[`ChangelogComponent should handle failure to load file gracefully 1`] = 
 exports[`ChangelogComponent should render changelog 1`] = `
 <div
   id="root1"
-  ng-version="5.0.0-rc.2"
+  ng-version="5.0.0-rc.3"
 >
   <mat-card
     class="mat-card"
