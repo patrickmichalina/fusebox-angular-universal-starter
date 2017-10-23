@@ -2,16 +2,15 @@ import { PlatformService } from './shared/services/platform.service'
 import { HttpCacheDirective, ServerResponseService } from './shared/services/server-response.service'
 import { CookieService } from './shared/services/cookie.service'
 import { AuthService } from './shared/services/auth.service'
-import { Injectable } from '../../server/api/repositories/setting.repository'
 import { HttpClient } from '@angular/common/http'
 import { WebSocketService } from './shared/services/web-socket.service'
 import { ChangeDetectionStrategy, Component, Inject, Renderer2 } from '@angular/core'
 import { DOCUMENT, Meta, TransferState } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
-import { sha1 } from 'object-hash'
 import { MatIconRegistry } from '@angular/material'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { InjectionService } from './shared/services/injection.service'
 
 @Component({
   selector: 'pm-app',
@@ -25,7 +24,7 @@ export class AppComponent {
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,
     ps: PlatformService, router: Router, cs: CookieService, ts: TransferState, ar: ActivatedRoute, private auth: AuthService,
-    srs: ServerResponseService) {
+    srs: ServerResponseService, domInjector: InjectionService) {
 
     matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
 
@@ -33,12 +32,12 @@ export class AppComponent {
       .take(1)
       .subscribe(settings => {
         meta.addTag({ property: 'fb:app_id', content: settings.tokens.facebookAppId })
-        settings.injections.forEach(link => this.inject(doc, renderer, link))
+        settings.injections.forEach(link => domInjector.inject(doc, renderer, link))
       })
 
     http.get('./css/main.css', { responseType: 'text' })
       .take(1)
-      .subscribe(css => this.inject(doc, renderer, {
+      .subscribe(css => domInjector.inject(doc, renderer, {
         value: css,
         element: 'style',
         inHead: true
@@ -79,22 +78,5 @@ export class AppComponent {
     //   wss.messageBus$.subscribe()
     //   wss.send({ message: 'ws test' })
     // }
-  }
-
-  inject(doc: HTMLDocument, renderer: Renderer2, injectable: Injectable) {
-    const st = renderer.createElement(injectable.element) as HTMLElement
-    const id = sha1(JSON.stringify(injectable))
-
-    if (doc.getElementById(id)) return
-
-    renderer.setProperty(st, 'id', id)
-    if (injectable.value) renderer.setValue(st, injectable.value)
-
-    Object.keys(injectable.attributes || {})
-      .forEach(key => renderer.setAttribute(st, key, (injectable.attributes || {})[key] as any))
-
-    injectable.inHead
-      ? renderer.appendChild(doc.head, st)
-      : renderer.appendChild(doc.body, st)
   }
 }
