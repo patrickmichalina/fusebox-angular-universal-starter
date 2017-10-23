@@ -19,7 +19,7 @@ import { SocialButtonDirective } from './directives/social-button.directive'
 import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseDatabaseService } from './services/firebase-database.service'
-import { InjectionService } from './services/injection.service';
+import { InjectionService } from './services/injection.service'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
