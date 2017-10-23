@@ -26,4 +26,8 @@ export class InjectionService {
       ? renderer.appendChild(doc.head, st)
       : renderer.appendChild(doc.body, st)
   }
+
+  injectCollection(doc: HTMLDocument, renderer: Renderer2, injectables: DOMInjectable[]) {
+    injectables.forEach(injectable => this.inject(doc, renderer, injectable))
+  }
 }

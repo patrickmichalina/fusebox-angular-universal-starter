@@ -10,7 +10,7 @@ import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { MatIconRegistry } from '@angular/material'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { InjectionService } from './shared/services/injection.service';
+import { InjectionService } from './shared/services/injection.service'
 
 @Component({
   selector: 'pm-app',
