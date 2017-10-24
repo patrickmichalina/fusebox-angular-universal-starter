@@ -11,6 +11,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2'
 import { MatIconRegistry } from '@angular/material'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { InjectionService } from './shared/services/injection.service'
+import { MinifierService } from './shared/services/minifier.service'
 
 @Component({
   selector: 'pm-app',
@@ -24,7 +25,7 @@ export class AppComponent {
   constructor(ss: SettingService, meta: Meta, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,
     ps: PlatformService, router: Router, cs: CookieService, ts: TransferState, ar: ActivatedRoute, private auth: AuthService,
-    srs: ServerResponseService, domInjector: InjectionService) {
+    srs: ServerResponseService, domInjector: InjectionService, mini: MinifierService) {
 
     matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
 
@@ -32,13 +33,13 @@ export class AppComponent {
       .take(1)
       .subscribe(settings => {
         meta.addTag({ property: 'fb:app_id', content: settings.tokens.facebookAppId })
-        settings.injections.forEach(link => domInjector.inject(doc, renderer, link))
+        settings.injections.filter(Boolean).forEach(link => domInjector.inject(doc, renderer, link))
       })
 
     http.get('./css/main.css', { responseType: 'text' })
       .take(1)
       .subscribe(css => domInjector.inject(doc, renderer, {
-        value: css,
+        value: mini.css(css),
         element: 'style',
         inHead: true
       }))

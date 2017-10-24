@@ -15,7 +15,7 @@ Sparky.task(taskName(__filename), () => {
   const sass = () => {
     const result = renderSync({
       file: './src/client/styles/main.scss',
-      outputStyle: 'compressed'
+      // outputStyle: 'compressed'
     })
     const hashed = hash(result.css.toString())
 

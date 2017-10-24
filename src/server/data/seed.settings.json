@@ -1,5 +1,5 @@
 {
-  "host": "localhost:8000",
+  "host": "http://localhost:8000",
   "og": {
     "title": "Fusebox Angular Universal Starter",
     "description": "Seed project for Angular Universal apps featuring Server-Side Rendering (SSR), FuseBox, dev/prod builds, Brotli/Gzip, SCSS, favicon generation, @types, unit testing w/ Jest, and sitemap generator. Created by Patrick Michalina",
@@ -46,17 +46,6 @@
       "element": "link",
       "attributes": {
         "href": "https://fonts.googleapis.com/css?family=Roboto",
-        "rel": "stylesheet",
-        "type": "text/css",
-        "media": "none",
-        "onload": "if(media!=='all')media='all'"
-      }
-    },
-    {
-      "inHead": false,
-      "element": "link",
-      "attributes": {
-        "href": "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
         "rel": "stylesheet",
         "type": "text/css",
         "media": "none",

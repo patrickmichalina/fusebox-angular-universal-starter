@@ -20,6 +20,7 @@ import { MarkdownToHtmlModule } from 'markdown-to-html-pipe'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseDatabaseService } from './services/firebase-database.service'
 import { InjectionService } from './services/injection.service'
+import { MinifierService } from './services/minifier.service'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
@@ -100,7 +101,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     SettingService,
     WebSocketService,
     FirebaseDatabaseService,
-    InjectionService
+    InjectionService,
+    MinifierService
   ]
 })
 export class SharedModule {
