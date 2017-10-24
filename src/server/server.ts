@@ -40,7 +40,7 @@ const isTest = argv['e2e']
 
 const staticOptions = {
   index: false,
-  maxAge: isProd ? ms('1yr') / 1000 : ms('0'),
+  maxAge: isProd ? ms('1yr') : ms('0'),
   setHeaders: (res: express.Response, path: any) => {
     res.setHeader('Expires', isProd
       ? new Date(Date.now() + ms('1yr')).toUTCString()
