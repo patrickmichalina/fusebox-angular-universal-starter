@@ -11,7 +11,9 @@ import { ReplaySubject } from 'rxjs/ReplaySubject'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { FIREBASE_ADMIN_INSTANCE, FirebaseAdminService } from './server.angular-fire.service'
 import { fbAdmin } from './server'
+import { MinifierService } from '../client/app/shared/services/minifier.service'
 import * as express from 'express'
+import * as cleanCss from 'clean-css'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/first'
 import '../client/operators'
@@ -79,6 +81,14 @@ export function getFirebaseServerModule(d: any, zone: NgZone, ts: TransferState)
       provide: AngularFireDatabase,
       useFactory: getFirebaseServerModule,
       deps: [FIREBASE_ADMIN_INSTANCE, NgZone, TransferState]
+    },
+    {
+      provide: MinifierService,
+      useValue: {
+        css(css: string): string {
+          return new cleanCss({}).minify(css).styles || css
+        }
+      }
     }
   ],
   bootstrap: [AppComponent]

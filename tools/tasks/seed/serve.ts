@@ -4,6 +4,7 @@ import { BUILD_CONFIG, isAot, isProdBuild, taskName } from '../../config/build.c
 Sparky.task(taskName(__filename), () => {
   return Sparky.start('clean')
     .then(() => Sparky.start('mk-dist'))
+    .then(() => Sparky.start('fonts'))
     .then(() => Sparky.start('changelog'))
     .then(() => isAot ? Sparky.start('ngc') : Promise.resolve())
     .then(() => Sparky.start('web'))
