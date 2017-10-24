@@ -17,8 +17,8 @@ export function getRequest(transferState: TransferState): any {
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     BrowserTransferStateModule,
     BrowserAnimationsModule,
+    // ServiceWorkerModule.register('/ngsw-worker.js'),
     AppModule
-    // ServiceWorkerModule.register('/js/ngsw-worker.js')
   ],
   providers: [
     {
