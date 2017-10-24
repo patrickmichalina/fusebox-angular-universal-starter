@@ -21,8 +21,6 @@ import { LoginGuard } from './shared/services/guard-login.service'
 import { AuthService, FB_COOKIE_KEY } from './shared/services/auth.service'
 import { CACHE_TAG_CONFIG, CACHE_TAG_FACTORY, CacheTagConfig, HttpCacheTagModule } from './shared/http-cache-tag/http-cache-tag.module'
 
-// import { ServiceWorkerModule } from '@angular/service-worker'
-
 export const REQ_KEY = makeStateKey<string>('req')
 
 export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLoader {
@@ -79,7 +77,6 @@ export function cacheTagFactory(srs: ServerResponseService): any {
     AngularFireAuthModule,
     TransferHttpCacheModule,
     SharedModule.forRoot(),
-    // ServiceWorkerModule.register('/ngsw-worker.js'), // TODO: this is broken in JIT
     Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
     MetaModule.forRoot({
