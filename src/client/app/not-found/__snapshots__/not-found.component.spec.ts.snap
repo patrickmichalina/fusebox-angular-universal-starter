@@ -1,8 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NotFoundComponent should match snapshot 1`] = `
-<pm-not-found>
-  PAGE NOT FOUND
+exports[`NotFoundComponent should compile 1`] = `
+<pm-not-found
+  db={[Function Object]}
+  page$={[Function Observable]}
+  req={[Function Object]}
+  rs={[Function ServerResponseService]}
+>
+  <div>
+    
+    
+    <h1>
+      
+    </h1>
+    
+    
+    <div />
+    
+  
+  </div>
 </pm-not-found>
 `;
 

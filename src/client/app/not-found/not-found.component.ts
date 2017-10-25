@@ -11,7 +11,8 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotFoundComponent {
-  public page$ = this.db.get(`/pages/${this.req.originalUrl}`)
+  public page$ = this.db
+    .get(`/pages/${this.req.originalUrl}`)
     .map(res => {
       if (res) return res
       this.rs.setNotFound()
@@ -33,5 +34,5 @@ export class NotFoundComponent {
       }
     })
 
-  constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, @Inject(REQUEST) private req: any) {}
+  constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, @Inject(REQUEST) private req: any) { }
 }
