@@ -119,14 +119,14 @@ app.get('**', (req: express.Request, res: express.Response, next: express.NextFu
 export const fbAdmin = admin.initializeApp({
   credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
   databaseURL: ANGULAR_APP_CONFIG.firebase.config.databaseURL
-})
+}, 'admin')
 
 const serve = () => {
   server.listen(port, () => {
     logger.info(`Angular Universal Server listening at ${host}:${port}`)
   })
 }
-// serve()
+
 dbSeed(fbAdmin.database())
   .take(1)
-  .subscribe(res => serve(), console.error)
+  .subscribe(serve, console.error)

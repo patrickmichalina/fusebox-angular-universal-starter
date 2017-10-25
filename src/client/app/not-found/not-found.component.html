@@ -1,1 +1,4 @@
-PAGE NOT FOUND
+<div *ngIf="page$ | async as page">
+  <h1>{{ page.title }}</h1>
+  <div [innerHTML]="page.content"></div>
+</div>

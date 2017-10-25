@@ -1,3 +1,7 @@
+import { CookieService } from './../client/app/shared/services/cookie.service'
+import { AuthService, FB_COOKIE_KEY } from './../client/app/shared/services/auth.service'
+import { EnvironmentService } from './../client/app/shared/services/environment.service'
+import { FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
 import { TransferState } from '@angular/platform-browser'
 import { Subject } from 'rxjs/Subject'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -10,10 +14,11 @@ import { AppModule, REQ_KEY } from './../client/app/app.module'
 import { ReplaySubject } from 'rxjs/ReplaySubject'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { FIREBASE_ADMIN_INSTANCE, FirebaseAdminService } from './server.angular-fire.service'
-import { fbAdmin } from './server'
+import { JwtHelper } from 'angular2-jwt'
 import { MinifierService } from '../client/app/shared/services/minifier.service'
 import * as express from 'express'
 import * as cleanCss from 'clean-css'
+import * as admin from 'firebase-admin'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/first'
 import '../client/operators'
@@ -40,8 +45,19 @@ export function createAngularFireServer(req: express.Request, transferState: Tra
   return new AngularFireServer(req, transferState)
 }
 
-export function getFirebaseAdmin() {
-  return fbAdmin
+export function getFirebaseAdmin(env: EnvironmentService, cookies: CookieService, cookieKey: string) {
+  const userToken = cookies.get(cookieKey)
+  const jwtHelper = new JwtHelper()
+  const user = AuthService.cookieMapper(userToken, jwtHelper) || {}
+  const userId = user.id || 'anon'
+  const app = admin.apps.find((a: any) => a.name === userId)
+
+  if (app) return app
+  return admin.initializeApp({
+    credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
+    databaseURL: env.config.firebase.config.databaseURL,
+    databaseAuthVariableOverride: new Map([['uid', userId]])
+  }, userId)
 }
 
 export function getFirebaseServerModule(d: any, zone: NgZone, ts: TransferState) {
@@ -62,7 +78,8 @@ export function getFirebaseServerModule(d: any, zone: NgZone, ts: TransferState)
       deps: [
         ApplicationRef,
         TransferState,
-        REQUEST
+        REQUEST,
+        CookieService, FB_COOKIE_KEY
       ]
     },
     {
@@ -75,7 +92,8 @@ export function getFirebaseServerModule(d: any, zone: NgZone, ts: TransferState)
     },
     {
       provide: FIREBASE_ADMIN_INSTANCE,
-      useFactory: getFirebaseAdmin
+      useFactory: getFirebaseAdmin,
+      deps: [EnvironmentService, CookieService, FB_COOKIE_KEY]
     },
     {
       provide: AngularFireDatabase,
