@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseDatabaseService } from './services/firebase-database.service'
 import { InjectionService } from './services/injection.service'
 import { MinifierService } from './services/minifier.service'
+import { QuillEditorComponent } from './quill-editor/quill-editor.component'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
@@ -76,14 +77,16 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     LoginCardComponent,
     FormsModule,
     ReactiveFormsModule,
-    MarkdownToHtmlModule
+    MarkdownToHtmlModule,
+    QuillEditorComponent
     // FlexLayoutModule,
   ],
   declarations: [
     NavbarComponent,
     ClickOutsideDirective,
     SocialButtonDirective,
-    LoginCardComponent
+    LoginCardComponent,
+    QuillEditorComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },

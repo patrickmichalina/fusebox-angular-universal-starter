@@ -33,12 +33,12 @@ export class AppComponent {
       .take(1)
       .subscribe(settings => {
         meta.addTag({ property: 'fb:app_id', content: settings.tokens.facebookAppId })
-        settings.injections.filter(Boolean).forEach(link => domInjector.inject(doc, renderer, link))
+        settings.injections.filter(Boolean).forEach(link => domInjector.inject(renderer, link))
       })
 
     http.get('./css/main.css', { responseType: 'text' })
       .take(1)
-      .subscribe(css => domInjector.inject(doc, renderer, {
+      .subscribe(css => domInjector.inject(renderer, {
         value: mini.css(css),
         element: 'style',
         inHead: true
