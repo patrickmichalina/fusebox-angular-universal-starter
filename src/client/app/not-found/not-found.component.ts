@@ -18,7 +18,7 @@ export interface Page {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotFoundComponent {
-  public page$ = Observable.of(this.req.originalUrl).filter(a => !a.includes('.'))
+  public page$ = Observable.of(this.req.originalUrl || '').filter(a => !a.includes('.'))
     .flatMap(url => this.db
       .get<Page & SEONode>(`/pages/${url}`)
       .map(res => {

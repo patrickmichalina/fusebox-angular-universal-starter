@@ -6,6 +6,8 @@ exports[`NotFoundComponent should compile 1`] = `
   page$={[Function Observable]}
   req={[Function Object]}
   rs={[Function ServerResponseService]}
+  sanitizer={[Function DomSanitizerImpl]}
+  seo={[Function SEOService]}
 >
   <div>
     
@@ -15,7 +17,9 @@ exports[`NotFoundComponent should compile 1`] = `
     </h1>
     
     
-    <div />
+    <div
+      pmhtmloutlet=""
+    />
     
   
   </div>

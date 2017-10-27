@@ -8,5 +8,13 @@ exports[`AdminComponent should match snapshot 1`] = `
   <p>
     Your Admin module is routed here
   </p>
+  <pm-quill-editor>
+    <div>
+      
+    
+      
+  
+    </div>
+  </pm-quill-editor>
 </pm-admin>
 `;
