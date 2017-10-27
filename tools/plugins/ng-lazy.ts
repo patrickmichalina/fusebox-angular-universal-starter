@@ -69,7 +69,7 @@ export class NgLazyPluginClass {
 
   public bundleStart(context: WorkFlowContext) {
     if (this.options.isUniversalServer) {
-      this.moduleMap = JSON.parse(process.env.UNIMODMAP)
+      this.moduleMap = JSON.parse((process.env as any).UNIMODMAP)
       return
     }
     if (context.bundle.name === this.options.angularBundle) {
