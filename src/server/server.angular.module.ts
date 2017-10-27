@@ -35,7 +35,8 @@ export function onBootstrap(appRef: ApplicationRef, transferState: TransferState
       .subscribe(() => {
         transferState.set<any>(REQ_KEY, {
           hostname: req.hostname,
-          originalUrl: req.originalUrl
+          originalUrl: req.originalUrl,
+          referer: req.get('referer')
         })
       })
   }

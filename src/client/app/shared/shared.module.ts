@@ -22,6 +22,9 @@ import { FirebaseDatabaseService } from './services/firebase-database.service'
 import { InjectionService } from './services/injection.service'
 import { MinifierService } from './services/minifier.service'
 import { QuillEditorComponent } from './quill-editor/quill-editor.component'
+import { ServerResponseService } from './services/server-response.service'
+import { SEOService } from './services/seo.service'
+import { HtmlOutletDirective } from './directives/html-outlet.directive'
 // import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
@@ -78,7 +81,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     FormsModule,
     ReactiveFormsModule,
     MarkdownToHtmlModule,
-    QuillEditorComponent
+    QuillEditorComponent,
+    HtmlOutletDirective
     // FlexLayoutModule,
   ],
   declarations: [
@@ -86,7 +90,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     ClickOutsideDirective,
     SocialButtonDirective,
     LoginCardComponent,
-    QuillEditorComponent
+    QuillEditorComponent,
+    HtmlOutletDirective
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
@@ -105,7 +110,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     WebSocketService,
     FirebaseDatabaseService,
     InjectionService,
-    MinifierService
+    MinifierService,
+    ServerResponseService,
+    SEOService
   ]
 })
 export class SharedModule {
