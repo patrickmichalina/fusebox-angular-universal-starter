@@ -110,7 +110,6 @@ export class AuthService implements IAuthService {
           // this.db
           //   .getObjectRef(`users/${res.fbUser.uid}`)
           //   .update({ email: res.fbUser.email })
-          //   .catch(() => undefined)
         }
       })
   }

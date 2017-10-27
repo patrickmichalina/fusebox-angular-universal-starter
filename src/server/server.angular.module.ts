@@ -120,31 +120,16 @@ export class AngularFireServer {
   idToken = this.authSource.asObservable()
 
   constructor( @Inject(REQUEST) private req: any, ts: TransferState) {
-
-    const jwt = this.req.cookies['fbJwt']
-    const providerId = this.req.cookies['fbProviderId']
-    const displayName = this.req.cookies['fbDisplayName']
-    const email = this.req.cookies['fbEmail']
-    const photoURL = this.req.cookies['fbPhotoURL']
-    const phoneNumber = this.req.cookies['fbPhoneNumber']
-
-    const authData = {
-      providerId,
-      displayName,
-      email,
-      photoURL,
-      phoneNumber
-    }
-
-    if (jwt) {
+    const fbAuth = JSON.parse(this.req.cookies['fbAuth'] || '{}')
+    if (fbAuth.jwt) {
       this.authSource.next({
         getIdToken: () => {
           return new Promise((resolve: any) => {
-            resolve(jwt)
+            resolve(fbAuth.jwt)
           })
         },
         authState: new Subject(),
-        ...authData
+        ...fbAuth
       })
     } else {
       this.authSource.next(undefined)
