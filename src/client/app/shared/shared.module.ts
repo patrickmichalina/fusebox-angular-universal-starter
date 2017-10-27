@@ -25,7 +25,6 @@ import { QuillEditorComponent } from './quill-editor/quill-editor.component'
 import { ServerResponseService } from './services/server-response.service'
 import { SEOService } from './services/seo.service'
 import { HtmlOutletDirective } from './directives/html-outlet.directive'
-// import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
 
@@ -67,7 +66,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     ReactiveFormsModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
-    // FlexLayoutModule,
+    // FlexLayoutModule
   ],
   exports: [
     CommonModule,
@@ -83,7 +82,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     MarkdownToHtmlModule,
     QuillEditorComponent,
     HtmlOutletDirective
-    // FlexLayoutModule,
+    // FlexLayoutModule
   ],
   declarations: [
     NavbarComponent,

@@ -36,7 +36,7 @@ if (errors.length > 0) {
   console.error(errors.join('\n'))
 }
 
-export const SERVER_CONFIG = process.env as ServerEnvironmentConfig
+export const SERVER_CONFIG: ServerEnvironmentConfig = process.env as any
 
 // tslint:disable-next-line:no-require-imports
 const base = require('./data/service-account.json')
