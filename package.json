@@ -178,8 +178,8 @@
     "zone.js": "^0.8.18"
   },
   "engines": {
-    "node": "= 8.6.0",
-    "npm": "= 5.4.2"
+    "node": "= 8.8.1",
+    "npm": "= 5.5.1"
   },
   "release": {
     "branch": "master",

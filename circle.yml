@@ -1,6 +1,8 @@
 machine:
   node:
     version: 8.8.1
+  npm:
+    version: 5.5.1
 
 general:
   artifacts:
