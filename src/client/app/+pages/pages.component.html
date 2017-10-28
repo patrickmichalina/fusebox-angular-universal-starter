@@ -1,2 +1,8 @@
 <h1>Pages</h1>
 <p>PAGE MANAGEMENT</p>
+
+<mat-tab-group>
+  <mat-tab *ngFor="let keyVal of pages$ | async | pmKeyVal" [label]="keyVal.key">
+    {{ keyVal.value | pmKeys }}
+  </mat-tab>
+</mat-tab-group>

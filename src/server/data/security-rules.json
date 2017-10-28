@@ -9,6 +9,7 @@
       ".write": "true"
     },
     "pages": {
+      ".read": "true",
       "blog": {
         "$document": {
           ".read": "true",

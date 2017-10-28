@@ -11,10 +11,10 @@ import { MetaGuard } from '@ngx-meta/core'
         component: PagesComponent,
         canActivate: [MetaGuard],
         data: {
-          meta: {
-            title: 'i18n.admin.title',
-            description: 'i18n.admin.description'
-          },
+          // meta: {
+          //   title: 'i18n.admin.title',
+          //   description: 'i18n.admin.description'
+          // },
           response: {
             cache: {
               directive: 'private'

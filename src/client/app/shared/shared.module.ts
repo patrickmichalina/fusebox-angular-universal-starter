@@ -25,6 +25,8 @@ import { QuillEditorComponent } from './quill-editor/quill-editor.component'
 import { ServerResponseService } from './services/server-response.service'
 import { SEOService } from './services/seo.service'
 import { HtmlOutletDirective } from './directives/html-outlet.directive'
+import { PmKeysPipe } from './pipes/keys.pipe'
+import { PmKeyValuePipe } from './pipes/key-value.pipe'
 
 declare var __process_env__: any
 
@@ -81,7 +83,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     ReactiveFormsModule,
     MarkdownToHtmlModule,
     QuillEditorComponent,
-    HtmlOutletDirective
+    HtmlOutletDirective,
+    PmKeysPipe,
+    PmKeyValuePipe
     // FlexLayoutModule
   ],
   declarations: [
@@ -90,7 +94,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     SocialButtonDirective,
     LoginCardComponent,
     QuillEditorComponent,
-    HtmlOutletDirective
+    HtmlOutletDirective,
+    PmKeysPipe,
+    PmKeyValuePipe
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },

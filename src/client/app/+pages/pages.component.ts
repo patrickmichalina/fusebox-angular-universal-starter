@@ -1,3 +1,4 @@
+import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
@@ -7,4 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PagesComponent {
+  pages$ = this.db.get('/pages')
+
+  constructor(private db: FirebaseDatabaseService) { }
 }
