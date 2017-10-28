@@ -10,10 +10,11 @@
     },
     "pages": {
       ".read": "true",
+      ".write": "true",
       "blog": {
         "$document": {
           ".read": "true",
-          ".write": "auth != null && root.child('users').child(auth.uid).child('roles/admin').val() === true"
+          ".write": "true"
         }
       }
     },

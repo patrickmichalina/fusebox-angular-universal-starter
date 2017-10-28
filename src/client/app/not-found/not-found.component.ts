@@ -1,9 +1,9 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
+import { ActivatedRoute, Router } from '@angular/router'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
-import { Subject } from 'rxjs/Subject'
 import { AuthService } from './../shared/services/auth.service'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
-import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ServerResponseService } from './../shared/services/server-response.service'
 import { ChangeDetectionStrategy, Component, HostBinding, Inject, ViewChild } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
@@ -25,9 +25,10 @@ export class NotFoundComponent {
   @HostBinding('class.vert-flex-fill') flexFill = true
   @ViewChild(QuillEditorComponent) editor: QuillEditorComponent
 
-  private url$ = Observable.of(this.req.originalUrl || '').filter(a => !a.includes('.')).shareReplay()
+  private url$ = Observable.of(this.req.originalUrl || '')
+    .map(a => a.split('?')[0])
+    .filter(a => !a.includes('.')).shareReplay()
 
-  private editingSource = new Subject<boolean>()
   public settingsForm = new FormGroup({
     title: new FormControl('', [
       Validators.required
@@ -79,35 +80,53 @@ export class NotFoundComponent {
         }
       }))
 
-  view$ = Observable.combineLatest(this.auth.user$, this.page$, this.editingSource.asObservable().startWith(false),
+  view$ = Observable.combineLatest(this.auth.user$, this.page$, this.ar.queryParams.pluck('edit').map(a => a === 'true'),
     (user, page, isEditing) => {
       return {
-        canEdit: user.roles && user.roles.admin,
+        canEdit: true, // for demo only, user && user.roles && user.roles.admin,
         isEditing,
         page
       }
     })
-
-  updateBuffer(html: string) {
-    console.log('buffer-update', html)
-  }
+    .catch(err => {
+      this.rs.setError()
+      return Observable.of({
+        content: 'server error'
+      })
+    })
 
   publish() {
-    console.log('saving', this.editor.textValue.getValue())
     this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`).update({
       content: this.editor.textValue.getValue()
-    }))
+    }), (url, update) => ({ url, update }))
       .take(1)
       .subscribe(a => {
-        this.editingSource.next(false)
+        this.router.navigate([a.url])
       })
   }
 
+  delete() {
+    this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`).remove(), (url, update) => ({ url, update }))
+      .take(1)
+      .subscribe(a => {
+        this.router.navigate(['/pages'])
+      })
+  }
+
+  viewCurrent() {
+    this.url$.do(url => {
+      this.router.navigate([url])
+    }).take(1).subscribe()
+  }
+
   edit() {
-    this.editingSource.next(true)
+    this.url$.do(url => {
+      this.router.navigate([url], { queryParams: { edit: true } })
+    }).take(1).subscribe()
   }
 
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, @Inject(REQUEST) private req: any,
-    private seo: SEOService, private sanitizer: DomSanitizer, public auth: AuthService) {
+    private seo: SEOService, private sanitizer: DomSanitizer, public auth: AuthService, private ar: ActivatedRoute,
+    private router: Router) {
   }
 }

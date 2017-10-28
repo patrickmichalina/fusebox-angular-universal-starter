@@ -56,7 +56,8 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
       host: {
         '[class.vert-flex-fill]': 'flex',
         '[class.ql-container]': 'cont',
-        '[class.ql-snow]': 'cont2'
+        '[class.ql-snow]': 'cont2',
+        '[style.border]': 'border'
       },
       encapsulation: ViewEncapsulation.None
     })
@@ -68,6 +69,7 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
         this.cmpRef.instance.cont = true
         this.cmpRef.instance.cont2 = true
         this.cmpRef.instance.flex = true
+        this.cmpRef.instance.border = 'none'
       })
   }
 

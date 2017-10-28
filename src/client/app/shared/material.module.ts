@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core'
 import {
-  MatButtonModule, MatCardModule, MatExpansionModule, MatExpansionPanel,
-  MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
-  MatProgressSpinnerModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule,
-  MatTabsModule, MatTooltipModule
+  MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule,
+  MatExpansionPanel, MatFormFieldModule, MatIconModule, MatInputModule, MatListModule,
+  MatMenuModule, MatProgressSpinnerModule, MatSidenavModule, MatSlideToggleModule,
+  MatSnackBarModule, MatTableModule, MatTabsModule, MatTooltipModule
 } from '@angular/material'
 import { OverlayModule } from '@angular/cdk/overlay'
 
@@ -23,6 +23,8 @@ import { OverlayModule } from '@angular/cdk/overlay'
     MatSnackBarModule,
     MatSlideToggleModule,
     MatTabsModule,
+    MatTableModule,
+    MatDialogModule,
     OverlayModule
   ],
   entryComponents: [MatExpansionPanel],
@@ -41,6 +43,8 @@ import { OverlayModule } from '@angular/cdk/overlay'
     MatSnackBarModule,
     MatSlideToggleModule,
     MatTabsModule,
+    MatTableModule,
+    MatDialogModule,
     OverlayModule
   ]
 })
