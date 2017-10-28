@@ -2,13 +2,14 @@
 
 exports[`NotFoundComponent should compile 1`] = `
 <pm-not-found
+  ar={[Function ActivatedRoute]}
   auth={[Function Object]}
   db={[Function Object]}
-  editingSource={[Function Subject]}
   editor="undefined"
   flexFill={[Function Boolean]}
   page$={[Function Observable]}
   req={[Function Object]}
+  router={[Function Router]}
   rs={[Function ServerResponseService]}
   sanitizer={[Function DomSanitizerImpl]}
   seo={[Function SEOService]}
@@ -42,6 +43,28 @@ exports[`NotFoundComponent should compile 1`] = `
         
         
         
+        <button
+          class="mat-raised-button mat-primary"
+          color="primary"
+          mat-raised-button=""
+          ng-reflect-color="primary"
+        >
+          <span
+            class="mat-button-wrapper"
+          >
+            Edit
+          </span>
+          <div
+            class="mat-button-ripple mat-ripple"
+            matripple=""
+            ng-reflect-centered="false"
+            ng-reflect-disabled="false"
+            ng-reflect-trigger="[object HTMLButtonElement]"
+          />
+          <div
+            class="mat-button-focus-overlay"
+          />
+        </button>
         
       
       </footer>

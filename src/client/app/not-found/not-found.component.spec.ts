@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable'
 import { AuthService } from './../shared/services/auth.service'
 import { of } from 'rxjs/observable/of'
@@ -16,7 +17,7 @@ describe(NotFoundComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NotFoundModule],
+      imports: [NotFoundModule, RouterTestingModule],
       declarations: [TestComponent],
       providers: [
         ServerResponseService,
