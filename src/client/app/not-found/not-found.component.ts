@@ -1,3 +1,4 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
 import { Subject } from 'rxjs/Subject'
 import { AuthService } from './../shared/services/auth.service'
@@ -27,7 +28,17 @@ export class NotFoundComponent {
   private url$ = Observable.of(this.req.originalUrl || '').filter(a => !a.includes('.')).shareReplay()
 
   private editingSource = new Subject<boolean>()
-  // private buffer = new BehaviorSubject<string>('')
+  public settingsForm = new FormGroup({
+    title: new FormControl('', [
+      Validators.required
+    ]),
+    description: new FormControl('', [
+      Validators.required
+    ]),
+    imgUrl: new FormControl('', [
+      // Validators.required
+    ])
+  })
 
   public page$ = this.url$
     .flatMap(url => this.db
@@ -52,6 +63,7 @@ export class NotFoundComponent {
           description: page.description,
           imageUrl: page.imageUrl
         })
+        this.settingsForm.controls['title'].setValue(page.title)
       })
       .catch(err => {
         if (err.code === 'PERMISSION_DENIED') {

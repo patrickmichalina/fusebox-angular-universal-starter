@@ -5,7 +5,25 @@
         <pm-quill-editor [content]="view.page.content"></pm-quill-editor>
       </mat-tab>
       <mat-tab label="Settings">
-        Page settings here
+        <form [formGroup]="settingsForm" id="settingsForm" novalidate class="settings">
+          <mat-form-field>
+            <input matInput placeholder="Title" type="text" formControlName="title">
+            <!-- <mat-error *ngIf="form.controls.password.hasError('required')">
+              Password is
+              <strong>required</strong>
+            </mat-error> -->
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Description" type="text" formControlName="description">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Image URL" type="text" formControlName="imgUrl">
+          </mat-form-field>
+        </form>
+
+        <p>TODO: Create Date</p>
+        <p>TODO: Last Updated Date</p>
+        <p>TODO: Author</p>
       </mat-tab>
       <mat-tab label="Change History">
         List of changes to the page here
