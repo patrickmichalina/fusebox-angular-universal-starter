@@ -2,24 +2,52 @@
 
 exports[`NotFoundComponent should compile 1`] = `
 <pm-not-found
+  auth={[Function Object]}
   db={[Function Object]}
+  editingSource={[Function Subject]}
+  editor="undefined"
+  flexFill={[Function Boolean]}
   page$={[Function Observable]}
   req={[Function Object]}
   rs={[Function ServerResponseService]}
   sanitizer={[Function DomSanitizerImpl]}
   seo={[Function SEOService]}
+  settingsForm={[Function FormGroup]}
+  url$={[Function Observable]}
+  view$={[Function Observable]}
 >
-  <div>
+  <div
+    class="vert-flex-fill"
+    ng-reflect-ng-switch="false"
+  >
     
     
-    <h1>
-      
-    </h1>
+    
+    
     
     
     <div
-      pmhtmloutlet=""
-    />
+      class="vert-flex-fill"
+    >
+      
+      
+      <div
+        pmhtmloutlet=""
+      />
+      
+      
+      <footer
+        class="footer"
+      >
+        
+        
+        
+        
+      
+      </footer>
+      
+    
+    </div>
     
   
   </div>

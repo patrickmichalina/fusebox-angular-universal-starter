@@ -82,7 +82,7 @@ export class NotFoundComponent {
   view$ = Observable.combineLatest(this.auth.user$, this.page$, this.editingSource.asObservable().startWith(false),
     (user, page, isEditing) => {
       return {
-        canEdit: user.roles.admin,
+        canEdit: user.roles && user.roles.admin,
         isEditing,
         page
       }

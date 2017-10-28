@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/Observable'
+import { AuthService } from './../shared/services/auth.service'
 import { of } from 'rxjs/observable/of'
 import { TransferState } from '@angular/platform-browser'
 import { ServerResponseService } from './../shared/services/server-response.service'
@@ -25,6 +27,12 @@ describe(NotFoundComponent.name, () => {
             get() {
               return of({})
             }
+          }
+        },
+        {
+          provide: AuthService,
+          useValue: {
+            user$: Observable.of({})
           }
         },
         { provide: REQUEST, useValue: {} }
