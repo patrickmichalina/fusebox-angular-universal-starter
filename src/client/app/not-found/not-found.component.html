@@ -1,4 +1,24 @@
-<div *ngIf="page$ | async as page">
-  <h1>{{ page.title }}</h1>
-  <div pmHtmlOutlet [html]="page.content"></div>
+<div *ngIf="view$ | async as view" [ngSwitch]="view.isEditing" class="vert-flex-fill">
+  <div *ngSwitchCase="true" class="vert-flex-fill">
+    <mat-tab-group>
+      <mat-tab label="Content">
+        <pm-quill-editor [content]="view.page.content"></pm-quill-editor>
+      </mat-tab>
+      <mat-tab label="Settings">
+        Page settings here
+      </mat-tab>
+      <mat-tab label="Change History">
+        List of changes to the page here
+      </mat-tab>
+    </mat-tab-group>
+    <footer class="footer">
+      <button mat-raised-button color="primary" (click)="publish()">Publish</button>
+    </footer>
+  </div>
+  <div *ngSwitchCase="false" class="vert-flex-fill">
+    <div pmHtmlOutlet [html]="view.page.content"></div>
+    <footer class="footer">
+      <button *ngIf="view.canEdit" mat-raised-button color="primary" (click)="edit()">Edit</button>
+    </footer>
+  </div>
 </div>

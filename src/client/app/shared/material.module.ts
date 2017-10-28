@@ -3,7 +3,7 @@ import {
   MatButtonModule, MatCardModule, MatExpansionModule, MatExpansionPanel,
   MatFormFieldModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
   MatProgressSpinnerModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule,
-  MatTooltipModule
+  MatTabsModule, MatTooltipModule
 } from '@angular/material'
 import { OverlayModule } from '@angular/cdk/overlay'
 
@@ -22,6 +22,7 @@ import { OverlayModule } from '@angular/cdk/overlay'
     MatListModule,
     MatSnackBarModule,
     MatSlideToggleModule,
+    MatTabsModule,
     OverlayModule
   ],
   entryComponents: [MatExpansionPanel],
@@ -39,6 +40,7 @@ import { OverlayModule } from '@angular/cdk/overlay'
     MatListModule,
     MatSnackBarModule,
     MatSlideToggleModule,
+    MatTabsModule,
     OverlayModule
   ]
 })

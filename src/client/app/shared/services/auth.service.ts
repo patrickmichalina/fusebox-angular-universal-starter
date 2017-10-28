@@ -22,6 +22,7 @@ export interface ExtendedUser {
   phoneNumber: string
   photoURL: string
   providerId: string
+  roles: { [key: string]: boolean }
 }
 
 export interface IAuthService {

@@ -1,0 +1,13 @@
+:host {
+  .footer {
+    text-align: right;
+    padding: .75em;
+  }
+  ::ng-deep mat-tab-group {
+    flex: 1;
+    height: 100%;
+    .mat-tab-body-wrapper {
+      height: 100%;
+    }
+  }
+}

@@ -1,7 +1,10 @@
-import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
+import { Subject } from 'rxjs/Subject'
+import { AuthService } from './../shared/services/auth.service'
+import { REQUEST } from '@nguniversal/express-engine/tokens'
+import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
 import { ServerResponseService } from './../shared/services/server-response.service'
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostBinding, Inject, ViewChild } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { SEONode, SEOService } from '../shared/services/seo.service'
 import { DomSanitizer } from '@angular/platform-browser'
@@ -18,7 +21,15 @@ export interface Page {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotFoundComponent {
-  public page$ = Observable.of(this.req.originalUrl || '').filter(a => !a.includes('.'))
+  @HostBinding('class.vert-flex-fill') flexFill = true
+  @ViewChild(QuillEditorComponent) editor: QuillEditorComponent
+
+  private url$ = Observable.of(this.req.originalUrl || '').filter(a => !a.includes('.')).shareReplay()
+
+  private editingSource = new Subject<boolean>()
+  // private buffer = new BehaviorSubject<string>('')
+
+  public page$ = this.url$
     .flatMap(url => this.db
       .get<Page & SEONode>(`/pages/${url}`)
       .map(res => {
@@ -56,7 +67,35 @@ export class NotFoundComponent {
         }
       }))
 
+  view$ = Observable.combineLatest(this.auth.user$, this.page$, this.editingSource.asObservable().startWith(false),
+    (user, page, isEditing) => {
+      return {
+        canEdit: user.roles.admin,
+        isEditing,
+        page
+      }
+    })
+
+  updateBuffer(html: string) {
+    console.log('buffer-update', html)
+  }
+
+  publish() {
+    console.log('saving', this.editor.textValue.getValue())
+    this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`).update({
+      content: this.editor.textValue.getValue()
+    }))
+      .take(1)
+      .subscribe(a => {
+        this.editingSource.next(false)
+      })
+  }
+
+  edit() {
+    this.editingSource.next(true)
+  }
+
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, @Inject(REQUEST) private req: any,
-    private seo: SEOService, private sanitizer: DomSanitizer) {
+    private seo: SEOService, private sanitizer: DomSanitizer, public auth: AuthService) {
   }
 }

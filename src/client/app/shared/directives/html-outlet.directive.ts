@@ -10,7 +10,8 @@ import {
   OnChanges,
   OnDestroy,
   ReflectiveInjector,
-  ViewContainerRef
+  ViewContainerRef,
+  ViewEncapsulation
 } from '@angular/core'
 
 import { RouterModule } from '@angular/router'
@@ -42,7 +43,7 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
   constructor(private vcRef: ViewContainerRef, private compiler: Compiler) { }
 
   ngOnChanges() {
-    const html = this.html
+    const html = `<div class="ql-editor vert-flex-fill">${this.html}</div>`
     if (!html || typeof html !== 'string') return
 
     if (this.cmpRef) {
@@ -51,13 +52,22 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
 
     const compMetadata = new Component({
       selector: 'dynamic-html',
-      template: this.html
+      template: html,
+      host: {
+        '[class.vert-flex-fill]': 'flex',
+        '[class.ql-container]': 'cont',
+        '[class.ql-snow]': 'cont2'
+      },
+      encapsulation: ViewEncapsulation.None
     })
 
     createComponentFactory(this.compiler, compMetadata)
       .then(factory => {
         const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector)
         this.cmpRef = this.vcRef.createComponent(factory, 0, injector, [])
+        this.cmpRef.instance.cont = true
+        this.cmpRef.instance.cont2 = true
+        this.cmpRef.instance.flex = true
       })
   }
 
