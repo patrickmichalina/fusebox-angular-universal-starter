@@ -1,7 +1,6 @@
 import { NotFoundComponent } from './not-found.component'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { MetaGuard } from '@ngx-meta/core'
 
 @NgModule({
   imports: [
@@ -9,12 +8,11 @@ import { MetaGuard } from '@ngx-meta/core'
       {
         path: '**',
         component: NotFoundComponent,
-        canActivate: [MetaGuard],
         data: {
-          meta: {
-            title: 'i18n.not-found.title',
-            description: 'i18n.not-found.description'
-          }
+          // meta: {
+          //   title: 'i18n.not-found.title',
+          //   description: 'i18n.not-found.description'
+          // }
         }
       }
     ])

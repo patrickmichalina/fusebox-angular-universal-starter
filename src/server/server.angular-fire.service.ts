@@ -22,7 +22,7 @@ export class FirebaseAdminService {
             const ref = this.applyQuery(this.db.ref(path), query)
             ref.once('value').then((data: any) => {
               this.zone.run(() => { // Back in Angular's zone
-              this.ts.set(makeStateKey<string>(`FB.${path}`), data.val())
+                this.ts.set(makeStateKey<string>(`FB.${path}`), data.val())
                 resolve(data.val())
                 setTimeout(() => {
                   // Maybe getting the data will result in more components to the view that need related data.
@@ -30,7 +30,12 @@ export class FirebaseAdminService {
                   clearTimeout(timeout)
                 }, 20)
               })
-            }, (err: any) => reject(err))
+            }, (err: any) => {
+              setTimeout(() => {
+                reject(err)
+                clearTimeout(timeout)
+              }, 20)
+            })
           })
         }))
       }
@@ -56,7 +61,12 @@ export class FirebaseAdminService {
                   clearTimeout(timeout)
                 }, 20)
               })
-            }, (err: any) => reject(err))
+            }, (err: any) => {
+              setTimeout(() => {
+                reject(err)
+                clearTimeout(timeout)
+              }, 20)
+            })
           })
         }))
       }

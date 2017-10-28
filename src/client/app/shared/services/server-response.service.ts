@@ -23,7 +23,7 @@ export class ServerResponseService implements IServerResponseService {
   }
 
   getHeader(key: string): string {
-    return this.response.getHeader(key)
+    return this.response.getHeader(key) as string
   }
 
   setHeader(key: string, value: string): this {

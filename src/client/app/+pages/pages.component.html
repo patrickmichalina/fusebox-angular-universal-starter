@@ -1,0 +1,24 @@
+<h1>Pages</h1>
+<button mat-fab color="primary" (click)="openDialog()">
+  <mat-icon fontSet="fa" fontIcon="fa-plus" aria-label="create a page"></mat-icon>
+</button>
+<mat-tab-group>
+  <mat-tab *ngFor="let keyVal of pages$ | async | pmKeyVal" [label]="keyVal.key">
+    <ul>
+      <li *ngFor="let slug of keyVal.value | pmKeys">
+        <a [routerLink]="'/' + keyVal.key + '/' + slug" [queryParams]="{ 'edit': true }">{{ slug }}</a>
+      </li>
+    </ul>
+
+    <!-- <mat-table #table [dataSource]="ds(keyVal.key)">
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef>Slug</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ keyVal.key }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table> -->
+    <router-outlet></router-outlet>
+  </mat-tab>
+</mat-tab-group>

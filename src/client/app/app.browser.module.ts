@@ -4,7 +4,6 @@ import { AppModule, REQ_KEY } from './app.module'
 import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
-// import { ServiceWorkerModule } from '@angular/service-worker'
 import 'hammerjs'
 
 export function getRequest(transferState: TransferState): any {

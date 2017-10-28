@@ -1,1 +1,44 @@
-PAGE NOT FOUND
+<div *ngIf="view$ | async as view" [ngSwitch]="view.isEditing" class="vert-flex-fill">
+  <div *ngSwitchCase="true" class="vert-flex-fill">
+    <mat-tab-group>
+      <mat-tab label="Content">
+        <pm-quill-editor [content]="view.page.content"></pm-quill-editor>
+      </mat-tab>
+      <mat-tab label="Settings">
+        <form [formGroup]="settingsForm" id="settingsForm" novalidate class="settings">
+          <mat-form-field>
+            <input matInput placeholder="Title" type="text" formControlName="title">
+            <!-- <mat-error *ngIf="form.controls.password.hasError('required')">
+              Password is
+              <strong>required</strong>
+            </mat-error> -->
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Description" type="text" formControlName="description">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Image URL" type="text" formControlName="imgUrl">
+          </mat-form-field>
+        </form>
+
+        <p>TODO: Create Date</p>
+        <p>TODO: Last Updated Date</p>
+        <p>TODO: Author</p>
+      </mat-tab>
+      <mat-tab label="Change History">
+        List of changes to the page here
+      </mat-tab>
+    </mat-tab-group>
+    <footer class="footer">
+      <button mat-button color="warn" (click)="delete()">Delete</button>
+      <button mat-button (click)="viewCurrent()">View Current</button>
+      <button mat-raised-button color="primary" (click)="publish()">Publish</button>
+    </footer>
+  </div>
+  <div *ngSwitchCase="false" class="vert-flex-fill">
+    <div pmHtmlOutlet [html]="view.page.content"></div>
+    <footer class="footer">
+      <button *ngIf="view.canEdit" mat-raised-button color="primary" (click)="edit()">Edit</button>
+    </footer>
+  </div>
+</div>

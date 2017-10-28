@@ -1,0 +1,23 @@
+<h2>New Page</h2>
+<form [formGroup]="form" id="pageForm" novalidate>
+  <mat-form-field>
+    <input matInput placeholder="Slug" formControlName="slug">
+    <!-- <mat-error *ngIf="form.controls.email.hasError('pattern')">
+      Please enter a valid email address
+    </mat-error> -->
+    <mat-error *ngIf="form.controls.slug.hasError('required')">
+      <span>slug is
+        <strong>required</strong>
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Title" formControlName="title">
+    <mat-error *ngIf="form.controls.slug.hasError('required')">
+      <span>title is
+        <strong>required</strong>
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="text" [disabled]="form.invalid" (click)="create()">Create</button>
+</form>

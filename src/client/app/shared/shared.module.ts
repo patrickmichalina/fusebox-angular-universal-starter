@@ -21,7 +21,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FirebaseDatabaseService } from './services/firebase-database.service'
 import { InjectionService } from './services/injection.service'
 import { MinifierService } from './services/minifier.service'
-// import { FlexLayoutModule } from '@angular/flex-layout'
+import { QuillEditorComponent } from './quill-editor/quill-editor.component'
+import { ServerResponseService } from './services/server-response.service'
+import { SEOService } from './services/seo.service'
+import { HtmlOutletDirective } from './directives/html-outlet.directive'
+import { PmKeysPipe } from './pipes/keys.pipe'
+import { PmKeyValuePipe } from './pipes/key-value.pipe'
 
 declare var __process_env__: any
 
@@ -63,7 +68,7 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     ReactiveFormsModule,
     MarkdownToHtmlModule,
     Angulartics2Module.forChild()
-    // FlexLayoutModule,
+    // FlexLayoutModule
   ],
   exports: [
     CommonModule,
@@ -76,14 +81,22 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     LoginCardComponent,
     FormsModule,
     ReactiveFormsModule,
-    MarkdownToHtmlModule
-    // FlexLayoutModule,
+    MarkdownToHtmlModule,
+    QuillEditorComponent,
+    HtmlOutletDirective,
+    PmKeysPipe,
+    PmKeyValuePipe
+    // FlexLayoutModule
   ],
   declarations: [
     NavbarComponent,
     ClickOutsideDirective,
     SocialButtonDirective,
-    LoginCardComponent
+    LoginCardComponent,
+    QuillEditorComponent,
+    HtmlOutletDirective,
+    PmKeysPipe,
+    PmKeyValuePipe
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
@@ -102,7 +115,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     WebSocketService,
     FirebaseDatabaseService,
     InjectionService,
-    MinifierService
+    MinifierService,
+    ServerResponseService,
+    SEOService
   ]
 })
 export class SharedModule {

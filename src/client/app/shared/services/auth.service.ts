@@ -22,6 +22,7 @@ export interface ExtendedUser {
   phoneNumber: string
   photoURL: string
   providerId: string
+  roles: { [key: string]: boolean }
 }
 
 export interface IAuthService {
@@ -39,15 +40,15 @@ export class AuthService implements IAuthService {
     .skip(1)
     .map(cookies => {
       return cookies
-        ? this.cookieMapper(cookies[this.COOKIE_KEY])
+        ? AuthService.cookieMapper(cookies[this.COOKIE_KEY], this.jwtHelper)
         : undefined
     })
     .distinctUntilChanged()
     .share()
 
-  cookieMapper(data: any): any {
-    if (!data || !data.jwt && !this.jwtHelper.isTokenExpired(data.jwt)) return undefined
-    const jwtDecoded = this.jwtHelper.decodeToken(data.jwt)
+  static cookieMapper(data: any, jwtHelper: JwtHelper): any {
+    if (!data || !data.jwt && !jwtHelper.isTokenExpired(data.jwt)) return undefined
+    const jwtDecoded = jwtHelper.decodeToken(data.jwt)
     return {
       ...data,
       jwtDecoded,
@@ -56,7 +57,7 @@ export class AuthService implements IAuthService {
     }
   }
 
-  private userSource = new BehaviorSubject<ExtendedUser>(this.cookieMapper(this.cs.get(this.COOKIE_KEY)))
+  private userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
   public user$ = this.userSource.shareReplay()
   public userVer$ = this.user$.filter(Boolean)
   private fbUser$ = this.fbAuth.idToken
@@ -107,10 +108,9 @@ export class AuthService implements IAuthService {
             providers: ((res.fbUser && res.fbUser.providerData) || []).map(a => a && a.providerId)
           }, { expires })
 
-          this.db
-            .getObjectRef(`users/${res.fbUser.uid}`)
-            .update({ email: res.fbUser.email })
-            .catch(() => undefined)
+          // this.db
+          //   .getObjectRef(`users/${res.fbUser.uid}`)
+          //   .update({ email: res.fbUser.email })
         }
       })
   }

@@ -1,8 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NotFoundComponent should match snapshot 1`] = `
-<pm-not-found>
-  PAGE NOT FOUND
+exports[`NotFoundComponent should compile 1`] = `
+<pm-not-found
+  ar={[Function ActivatedRoute]}
+  auth={[Function Object]}
+  db={[Function Object]}
+  editor="undefined"
+  flexFill={[Function Boolean]}
+  page$={[Function Observable]}
+  req={[Function Object]}
+  router={[Function Router]}
+  rs={[Function ServerResponseService]}
+  sanitizer={[Function DomSanitizerImpl]}
+  seo={[Function SEOService]}
+  settingsForm={[Function FormGroup]}
+  url$={[Function Observable]}
+  view$={[Function Observable]}
+>
+  <div
+    class="vert-flex-fill"
+    ng-reflect-ng-switch="false"
+  >
+    
+    
+    
+    
+    
+    
+    <div
+      class="vert-flex-fill"
+    >
+      
+      
+      <div
+        pmhtmloutlet=""
+      />
+      
+      
+      <footer
+        class="footer"
+      >
+        
+        
+        
+        <button
+          class="mat-raised-button mat-primary"
+          color="primary"
+          mat-raised-button=""
+          ng-reflect-color="primary"
+        >
+          <span
+            class="mat-button-wrapper"
+          >
+            Edit
+          </span>
+          <div
+            class="mat-button-ripple mat-ripple"
+            matripple=""
+            ng-reflect-centered="false"
+            ng-reflect-disabled="false"
+            ng-reflect-trigger="[object HTMLButtonElement]"
+          />
+          <div
+            class="mat-button-focus-overlay"
+          />
+        </button>
+        
+      
+      </footer>
+      
+    
+    </div>
+    
+  
+  </div>
 </pm-not-found>
 `;
 
