@@ -1,4 +1,4 @@
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing'
 import { Observable } from 'rxjs/Observable'
 import { AuthService } from './../shared/services/auth.service'
 import { of } from 'rxjs/observable/of'
