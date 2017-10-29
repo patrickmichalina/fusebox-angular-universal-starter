@@ -61,9 +61,11 @@ export class NotFoundComponent {
         this.seo.updateNode({
           title: page.title,
           description: page.description,
-          imageUrl: page.imageUrl
+          imgUrl: page.imgUrl
         })
         this.settingsForm.controls['title'].setValue(page.title)
+        this.settingsForm.controls['description'].setValue(page.description)
+        this.settingsForm.controls['imgUrl'].setValue(page.imgUrl)
       })
       .catch(err => {
         if (err.code === 'PERMISSION_DENIED') {
@@ -95,16 +97,19 @@ export class NotFoundComponent {
     })
 
   publish() {
-    this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`).update({
-      content: this.editor.textValue.getValue()
-    }), (url, update) => ({ url, update }))
+    const settings = this.settingsForm.value
+    this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`)
+      .update({
+        ...settings,
+        content: this.editor.textValue.getValue()
+      }), (url, update) => ({ url, update }))
       .take(1)
       .subscribe(a => {
         this.router.navigate([a.url])
         this.snackBar.open('Published! Page is now live.', 'dismiss', {
           duration: 2000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
+          horizontalPosition: 'left',
+          verticalPosition: 'bottom'
         })
       })
   }

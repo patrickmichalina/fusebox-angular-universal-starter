@@ -4,7 +4,7 @@ import { Meta, Title } from '@angular/platform-browser'
 export interface SEONode {
   title?: string
   description?: string
-  imageUrl?: string
+  imgUrl?: string
   type?: string
   url?: string
   locale?: string
@@ -18,7 +18,7 @@ export class SEOService {
   updateNode(node: SEONode) {
     if (node.title) this.updateTitle(node.title)
     if (node.description) this.updateDescription(node.description)
-    if (node.imageUrl) this.updateImg(node.imageUrl)
+    if (node.imgUrl) this.updateImg(node.imgUrl)
     if (node.title) this.updateType(node.type)
     if (node.url) this.updateUrl(node.url)
     if (node.title) this.updateLocale(node.locale)

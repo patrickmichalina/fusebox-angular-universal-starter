@@ -22,6 +22,12 @@ export class QuillEditorComponent implements AfterViewInit {
   constructor(injector: InjectionService, renderer: Renderer2, private ps: PlatformService) {
   }
 
+  get serverStyles() {
+    return this.ps.isServer
+      ? 'ql-container ql-snow ql-editor'
+      : ''
+  }
+
   ngAfterViewInit() {
     if (this.ps.isServer) return
     // tslint:disable-next-line:no-require-imports

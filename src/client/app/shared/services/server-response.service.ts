@@ -107,4 +107,4 @@ export class ServerResponseService implements IServerResponseService {
   }
 }
 
-export type HttpCacheDirective = 'public' | 'private' | 'no-store'
+export type HttpCacheDirective = 'public' | 'private' | 'no-store' | 'no-cache' | 'must-revalidate' | 'no-transform' | 'proxy-revalidate'
