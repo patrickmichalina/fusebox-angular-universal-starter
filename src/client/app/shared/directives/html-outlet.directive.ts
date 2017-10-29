@@ -54,12 +54,6 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
     const compMetadata = new Component({
       selector: 'dynamic-html',
       template: html,
-      host: {
-        // '[class.vert-flex-fill]': 'flex',
-        // '[class.ql-container]': 'cont',
-        // '[class.ql-snow]': 'cont2',
-        // '[style.border]': 'border'
-      },
       encapsulation: ViewEncapsulation.None
     })
 
@@ -67,10 +61,6 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
       .then(factory => {
         const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector)
         this.cmpRef = this.vcRef.createComponent(factory, 0, injector, [])
-        // this.cmpRef.instance.cont = true
-        // this.cmpRef.instance.cont2 = true
-        // this.cmpRef.instance.flex = true
-        // this.cmpRef.instance.border = 'none'
       })
   }
 
