@@ -3,7 +3,6 @@ import { PlatformService } from './../services/platform.service'
 import { InjectionService } from './../services/injection.service'
 import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core'
 import * as Quill from 'quill'
-import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'pm-quill-editor',
@@ -13,25 +12,14 @@ import { DomSanitizer } from '@angular/platform-browser'
 })
 export class QuillEditorComponent implements AfterViewInit {
   @ViewChild('editor') editorContainer: any
-
-  private _content: string
-
-  @Input() set content(val: string) {
-    this._content = val
-  }
-
-  get content(): string {
-    return (this.sanitizer.bypassSecurityTrustHtml(this._content) as any).changingThisBreaksApplicationSecurity
-  }
-
+  @Input() content: string
   @Output() textValue = new BehaviorSubject<string>(this.content)
   @Output() onSelectionChange = new EventEmitter()
   @Output() onContentUpdated = new EventEmitter()
 
   private quill: Quill.Quill
 
-  constructor(injector: InjectionService, renderer: Renderer2, private ps: PlatformService,
-    private sanitizer: DomSanitizer) {
+  constructor(injector: InjectionService, renderer: Renderer2, private ps: PlatformService) {
   }
 
   ngAfterViewInit() {

@@ -37,13 +37,13 @@ export function createComponentFactory(compiler: Compiler, metadata: Component):
   selector: '[pmHtmlOutlet]'
 })
 export class HtmlOutletDirective implements OnChanges, OnDestroy {
-  @Input() html: string
+  @Input() html: any
   cmpRef: ComponentRef<any>
 
   constructor(private vcRef: ViewContainerRef, private compiler: Compiler) { }
 
   ngOnChanges() {
-    const html = `<div class="ql-editor vert-flex-fill">${this.html}</div>`
+    const html = `<div class="ql-editor vert-flex-fill">${this.html.changingThisBreaksApplicationSecurity}</div>`
     if (!html || typeof html !== 'string') return
 
     if (this.cmpRef) {

@@ -25,15 +25,11 @@ export class PagesComponent {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(PageFormComponent, {
+    this.dialog.open(PageFormComponent, {
       width: '460px',
       position: {
         top: '30px'
       }
-    })
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed')
     })
   }
 

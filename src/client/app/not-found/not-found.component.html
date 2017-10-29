@@ -36,7 +36,7 @@
     </footer>
   </div>
   <div *ngSwitchCase="false" class="vert-flex-fill">
-    <div pmHtmlOutlet [html]="view.page.content"></div>
+    <div pmHtmlOutlet [html]="view.page.content | pmSanitizeHtml"></div>
     <footer class="footer">
       <button *ngIf="view.canEdit" mat-raised-button color="primary" (click)="edit()">Edit</button>
     </footer>
