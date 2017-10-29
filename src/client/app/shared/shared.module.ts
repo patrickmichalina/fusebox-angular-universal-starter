@@ -28,7 +28,7 @@ import { HtmlOutletDirective } from './directives/html-outlet.directive'
 import { KeysPipe } from './pipes/keys.pipe'
 import { KeyValuePipe } from './pipes/key-value.pipe'
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe'
-import { ModalConfirmationComponent } from './confirmation/confirmation.component'
+import { ModalConfirmationComponent } from './modal-confirmation/modal-confirmation.component'
 
 declare var __process_env__: any
 
