@@ -5,13 +5,12 @@ exports[`NotFoundComponent should compile 1`] = `
   ar={[Function ActivatedRoute]}
   auth={[Function Object]}
   db={[Function Object]}
+  dialog={[Function MatDialog]}
   editor="undefined"
   flexFill={[Function Boolean]}
   page$={[Function Observable]}
-  req={[Function Object]}
   router={[Function Router]}
   rs={[Function ServerResponseService]}
-  sanitizer={[Function DomSanitizerImpl]}
   seo={[Function SEOService]}
   settingsForm={[Function FormGroup]}
   url$={[Function Observable]}
@@ -33,6 +32,7 @@ exports[`NotFoundComponent should compile 1`] = `
       
       
       <div
+        ng-reflect-html="SafeValue must use [property]="
         pmhtmloutlet=""
       />
       

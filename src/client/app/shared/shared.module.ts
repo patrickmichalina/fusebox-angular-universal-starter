@@ -25,8 +25,10 @@ import { QuillEditorComponent } from './quill-editor/quill-editor.component'
 import { ServerResponseService } from './services/server-response.service'
 import { SEOService } from './services/seo.service'
 import { HtmlOutletDirective } from './directives/html-outlet.directive'
-import { PmKeysPipe } from './pipes/keys.pipe'
-import { PmKeyValuePipe } from './pipes/key-value.pipe'
+import { KeysPipe } from './pipes/keys.pipe'
+import { KeyValuePipe } from './pipes/key-value.pipe'
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe'
+import { ModalConfirmationComponent } from './modal-confirmation/modal-confirmation.component'
 
 declare var __process_env__: any
 
@@ -84,9 +86,14 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     MarkdownToHtmlModule,
     QuillEditorComponent,
     HtmlOutletDirective,
-    PmKeysPipe,
-    PmKeyValuePipe
+    KeysPipe,
+    KeyValuePipe,
+    SanitizeHtmlPipe,
+    ModalConfirmationComponent
     // FlexLayoutModule
+  ],
+  entryComponents: [
+    ModalConfirmationComponent
   ],
   declarations: [
     NavbarComponent,
@@ -95,8 +102,10 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     LoginCardComponent,
     QuillEditorComponent,
     HtmlOutletDirective,
-    PmKeysPipe,
-    PmKeyValuePipe
+    KeysPipe,
+    KeyValuePipe,
+    SanitizeHtmlPipe,
+    ModalConfirmationComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },

@@ -2,13 +2,13 @@ import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.comp
 import { ActivatedRoute, Router } from '@angular/router'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
 import { AuthService } from './../shared/services/auth.service'
-import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ServerResponseService } from './../shared/services/server-response.service'
-import { ChangeDetectionStrategy, Component, HostBinding, Inject, ViewChild } from '@angular/core'
+import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { SEONode, SEOService } from '../shared/services/seo.service'
-import { DomSanitizer } from '@angular/platform-browser'
+import { MatDialog } from '@angular/material'
+import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
 
 export interface Page {
   content: string
@@ -25,9 +25,9 @@ export class NotFoundComponent {
   @HostBinding('class.vert-flex-fill') flexFill = true
   @ViewChild(QuillEditorComponent) editor: QuillEditorComponent
 
-  private url$ = Observable.of(this.req.originalUrl || '')
-    .map(a => a.split('?')[0])
-    .filter(a => !a.includes('.')).shareReplay()
+  private url$ = Observable.of(this.router.url.split('?')[0])
+    .filter(a => !a.includes('.'))
+    .shareReplay()
 
   public settingsForm = new FormGroup({
     title: new FormControl('', [
@@ -46,10 +46,9 @@ export class NotFoundComponent {
       .get<Page & SEONode>(`/pages/${url}`)
       .map(res => {
         if (res) {
-          const safeHtml = this.sanitizer.bypassSecurityTrustHtml(res.content) as any
           return {
             ...res,
-            content: safeHtml.changingThisBreaksApplicationSecurity
+            content: res.content
           }
         }
         this.rs.setNotFound()
@@ -105,8 +104,25 @@ export class NotFoundComponent {
       })
   }
 
+  confirmDelete() {
+    return this.dialog.open(ModalConfirmationComponent, {
+      width: '460px',
+      position: {
+        top: '30px'
+      },
+      data: {
+        message: 'Deleting this page will immediately remove it from the database and anyone reading it',
+        title: 'Are you sure?'
+      }
+    })
+  }
+
   delete() {
-    this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`).remove(), (url, update) => ({ url, update }))
+    this.confirmDelete()
+      .afterClosed()
+      .filter(Boolean)
+      .flatMap(() => this.url$)
+      .flatMap(url => this.db.getObjectRef(`/pages/${url}`).remove(), (url, update) => ({ url, update }))
       .take(1)
       .subscribe(a => {
         this.router.navigate(['/pages'])
@@ -125,8 +141,7 @@ export class NotFoundComponent {
     }).take(1).subscribe()
   }
 
-  constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, @Inject(REQUEST) private req: any,
-    private seo: SEOService, private sanitizer: DomSanitizer, public auth: AuthService, private ar: ActivatedRoute,
-    private router: Router) {
+  constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,
+    public auth: AuthService, private ar: ActivatedRoute, private router: Router, private dialog: MatDialog) {
   }
 }
