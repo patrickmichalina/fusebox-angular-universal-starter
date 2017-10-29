@@ -29,7 +29,7 @@ export function metaFactory(env: EnvironmentService, ss: SettingService): MetaLo
   return new MetaStaticLoader({
     callback: (key: string) => {
       if (key && key.includes(urlKey)) {
-        return ss.pluck(urlKey).map(a => a ? key.replace(urlKey, a) : key)
+        return key.replace(urlKey, env.config.host)
       }
       return (key.includes('i18n')
         ? ss.pluck(key.replace('i18n', `i18n.${locale}`))
