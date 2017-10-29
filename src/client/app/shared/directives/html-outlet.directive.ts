@@ -43,7 +43,8 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
   constructor(private vcRef: ViewContainerRef, private compiler: Compiler) { }
 
   ngOnChanges() {
-    const html = `<div class="ql-editor vert-flex-fill">${this.html.changingThisBreaksApplicationSecurity}</div>`
+    // tslint:disable-next-line:max-line-length
+    const html = `<div class="vert-flex-fill ql-container ql-snow" style="border:none;"><div class="ql-editor vert-flex-fill">${this.html.changingThisBreaksApplicationSecurity}</div></div>`
     if (!html || typeof html !== 'string') return
 
     if (this.cmpRef) {
@@ -53,12 +54,6 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
     const compMetadata = new Component({
       selector: 'dynamic-html',
       template: html,
-      host: {
-        '[class.vert-flex-fill]': 'flex',
-        '[class.ql-container]': 'cont',
-        '[class.ql-snow]': 'cont2',
-        '[style.border]': 'border'
-      },
       encapsulation: ViewEncapsulation.None
     })
 
@@ -66,10 +61,6 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
       .then(factory => {
         const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector)
         this.cmpRef = this.vcRef.createComponent(factory, 0, injector, [])
-        this.cmpRef.instance.cont = true
-        this.cmpRef.instance.cont2 = true
-        this.cmpRef.instance.flex = true
-        this.cmpRef.instance.border = 'none'
       })
   }
 

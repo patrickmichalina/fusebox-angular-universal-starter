@@ -38,7 +38,7 @@ exports[`NotFoundComponent should compile 1`] = `
       
       
       <footer
-        class="footer"
+        class="footer mat-elevation-z6"
       >
         
         

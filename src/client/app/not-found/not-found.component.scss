@@ -20,4 +20,8 @@
     flex-direction: column;
     padding: 1em;
   }
+  ::ng-deep dynamic-html {
+    display: flex;
+    height: 100%;
+  }
 }
