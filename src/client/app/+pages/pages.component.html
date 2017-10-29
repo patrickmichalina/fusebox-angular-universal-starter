@@ -1,7 +1,9 @@
-<h1>Pages</h1>
-<button mat-fab color="primary" (click)="openDialog()">
-  <mat-icon fontSet="fa" fontIcon="fa-plus" aria-label="create a page"></mat-icon>
-</button>
+<div class="flex">
+  <h1>Pages</h1>
+  <button mat-fab color="accent" (click)="openDialog()">
+    <mat-icon fontSet="fa" fontIcon="fa-plus" aria-label="create a page"></mat-icon>
+  </button>
+</div>
 <mat-tab-group>
   <mat-tab *ngFor="let keyVal of pages$ | async | pmKeyVal" [label]="keyVal.key">
     <ul>
