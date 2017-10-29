@@ -29,7 +29,7 @@
         List of changes to the page here
       </mat-tab>
     </mat-tab-group>
-    <footer class="footer">
+    <footer class="footer mat-elevation-z6">
       <button mat-button color="warn" (click)="delete()">Delete</button>
       <button mat-button (click)="viewCurrent()">View Current</button>
       <button mat-raised-button color="primary" (click)="publish()">Publish</button>
@@ -37,7 +37,7 @@
   </div>
   <div *ngSwitchCase="false" class="vert-flex-fill">
     <div pmHtmlOutlet [html]="view.page.content | pmSanitizeHtml"></div>
-    <footer class="footer">
+    <footer class="footer mat-elevation-z6">
       <button *ngIf="view.canEdit" mat-raised-button color="primary" (click)="edit()">Edit</button>
     </footer>
   </div>
