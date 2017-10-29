@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@ang
 import { Observable } from 'rxjs/Observable'
 import { SEONode, SEOService } from '../shared/services/seo.service'
 import { MatDialog } from '@angular/material'
+import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
 
 export interface Page {
   content: string
@@ -104,16 +105,24 @@ export class NotFoundComponent {
   }
 
   confirmDelete() {
-    this.dialog.open(PageFormComponent, {
+    return this.dialog.open(ModalConfirmationComponent, {
       width: '460px',
       position: {
         top: '30px'
+      },
+      data: {
+        message: 'Deleting this page will immediately remove it from the database and anyone reading it',
+        title: 'Are you sure?'
       }
     })
   }
 
   delete() {
-    this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`).remove(), (url, update) => ({ url, update }))
+    this.confirmDelete()
+      .afterClosed()
+      .filter(Boolean)
+      .flatMap(() => this.url$)
+      .flatMap(url => this.db.getObjectRef(`/pages/${url}`).remove(), (url, update) => ({ url, update }))
       .take(1)
       .subscribe(a => {
         this.router.navigate(['/pages'])

@@ -92,6 +92,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     ModalConfirmationComponent
     // FlexLayoutModule
   ],
+  entryComponents: [
+    ModalConfirmationComponent
+  ],
   declarations: [
     NavbarComponent,
     ClickOutsideDirective,

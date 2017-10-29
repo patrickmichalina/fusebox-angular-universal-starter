@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { MatDialogRef } from '@angular/material'
+import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core'
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'
 
 @Component({
   selector: 'pm-modal-confirmation',
@@ -8,7 +8,11 @@ import { MatDialogRef } from '@angular/material'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalConfirmationComponent {
-  constructor(ref: MatDialogRef<ModalConfirmationComponent>) {
-    // void
+  @Input() message: string
+  @Input() title: string
+
+  constructor(public dialog: MatDialogRef<ModalConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    if (data.message) this.message = data.message
+    if (data.title) this.title = data.title
   }
 }

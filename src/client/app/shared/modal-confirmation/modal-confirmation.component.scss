@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  h1,h2,h3,h4,h5 {
+    margin: 0;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
