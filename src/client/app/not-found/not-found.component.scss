@@ -21,7 +21,8 @@
     padding: 1em;
   }
   ::ng-deep dynamic-html {
-    display: flex;
+    display: -webkit-inline-box;
+    overflow-y: auto;
     height: 100%;
   }
 }

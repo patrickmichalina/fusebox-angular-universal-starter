@@ -7,7 +7,7 @@ import { ServerResponseService } from './../shared/services/server-response.serv
 import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { SEONode, SEOService } from '../shared/services/seo.service'
-import { MatDialog } from '@angular/material'
+import { MatDialog, MatSnackBar } from '@angular/material'
 import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
 
 export interface Page {
@@ -101,6 +101,11 @@ export class NotFoundComponent {
       .take(1)
       .subscribe(a => {
         this.router.navigate([a.url])
+        this.snackBar.open('Published! Page is now live.', 'dismiss', {
+          duration: 2000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        })
       })
   }
 
@@ -142,6 +147,7 @@ export class NotFoundComponent {
   }
 
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,
-    public auth: AuthService, private ar: ActivatedRoute, private router: Router, private dialog: MatDialog) {
+    public auth: AuthService, private ar: ActivatedRoute, private router: Router, private dialog: MatDialog,
+    private snackBar: MatSnackBar) {
   }
 }

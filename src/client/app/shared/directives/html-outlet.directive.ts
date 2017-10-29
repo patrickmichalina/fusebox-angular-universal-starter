@@ -44,7 +44,7 @@ export class HtmlOutletDirective implements OnChanges, OnDestroy {
 
   ngOnChanges() {
     // tslint:disable-next-line:max-line-length
-    const html = `<div class="vert-flex-fill ql-container ql-snow" style="border:none;"><div class="ql-editor vert-flex-fill">${this.html.changingThisBreaksApplicationSecurity}</div></div>`
+    const html = `<div class="vert-flex-fill ql-container ql-snow" style="border:none;"><div class="ql-editor">${this.html.changingThisBreaksApplicationSecurity}</div></div>`
     if (!html || typeof html !== 'string') return
 
     if (this.cmpRef) {

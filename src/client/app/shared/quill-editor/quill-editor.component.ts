@@ -42,7 +42,8 @@ export class QuillEditorComponent implements AfterViewInit {
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'font': [] }],
       [{ 'align': [] }],
-
+      ['image'],
+      ['video'],
       ['clean']                                         // remove formatting button
     ]
     this.quill = new _quill(this.editorContainer.nativeElement, {
