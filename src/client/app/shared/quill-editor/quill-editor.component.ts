@@ -22,6 +22,12 @@ export class QuillEditorComponent implements AfterViewInit {
   constructor(injector: InjectionService, renderer: Renderer2, private ps: PlatformService) {
   }
 
+  get serverStyles() {
+    return this.ps.isServer
+      ? 'ql-container ql-snow ql-editor'
+      : ''
+  }
+
   ngAfterViewInit() {
     if (this.ps.isServer) return
     // tslint:disable-next-line:no-require-imports
@@ -42,7 +48,9 @@ export class QuillEditorComponent implements AfterViewInit {
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'font': [] }],
       [{ 'align': [] }],
-
+      ['code-block'],
+      ['image'],
+      ['video'],
       ['clean']                                         // remove formatting button
     ]
     this.quill = new _quill(this.editorContainer.nativeElement, {

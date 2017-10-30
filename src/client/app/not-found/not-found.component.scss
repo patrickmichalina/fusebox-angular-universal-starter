@@ -19,9 +19,12 @@
     display: flex;
     flex-direction: column;
     padding: 1em;
+    height: 100%;
+    overflow-y: auto;
   }
   ::ng-deep dynamic-html {
-    display: flex;
+    display: -webkit-inline-box;
+    overflow-y: auto;
     height: 100%;
   }
 }
