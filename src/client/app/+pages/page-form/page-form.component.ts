@@ -25,7 +25,13 @@ export class PageFormComponent {
   create() {
     const key = this.form.value.slug
     this.db.getObjectRef(`/pages/${key}`).update({
-      title: this.form.value.title
+      title: this.form.value.title,
+      userCommentsEnabled: false,
+      cache: {
+        'no-cache': true,
+        'no-store': true,
+        'must-revalidate': true
+      }
     })
   }
 

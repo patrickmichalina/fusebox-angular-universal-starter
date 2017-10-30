@@ -78,7 +78,7 @@ export class ServerResponseService implements IServerResponseService {
 
   setCacheNone(): this {
     if (this.response) {
-      this.setCache('no-store')
+      this.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
       this.setHeader('Pragma', 'no-cache')
     }
     return this
