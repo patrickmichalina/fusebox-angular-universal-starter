@@ -27,4 +27,7 @@
     overflow-y: auto;
     height: 100%;
   }
+  ::ng-deep mat-form-field {
+    padding-bottom: 1em;
+  }
 }

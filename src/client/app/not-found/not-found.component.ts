@@ -48,6 +48,18 @@ export class NotFoundComponent {
     imgUrl: new FormControl('', [
       // Validators.required
     ]),
+    imgAlt: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    imgMime: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    imgHeight: new FormControl('', [
+      Validators.min(1)
+    ]),
+    imgWidth: new FormControl('', [
+      Validators.min(1)
+    ]),
     userCommentsEnabled: new FormControl('', []),
     isDraft: new FormControl('', [])
   })
@@ -97,11 +109,11 @@ export class NotFoundComponent {
         this.seo.updateNode({
           title: page.title,
           description: page.description,
-          imgUrl: page.imgUrl
+          img: page.img
         })
         this.settingsForm.controls['title'].setValue(page.title)
         this.settingsForm.controls['description'].setValue(page.description)
-        this.settingsForm.controls['imgUrl'].setValue(page.imgUrl)
+        this.settingsForm.controls['imgUrl'].setValue(page.img)
         this.settingsForm.controls['userCommentsEnabled'].setValue(page.userCommentsEnabled)
         this.settingsForm.controls['isDraft'].setValue(page.isDraft)
       })
