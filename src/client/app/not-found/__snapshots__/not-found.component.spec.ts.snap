@@ -8,11 +8,13 @@ exports[`NotFoundComponent should compile 1`] = `
   dialog={[Function MatDialog]}
   editor="undefined"
   flexFill={[Function Boolean]}
+  isEditMode$={[Function AnonymousSubject]}
   page$={[Function Observable]}
   router={[Function Router]}
   rs={[Function ServerResponseService]}
   seo={[Function SEOService]}
   settingsForm={[Function FormGroup]}
+  snackBar={[Function MatSnackBar]}
   url$={[Function Observable]}
   view$={[Function Observable]}
 >
