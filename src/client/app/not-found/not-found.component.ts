@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
@@ -60,9 +61,17 @@ export class NotFoundComponent {
     this.settingsForm.controls['articleTag'].setValue(this.tags)
   }
 
-  private isEditMode$ = this.ar.queryParams
+  updateTabParam(tab: number) {
+    this.router.navigate([this.router.url.split('?')[0]], { queryParams: { tab }, queryParamsHandling: 'merge' })
+  }
+
+  private params$ = this.ar.queryParams.shareReplay()
+
+  private isEditMode$ = this.params$
     .map(a => a.edit ? true : false)
-    .shareReplay()
+
+  private currentTab$ = this.params$
+    .map(a => a.tab ? +a.tab : 0)
 
   private url$ = Observable.of(this.router.url.split('?')[0])
     .filter(a => !a.includes('.'))
@@ -189,9 +198,11 @@ export class NotFoundComponent {
         }
       }))
 
-  view$ = Observable.combineLatest(this.auth.user$, this.page$, this.ar.queryParams.pluck('edit').map(a => a === 'true'),
-    (user, page, isEditing) => {
+  view$ = Observable.combineLatest(this.auth.user$, this.page$, this.currentTab$,
+    this.ar.queryParams.pluck('edit').map(a => a === 'true'),
+    (user, page, currentTab, isEditing) => {
       return {
+        currentTab,
         canEdit: true, // for demo only, user && user.roles && user.roles.admin,
         isEditing,
         page
@@ -273,5 +284,6 @@ export class NotFoundComponent {
 
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,
     public auth: AuthService, private ar: ActivatedRoute, private router: Router, private dialog: MatDialog,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar) {
+  }
 }

@@ -1,11 +1,11 @@
 <div *ngIf="view$ | async as view" [ngSwitch]="view.isEditing" class="vert-flex-fill">
   <div *ngSwitchCase="true" class="vert-flex-fill">
-    <mat-tab-group [(selectedIndex)]="selectedTabIndex">
+    <mat-tab-group [selectedIndex]="view.currentTab" (selectedIndexChange)="updateTabParam($event)">
       <mat-tab label="Content">
         <pm-quill-editor [content]="view.page.content"></pm-quill-editor>
       </mat-tab>
       <mat-tab label="Settings">
-        <form [formGroup]="settingsForm" id="settingsForm" novalidate class="settings" *ngIf="selectedTabIndex === 1">
+        <form [formGroup]="settingsForm" id="settingsForm" novalidate class="settings" *ngIf="view.currentTab === 1">
           <mat-accordion class="example-headers-align">
             <mat-expansion-panel expanded="true" hideToggle="true">
               <mat-expansion-panel-header>
