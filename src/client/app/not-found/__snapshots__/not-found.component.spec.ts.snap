@@ -2,6 +2,7 @@
 
 exports[`NotFoundComponent should compile 1`] = `
 <pm-not-found
+  addOnBlur={[Function Boolean]}
   ar={[Function ActivatedRoute]}
   auth={[Function Object]}
   db={[Function Object]}
@@ -13,8 +14,10 @@ exports[`NotFoundComponent should compile 1`] = `
   router={[Function Router]}
   rs={[Function ServerResponseService]}
   seo={[Function SEOService]}
+  separatorKeysCodes={[Function Array]}
   settingsForm={[Function FormGroup]}
   snackBar={[Function MatSnackBar]}
+  tags={[Function Array]}
   url$={[Function Observable]}
   view$={[Function Observable]}
 >

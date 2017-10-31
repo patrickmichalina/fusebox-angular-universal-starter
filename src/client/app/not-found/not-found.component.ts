@@ -1,23 +1,32 @@
+import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
-import { ActivatedRoute, Router } from '@angular/router'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
 import { AuthService } from './../shared/services/auth.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ServerResponseService } from './../shared/services/server-response.service'
-import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 import { SEONode, SEOService } from '../shared/services/seo.service'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatChipInputEvent, MatDialog, MatSnackBar } from '@angular/material'
 import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
 // tslint:disable-next-line:no-require-imports
 import ms = require('ms')
+import { ENTER } from '@angular/cdk/keycodes'
+
+const COMMA = 188
 
 export interface Page {
   content: string
   title: string
   isDraft: boolean
   userCommentsEnabled?: boolean
-  cache: { [key: string]: boolean | string | number }
+  cache?: { [key: string]: boolean | string | number }
+  imgWidth?: number,
+  imgHeight?: number,
+  imgAlt?: string,
+  imgUrl?: string,
+  imgMime?: string
+  articleTag?: string[]
 }
 
 @Component({
@@ -29,6 +38,27 @@ export interface Page {
 export class NotFoundComponent {
   @HostBinding('class.vert-flex-fill') flexFill = true
   @ViewChild(QuillEditorComponent) editor: QuillEditorComponent
+
+  addOnBlur = true
+  separatorKeysCodes = [ENTER, COMMA]
+  tags: string[] = []
+
+  add(event: MatChipInputEvent): void {
+    if (event.input) event.input.value = '' // clear input value
+    this.tags = [...this.tags, event.value.trim()]
+      .filter(a => a !== '')
+      .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
+    this.updateTags()
+  }
+
+  remove(tag: any): void {
+    this.tags = [...this.tags].filter(a => a !== tag)
+    this.updateTags()
+  }
+
+  updateTags() {
+    this.settingsForm.controls['articleTag'].setValue(this.tags)
+  }
 
   private isEditMode$ = this.ar.queryParams
     .map(a => a.edit ? true : false)
@@ -43,11 +73,40 @@ export class NotFoundComponent {
       Validators.required
     ]),
     description: new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.max(158)
     ]),
     imgUrl: new FormControl('', [
       // Validators.required
     ]),
+    imgAlt: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    imgMime: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    imgHeight: new FormControl('', [
+      Validators.min(1)
+    ]),
+    imgWidth: new FormControl('', [
+      Validators.min(1)
+    ]),
+    articlePublishedTime: new FormControl(new Date(), [
+      // Validators.min(1)
+    ]),
+    articleModifiedTime: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleExpirationTime: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleAuthor: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleSection: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleTag: new FormControl('', []),
     userCommentsEnabled: new FormControl('', []),
     isDraft: new FormControl('', [])
   })
@@ -59,8 +118,8 @@ export class NotFoundComponent {
       .map(res => {
         if (res && res.page && (res.editMode || !res.page.isDraft)) {
           if (!res.editMode) {
-            const pageCacheSettings = res.page.cache
-            const cacheControl = Object.keys(pageCacheSettings || {})
+            const pageCacheSettings = res.page.cache || {}
+            const cacheControl = Object.keys(pageCacheSettings)
               .filter(key => pageCacheSettings[key])
               .reduce((acc, curr) => {
                 const ret = typeof pageCacheSettings[curr] === 'boolean'
@@ -97,13 +156,24 @@ export class NotFoundComponent {
         this.seo.updateNode({
           title: page.title,
           description: page.description,
-          imgUrl: page.imgUrl
+          img: {
+            width: page.imgWidth,
+            height: page.imgHeight,
+            type: page.imgMime,
+            alt: page.imgAlt,
+            url: page.url
+          },
+          tags: page.articleTag
         })
-        this.settingsForm.controls['title'].setValue(page.title)
-        this.settingsForm.controls['description'].setValue(page.description)
-        this.settingsForm.controls['imgUrl'].setValue(page.imgUrl)
-        this.settingsForm.controls['userCommentsEnabled'].setValue(page.userCommentsEnabled)
-        this.settingsForm.controls['isDraft'].setValue(page.isDraft)
+
+        // tslint:disable:no-null-keyword
+        const formValues = Object.keys(this.settingsForm.controls).reduce((acc: any, controlKey) => {
+          acc[controlKey] = (page as any)[controlKey] || null
+          return acc
+        }, {})
+
+        this.settingsForm.setValue(formValues)
+        this.tags = page.articleTag || []
       })
       .catch(err => {
         if (err.code === 'PERMISSION_DENIED') {
@@ -114,7 +184,7 @@ export class NotFoundComponent {
         } else {
           this.rs.setError()
           return Observable.of({
-            content: 'server error'
+            content: err || 'server error'
           })
         }
       }))
@@ -203,6 +273,5 @@ export class NotFoundComponent {
 
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,
     public auth: AuthService, private ar: ActivatedRoute, private router: Router, private dialog: MatDialog,
-    private snackBar: MatSnackBar) {
-  }
+    private snackBar: MatSnackBar) { }
 }
