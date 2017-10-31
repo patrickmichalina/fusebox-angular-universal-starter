@@ -3,8 +3,8 @@ import {
   MatButtonModule, MatCardModule, MatChipsModule, MatDatepickerModule,
   MatDialogModule, MatExpansionModule, MatExpansionPanel, MatFormFieldModule, MatIconModule,
   MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule,
-  MatProgressSpinnerModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTableModule,
-  MatTabsModule, MatTooltipModule, NativeDateAdapter
+  MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule,
+  MatTableModule, MatTabsModule, MatTooltipModule, NativeDateAdapter
 } from '@angular/material'
 import { OverlayModule } from '@angular/cdk/overlay'
 
@@ -29,6 +29,7 @@ import { OverlayModule } from '@angular/cdk/overlay'
     MatDatepickerModule,
     MatNativeDateModule,
     MatChipsModule,
+    MatSelectModule,
     OverlayModule
   ],
   providers: [NativeDateAdapter],
@@ -53,6 +54,7 @@ import { OverlayModule } from '@angular/cdk/overlay'
     MatDatepickerModule,
     MatNativeDateModule,
     MatChipsModule,
+    MatSelectModule,
     OverlayModule
   ]
 })

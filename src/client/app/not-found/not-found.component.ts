@@ -77,6 +77,9 @@ export class NotFoundComponent {
     .shareReplay()
 
   public settingsForm = new FormGroup({
+    type: new FormControl('website', [
+      Validators.required
+    ]),
     title: new FormControl('', [
       Validators.required
     ]),
@@ -176,7 +179,7 @@ export class NotFoundComponent {
 
         // tslint:disable:no-null-keyword
         const formValues = Object.keys(this.settingsForm.controls).reduce((acc: any, controlKey) => {
-          acc[controlKey] = (page as any)[controlKey] || null
+          acc[controlKey] = (page as any)[controlKey] || this.settingsForm.controls[controlKey].value || null
           return acc
         }, {})
 
