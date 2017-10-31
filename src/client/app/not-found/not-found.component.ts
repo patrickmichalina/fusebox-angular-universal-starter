@@ -1,4 +1,3 @@
-import { Subject } from 'rxjs/Subject';
 import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
