@@ -5,15 +5,18 @@ import { CookieService } from './shared/services/cookie.service'
 import { AuthService } from './shared/services/auth.service'
 import { HttpClient } from '@angular/common/http'
 import { WebSocketService } from './shared/services/web-socket.service'
-import { ChangeDetectionStrategy, Component, Inject, Renderer2 } from '@angular/core'
 import { DOCUMENT, TransferState } from '@angular/platform-browser'
 import { SettingService } from './shared/services/setting.service'
 import { Angulartics2GoogleAnalytics } from 'angulartics2'
-import { MatIconRegistry } from '@angular/material'
+import { MatIconRegistry, MatSidenav, MatSlideToggle } from '@angular/material'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { InjectionService } from './shared/services/injection.service'
 import { MinifierService } from './shared/services/minifier.service'
 import { SEOService } from './shared/services/seo.service'
+import {
+  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef,
+  Inject, QueryList, Renderer2, ViewChild, ViewChildren
+} from '@angular/core'
 
 @Component({
   selector: 'pm-app',
@@ -21,8 +24,13 @@ import { SEOService } from './shared/services/seo.service'
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @ViewChild(MatSidenav) sidenav: MatSidenav
+  @ViewChild(MatSlideToggle) toggle: MatSlideToggle
+  @ViewChildren('out', { read: ElementRef }) menuButtons: QueryList<ElementRef>
+
   public user$ = this.auth.user$
+  public menuMode = 'over'
 
   constructor(ss: SettingService, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,
@@ -82,5 +90,23 @@ export class AppComponent {
     //   wss.messageBus$.subscribe()
     //   wss.send({ message: 'ws test' })
     // }
+  }
+
+  ngAfterViewInit() {
+    this.toggle.change
+      .map(a => a.checked)
+      .subscribe(checked => {
+        checked
+          ? this.menuMode = 'side'
+          : this.menuMode = 'over'
+      })
+    this.menuButtons
+      .map(a => a.nativeElement as HTMLAnchorElement)
+      .forEach(a => a.addEventListener('click', () => this.handleOutsideClicks()))
+  }
+
+  handleOutsideClicks() {
+    if (this.menuMode === 'side') return
+    this.sidenav.close()
   }
 }
