@@ -10,4 +10,12 @@
   .sidenav {
     width: 256px;
   }
+  #menu-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    mat-slide-toggle {
+      margin-right: 1em;
+    }
+  }
 }

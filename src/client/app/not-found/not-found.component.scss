@@ -11,8 +11,12 @@
     }
     mat-tab-body {
       .mat-tab-body-content {
-        overflow: hidden;
+        overflow: overlay;
       }
+      // overflow-y: overlay;
+      // .mat-tab-body-content {
+      //   overflow-y: overlay;
+      // }
     }
   }
   .settings {
@@ -49,7 +53,7 @@
       flex-direction: column;
     }
   }
-  ::ng-deep mat-chip {
+   ::ng-deep mat-chip {
     mat-icon {
       height: auto;
       width: auto;

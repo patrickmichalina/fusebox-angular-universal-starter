@@ -8,7 +8,9 @@
   <mat-tab *ngFor="let keyVal of pages$ | async | pmKeyVal" [label]="keyVal.key">
     <ul>
       <li *ngFor="let slug of keyVal.value | pmKeys">
-        <a [routerLink]="'/' + keyVal.key + '/' + slug" [queryParams]="{ 'edit': true }">{{ slug }}</a>
+        <a [routerLink]="'/' + keyVal.key + '/' + slug">{{ slug }}</a>
+        <a [routerLink]="'/' + keyVal.key + '/' + slug" [queryParams]="{ 'edit': true }">edit</a>
+        <span>delete</span>
       </li>
     </ul>
 

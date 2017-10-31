@@ -1,21 +1,24 @@
 <pm-navbar (onMenuIconClick)="sidenav.toggle()" [user]="user$ | async"></pm-navbar>
-<mat-sidenav-container class="sidenav-container" (pmClickOutside)="sidenav.close()" exclude="#toggle-menu-button">
-  <mat-sidenav #sidenav class="sidenav mat-elevation-z6">
+<mat-sidenav-container class="sidenav-container" (pmClickOutside)="handleOutsideClicks()" exclude="#toggle-menu-button">
+  <mat-sidenav #sidenav class="sidenav mat-elevation-z6" [mode]="menuMode">
     <mat-list>
-      <h3 matSubheader>Pages</h3>
+      <div id="menu-top">
+        <h3 matSubheader>Pages</h3>
+        <mat-slide-toggle [checked]="menuMode === 'slide'"></mat-slide-toggle>
+      </div>
       <mat-list-item>
-        <!-- <mat-icon matListIcon>folder</mat-icon> -->
-        <a matLine mat-button routerLink="/" (click)="sidenav.close()">Home</a>
-        <a matLine mat-button routerLink="changelog" (click)="sidenav.close()">Changelog</a>
-        <a matLine mat-button href="/sitemap.xml" (click)="sidenav.close()">Sitemap</a>
-        <a matLine mat-button href="/robots.txt" (click)="sidenav.close()">Robots</a>
+        <a #out matLine mat-button routerLink="/">Home</a>
+        <a #out matLine mat-button routerLink="changelog">Changelog</a>
+        <a #out matLine mat-button href="/sitemap.xml">Sitemap</a>
+        <a #out matLine mat-button href="/robots.txt">Robots</a>
       </mat-list-item>
       <mat-divider></mat-divider>
       <h3 matSubheader>Boss Area</h3>
       <mat-list-item>
-        <!-- <mat-icon matListIcon>folder</mat-icon> -->
-        <a matLine mat-button routerLink="pages" (click)="sidenav.close()">Pages</a>
-        <a matLine mat-button routerLink="admin" (click)="sidenav.close()">Admin</a>
+        <a #out matLine mat-button routerLink="pages">Pages</a>
+        <a #out matLine mat-button>Assets</a>
+        <a #out matLine mat-button>Users</a>
+        <a #out matLine mat-button routerLink="admin">Admin</a>
       </mat-list-item>
     </mat-list>
   </mat-sidenav>
