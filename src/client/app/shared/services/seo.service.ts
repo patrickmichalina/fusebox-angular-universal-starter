@@ -50,7 +50,7 @@ export class SEOService {
   }
 
   updateImg(img: SEOImage) {
-    if (img.url) this.meta.updateTag(this.createOgTag('image', img.url))
+    if (img.url) this.meta.updateTag(this.createOgTag('image', img.url, 'url'))
     if (img.width) this.meta.updateTag(this.createOgTag('image', img.width.toString(), 'width'))
     if (img.height) this.meta.updateTag(this.createOgTag('image', img.height.toString(), 'height'))
     if (img.type) this.meta.updateTag(this.createOgTag('image', img.type, 'type'))
