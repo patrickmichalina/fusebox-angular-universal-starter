@@ -169,7 +169,7 @@ export class NotFoundComponent {
             height: page.imgHeight,
             type: page.imgMime,
             alt: page.imgAlt,
-            url: page.url
+            url: page.imgUrl
           },
           tags: page.articleTag
         })
