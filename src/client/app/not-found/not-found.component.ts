@@ -77,46 +77,19 @@ export class NotFoundComponent {
     .shareReplay()
 
   public settingsForm = new FormGroup({
-    type: new FormControl('website', [
-      Validators.required
-    ]),
-    title: new FormControl('', [
-      Validators.required
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-      Validators.max(158)
-    ]),
-    imgUrl: new FormControl('', [
-      // Validators.required
-    ]),
-    imgAlt: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    imgMime: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    imgHeight: new FormControl('', [
-      Validators.min(1)
-    ]),
-    imgWidth: new FormControl('', [
-      Validators.min(1)
-    ]),
-    articlePublishedTime: new FormControl(new Date(), [
-      // Validators.min(1)
-    ]),
-    articleModifiedTime: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    articleExpirationTime: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    articleAuthor: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    articleSection: new FormControl('', [
-      // Validators.min(1)
-    ]),
+    type: new FormControl('website', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required, Validators.max(158)]),
+    imgUrl: new FormControl('', []),
+    imgAlt: new FormControl('', []),
+    imgMime: new FormControl('', []),
+    imgHeight: new FormControl('', [Validators.min(1)]),
+    imgWidth: new FormControl('', [Validators.min(1)]),
+    articlePublishedTime: new FormControl(new Date(), []),
+    articleModifiedTime: new FormControl('', []),
+    articleExpirationTime: new FormControl('', []),
+    articleAuthor: new FormControl('', []),
+    articleSection: new FormControl('', []),
     articleTag: new FormControl('', []),
     userCommentsEnabled: new FormControl('', []),
     isDraft: new FormControl('', [])
