@@ -69,13 +69,34 @@
                     <em>meta:og:article:section</em>
                   </mat-hint>
                 </mat-form-field>
+              </div>
+              <div class="field-spacer">
                 <mat-form-field>
-                  <input matInput placeholder="Tags" type="text" formControlName="articleTag">
+                  <!-- <input matInput placeholder="Tags" type="text" formControlName="articleTag"> -->
+                  <mat-chip-list #chipList>
+                    <mat-chip *ngFor="let tag of tags" [selectable]="selectable">
+                      {{ tag }}
+                      <mat-icon fontSet="fa" fontIcon="fa-times" aria-hidden="true" (click)="remove(tag)"></mat-icon>
+                    </mat-chip>
+                    <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
+                  </mat-chip-list>
                   <mat-hint align="end">appears in
                     <em>meta:og:article:tag</em>
                   </mat-hint>
                 </mat-form-field>
               </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Caching
+                </mat-panel-title>
+                <mat-panel-description>
+                  HTTP cache settings
+                  <mat-icon fontSet="fa" fontIcon="fa-globe" aria-hidden="true"></mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle="true">
               <mat-expansion-panel-header>

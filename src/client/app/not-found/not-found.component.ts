@@ -1,16 +1,19 @@
+import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
-import { ActivatedRoute, Router } from '@angular/router'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
 import { AuthService } from './../shared/services/auth.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ServerResponseService } from './../shared/services/server-response.service'
-import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
 import { SEONode, SEOService } from '../shared/services/seo.service'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatChipInputEvent, MatDialog, MatSnackBar } from '@angular/material'
 import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
 // tslint:disable-next-line:no-require-imports
 import ms = require('ms')
+import { ENTER } from '@angular/cdk/keycodes'
+
+const COMMA = 188
 
 export interface Page {
   content: string
@@ -23,6 +26,7 @@ export interface Page {
   imgAlt?: string,
   imgUrl?: string,
   imgMime?: string
+  articleTag?: string[]
 }
 
 @Component({
@@ -34,6 +38,27 @@ export interface Page {
 export class NotFoundComponent {
   @HostBinding('class.vert-flex-fill') flexFill = true
   @ViewChild(QuillEditorComponent) editor: QuillEditorComponent
+
+  addOnBlur = true
+  separatorKeysCodes = [ENTER, COMMA]
+  tags: string[] = []
+
+  add(event: MatChipInputEvent): void {
+    if (event.input) event.input.value = '' // clear input value
+    this.tags = [...this.tags, event.value.trim()]
+      .filter(a => a !== '')
+      .filter((elem, pos, arr) => arr.indexOf(elem) === pos)
+    this.updateTags()
+  }
+
+  remove(tag: any): void {
+    this.tags = [...this.tags].filter(a => a !== tag)
+    this.updateTags()
+  }
+
+  updateTags() {
+    this.settingsForm.controls['articleTag'].setValue(this.tags)
+  }
 
   private isEditMode$ = this.ar.queryParams
     .map(a => a.edit ? true : false)
@@ -81,9 +106,7 @@ export class NotFoundComponent {
     articleSection: new FormControl('', [
       // Validators.min(1)
     ]),
-    articleTag: new FormControl('', [
-      // Validators.min(1)
-    ]),
+    articleTag: new FormControl('', []),
     userCommentsEnabled: new FormControl('', []),
     isDraft: new FormControl('', [])
   })
@@ -139,7 +162,8 @@ export class NotFoundComponent {
             type: page.imgMime,
             alt: page.imgAlt,
             url: page.url
-          }
+          },
+          tags: page.articleTag
         })
 
         // tslint:disable:no-null-keyword
@@ -149,6 +173,7 @@ export class NotFoundComponent {
         }, {})
 
         this.settingsForm.setValue(formValues)
+        this.tags = page.articleTag || []
       })
       .catch(err => {
         if (err.code === 'PERMISSION_DENIED') {
@@ -159,7 +184,7 @@ export class NotFoundComponent {
         } else {
           this.rs.setError()
           return Observable.of({
-            content: 'server error'
+            content: err || 'server error'
           })
         }
       }))

@@ -9,6 +9,7 @@ export interface SEONode {
   url?: string
   locale?: string
   facebookAppId?: string
+  tags?: string[]
 }
 
 export interface SEOImage {
@@ -31,6 +32,7 @@ export class SEOService {
     if (node.url) this.updateUrl(node.url)
     if (node.title) this.updateLocale(node.locale)
     if (node.facebookAppId) this.updateFbAppId(node.facebookAppId)
+    if (node.tags) this.updateTags(node.tags)
   }
 
   updateTitle(title: string) {
@@ -65,6 +67,11 @@ export class SEOService {
 
   updateUrl(url: string) {
     this.meta.updateTag(this.createOgTag('url', url))
+  }
+
+  updateTags(tags: string[]) {
+    tags.forEach(tag => this.meta.removeTag('property="og:article:tag"'))
+    tags.forEach(tag => this.meta.addTag(this.createOgTag('article', tag, 'tag')))
   }
 
   createOgTag(property: string, content: string, property2?: string) {
