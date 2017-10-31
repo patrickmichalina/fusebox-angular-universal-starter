@@ -17,7 +17,12 @@ export interface Page {
   title: string
   isDraft: boolean
   userCommentsEnabled?: boolean
-  cache: { [key: string]: boolean | string | number }
+  cache?: { [key: string]: boolean | string | number }
+  imgWidth?: number,
+  imgHeight?: number,
+  imgAlt?: string,
+  imgUrl?: string,
+  imgMime?: string
 }
 
 @Component({
@@ -43,7 +48,8 @@ export class NotFoundComponent {
       Validators.required
     ]),
     description: new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.max(158)
     ]),
     imgUrl: new FormControl('', [
       // Validators.required
@@ -60,6 +66,24 @@ export class NotFoundComponent {
     imgWidth: new FormControl('', [
       Validators.min(1)
     ]),
+    articlePublishedTime: new FormControl(new Date(), [
+      // Validators.min(1)
+    ]),
+    articleModifiedTime: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleExpirationTime: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleAuthor: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleSection: new FormControl('', [
+      // Validators.min(1)
+    ]),
+    articleTag: new FormControl('', [
+      // Validators.min(1)
+    ]),
     userCommentsEnabled: new FormControl('', []),
     isDraft: new FormControl('', [])
   })
@@ -71,8 +95,8 @@ export class NotFoundComponent {
       .map(res => {
         if (res && res.page && (res.editMode || !res.page.isDraft)) {
           if (!res.editMode) {
-            const pageCacheSettings = res.page.cache
-            const cacheControl = Object.keys(pageCacheSettings || {})
+            const pageCacheSettings = res.page.cache || {}
+            const cacheControl = Object.keys(pageCacheSettings)
               .filter(key => pageCacheSettings[key])
               .reduce((acc, curr) => {
                 const ret = typeof pageCacheSettings[curr] === 'boolean'
@@ -109,13 +133,22 @@ export class NotFoundComponent {
         this.seo.updateNode({
           title: page.title,
           description: page.description,
-          img: page.img
+          img: {
+            width: page.imgWidth,
+            height: page.imgHeight,
+            type: page.imgMime,
+            alt: page.imgAlt,
+            url: page.url
+          }
         })
-        this.settingsForm.controls['title'].setValue(page.title)
-        this.settingsForm.controls['description'].setValue(page.description)
-        this.settingsForm.controls['imgUrl'].setValue(page.img)
-        this.settingsForm.controls['userCommentsEnabled'].setValue(page.userCommentsEnabled)
-        this.settingsForm.controls['isDraft'].setValue(page.isDraft)
+
+        // tslint:disable:no-null-keyword
+        const formValues = Object.keys(this.settingsForm.controls).reduce((acc: any, controlKey) => {
+          acc[controlKey] = (page as any)[controlKey] || null
+          return acc
+        }, {})
+
+        this.settingsForm.setValue(formValues)
       })
       .catch(err => {
         if (err.code === 'PERMISSION_DENIED') {
@@ -215,6 +248,5 @@ export class NotFoundComponent {
 
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,
     public auth: AuthService, private ar: ActivatedRoute, private router: Router, private dialog: MatDialog,
-    private snackBar: MatSnackBar) {
-  }
+    private snackBar: MatSnackBar) { }
 }

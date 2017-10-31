@@ -22,12 +22,32 @@
     height: 100%;
     overflow-y: auto;
   }
-  ::ng-deep dynamic-html {
+   ::ng-deep dynamic-html {
     display: -webkit-inline-box;
     overflow-y: auto;
     height: 100%;
   }
-  ::ng-deep mat-form-field {
+   ::ng-deep mat-form-field {
     padding-bottom: 1em;
+  }
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .field-spacer {
+    display: flex;
+    flex: 1;
+    mat-form-field {
+      width: 100%;
+      margin-right: 1em;
+    }
+    @media only screen and (max-width: 959px) {
+      flex-direction: column;
+    }
   }
 }

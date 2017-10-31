@@ -12,11 +12,11 @@ export interface SEONode {
 }
 
 export interface SEOImage {
-  url: string
+  url?: string
   alt?: string
   type?: string
-  height?: string
-  width?: string
+  height?: number
+  width?: number
 }
 
 @Injectable()
@@ -48,9 +48,9 @@ export class SEOService {
   }
 
   updateImg(img: SEOImage) {
-    this.meta.updateTag(this.createOgTag('image', img.url))
-    if (img.width) this.meta.updateTag(this.createOgTag('image', img.width, 'width'))
-    if (img.height) this.meta.updateTag(this.createOgTag('image', img.height, 'height'))
+    if (img.url) this.meta.updateTag(this.createOgTag('image', img.url))
+    if (img.width) this.meta.updateTag(this.createOgTag('image', img.width.toString(), 'width'))
+    if (img.height) this.meta.updateTag(this.createOgTag('image', img.height.toString(), 'height'))
     if (img.type) this.meta.updateTag(this.createOgTag('image', img.type, 'type'))
     if (img.alt) this.meta.updateTag(this.createOgTag('image', img.alt, 'alt'))
   }
