@@ -10,6 +10,7 @@ exports[`NotFoundComponent should compile 1`] = `
   dialog={[Function MatDialog]}
   editor="undefined"
   flexFill={[Function Boolean]}
+  injections$={[Function BehaviorSubject]}
   isEditMode$={[Function AnonymousSubject]}
   page$={[Function Observable]}
   params$={[Function AnonymousSubject]}
