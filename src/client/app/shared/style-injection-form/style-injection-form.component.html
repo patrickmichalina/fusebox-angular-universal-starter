@@ -1,0 +1,36 @@
+<form [formGroup]="form" novalidate>
+  <div>
+    <label for="inHead">In Head?</label>
+    <input id="inHead" type="checkbox" formControlName="inHead">
+  </div>
+  <div>
+    <label for="inline">Inline Style?</label>
+    <input id="inline" type="checkbox" (change)="inline" #inline [formControl]="isInline">
+  </div>
+  <mat-form-field *ngIf="inline.checked">
+    <textarea matInput placeholder="Inline CSS" formControlName="value"></textarea>
+  </mat-form-field>
+  <mat-form-field *ngIf="!inline.checked">
+    <input matInput placeholder="CSS Href" formControlName="linkHref">
+  </mat-form-field>
+  <!-- <div *ngIf="!inline.checked"> -->
+
+  <!-- <label for="attributes">Attributes</label>
+    <pm-key-value-form id="attributes" [keyVals]="form.value.attributes"></pm-key-value-form> -->
+  <!-- </div> -->
+
+  <!-- <div>
+      <label for="hasAttributes">Has Attributes?</label>
+      <input id="hasAttributes" type="checkbox" (change)="hasAttributes" #hasAttributes>
+      <mat-form-field *ngIf="hasAttributes.checked">
+        <input matInput placeholder="Inline Value" type="text" formControlName="value">
+      </mat-form-field>
+    </div> -->
+
+  <!-- 
+      TODO: replace above once material fixes bug
+      TODO: https://github.com/angular/material2/pull/7882
+      <mat-checkbox formControlName="inHead">
+      In Head?
+    </mat-checkbox> -->
+</form>

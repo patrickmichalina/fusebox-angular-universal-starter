@@ -96,6 +96,7 @@ export class AppComponent implements AfterViewInit {
     this.toggle.change
       .map(a => a.checked)
       .subscribe(checked => {
+        if (!checked) this.sidenav.close()
         checked
           ? this.menuMode = 'side'
           : this.menuMode = 'over'
