@@ -240,15 +240,15 @@ export class NotFoundComponent {
   }
 
   viewCurrent() {
-    this.url$.do(url => {
-      this.router.navigate([url])
-    }).take(1).subscribe()
+    this.url$
+      .take(1)
+      .subscribe(url => this.router.navigate([url]))
   }
 
   edit() {
-    this.url$.do(url => {
-      this.router.navigate([url], { queryParams: { edit: true } })
-    }).take(1).subscribe()
+    this.url$
+      .take(1)
+      .subscribe(url => this.router.navigate([url], { queryParams: { edit: true } }))
   }
 
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,
