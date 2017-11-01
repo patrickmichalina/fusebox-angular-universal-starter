@@ -7,7 +7,7 @@
       <mat-tab label="Settings">
         <form [formGroup]="settingsForm" id="settingsForm" novalidate class="settings" *ngIf="view.currentTab === 1">
           <mat-accordion class="example-headers-align">
-            <mat-expansion-panel expanded="true" hideToggle="true">
+            <mat-expansion-panel hideToggle="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Basic Info
@@ -177,15 +177,26 @@
           <mat-slide-toggle formControlName="isDraft">Draft</mat-slide-toggle>
         </form>
       </mat-tab>
-      <mat-tab label="Styles">
+      <mat-tab label="Dynamic Code & Styling">
         <div class="pad-tab">
-          <h3>Inject custom css styles for this page</h3>
-          <mat-card>
-          </mat-card>
+          <h3 mat-subheader>Add custom css and javascript for this page</h3>
+          <div class="card-list" *ngFor="let keyVal of injections$ | async | pmKeyVal">
+            <button mat-icon-button>
+              <mat-icon fontSet="fa" fontIcon="fa-minus-circle" color="warn" aria-hidden="true" (click)="removeInjectable(keyVal.key)"></mat-icon>
+            </button>
+            <mat-card>
+              <mat-form-field>
+                <input matInput placeholder="Name" type="text" [value]="keyVal.key">
+              </mat-form-field>
+            </mat-card>
+          </div>
+          <br>
+          <div>
+            <button mat-raised-button color="primary" (click)="addInjectable('style')">Add CSS</button>
+            <button mat-raised-button color="primary" (click)="addInjectable('script')">Add JavaScript</button>
+          </div>
+          <br>
         </div>
-      </mat-tab>
-      <mat-tab label="Code">
-        TODO: Allow user to add javascript that is injected with this page
       </mat-tab>
       <mat-tab label="Change History">
         TODO: List of changes to the page here

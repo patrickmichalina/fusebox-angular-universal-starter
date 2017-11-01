@@ -12,8 +12,7 @@
     mat-tab-body {
       .mat-tab-body-content {
         overflow: overlay;
-      }
-      // overflow-y: overlay;
+      } // overflow-y: overlay;
       // .mat-tab-body-content {
       //   overflow-y: overlay;
       // }
@@ -62,6 +61,27 @@
       &:hover {
         cursor: pointer;
       }
+    }
+  }
+  .pad-tab {
+    padding: 0 1em;
+  }
+  .inj-list {
+    mat-list-item {
+      margin: 1em 0;
+    }
+    mat-card {
+      width: 100%;
+      padding: 1em;
+    }
+  }
+  .card-list {
+    margin-bottom: 1em;   
+    display: flex;
+    align-items: center;
+    mat-card {
+      width: 100%;
+      display: inherit;
     }
   }
 }

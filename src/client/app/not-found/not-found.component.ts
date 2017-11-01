@@ -1,3 +1,5 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { DOMInjectable } from './../shared/services/injection.service'
 import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
@@ -29,6 +31,9 @@ export interface Page {
   articleTag?: string[]
 }
 
+type types = 'script' | 'style'
+interface InjectionMap { [key: string]: { type: types, injectable: DOMInjectable } }
+
 @Component({
   selector: 'pm-not-found',
   templateUrl: './not-found.component.html',
@@ -42,6 +47,36 @@ export class NotFoundComponent {
   addOnBlur = true
   separatorKeysCodes = [ENTER, COMMA]
   tags: string[] = []
+  injections$ = new BehaviorSubject<InjectionMap>({})
+  // styleInjections$ = this.reduceInjections('style')
+  // scriptInjections$ = this.reduceInjections('script')
+
+  reduceInjections(type: types) {
+    return this.injections$.map(a => Object.keys(a).reduce((acc, key) => {
+      return a[key].type === type
+        ? { ...acc, [key]: a[key] }
+        : { ...acc }
+    }, {}))
+  }
+
+  addInjectable(type: types) {
+    this.injections$.next({
+      ...this.injections$.getValue(),
+      [`${type.toString()}-${Math.random()}`]: {
+        type,
+        injectable: {} as any
+      }
+    })
+  }
+
+  removeInjectable(key: string) {
+    const current = this.injections$.getValue()
+    this.injections$.next({
+      ...Object.keys(current)
+        .filter(k => k !== key)
+        .reduce((a, c) => ({ ...a, [c]: current[c] }), {})
+    })
+  }
 
   add(event: MatChipInputEvent): void {
     if (event.input) event.input.value = '' // clear input value
