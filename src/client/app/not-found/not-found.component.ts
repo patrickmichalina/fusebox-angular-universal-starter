@@ -151,11 +151,9 @@ export class NotFoundComponent {
         })
 
         // tslint:disable:no-null-keyword
-        const formValues = Object.keys(this.settingsForm.controls).reduce((acc: any, controlKey) => {
-          acc[controlKey] = (page as any)[controlKey] || this.settingsForm.controls[controlKey].value || null
-          return acc
-        }, {})
-
+        const formValues = Object.keys(this.settingsForm.controls)
+          .reduce((acc: any, controlKey) =>
+            ({ ...acc, [controlKey]: (page as any)[controlKey] || this.settingsForm.controls[controlKey].value || null }), {})
         this.settingsForm.setValue(formValues)
         this.tags = page.articleTag || []
       })
@@ -193,11 +191,7 @@ export class NotFoundComponent {
   publish() {
     const settings = Object.keys(this.settingsForm.value)
       .filter(key => typeof this.settingsForm.value[key] !== 'undefined')
-      .reduce((acc, curr) => {
-        const obj = { ...acc } as any
-        obj[curr] = this.settingsForm.value[curr]
-        return obj
-      }, {})
+      .reduce((acc, curr) => ({ ...acc, [curr]: this.settingsForm.value[curr] }) as any, {})
 
     this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`)
       .update({
