@@ -11,23 +11,36 @@ export interface DOMInjectable {
 
 @Injectable()
 export class InjectionService {
-  constructor(@Inject(DOCUMENT) private doc: any) {}
+  constructor(@Inject(DOCUMENT) private doc: any) { }
 
-  inject(renderer: Renderer2, injectable: DOMInjectable) {
-    const st = renderer.createElement(injectable.element) as HTMLElement
+  createElement<T extends HTMLElement>(renderer: Renderer2, injectable: DOMInjectable): T | undefined {
+    if (!injectable || !injectable.element) return undefined
+    const elm = renderer.createElement(injectable.element) as T
     const id = sha1(JSON.stringify(injectable))
 
-    if (this.doc.getElementById(id)) return
-
-    renderer.setProperty(st, 'id', id)
-    if (injectable.value) renderer.setValue(st, injectable.value)
+    renderer.setProperty(elm, 'id', id)
+    if (injectable.value) renderer.setValue(elm, injectable.value)
 
     Object.keys(injectable.attributes || {})
-      .forEach(key => renderer.setAttribute(st, key, (injectable.attributes || {})[key] as any))
+      .forEach(key => renderer.setAttribute(elm, key, (injectable.attributes || {})[key] as any))
+
+    return elm
+  }
+
+  getElementStringForm(renderer: Renderer2, injectable: DOMInjectable | undefined) {
+    if (!injectable) return ''
+    const elm = this.createElement(renderer, injectable)
+    return ((elm && elm.outerHTML) || '').replace('><', `>${injectable.value}<`)
+  }
+
+  inject(renderer: Renderer2, injectable: DOMInjectable) {
+    const elm = this.createElement(renderer, injectable)
+
+    if (!elm || this.doc.getElementById(elm.id)) return
 
     injectable.inHead
-      ? renderer.appendChild(this.doc.head, st)
-      : renderer.appendChild(this.doc.body, st)
+      ? renderer.appendChild(this.doc.head, elm)
+      : renderer.appendChild(this.doc.body, elm)
   }
 
   injectCollection(renderer: Renderer2, injectables: DOMInjectable[]) {

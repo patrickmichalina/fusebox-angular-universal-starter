@@ -34,7 +34,7 @@ export class KeyValueFormComponent implements OnChanges {
     this.onChange.next({
       ...Object.keys(this.onChange.getValue())
         .filter(k => k !== key)
-        .reduce((a, c) => ({ ...a, c }), {})
+        .reduce((a, c) => ({ ...a, [c]: this.onChange.getValue()[c] }), {})
     })
   }
 }

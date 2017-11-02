@@ -186,8 +186,12 @@
             </button>
             <mat-card>
               <mat-form-field>
-                <input matInput placeholder="Name" type="text" [value]="keyVal.key">
+                <input matInput placeholder="Name" type="text" [value]="keyVal.key" #keyTest (keydown)="injectionFormChange($event, keyVal.value.type, $event)">
               </mat-form-field>
+              <div [ngSwitch]="keyVal.value.type">
+                <pm-injection-form *ngSwitchCase="'style'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+                <pm-injection-form *ngSwitchCase="'script'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+              </div>
             </mat-card>
           </div>
           <br>
@@ -198,8 +202,11 @@
           <br>
         </div>
       </mat-tab>
-      <mat-tab label="Change History">
-        TODO: List of changes to the page here
+      <mat-tab label="Relationships" disabled>
+      </mat-tab>
+      <mat-tab label="Privileges" disabled>
+      </mat-tab>
+      <mat-tab label="Change History" disabled>
       </mat-tab>
     </mat-tab-group>
     <footer class="footer mat-elevation-z6">
@@ -211,7 +218,7 @@
   <div *ngSwitchCase="false" class="vert-flex-fill">
     <div pmHtmlOutlet [html]="view.page.content | pmSanitizeHtml"></div>
     <footer class="footer mat-elevation-z6">
-      <button *ngIf="view.canEdit" mat-raised-button color="primary" (click)="edit()">Edit</button>
+      <button *ngIf="view.canEdit" mat-raised-button color="accent" (click)="edit()">Edit</button>
     </footer>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <div *ngFor="let keyVal of onChange.asObservable() | async | pmKeyVal">
   <button mat-icon-button color="warn" (click)="remove(keyVal.key)">
-    <mat-icon fontSet="fa" fontIcon="fa-times"></mat-icon>
+    <mat-icon fontSet="fa" fontIcon="fa-minus-circle"></mat-icon>
   </button>
   <mat-form-field>
     <input matInput placeholder="Key" type="text" [value]="keyVal.key">

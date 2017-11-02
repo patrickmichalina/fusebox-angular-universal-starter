@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { DOMInjectable } from './../shared/services/injection.service'
 import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
@@ -48,23 +49,43 @@ export class NotFoundComponent {
   separatorKeysCodes = [ENTER, COMMA]
   tags: string[] = []
   injections$ = new BehaviorSubject<InjectionMap>({})
-  // styleInjections$ = this.reduceInjections('style')
-  // scriptInjections$ = this.reduceInjections('script')
+  injectionsToSave$ = new BehaviorSubject<InjectionMap>({})
+  styleInjDefault = {
+    element: 'link',
+    attributes: {
+      href: 'https://',
+      type: 'text/css',
+      rel: 'stylesheet'
+    }
+  }
 
-  reduceInjections(type: types) {
-    return this.injections$.map(a => Object.keys(a).reduce((acc, key) => {
-      return a[key].type === type
-        ? { ...acc, [key]: a[key] }
-        : { ...acc }
-    }, {}))
+  injectionFormChange(key: string, type: types, injectable: DOMInjectable) {
+    console.log(key)
+    // this.injectionsToSave$.next({
+    //   ...this.injections$.getValue(),
+    //   [key]: {
+    //     type,
+    //     injectable
+    //   }
+    // })
   }
 
   addInjectable(type: types) {
     this.injections$.next({
       ...this.injections$.getValue(),
-      [`${type.toString()}-${Math.random()}`]: {
+      [`${type.toString()}_${Math.random().toPrecision(4)}`]: {
         type,
         injectable: {} as any
+      }
+    })
+  }
+
+  insertInjectable(key: string, type: types, injectable: DOMInjectable) {
+    this.injections$.next({
+      ...this.injections$.getValue(),
+      [key]: {
+        type,
+        injectable
       }
     })
   }
@@ -224,6 +245,9 @@ export class NotFoundComponent {
     })
 
   publish() {
+    const injections = this.injectionsToSave$.getValue()
+    console.log(injections)
+
     const settings = Object.keys(this.settingsForm.value)
       .filter(key => typeof this.settingsForm.value[key] !== 'undefined')
       .reduce((acc, curr) => ({ ...acc, [curr]: this.settingsForm.value[curr] }) as any, {})
@@ -231,6 +255,7 @@ export class NotFoundComponent {
     this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`)
       .update({
         ...settings,
+        injections,
         content: this.editor.textValue.getValue()
       }), (url, update) => ({ url, update }))
       .take(1)
