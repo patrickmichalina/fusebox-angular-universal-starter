@@ -11,7 +11,6 @@ import { ServerModule, ServerTransferStateModule } from '@angular/platform-serve
 import { AppComponent } from './../client/app/app.component'
 import { EnvConfig } from '../../tools/config/app.config'
 import { AppModule, REQ_KEY } from './../client/app/app.module'
-import { ReplaySubject } from 'rxjs/ReplaySubject'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { FIREBASE_ADMIN_INSTANCE, FirebaseAdminService } from './server.angular-fire.service'
 import { JwtHelper } from 'angular2-jwt'
@@ -22,6 +21,11 @@ import * as admin from 'firebase-admin'
 import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/first'
 import '../client/operators'
+
+// tslint:disable-next-line:no-require-imports
+const xhr2 = require('xhr2')
+
+xhr2.prototype._restrictedHeaders.cookie = false
 
 declare var __process_env__: EnvConfig
 
@@ -51,14 +55,17 @@ export function getFirebaseAdmin(env: EnvironmentService, cookies: CookieService
   const jwtHelper = new JwtHelper()
   const user = AuthService.cookieMapper(userToken, jwtHelper) || {}
   const userId = user.id || 'anon'
-  const app = admin.apps.find((a: any) => a.name === userId)
+  let app = admin.apps.find((a: any) => a.name === userId)
 
-  if (app) return app
-  return admin.initializeApp({
-    credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
-    databaseURL: env.config.firebase.config.databaseURL,
-    databaseAuthVariableOverride: new Map([['uid', userId]])
-  }, userId)
+  if (!app) {
+    app = admin.initializeApp({
+      credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
+      databaseURL: env.config.firebase.config.databaseURL,
+      databaseAuthVariableOverride: new Map([['uid', userId]])
+    }, userId)
+  }
+
+  return app
 }
 
 export function getFirebaseServerModule(d: any, zone: NgZone, ts: TransferState) {
@@ -116,7 +123,7 @@ export class AppServerModule { }
 
 export class AngularFireServer {
 
-  authSource = new ReplaySubject<any | undefined>(1)
+  authSource = new Subject<any | undefined>()
   idToken = this.authSource.asObservable()
 
   constructor( @Inject(REQUEST) private req: any, ts: TransferState) {

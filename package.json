@@ -44,7 +44,11 @@
     "postmerge": "./tools/scripts/post-merge.sh || true",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "lint": "ts-node fuse.ts lint --build-type prod",
-    "postinstall": "./node_modules/.bin/ts-node fuse.ts clean"
+    "postinstall": "./node_modules/.bin/ts-node fuse.ts clean",
+    "firebase": "./node_modules/.bin/firebase",
+    "firebase.update": "./node_modules/.bin/firebase deploy && npm run firebase.seed.superusers",
+    "firebase.seed.site-settings": "./node_modules/.bin/firebase database:update /site-settings data/seed.settings.json -y",
+    "firebase.seed.superusers": "./node_modules/.bin/firebase database:update /users data/seed.superusers.json -y"
   },
   "devDependencies": {
     "@compodoc/compodoc": "^1.0.3",
@@ -86,8 +90,9 @@
     "dotenv": "^4.0.0",
     "express-minify-html": "^0.11.5",
     "favicons": "^4.8.6",
+    "firebase-tools": "^3.14.0",
     "font-awesome": "^4.7.0",
-    "fuse-box": "2.4.0",
+    "fuse-box": "2.2.31",
     "fuse-box-typechecker": "git://github.com/fuse-box/fuse-box-typechecker.git",
     "glob": "^7.1.2",
     "greenkeeper-lockfile": "^1.10.0",
@@ -141,7 +146,7 @@
     "@ngx-meta/core": "^4.0.1",
     "angular2-jwt": "^0.2.3",
     "angularfire2": "^5.0.0-rc.5",
-    "angulartics2": "^3.4.7",
+    "angulartics2": "3.3.0",
     "body-parser": "^1.18.2",
     "bunyan-middleware": "^0.8.0",
     "clean-css": "^4.1.9",

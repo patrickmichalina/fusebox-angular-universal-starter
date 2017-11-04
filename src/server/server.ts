@@ -5,7 +5,7 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
-import * as admin from 'firebase-admin'
+// import * as admin from 'firebase-admin'
 import { createLogger } from '@expo/bunyan'
 import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './server.angular.module'
@@ -14,26 +14,22 @@ import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
 import { useApi } from './api'
 import { join, resolve } from 'path'
-import { dbSeed } from './data/index'
-import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
+// import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
 import http = require('http')
 import ms = require('ms')
 
-// import { useWebSockets } from './server.web-socket'
+import { useWebSockets } from './server.web-socket'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
-const xhr2 = require('xhr2')
-
-xhr2.prototype._restrictedHeaders.cookie = false
 
 require('ts-node/register')
 
 const app = express()
 const server = http.createServer(app)
 const root = './dist'
-const port = process.env.PORT || argv['port'] || 8001
+const port = process.env.PORT || argv['port'] || 8000
 const host = process.env.HOST || argv['host'] || 'http://localhost'
 const isProd = argv['build-type'] === 'prod' || argv['prod']
 const isTest = argv['e2e']
@@ -59,7 +55,7 @@ const logger = createLogger({
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
-// useWebSockets(server) // uncommne to activate manual web-sockets
+useWebSockets(server) // uncomment to activate manual web-sockets
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
@@ -84,9 +80,10 @@ if (isProd) {
   }))
 }
 
-if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
-  app.use(favicon(join(root, 'assets/favicons/favicon.ico')))
-}
+existsSync(join(root, 'assets/favicons/favicon.ico'))
+  ? app.use(favicon(join(root, 'assets/favicons/favicon.ico')))
+  : app.get('/favicon.ico', (req, res) => res.status(204).send())
+
 app.use('/css', express.static('dist/css', staticOptions))
 app.use('/js', express.static('dist/js', staticOptions))
 app.use('/ngsw.json', express.static('dist/ngsw.json', staticOptions))
@@ -116,17 +113,6 @@ app.get('**', (req: express.Request, res: express.Response, next: express.NextFu
   })
 })
 
-export const fbAdmin = admin.initializeApp({
-  credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
-  databaseURL: ANGULAR_APP_CONFIG.firebase.config.databaseURL
-}, 'admin')
-
-const serve = () => {
-  server.listen(port, () => {
-    logger.info(`Angular Universal Server listening at ${host}:${port}`)
-  })
-}
-
-dbSeed(fbAdmin.database())
-  .take(1)
-  .subscribe(serve, console.error)
+server.listen(port, () => {
+  console.log(`Angular Universal Server listening at ${host}:${port}`)
+})

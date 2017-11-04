@@ -1,4 +1,3 @@
-import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { DOMInjectable } from './../shared/services/injection.service'
 import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'

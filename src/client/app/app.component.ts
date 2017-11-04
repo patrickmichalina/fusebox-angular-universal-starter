@@ -36,54 +36,54 @@ export class AppComponent implements AfterViewInit {
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,
     ps: PlatformService, router: Router, cs: CookieService, ts: TransferState, ar: ActivatedRoute, private auth: AuthService,
     srs: ServerResponseService, domInjector: InjectionService, mini: MinifierService, seo: SEOService, @Inject(REQUEST) req: any) {
-
+      console.log('asd')
     matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
-    ss.settings$
-      .take(1)
-      .subscribe(settings => {
-        seo.updateFbAppId(settings.tokens.facebookAppId)
-        settings.injections.filter(Boolean).forEach(link => domInjector.inject(renderer, link))
-      })
+    // ss.settings$
+    //   .take(1)
+    //   .subscribe(settings => {
+    //     seo.updateFbAppId(settings.tokens.facebookAppId)
+    //     settings.injections.filter(Boolean).forEach(link => domInjector.inject(renderer, link))
+    //   })
 
-    http.get('./css/main.css', { responseType: 'text' })
-      .take(1)
-      .subscribe(css => domInjector.inject(renderer, {
-        value: mini.css(css),
-        element: 'style',
-        inHead: true
-      }))
+    // http.get('./css/main.css', { responseType: 'text' })
+    //   .take(1)
+    //   .subscribe(css => domInjector.inject(renderer, {
+    //     value: mini.css(css),
+    //     element: 'style',
+    //     inHead: true
+    //   }))
 
     // todo: move this to a module
-    ss.settings$
-      .flatMap(settigns => router.events
-        .filter(event => event instanceof NavigationEnd)
-        .map(() => ar)
-        .map(route => {
-          seo.updateUrl(doc.location.href)
-          while (route.firstChild) route = route.firstChild
-          return route
-        })
-        .filter(route => route.outlet === 'primary')
-        .mergeMap(route => route.data)
-        .map(data => data['response']))
-      .subscribe((response: {
-        cache: { directive: HttpCacheDirective, maxage?: string, smaxage?: string },
-        headers: { [key: string]: string }
-      }) => {
-        if (response && response.cache) {
-          if (response.cache.directive === 'private') {
-            srs.setCachePrivate()
-          } else {
-            srs.setCache(response.cache.directive, response.cache.maxage, response.cache.smaxage)
-          }
-        } else {
-          // set default cache
-          srs.setCache('public', '7d', '7d')
-        }
-        if (response && response.headers) {
-          srs.setHeaders(response.headers)
-        }
-      })
+    // ss.settings$
+    //   .flatMap(settigns => router.events
+    //     .filter(event => event instanceof NavigationEnd)
+    //     .map(() => ar)
+    //     .map(route => {
+    //       seo.updateUrl(doc.location.href)
+    //       while (route.firstChild) route = route.firstChild
+    //       return route
+    //     })
+    //     .filter(route => route.outlet === 'primary')
+    //     .mergeMap(route => route.data)
+    //     .map(data => data['response']))
+    //   .subscribe((response: {
+    //     cache: { directive: HttpCacheDirective, maxage?: string, smaxage?: string },
+    //     headers: { [key: string]: string }
+    //   }) => {
+    //     if (response && response.cache) {
+    //       if (response.cache.directive === 'private') {
+    //         srs.setCachePrivate()
+    //       } else {
+    //         srs.setCache(response.cache.directive, response.cache.maxage, response.cache.smaxage)
+    //       }
+    //     } else {
+    //       // set default cache
+    //       srs.setCache('public', '7d', '7d')
+    //     }
+    //     if (response && response.headers) {
+    //       srs.setHeaders(response.headers)
+    //     }
+    //   })
 
     // Uncomment to turn on direct web-socket connection with server
     // if (ps.isBrowser) {

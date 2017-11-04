@@ -10,7 +10,6 @@ export function fuseBoxConfigFactory() {
 export interface ServerEnvironmentConfig {
   FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID: string
   FB_SERVICE_ACCOUNT_PRIVATE_KEY: string
-  FB_AUTH_KEY: string
 }
 
 // this comes from fusebox
@@ -21,15 +20,13 @@ if (env.error && ANGULAR_APP_CONFIG.env === 'dev') {
   console.error('.env development file created!\nYOU MUST ADD YOUR CONFIGURATION VALUES TO IT')
   writeFileSync('.env',
 `FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID=
-FB_SERVICE_ACCOUNT_PRIVATE_KEY=
-FB_AUTH_KEY=`)
+FB_SERVICE_ACCOUNT_PRIVATE_KEY=`)
 }
 
 const errors: string[] = []
 
 if (!process.env.FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID) errors.push('Missing FB_SERVICE_ACCOUNT_PRIVATE_KEY_ID')
 if (!process.env.FB_SERVICE_ACCOUNT_PRIVATE_KEY) errors.push('Missing FB_SERVICE_ACCOUNT_PRIVATE_KEY')
-if (!process.env.FB_AUTH_KEY) errors.push('Missing FB_AUTH_KEY')
 
 if (errors.length > 0) {
   console.error('Invalid Configuration')
@@ -39,7 +36,7 @@ if (errors.length > 0) {
 export const SERVER_CONFIG: ServerEnvironmentConfig = process.env as any
 
 // tslint:disable-next-line:no-require-imports
-const base = require('./data/service-account.json')
+const base = require('./service-account.json')
 
 export const FB_SERVICE_ACCOUNT_CONFIG = {
   ...base,
