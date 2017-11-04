@@ -11,6 +11,7 @@ exports[`NotFoundComponent should compile 1`] = `
   editor="undefined"
   flexFill={[Function Boolean]}
   injections$={[Function BehaviorSubject]}
+  injectionsToSave$={[Function BehaviorSubject]}
   isEditMode$={[Function AnonymousSubject]}
   page$={[Function Observable]}
   params$={[Function AnonymousSubject]}
@@ -20,6 +21,7 @@ exports[`NotFoundComponent should compile 1`] = `
   separatorKeysCodes={[Function Array]}
   settingsForm={[Function FormGroup]}
   snackBar={[Function MatSnackBar]}
+  styleInjDefault={[Function Object]}
   tags={[Function Array]}
   url$={[Function Observable]}
   view$={[Function Observable]}
@@ -52,10 +54,10 @@ exports[`NotFoundComponent should compile 1`] = `
         
         
         <button
-          class="mat-raised-button mat-primary"
-          color="primary"
+          class="mat-raised-button mat-accent"
+          color="accent"
           mat-raised-button=""
-          ng-reflect-color="primary"
+          ng-reflect-color="accent"
         >
           <span
             class="mat-button-wrapper"
