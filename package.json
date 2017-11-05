@@ -92,7 +92,7 @@
     "favicons": "^4.8.6",
     "firebase-tools": "^3.14.0",
     "font-awesome": "^4.7.0",
-    "fuse-box": "2.2.31",
+    "fuse-box": "2.4.0",
     "fuse-box-typechecker": "git://github.com/fuse-box/fuse-box-typechecker.git",
     "glob": "^7.1.2",
     "greenkeeper-lockfile": "^1.10.0",
@@ -121,7 +121,7 @@
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1",
-    "uglify-es": "^3.1.6",
+    "uglify-es": "^3.1.7",
     "yargs": "^10.0.3"
   },
   "dependencies": {
@@ -131,7 +131,7 @@
     "@angular/compiler": "5.0.0",
     "@angular/compiler-cli": "5.0.0",
     "@angular/core": "5.0.0",
-    "@angular/flex-layout": "2.0.0-beta.10",
+    "@angular/flex-layout": "2.0.0-beta.10-4905443",
     "@angular/forms": "5.0.0",
     "@angular/http": "5.0.0",
     "@angular/material": "^2.0.0-beta.12",
@@ -183,7 +183,7 @@
     "zone.js": "^0.8.18"
   },
   "engines": {
-    "node": "= 8.8.1",
+    "node": "= 8.9.0",
     "npm": "= 5.5.1"
   },
   "release": {
