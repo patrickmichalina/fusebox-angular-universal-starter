@@ -15,6 +15,8 @@ import { useApi } from './api'
 import { join, resolve } from 'path'
 import http = require('http')
 import ms = require('ms')
+import * as admin from 'firebase-admin'
+import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
 
 // import { useWebSockets } from './server.web-socket'
 
@@ -110,6 +112,12 @@ app.get('**', (req: express.Request, res: express.Response, next: express.NextFu
     res
   })
 })
+
+export const fbAdmin = admin.initializeApp({
+  credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
+  databaseURL: ANGULAR_APP_CONFIG.firebase.config.databaseURL
+}, 'admin')
+export const fbAdminDb = fbAdmin.database()
 
 server.listen(port, () => {
   console.log(`Angular Universal Server listening at ${host}:${port}`)
