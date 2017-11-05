@@ -5,7 +5,6 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
-// import * as admin from 'firebase-admin'
 import { createLogger } from '@expo/bunyan'
 import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './server.angular.module'
@@ -14,11 +13,10 @@ import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
 import { useApi } from './api'
 import { join, resolve } from 'path'
-// import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
 import http = require('http')
 import ms = require('ms')
 
-import { useWebSockets } from './server.web-socket'
+// import { useWebSockets } from './server.web-socket'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -29,7 +27,7 @@ require('ts-node/register')
 const app = express()
 const server = http.createServer(app)
 const root = './dist'
-const port = process.env.PORT || argv['port'] || 8000
+const port = process.env.PORT || argv['port'] || 8001
 const host = process.env.HOST || argv['host'] || 'http://localhost'
 const isProd = argv['build-type'] === 'prod' || argv['prod']
 const isTest = argv['e2e']
@@ -55,7 +53,7 @@ const logger = createLogger({
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
-useWebSockets(server) // uncomment to activate manual web-sockets
+// useWebSockets(server) // uncomment to activate manual web-sockets
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
