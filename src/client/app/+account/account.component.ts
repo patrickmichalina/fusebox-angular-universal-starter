@@ -127,7 +127,7 @@ export class AccountComponent {
       .subscribe(res => {
         permuteError()
         this.passForm.reset()
-        this.passwordPanel.close()
+        // this.passwordPanel..close()
         this.openSnackBar('password updated')
       }, err => {
         permuteError(err.message)
