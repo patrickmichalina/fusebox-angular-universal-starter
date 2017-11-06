@@ -17,8 +17,7 @@ import http = require('http')
 import ms = require('ms')
 import * as admin from 'firebase-admin'
 import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
-
-// import { useWebSockets } from './server.web-socket'
+import { useWebSockets } from './server.web-socket'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -55,7 +54,7 @@ const logger = createLogger({
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
-// useWebSockets(server) // uncomment to activate manual web-sockets
+useWebSockets(server) // uncomment to activate manual web-sockets
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
