@@ -5,6 +5,7 @@ import 'zone.js/dist/long-stack-trace-zone'
 import * as express from 'express'
 import * as favicon from 'serve-favicon'
 import * as cookieParser from 'cookie-parser'
+import * as admin from 'firebase-admin'
 import { createLogger } from '@expo/bunyan'
 import { ngExpressEngine } from '@nguniversal/express-engine'
 import { AppServerModule } from './server.angular.module'
@@ -13,15 +14,17 @@ import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
 import { useApi } from './api'
 import { join, resolve } from 'path'
+import { useWebSockets } from './server.web-socket'
+import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
 import http = require('http')
 import ms = require('ms')
-import * as admin from 'firebase-admin'
-import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
-import { useWebSockets } from './server.web-socket'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
 const bunyanMiddleware = require('bunyan-middleware')
+const xhr2 = require('xhr2')
+
+xhr2.prototype._restrictedHeaders.cookie = false
 
 require('ts-node/register')
 

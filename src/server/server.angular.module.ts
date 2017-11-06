@@ -18,11 +18,6 @@ import 'rxjs/add/operator/filter'
 import 'rxjs/add/operator/first'
 import '../client/operators'
 
-// tslint:disable-next-line:no-require-imports
-const xhr2 = require('xhr2')
-
-xhr2.prototype._restrictedHeaders.cookie = false
-
 declare var __process_env__: EnvConfig
 
 if (__process_env__.env !== 'dev') enableProdMode()
