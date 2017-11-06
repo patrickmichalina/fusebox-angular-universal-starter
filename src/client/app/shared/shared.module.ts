@@ -29,6 +29,9 @@ import { KeysPipe } from './pipes/keys.pipe'
 import { KeyValuePipe } from './pipes/key-value.pipe'
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe'
 import { ModalConfirmationComponent } from './modal-confirmation/modal-confirmation.component'
+import { InjectionFormComponent } from './injection-form/injection-form.component'
+import { StyleInjectionFormComponent } from './style-injection-form/style-injection-form.component'
+import { KeyValueFormComponent } from './key-value-form/key-value-form.component'
 
 declare var __process_env__: any
 
@@ -89,7 +92,10 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     KeysPipe,
     KeyValuePipe,
     SanitizeHtmlPipe,
-    ModalConfirmationComponent
+    ModalConfirmationComponent,
+    InjectionFormComponent,
+    StyleInjectionFormComponent,
+    KeyValueFormComponent
     // FlexLayoutModule
   ],
   entryComponents: [
@@ -105,7 +111,10 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     KeysPipe,
     KeyValuePipe,
     SanitizeHtmlPipe,
-    ModalConfirmationComponent
+    ModalConfirmationComponent,
+    InjectionFormComponent,
+    StyleInjectionFormComponent,
+    KeyValueFormComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },

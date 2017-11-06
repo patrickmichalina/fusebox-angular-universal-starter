@@ -1,3 +1,5 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { DOMInjectable } from './../shared/services/injection.service'
 import { ChangeDetectionStrategy, Component, HostBinding, ViewChild } from '@angular/core'
 import { QuillEditorComponent } from './../shared/quill-editor/quill-editor.component'
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
@@ -29,6 +31,9 @@ export interface Page {
   articleTag?: string[]
 }
 
+type types = 'script' | 'style'
+interface InjectionMap { [key: string]: { type: types, injectable: DOMInjectable } }
+
 @Component({
   selector: 'pm-not-found',
   templateUrl: './not-found.component.html',
@@ -42,6 +47,56 @@ export class NotFoundComponent {
   addOnBlur = true
   separatorKeysCodes = [ENTER, COMMA]
   tags: string[] = []
+  injections$ = new BehaviorSubject<InjectionMap>({})
+  injectionsToSave$ = new BehaviorSubject<InjectionMap>({})
+  styleInjDefault = {
+    element: 'link',
+    attributes: {
+      href: 'https://',
+      type: 'text/css',
+      rel: 'stylesheet'
+    }
+  }
+
+  injectionFormChange(key: string, type: types, injectable: DOMInjectable) {
+    console.log(key)
+    // this.injectionsToSave$.next({
+    //   ...this.injections$.getValue(),
+    //   [key]: {
+    //     type,
+    //     injectable
+    //   }
+    // })
+  }
+
+  addInjectable(type: types) {
+    this.injections$.next({
+      ...this.injections$.getValue(),
+      [`${type.toString()}_${Math.random().toPrecision(4)}`]: {
+        type,
+        injectable: {} as any
+      }
+    })
+  }
+
+  insertInjectable(key: string, type: types, injectable: DOMInjectable) {
+    this.injections$.next({
+      ...this.injections$.getValue(),
+      [key]: {
+        type,
+        injectable
+      }
+    })
+  }
+
+  removeInjectable(key: string) {
+    const current = this.injections$.getValue()
+    this.injections$.next({
+      ...Object.keys(current)
+        .filter(k => k !== key)
+        .reduce((a, c) => ({ ...a, [c]: current[c] }), {})
+    })
+  }
 
   add(event: MatChipInputEvent): void {
     if (event.input) event.input.value = '' // clear input value
@@ -77,43 +132,19 @@ export class NotFoundComponent {
     .shareReplay()
 
   public settingsForm = new FormGroup({
-    title: new FormControl('', [
-      Validators.required
-    ]),
-    description: new FormControl('', [
-      Validators.required,
-      Validators.max(158)
-    ]),
-    imgUrl: new FormControl('', [
-      // Validators.required
-    ]),
-    imgAlt: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    imgMime: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    imgHeight: new FormControl('', [
-      Validators.min(1)
-    ]),
-    imgWidth: new FormControl('', [
-      Validators.min(1)
-    ]),
-    articlePublishedTime: new FormControl(new Date(), [
-      // Validators.min(1)
-    ]),
-    articleModifiedTime: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    articleExpirationTime: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    articleAuthor: new FormControl('', [
-      // Validators.min(1)
-    ]),
-    articleSection: new FormControl('', [
-      // Validators.min(1)
-    ]),
+    type: new FormControl('website', [Validators.required]),
+    title: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required, Validators.max(158)]),
+    imgUrl: new FormControl('', []),
+    imgAlt: new FormControl('', []),
+    imgMime: new FormControl('', []),
+    imgHeight: new FormControl('', [Validators.min(1)]),
+    imgWidth: new FormControl('', [Validators.min(1)]),
+    articlePublishedTime: new FormControl(new Date(), []),
+    articleModifiedTime: new FormControl('', []),
+    articleExpirationTime: new FormControl('', []),
+    articleAuthor: new FormControl('', []),
+    articleSection: new FormControl('', []),
     articleTag: new FormControl('', []),
     userCommentsEnabled: new FormControl('', []),
     isDraft: new FormControl('', [])
@@ -175,11 +206,9 @@ export class NotFoundComponent {
         })
 
         // tslint:disable:no-null-keyword
-        const formValues = Object.keys(this.settingsForm.controls).reduce((acc: any, controlKey) => {
-          acc[controlKey] = (page as any)[controlKey] || null
-          return acc
-        }, {})
-
+        const formValues = Object.keys(this.settingsForm.controls)
+          .reduce((acc: any, controlKey) =>
+            ({ ...acc, [controlKey]: (page as any)[controlKey] || this.settingsForm.controls[controlKey].value || null }), {})
         this.settingsForm.setValue(formValues)
         this.tags = page.articleTag || []
       })
@@ -215,17 +244,17 @@ export class NotFoundComponent {
     })
 
   publish() {
+    const injections = this.injectionsToSave$.getValue()
+    console.log(injections)
+
     const settings = Object.keys(this.settingsForm.value)
       .filter(key => typeof this.settingsForm.value[key] !== 'undefined')
-      .reduce((acc, curr) => {
-        const obj = { ...acc } as any
-        obj[curr] = this.settingsForm.value[curr]
-        return obj
-      }, {})
+      .reduce((acc, curr) => ({ ...acc, [curr]: this.settingsForm.value[curr] }) as any, {})
 
     this.url$.flatMap(url => this.db.getObjectRef(`/pages/${url}`)
       .update({
         ...settings,
+        injections,
         content: this.editor.textValue.getValue()
       }), (url, update) => ({ url, update }))
       .take(1)
@@ -270,15 +299,15 @@ export class NotFoundComponent {
   }
 
   viewCurrent() {
-    this.url$.do(url => {
-      this.router.navigate([url])
-    }).take(1).subscribe()
+    this.url$
+      .take(1)
+      .subscribe(url => this.router.navigate([url]))
   }
 
   edit() {
-    this.url$.do(url => {
-      this.router.navigate([url], { queryParams: { edit: true } })
-    }).take(1).subscribe()
+    this.url$
+      .take(1)
+      .subscribe(url => this.router.navigate([url], { queryParams: { edit: true } }))
   }
 
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,

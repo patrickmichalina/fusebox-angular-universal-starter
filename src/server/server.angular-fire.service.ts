@@ -1,17 +1,13 @@
 import { makeStateKey, TransferState } from '@angular/platform-browser'
-import { Inject, Injectable, InjectionToken, NgZone } from '@angular/core'
+import { Injectable, InjectionToken, NgZone } from '@angular/core'
 import { fromPromise } from 'rxjs/observable/fromPromise'
-import { database } from 'firebase-admin'
+import { fbAdminDb } from './server'
 
 export const FIREBASE_ADMIN_INSTANCE = new InjectionToken<string>('app.fb.admin')
 
 @Injectable()
 export class FirebaseAdminService {
-  db: database.Database
-
-  constructor( @Inject(FIREBASE_ADMIN_INSTANCE) admin: any, private zone: NgZone, private ts: TransferState) {
-    this.db = admin.database() as database.Database
-  }
+  constructor(private zone: NgZone, private ts: TransferState) { }
 
   public object(path: any, query?: any) {
     return {
@@ -19,7 +15,7 @@ export class FirebaseAdminService {
         const timeout = setTimeout(() => undefined, 10000)
         return fromPromise(new Promise<any>((resolve, reject) => {
           this.zone.runOutsideAngular(() => { // Out of Angular's zone so it doesn't wait for the neverending socket connection to end.
-            const ref = this.applyQuery(this.db.ref(path), query)
+            const ref = this.applyQuery(fbAdminDb.ref(path), query)
             ref.once('value').then((data: any) => {
               this.zone.run(() => { // Back in Angular's zone
                 this.ts.set(makeStateKey<string>(`FB.${path}`), data.val())
@@ -48,7 +44,7 @@ export class FirebaseAdminService {
         const timeout = setTimeout(() => undefined, 10000)
         return fromPromise(new Promise<any>((resolve, reject) => {
           this.zone.runOutsideAngular(() => { // Out of Angular's zone so it doesn't wait for the neverending socket connection to end.
-            const ref = this.applyQuery(this.db.ref(path), query)
+            const ref = this.applyQuery(fbAdminDb.ref(path), query)
             ref.once('value').then((data: any) => {
               this.zone.run(() => { // Back in Angular's zone
                 const res = data.val()

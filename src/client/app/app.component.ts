@@ -1,3 +1,4 @@
+import { ISetting } from './../../server/api/repositories/setting.repository'
 import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { PlatformService } from './shared/services/platform.service'
 import { HttpCacheDirective, ServerResponseService } from './shared/services/server-response.service'
@@ -37,11 +38,12 @@ export class AppComponent implements AfterViewInit {
     ps: PlatformService, router: Router, cs: CookieService, ts: TransferState, ar: ActivatedRoute, private auth: AuthService,
     srs: ServerResponseService, domInjector: InjectionService, mini: MinifierService, seo: SEOService, @Inject(REQUEST) req: any) {
 
-    matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
+      matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
     ss.settings$
       .take(1)
-      .subscribe(settings => {
-        seo.updateFbAppId(settings.tokens.facebookAppId)
+      .filter(Boolean)
+      .subscribe((settings: ISetting) => {
+        if (settings.tokens) seo.updateFbAppId(settings.tokens.facebookAppId)
         settings.injections.filter(Boolean).forEach(link => domInjector.inject(renderer, link))
       })
 
@@ -53,7 +55,6 @@ export class AppComponent implements AfterViewInit {
         inHead: true
       }))
 
-    // todo: move this to a module
     ss.settings$
       .flatMap(settigns => router.events
         .filter(event => event instanceof NavigationEnd)
@@ -77,7 +78,6 @@ export class AppComponent implements AfterViewInit {
             srs.setCache(response.cache.directive, response.cache.maxage, response.cache.smaxage)
           }
         } else {
-          // set default cache
           srs.setCache('public', '7d', '7d')
         }
         if (response && response.headers) {
@@ -96,6 +96,7 @@ export class AppComponent implements AfterViewInit {
     this.toggle.change
       .map(a => a.checked)
       .subscribe(checked => {
+        if (!checked) this.sidenav.close()
         checked
           ? this.menuMode = 'side'
           : this.menuMode = 'over'

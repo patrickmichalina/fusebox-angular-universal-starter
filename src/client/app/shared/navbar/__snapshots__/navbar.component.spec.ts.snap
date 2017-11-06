@@ -23,8 +23,13 @@ exports[`NavbarComponent should compile 1`] = `
         
     
         <mat-icon
+          aria-hidden="true"
+          class="mat-icon fa fa-bars"
           fonticon="fa-bars"
           fontset="fa"
+          ng-reflect-font-icon="fa-bars"
+          ng-reflect-font-set="fa"
+          role="img"
         />
         
   
@@ -173,8 +178,13 @@ exports[`NavbarComponent should compile 1`] = `
         
     
         <mat-icon
+          aria-hidden="true"
+          class="mat-icon fa fa-user-circle-o"
           fonticon="fa-user-circle-o"
           fontset="fa"
+          ng-reflect-font-icon="fa-user-circle-o"
+          ng-reflect-font-set="fa"
+          role="img"
         />
         
   
@@ -224,8 +234,13 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         
     
         <mat-icon
+          aria-hidden="true"
+          class="mat-icon fa fa-bars"
           fonticon="fa-bars"
           fontset="fa"
+          ng-reflect-font-icon="fa-bars"
+          ng-reflect-font-set="fa"
+          role="img"
         />
         
   
@@ -374,8 +389,13 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         
     
         <mat-icon
+          aria-hidden="true"
+          class="mat-icon fa fa-user-circle-o"
           fonticon="fa-user-circle-o"
           fontset="fa"
+          ng-reflect-font-icon="fa-user-circle-o"
+          ng-reflect-font-set="fa"
+          role="img"
         />
         
   

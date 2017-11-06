@@ -1,0 +1,23 @@
+<form [formGroup]="form" novalidate>
+  <mat-form-field>
+    <input matInput placeholder="Element" type="text" formControlName="element">
+  </mat-form-field>
+  <div>
+    <label for="inHead">In Head?</label>
+    <input id="inHead" type="checkbox" formControlName="inHead">
+  </div>
+  <mat-form-field>
+    <textarea matInput placeholder="Inline Value" formControlName="value"></textarea>
+  </mat-form-field>
+  <div>
+    <label>Attributes</label>
+    <pm-key-value-form [keyVals]="injectable.attributes" (onChange)="attributesChanged($event)"></pm-key-value-form>
+  </div>
+  <p *ngIf="showDomString">{{ htmlString }}</p>
+  <!-- 
+    TODO: replace above once material fixes bug
+    TODO: https://github.com/angular/material2/pull/7882
+    <mat-checkbox formControlName="inHead">
+    In Head?
+  </mat-checkbox> -->
+</form>

@@ -7,7 +7,7 @@
       <mat-tab label="Settings">
         <form [formGroup]="settingsForm" id="settingsForm" novalidate class="settings" *ngIf="view.currentTab === 1">
           <mat-accordion class="example-headers-align">
-            <mat-expansion-panel expanded="true" hideToggle="true">
+            <mat-expansion-panel hideToggle="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   Basic Info
@@ -30,6 +30,12 @@
                   <mat-hint align="end">appears in
                     <em>meta:name:description</em> and
                     <em>meta:og:description</em>
+                  </mat-hint>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Type" type="text" formControlName="type">
+                  <mat-hint align="end">appears in
+                    <em>meta:type</em>
                   </mat-hint>
                 </mat-form-field>
               </div>
@@ -78,8 +84,8 @@
                       {{ tag }}
                       <mat-icon fontSet="fa" fontIcon="fa-times" aria-hidden="true" (click)="remove(tag)"></mat-icon>
                     </mat-chip>
-                    <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                      [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
+                    <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                      (matChipInputTokenEnd)="add($event)" />
                   </mat-chip-list>
                   <mat-hint align="end">appears in
                     <em>meta:og:article:tag</em>
@@ -167,12 +173,40 @@
             </mat-expansion-panel>
           </mat-accordion>
           <br>
-          <mat-slide-toggle formControlName="userCommentsEnabled">Enable User Comments</mat-slide-toggle>
+          <mat-slide-toggle formControlName="userCommentsEnabled">User Comments Enabled</mat-slide-toggle>
           <mat-slide-toggle formControlName="isDraft">Draft</mat-slide-toggle>
         </form>
       </mat-tab>
-      <mat-tab label="Change History">
-        TODO: List of changes to the page here
+      <mat-tab label="Dynamic Code & Styling">
+        <div class="pad-tab">
+          <h3 mat-subheader>Add custom css and javascript for this page</h3>
+          <div class="card-list" *ngFor="let keyVal of injections$ | async | pmKeyVal">
+            <button mat-icon-button>
+              <mat-icon fontSet="fa" fontIcon="fa-minus-circle" color="warn" aria-hidden="true" (click)="removeInjectable(keyVal.key)"></mat-icon>
+            </button>
+            <mat-card>
+              <mat-form-field>
+                <input matInput placeholder="Name" type="text" [value]="keyVal.key" #keyTest (keydown)="injectionFormChange($event, keyVal.value.type, $event)">
+              </mat-form-field>
+              <div [ngSwitch]="keyVal.value.type">
+                <pm-injection-form *ngSwitchCase="'style'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+                <pm-injection-form *ngSwitchCase="'script'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+              </div>
+            </mat-card>
+          </div>
+          <br>
+          <div>
+            <button mat-raised-button color="primary" (click)="addInjectable('style')">Add CSS</button>
+            <button mat-raised-button color="primary" (click)="addInjectable('script')">Add JavaScript</button>
+          </div>
+          <br>
+        </div>
+      </mat-tab>
+      <mat-tab label="Relationships" disabled>
+      </mat-tab>
+      <mat-tab label="Privileges" disabled>
+      </mat-tab>
+      <mat-tab label="Change History" disabled>
       </mat-tab>
     </mat-tab-group>
     <footer class="footer mat-elevation-z6">
@@ -184,7 +218,7 @@
   <div *ngSwitchCase="false" class="vert-flex-fill">
     <div pmHtmlOutlet [html]="view.page.content | pmSanitizeHtml"></div>
     <footer class="footer mat-elevation-z6">
-      <button *ngIf="view.canEdit" mat-raised-button color="primary" (click)="edit()">Edit</button>
+      <button *ngIf="view.canEdit" mat-raised-button color="accent" (click)="edit()">Edit</button>
     </footer>
   </div>
 </div>

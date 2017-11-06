@@ -1,0 +1,23 @@
+<div *ngFor="let keyVal of onChange.asObservable() | async | pmKeyVal">
+  <button mat-icon-button color="warn" (click)="remove(keyVal.key)">
+    <mat-icon fontSet="fa" fontIcon="fa-minus-circle"></mat-icon>
+  </button>
+  <mat-form-field>
+    <input matInput placeholder="Key" type="text" [value]="keyVal.key">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Value" type="text" [value]="keyVal.value">
+  </mat-form-field>
+</div>
+
+<form [formGroup]="form" novalidate (ngSubmit)="add(form.value)">
+  <mat-form-field>
+    <input matInput placeholder="Key" type="text" formControlName="key">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Value" type="text" formControlName="value">
+  </mat-form-field>
+  <button mat-icon-button type="submit" color="primary" [disabled]="form.invalid">
+    <mat-icon fontSet="fa" fontIcon="fa-plus"></mat-icon>
+  </button>
+</form>

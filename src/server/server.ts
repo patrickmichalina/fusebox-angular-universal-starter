@@ -14,12 +14,10 @@ import { exists, existsSync } from 'fs'
 import { argv } from 'yargs'
 import { useApi } from './api'
 import { join, resolve } from 'path'
-import { dbSeed } from './data/index'
+import { useWebSockets } from './server.web-socket'
 import { ANGULAR_APP_CONFIG, FB_SERVICE_ACCOUNT_CONFIG } from './server.config'
 import http = require('http')
 import ms = require('ms')
-
-// import { useWebSockets } from './server.web-socket'
 
 const shrinkRay = require('shrink-ray')
 const minifyHTML = require('express-minify-html')
@@ -59,7 +57,7 @@ const logger = createLogger({
 
 if (!isTest) app.use(bunyanMiddleware({ logger, excludeHeaders: ['authorization', 'cookie'] }))
 
-// useWebSockets(server) // uncommne to activate manual web-sockets
+useWebSockets(server) // uncomment to activate manual web-sockets
 app.engine('html', ngExpressEngine({ bootstrap: AppServerModule }))
 app.set('view engine', 'html')
 app.set('views', root)
@@ -84,9 +82,10 @@ if (isProd) {
   }))
 }
 
-if (existsSync(join(root, 'assets/favicons/favicon.ico'))) {
-  app.use(favicon(join(root, 'assets/favicons/favicon.ico')))
-}
+existsSync(join(root, 'assets/favicons/favicon.ico'))
+  ? app.use(favicon(join(root, 'assets/favicons/favicon.ico')))
+  : app.get('/favicon.ico', (req, res) => res.status(204).send())
+
 app.use('/css', express.static('dist/css', staticOptions))
 app.use('/js', express.static('dist/js', staticOptions))
 app.use('/ngsw.json', express.static('dist/ngsw.json', staticOptions))
@@ -120,13 +119,8 @@ export const fbAdmin = admin.initializeApp({
   credential: admin.credential.cert(FB_SERVICE_ACCOUNT_CONFIG),
   databaseURL: ANGULAR_APP_CONFIG.firebase.config.databaseURL
 }, 'admin')
+export const fbAdminDb = fbAdmin.database()
 
-const serve = () => {
-  server.listen(port, () => {
-    logger.info(`Angular Universal Server listening at ${host}:${port}`)
-  })
-}
-
-dbSeed(fbAdmin.database())
-  .take(1)
-  .subscribe(serve, console.error)
+server.listen(port, () => {
+  console.log(`Angular Universal Server listening at ${host}:${port}`)
+})

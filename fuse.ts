@@ -16,10 +16,11 @@ import {
   UglifyESPlugin
 } from 'fuse-box';
 import './tools/tasks';
+const isReachable = require('is-reachable');
+
 
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
-const isSpaOnly = argv.spa;
 const baseEntry = isAot ? 'main.aot' : 'main';
 const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = isProdBuild ? `js/app-${cachebuster}` : `js/app`;
@@ -27,6 +28,8 @@ const vendorBundleName = isProdBuild ? `js/vendor-${cachebuster}` : `js/vendors`
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
 const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
+
+if (isProdBuild) typeHelper()
 
 const baseOptions = {
   homeDir: './src',
@@ -93,56 +96,37 @@ const serverOptions = {
   ]
 }
 
-Sparky.task('build.server', () => {
-  if (isSpaOnly) return Promise.resolve();
-
-  const fuse = FuseBox.init(serverOptions as any);
-  const serverBundle = fuse.bundle('server').instructions(serverBundleInstructions);
-
-  if (!isBuildServer && !argv['build-only']) {
-    const reloadDelay = 3000;
-    serverBundle.watch('src/**').completed(proc => {
-      proc.start();
-      setTimeout(() => {
-        if (!active) {
-          init({
-            reloadDelay,
-            port: BUILD_CONFIG.browserSyncPort,
-            proxy: `${BUILD_CONFIG.host}:${BUILD_CONFIG.port}`
-          });
-        }
-      }, reloadDelay)
-    });
-  }
-
-  return fuse.run();
-});
-
-Sparky.task('build.app', () => {
-  const fuse = FuseBox.init(appOptions as any);
+Sparky.task('build.universal', () => {
+  const fuseApp = FuseBox.init(appOptions as any);
+  const fuseServer = FuseBox.init(serverOptions as any);
+  const serverBundle = fuseServer.bundle('server').instructions(serverBundleInstructions);
   const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
-  const vendorBundle = fuse.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
-  const appBundle = fuse.bundle(appBundleName)
+  const vendorBundle = fuseApp.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
+  const appBundle = fuseApp.bundle(appBundleName)
     .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
     .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 
-
-  if (isProdBuild) typeHelper()
-
   if (!isBuildServer && !argv['build-only']) {
-    vendorBundle.watch();
-
-    if (argv.spa) {
-      fuse.dev({ port: BUILD_CONFIG.port, root: 'dist', open: true });
-      vendorBundle.hmr();
-      appBundle.watch().hmr();
-    } else {
-      appBundle.watch().completed(() => {
+    const proxy = `${BUILD_CONFIG.host}:${BUILD_CONFIG.port}`
+    vendorBundle.watch()
+    appBundle.watch()
+    return fuseApp.run().then(() => {
+      serverBundle.watch('src/**').completed(proc => {
         typeHelper(false, false)
-        reload()
-      });
-    }
-  }
+        proc.start();
+        isReachable(proxy).then(() => {
+          active
+            ? reload()
+            : init({
+              port: BUILD_CONFIG.browserSyncPort,
+              proxy
+            })
+        })
+      })
 
-  return fuse.run();
+      return fuseServer.run()
+    });
+  } else {
+    return fuseApp.run().then(() => fuseServer.run())
+  }
 });

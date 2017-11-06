@@ -1,4 +1,5 @@
 import { ErrorHandler, NgModule } from '@angular/core'
+import { FlexLayoutModule } from '@angular/flex-layout'
 import { HttpConfigInterceptor } from './shared/services/http-config-interceptor.service'
 import { HttpCookieInterceptor } from './shared/services/http-cookie-interceptor.service'
 import { AppComponent } from './app.component'
@@ -76,6 +77,7 @@ export function cacheTagFactory(srs: ServerResponseService): any {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     TransferHttpCacheModule,
+    FlexLayoutModule,
     SharedModule.forRoot(),
     Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
     BrowserModule.withServerTransition({ appId: 'pm-app' }),
