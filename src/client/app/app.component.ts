@@ -47,14 +47,6 @@ export class AppComponent implements AfterViewInit {
         settings.injections.filter(Boolean).forEach(link => domInjector.inject(renderer, link))
       })
 
-    http.get('./css/main.css', { responseType: 'text' })
-      .take(1)
-      .subscribe(css => domInjector.inject(renderer, {
-        value: mini.css(css),
-        element: 'style',
-        inHead: true
-      }))
-
     ss.settings$
       .flatMap(settigns => router.events
         .filter(event => event instanceof NavigationEnd)

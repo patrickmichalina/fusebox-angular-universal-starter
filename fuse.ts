@@ -68,6 +68,7 @@ const appOptions = {
     }),
     WebIndexPlugin({
       bundles: [appBundleName, vendorBundleName],
+      startingDocumentPath: 'dist/index.html',
       appElement: {
         name: 'pm-app',
         innerHTML: 'Loading....'
