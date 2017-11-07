@@ -12,11 +12,14 @@ Sparky.task(taskName(__filename), () => {
   return new Promise((resolve, reject) => {
     const config = JSON.parse(ENV_CONFIG_INSTANCE.angularAppConfig)
     favicons(BUILD_CONFIG.faviconSource, {
-      path: '/',
+      path: '/assets/favicons',
       appDescription: config.description,
       appName: config.name,
       background: '#1976d2',
-      theme_color: '#1976d2'
+      theme_color: '#1976d2',
+      start_url: '',
+      short_name: 'Angular Universal',
+      lang: 'en'
     }, (error: any, response: any) => {
       if (error) {
         // tslint:disable:no-console
@@ -43,7 +46,7 @@ Sparky.task(taskName(__filename), () => {
 
       const filePromises = (response.files as Array<{ name: string, contents: string }>).map(file =>
         new Promise((resolve2, reject2) => {
-          writeFile(`./dist/${file.name}`, file.contents, (err: any) => {
+          writeFile(`./${BUILD_CONFIG.outputDir}/assets/favicons/${file.name}`, file.contents, (err: any) => {
             if (err) reject2(err)
 
             return resolve2(file.contents)
