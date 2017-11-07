@@ -1,4 +1,4 @@
-import { PlatformService } from './../services/platform.service';
+import { PlatformService } from './../services/platform.service'
 import { Router } from '@angular/router'
 import { AuthService } from './../services/auth.service'
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core'
