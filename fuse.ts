@@ -2,7 +2,6 @@ import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, typeHelper } from './tools/config/build.config';
 import { NgLazyPlugin } from './tools/plugins/ng-lazy';
-import { PwaFusedPlugin } from './tools/plugins/pwa-fused';
 import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
 import {
@@ -16,9 +15,8 @@ import {
   UglifyESPlugin
 } from 'fuse-box';
 import './tools/tasks';
+
 const isReachable = require('is-reachable');
-
-
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
@@ -42,13 +40,7 @@ const baseOptions = {
     ['*.component.scss',
       SassPlugin({ indentedSyntax: false, importer: true, sourceMap: false, outputStyle: 'compressed' } as any), RawPlugin()],
     JSONPlugin(),
-    HTMLPlugin({ useDefault: false }),
-    PwaFusedPlugin({
-      distPath: 'dist',
-      manifest: {
-        name: 'Fusebox Angular Universal Starter',
-      }
-    })
+    HTMLPlugin({ useDefault: false })
   ]
 }
 
