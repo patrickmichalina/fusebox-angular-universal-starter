@@ -36,8 +36,8 @@ export class AppComponent implements AfterViewInit {
   constructor(ss: SettingService, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,
     ps: PlatformService, router: Router, cs: CookieService, ts: TransferState, ar: ActivatedRoute, private auth: AuthService,
-    srs: ServerResponseService, domInjector: InjectionService, mini: MinifierService, seo: SEOService, @Inject(REQUEST) req: any) {
-
+    srs: ServerResponseService, domInjector: InjectionService, mini: MinifierService, seo: SEOService, @Inject(REQUEST) req: any
+    ) {
       matIconRegistry.registerFontClassAlias('fontawesome', 'fa')
     ss.settings$
       .take(1)

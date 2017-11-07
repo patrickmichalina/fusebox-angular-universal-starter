@@ -1,4 +1,4 @@
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterTestingModule } from '@angular/router/testing'
 import { AuthService } from './../shared/services/auth.service'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { LoginComponent } from './login.component'
