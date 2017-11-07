@@ -1,18 +1,17 @@
 import { Sparky } from 'fuse-box'
-import { BUILD_CONFIG, isAot, isProdBuild, taskName } from '../../config/build.config'
+import { taskName } from '../../config/build.config'
 
-Sparky.task(taskName(__filename), () => {
-  return Sparky.start('clean')
-    .then(() => Sparky.start('mk-dist'))
-    .then(() => Sparky.start('fonts'))
-    .then(() => Sparky.start('changelog'))
-    .then(() => isAot ? Sparky.start('ngc') : Promise.resolve())
-    .then(() => Sparky.start('web'))
-    .then(() => Sparky.start('index.copy'))
-    .then(() => Sparky.start('assets'))
-    .then(() => isProdBuild || !BUILD_CONFIG.skipFaviconGenerationOnDev ? Sparky.start('favicons') : Promise.resolve())
-    .then(() => Sparky.start('build.universal'))
-    .then(() => Sparky.start('sass'))
-    .then(() => Sparky.start('ngsw'))
-    .then(() => Sparky.start('banner'))
-})
+Sparky.task(taskName(__filename), [
+  'clean',
+  'mk-dist',
+  'index.copy',
+  'favicons',
+  'fonts',
+  'changelog',
+  'web',
+  'assets',
+  'sass',
+  'build.universal',
+  'ngsw',
+  'banner'
+], () => undefined)
