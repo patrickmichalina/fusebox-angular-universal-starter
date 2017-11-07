@@ -115,20 +115,20 @@ export class AuthService implements IAuthService {
       })
   }
 
-  signInWithFacebookPopup() {
-    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()))
+  signInWithFacebookRedirect() {
+    return fromPromise(this.fbAuth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider()))
   }
 
-  signInWithGooglePopup() {
-    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
+  signInWithGoogleRedirect() {
+    return fromPromise(this.fbAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()))
   }
 
-  signInWithGithubPopup() {
-    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.GithubAuthProvider()))
+  signInWithGithubRedirect() {
+    return fromPromise(this.fbAuth.auth.signInWithRedirect(new firebase.auth.GithubAuthProvider()))
   }
 
-  signInWithTwitterPopup() {
-    return fromPromise(this.fbAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()))
+  signInWithTwitterRedirect() {
+    return fromPromise(this.fbAuth.auth.signInWithRedirect(new firebase.auth.TwitterAuthProvider()))
   }
 
   createUserWithEmailAndPassword(email: string, password: string) {

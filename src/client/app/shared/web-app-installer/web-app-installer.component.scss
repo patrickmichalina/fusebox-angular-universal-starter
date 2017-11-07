@@ -1,0 +1,73 @@
+:host {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  text-align: center;
+  color: #fff;
+  padding: 10vh 5vw;
+  box-sizing: border-box;
+  background-color: #000;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.3);
+  .blur {
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+    transition: 0.2s filter linear;
+    -webkit-transition: 0.2s -webkit-filter linear;
+  }
+  .browser-preview {
+    margin: -45px 0 40px;
+    text-decoration: underline;
+    opacity: 0.8;
+    text-align: right;
+  }
+  .logo-name-container {
+    background-image: url('../assets/images/login/cab.svg');
+    background-repeat: no-repeat;
+    background-position: center 0;
+    padding-top: 110px;
+    margin: 0 45px;
+    background-size: 200px;
+    font-size: 24px;
+    margin-top: 15vh;
+  }
+  .homescreen-text {
+    padding-top: 15vh;
+    line-height: 1.5;
+    font-size: 18px;
+  }
+  .icon-addToHome {
+    vertical-align: text-bottom;
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    background: url('../assets/images/mobile-sprite.png') no-repeat top left;
+    background-size: cover;
+  }
+  .icon-homePointer {
+    margin-top: 5vh;
+    background: url('../assets/images/mobile-sprite.png') no-repeat top left;
+    background-position: center -40px;
+    width: 100%;
+    height: 50px;
+    background-size: 40px;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-name: topToBottom;
+    animation-name: topToBottom;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+  }
+  @keyframes topToBottom {
+    from {
+      transform: translate(0, 0);
+    }
+    to {
+      transform: translate(0, 20px);
+    }
+  }
+}

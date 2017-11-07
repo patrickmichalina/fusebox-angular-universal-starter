@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing'
 import { AuthService } from './../shared/services/auth.service'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { LoginComponent } from './login.component'
@@ -11,7 +12,7 @@ describe(LoginComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [LoginModule, AngularFireModule.initializeApp({
+      imports: [LoginModule, RouterTestingModule, AngularFireModule.initializeApp({
         'apiKey': '1',
         'authDomain': 'app.firebaseapp.com',
         'databaseURL': 'https://app.firebaseio.com',
