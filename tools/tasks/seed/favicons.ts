@@ -4,7 +4,7 @@ import { sync as mkdirp } from 'mkdirp'
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, taskName } from '../../config/build.config'
 
 // tslint:disable:no-require-imports
-const favicons = require('favicons')
+const favicons = require('favicons') // https://www.npmjs.com/package/favicons
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom
 
@@ -12,16 +12,17 @@ Sparky.task(taskName(__filename), () => {
   return new Promise((resolve, reject) => {
     const config = JSON.parse(ENV_CONFIG_INSTANCE.angularAppConfig)
     favicons(BUILD_CONFIG.faviconSource, {
-      path: '/assets/favicons',
+      path: '/',
       appDescription: config.description,
-      appName: config.name
+      appName: config.name,
+      background: '#1976d2',
+      theme_color: '#1976d2'
     }, (error: any, response: any) => {
       if (error) {
         // tslint:disable:no-console
         console.log(error.status)
         console.log(error.name)
         console.log(error.message)
-
         return
       }
 

@@ -2,7 +2,6 @@
 
 exports[`LoginComponent should compile 1`] = `
 <pm-login
-  afAuth={[Function AngularFireAuth]}
   containerClass={[Function Boolean]}
 >
   <h1>
