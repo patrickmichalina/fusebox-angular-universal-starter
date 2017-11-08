@@ -103,6 +103,7 @@
                   <mat-icon fontSet="fa" fontIcon="fa-globe" aria-hidden="true"></mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
+              <pm-cache-form (onCacheChange)="updateCache($event)" [cache]="cacheSettings"></pm-cache-form>
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle="true">
               <mat-expansion-panel-header>

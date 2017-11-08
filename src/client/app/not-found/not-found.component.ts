@@ -11,8 +11,6 @@ import { Observable } from 'rxjs/Observable'
 import { SEONode, SEOService } from '../shared/services/seo.service'
 import { MatChipInputEvent, MatDialog, MatSnackBar } from '@angular/material'
 import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
-// tslint:disable-next-line:no-require-imports
-import ms = require('ms')
 import { ENTER } from '@angular/cdk/keycodes'
 
 const COMMA = 188
@@ -57,6 +55,8 @@ export class NotFoundComponent {
       rel: 'stylesheet'
     }
   }
+
+  cacheSettings = {} as any
 
   injectionFormChange(key: string, type: types, injectable: DOMInjectable) {
     console.log(key)
@@ -163,18 +163,18 @@ export class NotFoundComponent {
               .reduce((acc, curr) => {
                 const ret = typeof pageCacheSettings[curr] === 'boolean'
                   ? curr
-                  : typeof pageCacheSettings[curr] === 'string'
-                    ? `${curr}=${ms(pageCacheSettings[curr] as string) / 1000}`
-                    : `${curr}=${pageCacheSettings[curr]}`
+                  : `${curr}=${pageCacheSettings[curr]}`
 
                 return acc.concat(', ').concat(ret)
               }, '')
               .replace(/(^,)|(,$)/g, '')
               .trim()
 
-            cacheControl
-              ? this.rs.setHeader('Cache-Control', cacheControl)
-              : this.rs.setCacheNone()
+            if (cacheControl) {
+              this.rs.setHeader('Cache-Control', cacheControl)
+            } else {
+              this.rs.setCacheNone()
+            }
           } else {
             this.rs.setCacheNone()
           }
@@ -192,6 +192,7 @@ export class NotFoundComponent {
         } as Page & SEONode
       })
       .do(page => {
+        this.cacheSettings = page.cache
         this.seo.updateNode({
           title: page.title,
           description: page.description,
@@ -245,7 +246,7 @@ export class NotFoundComponent {
 
   publish() {
     const injections = this.injectionsToSave$.getValue()
-    console.log(injections)
+    const cache = this.cacheSettings
 
     const settings = Object.keys(this.settingsForm.value)
       .filter(key => typeof this.settingsForm.value[key] !== 'undefined')
@@ -255,6 +256,7 @@ export class NotFoundComponent {
       .update({
         ...settings,
         injections,
+        cache,
         content: this.editor.textValue.getValue()
       }), (url, update) => ({ url, update }))
       .take(1)
@@ -313,5 +315,9 @@ export class NotFoundComponent {
   constructor(private rs: ServerResponseService, private db: FirebaseDatabaseService, private seo: SEOService,
     public auth: AuthService, private ar: ActivatedRoute, private router: Router, private dialog: MatDialog,
     private snackBar: MatSnackBar) {
+  }
+
+  updateCache(cache: any) {
+    this.cacheSettings = cache
   }
 }

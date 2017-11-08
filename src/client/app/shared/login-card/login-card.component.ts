@@ -1,3 +1,4 @@
+import { PlatformService } from './../services/platform.service'
 import { Router } from '@angular/router'
 import { AuthService } from './../services/auth.service'
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core'
@@ -13,15 +14,25 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginCardComponent {
-  constructor(private cd: ChangeDetectorRef, private auth: AuthService, public afAuth: AngularFireAuth, router: Router) {
-    afAuth.auth.getRedirectResult()
-      .then(a => a.operationType === 'signIn' ? router.navigate(['/']) : false)
+  constructor(private cd: ChangeDetectorRef, private auth: AuthService, public afAuth: AngularFireAuth, router: Router,
+    ps: PlatformService) {
+    if (ps.isServer) return
+
+    afAuth.auth
+      .getRedirectResult()
+      .then(a => {
+        this.isLoading = false
+        this.cd.markForCheck()
+        return a.operationType === 'signIn' ? router.navigate(['/']) : false
+      })
       .catch(err => this.socialNetworkError(err))
   }
 
   public socialNetworkErr: string
+  public isLoading = true
 
   login(provider: string) {
+    this.isLoading = true
     switch (provider) {
       case 'facebook': this.auth.signInWithFacebookRedirect().take(1).subscribe(res => undefined, err => this.socialNetworkError(err))
         break
@@ -58,6 +69,7 @@ export class LoginCardComponent {
   }
 
   socialNetworkError(err: any) {
+    this.isLoading = false
     this.socialNetworkErr = err.message
     this.cd.markForCheck()
   }

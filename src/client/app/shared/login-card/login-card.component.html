@@ -1,4 +1,5 @@
-<mat-accordion class="headers-align">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion class="headers-align" *ngIf="!isLoading">
   <mat-expansion-panel hideToggle="true" expanded="true">
     <mat-error id="socialNetworkErr" *ngIf="socialNetworkErr">
       {{ socialNetworkErr }}
