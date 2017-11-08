@@ -11,7 +11,13 @@ import ms = require('ms')
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CacheFormComponent implements OnDestroy, OnInit {
-  @Input() cache: { [key: string]: boolean | number | string } = {}
+  private _cache: { [key: string]: boolean | number | string }
+  @Input() set cache(val: any) {
+    this._cache = val
+  }
+  get cache() {
+    return this._cache || {}
+  }
   @Output() onCacheChange = new EventEmitter<{ [key: string]: boolean | number | string }>()
   @Output() onCacheStringChange = this.onCacheChange.asObservable()
     .scan((acc: string, value) => Object.keys(value).map(a => {
