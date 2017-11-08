@@ -5,6 +5,7 @@ exports[`NotFoundComponent should compile 1`] = `
   addOnBlur={[Function Boolean]}
   ar={[Function ActivatedRoute]}
   auth={[Function Object]}
+  cacheSettings="undefined"
   currentTab$={[Function AnonymousSubject]}
   db={[Function Object]}
   dialog={[Function MatDialog]}

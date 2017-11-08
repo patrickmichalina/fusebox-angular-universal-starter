@@ -32,6 +32,8 @@ import { ModalConfirmationComponent } from './modal-confirmation/modal-confirmat
 import { InjectionFormComponent } from './injection-form/injection-form.component'
 import { StyleInjectionFormComponent } from './style-injection-form/style-injection-form.component'
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component'
+import { CacheFormComponent } from './cache-form/cache-form.component'
+import { FlexLayoutModule } from '@angular/flex-layout'
 
 declare var __process_env__: any
 
@@ -72,8 +74,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     FormsModule,
     ReactiveFormsModule,
     MarkdownToHtmlModule,
-    Angulartics2Module.forChild()
-    // FlexLayoutModule
+    Angulartics2Module.forChild(),
+    FlexLayoutModule
   ],
   exports: [
     CommonModule,
@@ -95,8 +97,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     ModalConfirmationComponent,
     InjectionFormComponent,
     StyleInjectionFormComponent,
-    KeyValueFormComponent
-    // FlexLayoutModule
+    KeyValueFormComponent,
+    CacheFormComponent,
+    FlexLayoutModule
   ],
   entryComponents: [
     ModalConfirmationComponent
@@ -114,7 +117,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     ModalConfirmationComponent,
     InjectionFormComponent,
     StyleInjectionFormComponent,
-    KeyValueFormComponent
+    KeyValueFormComponent,
+    CacheFormComponent
   ],
   providers: [
     { provide: ENV_CONFIG, useFactory: fuseBoxConfigFactory },
