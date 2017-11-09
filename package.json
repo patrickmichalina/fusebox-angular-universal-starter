@@ -139,7 +139,7 @@
     "@angular/platform-browser": "5.0.0",
     "@angular/platform-browser-dynamic": "5.0.0",
     "@angular/platform-server": "5.0.0",
-    "@angular/router": "5.0.0",
+    "@angular/router": "5.0.1",
     "@angular/service-worker": "^5.0.0",
     "@expo/bunyan": "^1.8.10",
     "@nguniversal/common": "^5.0.0-beta.5",
