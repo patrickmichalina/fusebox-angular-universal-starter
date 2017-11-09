@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersComponent should compile 1`] = `
+<test-component>
+  <pm-users>
+    <div
+      fxflexfill=""
+      fxlayout="column"
+      style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%;"
+    >
+      
+    
+      <mat-nav-list
+        class="mat-nav-list"
+        fxflex=""
+        role="list"
+      >
+        
+      
+        <mat-list-item
+          class="mat-list-item"
+          role="listitem"
+        >
+          <div
+            class="mat-list-item-content"
+          >
+            <div
+              class="mat-list-item-ripple mat-ripple"
+              mat-ripple=""
+            />
+            <div
+              class="mat-list-text"
+            >
+              <h4
+                class="mat-line"
+                mat-line=""
+              >
+                test
+              </h4>
+              <p
+                class="mat-line"
+                mat-line=""
+              >
+                 test2 
+              </p>
+            </div>
+            
+        
+            
+        
+            
+      
+          </div>
+        </mat-list-item>
+        
+      
+        <mat-list-item
+          class="mat-list-item"
+          role="listitem"
+        >
+          <div
+            class="mat-list-item-content"
+          >
+            <div
+              class="mat-list-item-ripple mat-ripple"
+              mat-ripple=""
+            />
+            <div
+              class="mat-list-text"
+            >
+              <h4
+                class="mat-line"
+                mat-line=""
+              >
+                test
+              </h4>
+              <p
+                class="mat-line"
+                mat-line=""
+              >
+                 test2 
+              </p>
+            </div>
+            
+        
+            
+        
+            
+      
+          </div>
+        </mat-list-item>
+        
+      
+        <mat-list-item
+          class="mat-list-item"
+          role="listitem"
+        >
+          <div
+            class="mat-list-item-content"
+          >
+            <div
+              class="mat-list-item-ripple mat-ripple"
+              mat-ripple=""
+            />
+            <div
+              class="mat-list-text"
+            >
+              <h4
+                class="mat-line"
+                mat-line=""
+              >
+                test
+              </h4>
+              <p
+                class="mat-line"
+                mat-line=""
+              >
+                 test2 
+              </p>
+            </div>
+            
+        
+            
+        
+            
+      
+          </div>
+        </mat-list-item>
+        
+      
+        <mat-list-item
+          class="mat-list-item"
+          role="listitem"
+        >
+          <div
+            class="mat-list-item-content"
+          >
+            <div
+              class="mat-list-item-ripple mat-ripple"
+              mat-ripple=""
+            />
+            <div
+              class="mat-list-text"
+            >
+              <h4
+                class="mat-line"
+                mat-line=""
+              >
+                test
+              </h4>
+              <p
+                class="mat-line"
+                mat-line=""
+              >
+                 test2 
+              </p>
+            </div>
+            
+        
+            
+        
+            
+      
+          </div>
+        </mat-list-item>
+        
+      
+        <mat-list-item
+          class="mat-list-item"
+          role="listitem"
+        >
+          <div
+            class="mat-list-item-content"
+          >
+            <div
+              class="mat-list-item-ripple mat-ripple"
+              mat-ripple=""
+            />
+            <div
+              class="mat-list-text"
+            >
+              <h4
+                class="mat-line"
+                mat-line=""
+              >
+                test
+              </h4>
+              <p
+                class="mat-line"
+                mat-line=""
+              >
+                 test2 
+              </p>
+            </div>
+            
+        
+            
+        
+            
+      
+          </div>
+        </mat-list-item>
+        
+    
+      </mat-nav-list>
+      
+    
+      <mat-paginator
+        class="mat-paginator"
+      >
+        <div
+          class="mat-paginator-container"
+        >
+          <div
+            class="mat-paginator-page-size"
+          >
+            <div
+              class="mat-paginator-page-size-label"
+            >
+              
+            </div>
+            
+            
+          </div>
+          <div
+            class="mat-paginator-range-actions"
+          >
+            <div
+              class="mat-paginator-range-label"
+            >
+              
+            </div>
+            <button
+              class="mat-paginator-navigation-previous mat-icon-button"
+              mat-icon-button=""
+              style="-webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+              type="button"
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                <div
+                  class="mat-paginator-increment"
+                />
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+            <button
+              class="mat-paginator-navigation-next mat-icon-button"
+              mat-icon-button=""
+              style="-webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+              type="button"
+            >
+              <span
+                class="mat-button-wrapper"
+              >
+                <div
+                  class="mat-paginator-decrement"
+                />
+              </span>
+              <div
+                class="mat-button-ripple mat-ripple"
+                matripple=""
+              />
+              <div
+                class="mat-button-focus-overlay"
+              />
+            </button>
+          </div>
+        </div>
+      </mat-paginator>
+      
+  
+    </div>
+  </pm-users>
+</test-component>
+`;

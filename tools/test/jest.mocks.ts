@@ -22,4 +22,4 @@ Object.defineProperty(window, 'getComputedStyle', {
 });
 
 // For Angular Material
-(window as any).Hammer = {}
+(window as any).Hammer = require('hammerjs')
