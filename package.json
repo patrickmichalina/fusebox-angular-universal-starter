@@ -92,7 +92,7 @@
     "favicons": "^4.8.6",
     "firebase-tools": "^3.14.0",
     "font-awesome": "^4.7.0",
-    "fuse-box": "2.4.0",
+    "fuse-box": "3.0.0-next.4",
     "fuse-box-typechecker": "git://github.com/fuse-box/fuse-box-typechecker.git",
     "glob": "^7.1.2",
     "greenkeeper-lockfile": "^1.12.0",
