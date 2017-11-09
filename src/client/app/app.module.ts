@@ -17,7 +17,6 @@ import { AngularFireModule, FirebaseAppConfigToken, FirebaseAppName } from 'angu
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
 import { TransferHttpCacheModule } from '@nguniversal/common'
-import { LoginGuard } from './shared/services/guard-login.service'
 import { AuthService, FB_COOKIE_KEY } from './shared/services/auth.service'
 import { CACHE_TAG_CONFIG, CACHE_TAG_FACTORY, CacheTagConfig, HttpCacheTagModule } from './shared/http-cache-tag/http-cache-tag.module'
 
@@ -113,8 +112,7 @@ export function cacheTagFactory(srs: ServerResponseService): any {
       useFactory: firebaseConfigLoader,
       deps: [EnvironmentService]
     },
-    AuthService,
-    LoginGuard
+    AuthService
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

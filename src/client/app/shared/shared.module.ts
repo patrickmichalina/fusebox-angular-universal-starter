@@ -34,6 +34,7 @@ import { StyleInjectionFormComponent } from './style-injection-form/style-inject
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component'
 import { CacheFormComponent } from './cache-form/cache-form.component'
 import { FlexLayoutModule } from '@angular/flex-layout'
+import { LoginGuard } from './services/guard-login.service'
 
 declare var __process_env__: any
 
@@ -139,7 +140,8 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     InjectionService,
     MinifierService,
     ServerResponseService,
-    SEOService
+    SEOService,
+    LoginGuard
   ]
 })
 export class SharedModule {

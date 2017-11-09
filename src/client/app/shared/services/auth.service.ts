@@ -37,7 +37,6 @@ export class AuthService implements IAuthService {
   private jwtHelper = new JwtHelper()
 
   private viaCookies$ = this.cs.cookies$
-    .skip(1)
     .map(cookies => {
       return cookies
         ? AuthService.cookieMapper(cookies[this.COOKIE_KEY], this.jwtHelper)
@@ -58,10 +57,11 @@ export class AuthService implements IAuthService {
   }
 
   private userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
-  public user$ = this.userSource.shareReplay()
+  public user$ = this.userSource.asObservable()
   public userVer$ = this.user$.filter(Boolean)
   private fbUser$ = this.fbAuth.idToken
     .flatMap(a => a ? a.getIdToken() : of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
+    .debounceTime(500)
 
   constructor(private cs: CookieService, private fbAuth: AngularFireAuth, ss: SettingService, private ps: PlatformService,
     private db: FirebaseDatabaseService, @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string) {
@@ -108,9 +108,13 @@ export class AuthService implements IAuthService {
             providers: ((res.fbUser && res.fbUser.providerData) || []).map(a => a && a.providerId)
           }, { expires })
 
-          // this.db
-          //   .getObjectRef(`users/${res.fbUser.uid}`)
-          //   .update({ email: res.fbUser.email })
+          this.db
+            .getObjectRef(`users/${res.fbUser.uid}`)
+            .update({
+              email: res.fbUser.email,
+              photoURL: res.fbUser.photoURL
+            })
+            .catch(() => undefined)
         }
       })
   }
@@ -142,7 +146,7 @@ export class AuthService implements IAuthService {
   logout() {
     if (this.ps.isBrowser) {
       return this.fbAuth.auth.signOut()
-        .then(() => setTimeout(() => this.cs.remove(this.COOKIE_KEY), 1000))
+        .then(() => this.cs.remove(this.COOKIE_KEY))
     }
   }
 
