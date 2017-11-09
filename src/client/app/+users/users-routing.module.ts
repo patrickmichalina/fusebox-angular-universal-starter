@@ -2,6 +2,7 @@ import { UsersComponent } from './users.component'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { MetaGuard } from '@ngx-meta/core'
+import { AdminGuard } from '../shared/services/guard-admin.service'
 
 @NgModule({
   imports: [
@@ -9,7 +10,7 @@ import { MetaGuard } from '@ngx-meta/core'
       {
         path: '',
         component: UsersComponent,
-        canActivate: [MetaGuard],
+        canActivate: [MetaGuard, AdminGuard],
         data: {
           meta: {
             title: 'i18n.users.title',

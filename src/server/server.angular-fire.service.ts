@@ -44,11 +44,36 @@ export class FirebaseAdminService {
         const timeout = setTimeout(() => undefined, 10000)
         return fromPromise(new Promise<any>((resolve, reject) => {
           this.zone.runOutsideAngular(() => { // Out of Angular's zone so it doesn't wait for the neverending socket connection to end.
-            const ref = this.applyQuery(fbAdminDb.ref(path), query)
-            ref.once('value').then((data: any) => {
+            query(fbAdminDb.ref(path)).once('value').then((snapshot: any) => {
               this.zone.run(() => { // Back in Angular's zone
-                const res = data.val()
+                const res = snapshot.val()
                 const projected = Object.keys(res || {}).map(key => res[key])
+                this.ts.set(makeStateKey<string>(`FB.${path}`), projected)
+                resolve(projected)
+                setTimeout(() => {
+                  // Maybe getting the data will result in more components to the view that need related data.
+                  // 20ms should be enough for those components to init and ask for more data.
+                  clearTimeout(timeout)
+                }, 20)
+              })
+            }, (err: any) => {
+              setTimeout(() => {
+                reject(err)
+                clearTimeout(timeout)
+              }, 20)
+            })
+          })
+        }))
+      },
+      snapshotChanges: () => {
+        const timeout = setTimeout(() => undefined, 10000)
+        return fromPromise(new Promise<any>((resolve, reject) => {
+          this.zone.runOutsideAngular(() => { // Out of Angular's zone so it doesn't wait for the neverending socket connection to end.
+            query(fbAdminDb.ref(path)).once('value').then((snapshot: any) => {
+              this.zone.run(() => { // Back in Angular's zone
+                const res = snapshot.val()
+                const projected = Object.keys(res || {}).map(key => res[key])
+                console.log(projected)
                 this.ts.set(makeStateKey<string>(`FB.${path}`), projected)
                 resolve(projected)
                 setTimeout(() => {

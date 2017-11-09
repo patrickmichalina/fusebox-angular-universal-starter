@@ -58,6 +58,16 @@ export class AuthService implements IAuthService {
 
   private userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
   public user$ = this.userSource.asObservable()
+  public isAdmin$ = this.user$.map(a => a && this._isAdmin(a.roles))
+
+  public isAdmin() {
+    return this._isAdmin(this.userSource.getValue().roles)
+  }
+
+  _isAdmin(roles = {} as any): boolean {
+    return roles && (roles.admin || roles.superadmin)
+  }
+
   public userVer$ = this.user$.filter(Boolean)
   private fbUser$ = this.fbAuth.idToken
     .flatMap(a => a ? a.getIdToken() : of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
@@ -97,7 +107,7 @@ export class AuthService implements IAuthService {
         // once firebase auth supports native universal data exhange,
         // we are stucking passing the cookies to the server
         if (res.fbUser && res.fbUser.providerData) {
-          cs.set(this.COOKIE_KEY, {
+          const important = {
             jwt: res.idToken,
             roles: res.roles,
             providerId: res.fbUser.providerId,
@@ -106,13 +116,17 @@ export class AuthService implements IAuthService {
             photoURL: res.fbUser.photoURL ? res.fbUser.photoURL : res.assets.userAvatarImage,
             phoneNumber: res.fbUser.phoneNumber,
             providers: ((res.fbUser && res.fbUser.providerData) || []).map(a => a && a.providerId)
-          }, { expires })
+          }
+
+          cs.set(this.COOKIE_KEY, important, { expires })
 
           this.db
             .getObjectRef(`users/${res.fbUser.uid}`)
             .update({
-              email: res.fbUser.email,
-              photoURL: res.fbUser.photoURL
+              displayName: res.fbUser.displayName,
+              email: important.email,
+              photo: important.photoURL,
+              providers: important.providers
             })
             .catch(() => undefined)
         }

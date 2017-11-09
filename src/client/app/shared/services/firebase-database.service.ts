@@ -2,6 +2,8 @@ import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from 'angularfire2/database'
 import { makeStateKey, TransferState } from '@angular/platform-browser'
+import { database } from 'firebase'
+import { PathReference } from 'angularfire2/database/interfaces'
 
 @Injectable()
 export class FirebaseDatabaseService {
@@ -14,19 +16,19 @@ export class FirebaseDatabaseService {
       : this.db.object(path).valueChanges<T>().catch(err => Observable.of(undefined))
   }
 
-  getList<T>(path: string): Observable<T[]> {
-    const cached = this.ts.get<T[] | undefined>(this.cacheKey(path), undefined)
+  getList<T>(path: PathReference, queryFn?: (ref: database.Reference) => database.Query): Observable<T[]> {
+    const cached = this.ts.get<T[] | undefined>(this.cacheKey(path.toString()), undefined)
     return cached
-      ? this.db.list(path).valueChanges<T>().startWith(cached as any).catch(err => Observable.of([]))
-      : this.db.list(path).valueChanges<T>().catch(err => Observable.of([]))
+      ? this.db.list(path, queryFn).valueChanges<T>().startWith(cached as any).catch(err => Observable.of([]))
+      : this.db.list(path, queryFn).valueChanges<T>().catch(err => Observable.of([]))
   }
 
-  getListRef(path: string) {
-    return this.db.list(path)
+  getListRef<T>(path: PathReference, queryFn?: (ref: database.Reference) => database.Query) {
+    return this.db.list<T>(path, queryFn)
   }
 
-  getObjectRef(path: string) {
-    return this.db.object(path)
+  getObjectRef<T>(path: string) {
+    return this.db.object<T>(path)
   }
 
   cacheKey(path: string) {
