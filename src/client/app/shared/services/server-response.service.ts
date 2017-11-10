@@ -69,6 +69,14 @@ export class ServerResponseService implements IServerResponseService {
     return this
   }
 
+  setUnauthorized(message = 'Unauthorized'): this {
+    if (this.response) {
+      this.response.statusCode = 401
+      this.response.statusMessage = message
+    }
+    return this
+  }
+
   setCachePrivate(): this {
     if (this.response) {
       this.setCache('private')
