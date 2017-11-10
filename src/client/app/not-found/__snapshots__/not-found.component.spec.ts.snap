@@ -1,95 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NotFoundComponent should compile 1`] = `
-<pm-not-found
-  addOnBlur={[Function Boolean]}
-  ar={[Function ActivatedRoute]}
-  auth={[Function Object]}
-  cacheSettings="undefined"
-  currentTab$={[Function AnonymousSubject]}
-  db={[Function Object]}
-  dialog={[Function MatDialog]}
-  editor="undefined"
-  flexFill={[Function Boolean]}
-  injections$={[Function BehaviorSubject]}
-  injectionsToSave$={[Function BehaviorSubject]}
-  isEditMode$={[Function AnonymousSubject]}
-  page$={[Function Observable]}
-  params$={[Function AnonymousSubject]}
-  router={[Function Router]}
-  rs={[Function ServerResponseService]}
-  seo={[Function SEOService]}
-  separatorKeysCodes={[Function Array]}
-  settingsForm={[Function FormGroup]}
-  snackBar={[Function MatSnackBar]}
-  styleInjDefault={[Function Object]}
-  tags={[Function Array]}
-  url$={[Function Observable]}
-  view$={[Function Observable]}
->
-  <div
+<test-component>
+  <pm-not-found
     class="vert-flex-fill"
-    ng-reflect-ng-switch="false"
   >
-    
-    
-    
-    
-    
     
     <div
       class="vert-flex-fill"
+      ng-reflect-ng-switch="false"
     >
       
+    
+      
+      
+    
       
       <div
-        ng-reflect-html="SafeValue must use [property]="
-        pmhtmloutlet=""
-      />
-      
-      
-      <footer
-        class="footer mat-elevation-z6"
+        class="vert-flex-fill"
       >
         
+      
+        <div
+          ng-reflect-html="SafeValue must use [property]="
+          pmhtmloutlet=""
+        />
         
-        
-        <button
-          class="mat-raised-button mat-accent"
-          color="accent"
-          mat-raised-button=""
-          ng-reflect-color="accent"
+      
+        <footer
+          class="footer mat-elevation-z6"
         >
-          <span
-            class="mat-button-wrapper"
-          >
-            Edit
-          </span>
-          <div
-            class="mat-button-ripple mat-ripple"
-            matripple=""
-            ng-reflect-centered="false"
-            ng-reflect-disabled="false"
-            ng-reflect-trigger="[object HTMLButtonElement]"
-          />
-          <div
-            class="mat-button-focus-overlay"
-          />
-        </button>
+          
         
+          
+          <button
+            class="mat-raised-button mat-accent"
+            color="accent"
+            mat-raised-button=""
+            ng-reflect-color="accent"
+          >
+            <span
+              class="mat-button-wrapper"
+            >
+              Edit
+            </span>
+            <div
+              class="mat-button-ripple mat-ripple"
+              matripple=""
+              ng-reflect-centered="false"
+              ng-reflect-disabled="false"
+              ng-reflect-trigger="[object HTMLButtonElement]"
+            />
+            <div
+              class="mat-button-focus-overlay"
+            />
+          </button>
+          
       
-      </footer>
+        </footer>
+        
+    
+      </div>
       
-    
-    </div>
-    
   
-  </div>
-</pm-not-found>
-`;
-
-exports[`NotFoundComponent should show text 1`] = `
-<pm-not-found>
-  PAGE NOT FOUND
-</pm-not-found>
+    </div>
+  </pm-not-found>
+</test-component>
 `;

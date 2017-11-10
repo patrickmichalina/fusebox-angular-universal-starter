@@ -1,14 +1,14 @@
+import { SharedModule } from './shared/shared.module'
 import { AngularFireAuthModule } from 'angularfire2/auth'
-import { AppBrowserModule } from './app.browser.module'
 import { AboutComponent } from './+about/about.component'
-import { async, TestBed } from '@angular/core/testing'
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
 import { Route } from '@angular/router'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Component } from '@angular/core'
 import { HomeComponent } from './+home/home.component'
 import { AppModule } from './app.module'
-import { SharedModule } from './shared/shared.module'
+import { AppBrowserModule } from './app.browser.module'
 import { EnvConfig } from '../../../tools/config/app.config'
 import { ENV_CONFIG } from './app.config'
 import { EnvironmentService } from './shared/services/environment.service'
@@ -33,11 +33,20 @@ export const TESTING_CONFIG: EnvConfig = {
   host: 'http://localhost:8083'
 }
 
+@Component({
+  selector: 'test-cmp',
+  template: '<pm-app></pm-app>'
+})
+class TestComponent { }
+
 describe('App component', () => {
   const config: Array<Route> = [
     { path: '', component: HomeComponent },
     { path: 'about', component: AboutComponent }
   ]
+
+  let fixture: ComponentFixture<TestComponent>
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -67,21 +76,16 @@ describe('App component', () => {
     }).compileComponents()
   }))
 
-  test.skip('should build without a problem', async(() => {
-    TestBed
-      .compileComponents()
-      .then(() => {
-        const fixture = TestBed.createComponent(TestComponent)
-        const compiled = fixture.nativeElement
+  beforeEach(async(() => {
+    fixture = TestBed.createComponent(TestComponent)
+  }))
 
-        expect(compiled).toBeTruthy()
-        expect(compiled).toMatchSnapshot()
-      })
+  afterEach(async(() => {
+    TestBed.resetTestingModule()
+  }))
+
+  test.skip('should build without a problem', async(() => {
+    expect(fixture.nativeElement).toBeTruthy()
+    expect(fixture.nativeElement).toMatchSnapshot()
   }))
 })
-
-@Component({
-  selector: 'test-cmp',
-  template: '<pm-app></pm-app>'
-})
-class TestComponent { }

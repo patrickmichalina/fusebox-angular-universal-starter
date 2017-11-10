@@ -34,7 +34,7 @@ describe(AboutComponent.name, () => {
     TestBed.resetTestingModule()
   }))
 
-  test.skip('should compile', async(() => {
+  it('should compile', async(() => {
     fixture.detectChanges()
     expect(fixture.nativeElement).toBeDefined()
     expect(fixture).toMatchSnapshot()

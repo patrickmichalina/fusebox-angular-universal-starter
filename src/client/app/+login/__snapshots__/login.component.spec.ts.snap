@@ -1,17 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoginComponent should compile 1`] = `
-<pm-login
-  containerClass={[Function Boolean]}
->
-  <h1>
-    Login
-  </h1>
-  <pm-login-card>
+<pm-login>
+  <div
+    fxlayout="column"
+    fxlayoutalign="center center"
+  >
     
+    
+    <h1>
+      Login
+    </h1>
+    
+    
+    <pm-login-card>
+      
+      
+  
+      
+    </pm-login-card>
     
   
-    
-  </pm-login-card>
+  </div>
 </pm-login>
 `;
