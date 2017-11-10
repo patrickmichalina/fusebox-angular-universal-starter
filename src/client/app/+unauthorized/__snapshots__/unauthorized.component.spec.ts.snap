@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnauthorizedComponent should compile 1`] = `
+<pm-unauthorized>
+  <div
+    fxlayout="column"
+    fxlayoutalign="center center"
+  >
+    
+    
+    <h1>
+      Unauthorized
+    </h1>
+    
+    
+    <pm-login-card>
+      
+      
+  
+      
+    </pm-login-card>
+    
+  
+  </div>
+</pm-unauthorized>
+`;
