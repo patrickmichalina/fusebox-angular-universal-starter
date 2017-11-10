@@ -30,7 +30,7 @@ exports[`HomeComponent should compile 1`] = `
       
       <a
         angulartics2on="click"
-        angularticsevent="ViewRepo"
+        angularticsaction="ViewRepo"
         class="mat-raised-button"
         color="primary"
         href="https://github.com/patrickmichalina/fusebox-angular-universal-starter"
@@ -113,5 +113,6 @@ exports[`HomeComponent should compile 1`] = `
     
   
   </mat-card>
+  
 </pm-home>
 `;

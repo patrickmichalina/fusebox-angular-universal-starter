@@ -12,7 +12,7 @@ import { EnvironmentService } from './services/environment.service'
 import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.service'
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
-import { Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
 import { MaterialModule } from './material.module'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
 import { SocialButtonDirective } from './directives/social-button.directive'
@@ -76,14 +76,12 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     FormsModule,
     ReactiveFormsModule,
     MarkdownToHtmlModule,
-    Angulartics2Module.forChild(),
     FlexLayoutModule
   ],
   exports: [
     CommonModule,
     RouterModule,
     NavbarComponent,
-    Angulartics2Module,
     MaterialModule,
     ClickOutsideDirective,
     SocialButtonDirective,
