@@ -1,6 +1,7 @@
 import { By } from '@angular/platform-browser'
 import { RouterTestingModule } from '@angular/router/testing'
-import { Angulartics2, Angulartics2GoogleAnalytics, Angulartics2Module } from 'angulartics2'
+import { Angulartics2, Angulartics2Module } from 'angulartics2'
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
 import { HomeComponent } from './home.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
