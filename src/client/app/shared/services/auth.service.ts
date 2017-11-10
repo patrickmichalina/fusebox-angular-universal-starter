@@ -57,7 +57,8 @@ export class AuthService implements IAuthService {
   }
 
   private userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
-  public user$ = this.userSource.shareReplay()
+  public user$ = this.userSource.asObservable()
+  public isAdmin$ = this.user$.map(a => a && a.roles && (a.roles.admin || a.roles.superadmin))
   private fbUser$ = this.fbAuth.idToken
     .flatMap(a => a ? a.getIdToken() : of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
     .debounceTime(500)
