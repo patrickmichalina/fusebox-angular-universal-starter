@@ -8,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ServerResponseService } from './../shared/services/server-response.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
+import { filter } from 'rxjs/operators'
 import { SEONode, SEOService } from '../shared/services/seo.service'
 import { MatChipInputEvent, MatDialog, MatSnackBar } from '@angular/material'
 import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
@@ -128,7 +129,7 @@ export class NotFoundComponent {
     .map(a => a.tab ? +a.tab : 0)
 
   private url$ = Observable.of(this.router.url.split('?')[0])
-    .filter(a => !a.includes('.'))
+    .pipe(filter(a => !a.includes('.')))
     .shareReplay()
 
   public settingsForm = new FormGroup({

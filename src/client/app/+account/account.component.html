@@ -1,7 +1,7 @@
 <div *ngIf="user$ | async as user" class="flex-center">
   <h2>{{ user.displayName }}</h2>
   <a class="flex-center">
-    <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsEvent="HoveredOverAccountProfileImage">
+    <img *ngIf="user.photoURL" [src]="user.photoURL" class="avatar" angulartics2On="mouseover" angularticsAction="HoveredOverAccountProfileImage">
     <a mat-button>Update Photo</a>
   </a>
   <mat-accordion class="headers-align">
@@ -17,20 +17,20 @@
       <form [formGroup]="detailForm" (ngSubmit)="updateDetail()">
         <mat-form-field>
           <input matInput formControlName="displayName" [value]="user.displayName" type="text" placeholder="Name" angulartics2On="focus"
-            angularticsEvent="FocusedOnAccountDisplayNameInput">
+            angularticsAction="FocusedOnAccountDisplayNameInput">
         </mat-form-field>
         <mat-form-field>
-          <input matInput formControlName="email" type="email" [value]="user.email" placeholder="Email" angulartics2On="focus" angularticsEvent="FocusedOnAccountEmailInput">
+          <input matInput formControlName="email" type="email" [value]="user.email" placeholder="Email" angulartics2On="focus" angularticsAction="FocusedOnAccountEmailInput">
           <!-- <mat-icon matSuffix [matTooltip]="user.emailTooltip" [color]="user.emailColor" fontSet="fa" [fontIcon]="user.emailIcon" angulartics2On="mouseover"
-                angularticsEvent="HoveredOverAccountEmailCheckmarkIcon"></mat-icon> -->
+                angularticsAction="HoveredOverAccountEmailCheckmarkIcon"></mat-icon> -->
         </mat-form-field>
         <mat-form-field>
           <input matInput formControlName="phoneNumber" type="text" [value]="user.phone || ''" placeholder="Phone" angulartics2On="focus"
-            angularticsEvent="FocusedOnAccountPhonenumberInput">
+            angularticsAction="FocusedOnAccountPhonenumberInput">
         </mat-form-field>
-        <button mat-raised-button type="submit" 
+        <button mat-raised-button type="submit"
         [disabled]="!detailForm.dirty"
-        color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
+        color="primary" id="update-btn" angulartics2On="input" angulartics2On="click" angularticsAction="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
     <mat-expansion-panel disabled=true #socialPanel>
@@ -83,19 +83,19 @@
       </mat-expansion-panel-header>
       <form [formGroup]="passForm" (ngSubmit)="updatePassword()">
         <mat-form-field>
-          <input matInput formControlName="currentPassword" type="password" placeholder="Current Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
+          <input matInput formControlName="currentPassword" type="password" placeholder="Current Password" angulartics2On="focus" angularticsAction="FocusedOnAccountPasswordChangeInput">
           <mat-error *ngIf="passForm.controls.currentPassword.hasError('required')">
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput formControlName="newPassword" type="password" placeholder="New Password" angulartics2On="focus" angularticsEvent="FocusedOnAccountPasswordChangeInput">
+          <input matInput formControlName="newPassword" type="password" placeholder="New Password" angulartics2On="focus" angularticsAction="FocusedOnAccountPasswordChangeInput">
           <mat-error *ngIf="passForm.controls.newPassword.hasError('required')">
             <strong>required</strong>
           </mat-error>
         </mat-form-field>
         <button mat-raised-button [disabled]="passForm.invalid" type="submit" color="primary" id="update-btn" angulartics2On="input"
-          angulartics2On="click" angularticsEvent="ClickUpdateProfile">Save Changes</button>
+          angulartics2On="click" angularticsAction="ClickUpdateProfile">Save Changes</button>
       </form>
     </mat-expansion-panel>
   </mat-accordion>

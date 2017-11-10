@@ -12,7 +12,7 @@ exports[`NavbarComponent should compile 1`] = `
   
     <button
       angulartics2on="click"
-      angularticsevent="ToggleSideMenu"
+      angularticsaction="ToggleSideMenu"
       class="mat-icon-button"
       id="toggle-menu-button"
       mat-icon-button=""
@@ -208,6 +208,8 @@ exports[`NavbarComponent should compile 1`] = `
     
 
   </nav>
+  
+
 </div>
 `;
 
@@ -223,7 +225,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
   
     <button
       angulartics2on="click"
-      angularticsevent="ToggleSideMenu"
+      angularticsaction="ToggleSideMenu"
       class="mat-icon-button"
       id="toggle-menu-button"
       mat-icon-button=""
@@ -419,5 +421,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
     
 
   </nav>
+  
+
 </div>
 `;
