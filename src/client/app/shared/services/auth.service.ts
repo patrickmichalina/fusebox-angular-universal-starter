@@ -37,7 +37,6 @@ export class AuthService implements IAuthService {
   private jwtHelper = new JwtHelper()
 
   private viaCookies$ = this.cs.cookies$
-    .skip(1)
     .map(cookies => {
       return cookies
         ? AuthService.cookieMapper(cookies[this.COOKIE_KEY], this.jwtHelper)
@@ -58,10 +57,11 @@ export class AuthService implements IAuthService {
   }
 
   private userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
-  public user$ = this.userSource.shareReplay()
-  public userVer$ = this.user$.filter(Boolean)
+  public user$ = this.userSource.asObservable()
+  public isAdmin$ = this.user$.map(a => a && a.roles && (a.roles.admin || a.roles.superadmin))
   private fbUser$ = this.fbAuth.idToken
     .flatMap(a => a ? a.getIdToken() : of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
+    .debounceTime(500)
 
   constructor(private cs: CookieService, private fbAuth: AngularFireAuth, ss: SettingService, private ps: PlatformService,
     private db: FirebaseDatabaseService, @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string) {
@@ -97,7 +97,7 @@ export class AuthService implements IAuthService {
         // once firebase auth supports native universal data exhange,
         // we are stucking passing the cookies to the server
         if (res.fbUser && res.fbUser.providerData) {
-          cs.set(this.COOKIE_KEY, {
+          const important = {
             jwt: res.idToken,
             roles: res.roles,
             providerId: res.fbUser.providerId,
@@ -106,11 +106,19 @@ export class AuthService implements IAuthService {
             photoURL: res.fbUser.photoURL ? res.fbUser.photoURL : res.assets.userAvatarImage,
             phoneNumber: res.fbUser.phoneNumber,
             providers: ((res.fbUser && res.fbUser.providerData) || []).map(a => a && a.providerId)
-          }, { expires })
+          }
 
-          // this.db
-          //   .getObjectRef(`users/${res.fbUser.uid}`)
-          //   .update({ email: res.fbUser.email })
+          cs.set(this.COOKIE_KEY, important, { expires })
+
+          this.db
+            .getObjectRef(`users/${res.fbUser.uid}`)
+            .update({
+              displayName: res.fbUser.displayName,
+              email: important.email,
+              photo: important.photoURL,
+              providers: important.providers
+            })
+            .catch(() => undefined)
         }
       })
   }
@@ -142,7 +150,7 @@ export class AuthService implements IAuthService {
   logout() {
     if (this.ps.isBrowser) {
       return this.fbAuth.auth.signOut()
-        .then(() => setTimeout(() => this.cs.remove(this.COOKIE_KEY), 1000))
+        .then(() => this.cs.remove(this.COOKIE_KEY))
     }
   }
 

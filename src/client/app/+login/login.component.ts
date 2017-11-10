@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 
 @Component({
   selector: 'pm-login',
@@ -7,5 +7,4 @@ import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
-  @HostBinding('class.card-float-container') containerClass = true
 }

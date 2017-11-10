@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UsersComponent should compile 1`] = `
+<test-component>
+  <pm-users>
+    <div
+      fxflexfill=""
+      fxlayout="column"
+      style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%;"
+    >
+      
+    
+      <mat-nav-list
+        class="mat-nav-list"
+        fxflex=""
+        role="list"
+      >
+        
+      
+        
+        
+    
+      </mat-nav-list>
+      
+    
+      
+  
+    </div>
+  </pm-users>
+</test-component>
+`;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LoginComponent should compile 1`] = `
-<pm-login>
+exports[`UnauthorizedComponent should compile 1`] = `
+<pm-unauthorized>
   <div
     fxlayout="column"
     fxlayoutalign="center center"
@@ -9,7 +9,7 @@ exports[`LoginComponent should compile 1`] = `
     
     
     <h1>
-      Login
+      Unauthorized
     </h1>
     
     
@@ -22,5 +22,5 @@ exports[`LoginComponent should compile 1`] = `
     
   
   </div>
-</pm-login>
+</pm-unauthorized>
 `;

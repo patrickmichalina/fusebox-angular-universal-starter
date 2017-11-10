@@ -1,10 +1,10 @@
+import { NotFoundComponent } from './not-found.component'
 import { RouterTestingModule } from '@angular/router/testing'
-import { Observable } from 'rxjs/Observable'
 import { AuthService } from './../shared/services/auth.service'
 import { of } from 'rxjs/observable/of'
 import { TransferState } from '@angular/platform-browser'
 import { ServerResponseService } from './../shared/services/server-response.service'
-import { NotFoundComponent } from './not-found.component'
+import { Observable } from 'rxjs/Observable'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { NotFoundModule } from './not-found.module'
@@ -12,8 +12,14 @@ import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { FirebaseDatabaseService } from '../shared/services/firebase-database.service'
 import '../../operators'
 
+@Component({
+  selector: 'test-component',
+  template: '<pm-not-found></pm-not-found>'
+})
+class TestComponent { }
+
 describe(NotFoundComponent.name, () => {
-  let fixture: ComponentFixture<NotFoundComponent>
+  let fixture: ComponentFixture<TestComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,7 +48,7 @@ describe(NotFoundComponent.name, () => {
   }))
 
   beforeEach(async(() => {
-    fixture = TestBed.createComponent(NotFoundComponent)
+    fixture = TestBed.createComponent(TestComponent)
   }))
 
   afterEach(async(() => {
@@ -54,16 +60,4 @@ describe(NotFoundComponent.name, () => {
     expect(fixture.componentInstance).toBeDefined()
     expect(fixture).toMatchSnapshot()
   }))
-
-  test.skip('should show text', async(() => {
-    fixture.detectChanges()
-    expect(fixture.debugElement.nativeElement.innerHTML).toContain('PAGE NOT FOUND')
-    expect(fixture).toMatchSnapshot()
-  }))
 })
-
-@Component({
-  selector: 'test-component',
-  template: '<pm-not-found></pm-not-found>'
-})
-class TestComponent { }

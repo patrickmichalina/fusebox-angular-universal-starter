@@ -9,7 +9,7 @@ const mock = () => {
 };
 // Object.defineProperty(window, 'Hammer', { value: {} });
 Object.defineProperty(window, 'CSS', { value: mock() });
-Object.defineProperty(window, 'matchMedia', { value: jest.fn(() => ({ matches: true }))});
+Object.defineProperty(window, 'matchMedia', { value: jest.fn(() => ({ matches: true })) });
 Object.defineProperty(window, 'localStorage', { value: mock() });
 Object.defineProperty(window, 'sessionStorage', { value: mock() });
 Object.defineProperty(window, 'getComputedStyle', {
@@ -22,4 +22,14 @@ Object.defineProperty(window, 'getComputedStyle', {
 });
 
 // For Angular Material
-(window as any).Hammer = {}
+Object.defineProperty(document.body.style, 'transform', {
+  value: () => {
+    return {
+      enumerable: true,
+      configurable: true
+    };
+  },
+});
+
+// For Angular Material
+(window as any).Hammer = require('hammerjs')

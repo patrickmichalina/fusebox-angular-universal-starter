@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutComponent should compile 1`] = `
+<test-component>
+  <pm-about>
+    <h1>
+      About
+    </h1>
+    
+  
+    <p>
+      An Angular starter with all the tools necessary to create server rendered Angular applications.
+    </p>
+    
+  
+  
+    <form
+      class="ng-untouched ng-pristine ng-invalid"
+      ng-reflect-form="[object Object]"
+      novalidate=""
+    >
+      
+    
+      <mat-form-field
+        class="mat-input-container mat-form-field ng-tns-c0-0 mat-form-field-type-mat-input mat-form-field-can-float mat-primary ng-untouched ng-pristine ng-invalid"
+      >
+        <div
+          class="mat-input-wrapper mat-form-field-wrapper"
+        >
+          <div
+            class="mat-input-flex mat-form-field-flex"
+          >
+            
+            <div
+              class="mat-input-infix mat-form-field-infix"
+            >
+              
+      
+              <input
+                aria-invalid="false"
+                class="mat-input-element mat-form-field-autofill-control ng-untouched ng-pristine ng-invalid"
+                formcontrolname="title"
+                id="mat-input-0"
+                matinput=""
+                ng-reflect-name="title"
+                ng-reflect-placeholder="Title"
+                placeholder="Title"
+              />
+              
+    
+              <span
+                class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
+              >
+                
+                <label
+                  aria-owns="mat-input-0"
+                  class="mat-input-placeholder mat-form-field-placeholder ng-tns-c0-0 mat-empty mat-form-field-empty"
+                  for="mat-input-0"
+                >
+                  Title 
+                  
+                </label>
+              </span>
+            </div>
+            
+          </div>
+          <div
+            class="mat-input-underline mat-form-field-underline"
+          >
+            <span
+              class="mat-input-ripple mat-form-field-ripple"
+            />
+          </div>
+          <div
+            class="mat-input-subscript-wrapper mat-form-field-subscript-wrapper"
+            ng-reflect-ng-switch="hint"
+          >
+            
+            
+            <div
+              class="mat-input-hint-wrapper mat-form-field-hint-wrapper ng-tns-c0-0 ng-trigger ng-trigger-transitionMessages"
+              style="opacity: 1;"
+            >
+              
+              <div
+                class="mat-input-hint-spacer mat-form-field-hint-spacer"
+              />
+            </div>
+          </div>
+        </div>
+      </mat-form-field>
+      
+    
+      <mat-form-field
+        class="mat-input-container mat-form-field ng-tns-c0-1 mat-form-field-type-mat-input mat-form-field-can-float mat-primary ng-untouched ng-pristine ng-invalid"
+      >
+        <div
+          class="mat-input-wrapper mat-form-field-wrapper"
+        >
+          <div
+            class="mat-input-flex mat-form-field-flex"
+          >
+            
+            <div
+              class="mat-input-infix mat-form-field-infix"
+            >
+              
+      
+              <textarea
+                aria-invalid="false"
+                class="mat-input-element mat-form-field-autofill-control ng-untouched ng-pristine ng-invalid"
+                formcontrolname="html"
+                id="mat-input-1"
+                matinput=""
+                ng-reflect-name="html"
+                ng-reflect-placeholder="html"
+                placeholder="html"
+              />
+              
+    
+              <span
+                class="mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
+              >
+                
+                <label
+                  aria-owns="mat-input-1"
+                  class="mat-input-placeholder mat-form-field-placeholder ng-tns-c0-1 mat-empty mat-form-field-empty"
+                  for="mat-input-1"
+                >
+                  html 
+                  
+                </label>
+              </span>
+            </div>
+            
+          </div>
+          <div
+            class="mat-input-underline mat-form-field-underline"
+          >
+            <span
+              class="mat-input-ripple mat-form-field-ripple"
+            />
+          </div>
+          <div
+            class="mat-input-subscript-wrapper mat-form-field-subscript-wrapper"
+            ng-reflect-ng-switch="hint"
+          >
+            
+            
+            <div
+              class="mat-input-hint-wrapper mat-form-field-hint-wrapper ng-tns-c0-1 ng-trigger ng-trigger-transitionMessages"
+              style="opacity: 1;"
+            >
+              
+              <div
+                class="mat-input-hint-spacer mat-form-field-hint-spacer"
+              />
+            </div>
+          </div>
+        </div>
+      </mat-form-field>
+      
+    
+      <button
+        class="mat-raised-button mat-primary"
+        color="primary"
+        disabled=""
+        mat-raised-button=""
+        ng-reflect-color="primary"
+        ng-reflect-disabled="true"
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+          
+      Post
+    
+        </span>
+        <div
+          class="mat-button-ripple mat-ripple"
+          matripple=""
+          ng-reflect-centered="false"
+          ng-reflect-disabled="true"
+          ng-reflect-trigger="[object HTMLButtonElement]"
+        />
+        <div
+          class="mat-button-focus-overlay"
+        />
+      </button>
+      
+    
+      <button
+        class="mat-raised-button mat-warn"
+        color="warn"
+        mat-raised-button=""
+        ng-reflect-color="warn"
+      >
+        <span
+          class="mat-button-wrapper"
+        >
+          
+      Delete All Posts
+    
+        </span>
+        <div
+          class="mat-button-ripple mat-ripple"
+          matripple=""
+          ng-reflect-centered="false"
+          ng-reflect-disabled="false"
+          ng-reflect-trigger="[object HTMLButtonElement]"
+        />
+        <div
+          class="mat-button-focus-overlay"
+        />
+      </button>
+      
+  
+    </form>
+    
+  
+  
+    
+  </pm-about>
+</test-component>
+`;

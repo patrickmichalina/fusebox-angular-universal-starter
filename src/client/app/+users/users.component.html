@@ -1,0 +1,10 @@
+<div fxFlexFill fxLayout="column">
+  <mat-nav-list fxFlex>
+    <mat-list-item *ngFor="let user of users$ | async">
+      <img matListAvatar [src]="user.photo">
+      <h4 mat-line>{{ user.displayName }}</h4>
+      <p mat-line> {{ user.email }} </p>
+    </mat-list-item>
+  </mat-nav-list>
+  <!-- <mat-paginator (page)="pageEvent($event)" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+</div>

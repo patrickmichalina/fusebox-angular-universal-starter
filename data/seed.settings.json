@@ -61,7 +61,7 @@
       }
     },
     {
-      "inHead": false,
+      "inHead": true,
       "element": "script",
       "value": "window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create', 'UA-107089312-2', 'auto');",
       "attributes": {

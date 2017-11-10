@@ -12,7 +12,6 @@ import { EnvironmentService } from './services/environment.service'
 import { COOKIE_HOST_WHITELIST } from './services/http-cookie-interceptor.service'
 import { ENV_CONFIG } from '../app.config'
 import { NavbarService } from './navbar/navbar.service'
-import { Angulartics2Module } from 'angulartics2'
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
 import { MaterialModule } from './material.module'
 import { ClickOutsideDirective } from './directives/click-outside.directive'
@@ -35,6 +34,8 @@ import { StyleInjectionFormComponent } from './style-injection-form/style-inject
 import { KeyValueFormComponent } from './key-value-form/key-value-form.component'
 import { CacheFormComponent } from './cache-form/cache-form.component'
 import { FlexLayoutModule } from '@angular/flex-layout'
+import { LoginGuard } from './services/guard-login.service'
+import { AdminGuard } from './services/guard-admin.service'
 
 declare var __process_env__: any
 
@@ -75,14 +76,12 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     FormsModule,
     ReactiveFormsModule,
     MarkdownToHtmlModule,
-    Angulartics2Module,
     FlexLayoutModule
   ],
   exports: [
     CommonModule,
     RouterModule,
     NavbarComponent,
-    Angulartics2Module,
     MaterialModule,
     ClickOutsideDirective,
     SocialButtonDirective,
@@ -140,7 +139,9 @@ export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angul
     InjectionService,
     MinifierService,
     ServerResponseService,
-    SEOService
+    SEOService,
+    LoginGuard,
+    AdminGuard
   ]
 })
 export class SharedModule {

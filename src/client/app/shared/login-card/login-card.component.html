@@ -2,7 +2,8 @@
 <mat-accordion class="headers-align" *ngIf="!isLoading">
   <mat-expansion-panel hideToggle="true" expanded="true">
     <mat-error id="socialNetworkErr" *ngIf="socialNetworkErr">
-      {{ socialNetworkErr }}
+      <p>{{ socialNetworkErrEmail }}</p>
+      <p>{{ socialNetworkErr }}</p>
     </mat-error>
     <mat-expansion-panel-header>
       <mat-panel-title>
