@@ -1,3 +1,4 @@
+import { PlatformService } from './platform.service'
 import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import { AngularFireDatabase } from 'angularfire2/database'
@@ -7,7 +8,7 @@ import { PathReference } from 'angularfire2/database/interfaces'
 
 @Injectable()
 export class FirebaseDatabaseService {
-  constructor(private db: AngularFireDatabase, private ts: TransferState) { }
+  constructor(private db: AngularFireDatabase, private ts: TransferState, private ps: PlatformService) { }
 
   get<T>(path: string) {
     const cached = this.ts.get<T | undefined>(this.cacheKey(path), undefined)
@@ -21,6 +22,29 @@ export class FirebaseDatabaseService {
     return cached
       ? this.db.list(path, queryFn).valueChanges<T>().startWith(cached as any).catch(err => Observable.of([]))
       : this.db.list(path, queryFn).valueChanges<T>().catch(err => Observable.of([]))
+  }
+
+  getListKeyed<T>(path: PathReference, queryFn?: (ref: database.Reference) => database.Query): Observable<T[]> {
+    const cached = this.ts.get<T[] | undefined>(this.cacheKey(path.toString()), undefined)
+    return cached
+      ? this.db.list(path, queryFn)
+        .snapshotChanges()
+        .map(a => this.keyMapper(a))
+        .startWith(cached as any).catch(err => Observable.of([]))
+      : this.db.list(path, queryFn)
+        .snapshotChanges()
+        .map(a => this.keyMapper(a))
+        .catch(err => Observable.of([]))
+  }
+
+  keyMapper(res: any) {
+    if (this.ps.isServer) return res
+    return res.map((obj: any) => {
+      return {
+        id: obj.key,
+        ...obj.payload.val()
+      }
+    })
   }
 
   getListRef<T>(path: PathReference, queryFn?: (ref: database.Reference) => database.Query) {

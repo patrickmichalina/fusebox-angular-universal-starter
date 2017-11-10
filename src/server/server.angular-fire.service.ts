@@ -2,6 +2,7 @@ import { makeStateKey, TransferState } from '@angular/platform-browser'
 import { Injectable, InjectionToken, NgZone } from '@angular/core'
 import { fromPromise } from 'rxjs/observable/fromPromise'
 import { fbAdminDb } from './server'
+import { database } from 'firebase-admin'
 
 export const FIREBASE_ADMIN_INSTANCE = new InjectionToken<string>('app.fb.admin')
 
@@ -44,7 +45,7 @@ export class FirebaseAdminService {
         const timeout = setTimeout(() => undefined, 10000)
         return fromPromise(new Promise<any>((resolve, reject) => {
           this.zone.runOutsideAngular(() => { // Out of Angular's zone so it doesn't wait for the neverending socket connection to end.
-            query(fbAdminDb.ref(path)).once('value').then((snapshot: any) => {
+            query(fbAdminDb.ref(path)).once('value').then((snapshot: database.DataSnapshot) => {
               this.zone.run(() => { // Back in Angular's zone
                 const res = snapshot.val()
                 const projected = Object.keys(res || {}).map(key => res[key])
@@ -69,11 +70,10 @@ export class FirebaseAdminService {
         const timeout = setTimeout(() => undefined, 10000)
         return fromPromise(new Promise<any>((resolve, reject) => {
           this.zone.runOutsideAngular(() => { // Out of Angular's zone so it doesn't wait for the neverending socket connection to end.
-            query(fbAdminDb.ref(path)).once('value').then((snapshot: any) => {
+            query(fbAdminDb.ref(path)).once('value').then((snapshot: database.DataSnapshot) => {
               this.zone.run(() => { // Back in Angular's zone
                 const res = snapshot.val()
-                const projected = Object.keys(res || {}).map(key => res[key])
-                console.log(projected)
+                const projected = Object.keys(res || {}).map(key => ({ ...res[key], id: key }))
                 this.ts.set(makeStateKey<string>(`FB.${path}`), projected)
                 resolve(projected)
                 setTimeout(() => {
