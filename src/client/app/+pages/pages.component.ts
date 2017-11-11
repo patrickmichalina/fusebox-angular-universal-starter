@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material'
 import { PageFormComponent } from './page-form/page-form.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
+import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-confirmation.component'
 
 @Component({
   selector: 'pm-pages',
@@ -45,6 +46,34 @@ export class PagesComponent {
         top: '30px'
       }
     })
+  }
+
+  confirmDelete() {
+    return this.dialog.open(ModalConfirmationComponent, {
+      width: '460px',
+      position: {
+        top: '30px'
+      },
+      data: {
+        message: 'Deleting this page will immediately remove it from the database',
+        title: 'Are you sure?'
+      }
+    })
+  }
+
+  delete(group: string, slug: string) {
+    this.confirmDelete()
+      .afterClosed()
+      .filter(Boolean)
+      .flatMap(() => this.db
+        .getObjectRef(`/pages/${group}/${slug}`)
+        .remove())
+      .take(1)
+      .subscribe(succ => {
+        // todo
+      }, err => {
+        // todo
+      })
   }
 
   updateTabParam(tab: number) {

@@ -11,7 +11,7 @@
         <li *ngFor="let slug of keyVal.value | pmKeys">
           <a [routerLink]="'/' + keyVal.key + '/' + slug">{{ slug }}</a>
           <a [routerLink]="'/' + keyVal.key + '/' + slug" [queryParams]="{ 'edit': true }">edit</a>
-          <span>delete</span>
+          <span (click)="delete(keyVal.key, slug)">delete</span>
         </li>
       </ul>
 
