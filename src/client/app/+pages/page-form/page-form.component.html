@@ -2,9 +2,12 @@
 <form [formGroup]="form" id="pageForm" novalidate>
   <mat-form-field>
     <input matInput placeholder="Slug" formControlName="slug">
-    <!-- <mat-error *ngIf="form.controls.email.hasError('pattern')">
-      Please enter a valid email address
-    </mat-error> -->
+    <mat-error *ngIf="form.controls.slug.hasError('pattern')">
+      must contain a forward slash and name
+    </mat-error>
+    <mat-error *ngIf="form.controls.slug.hasError('slugTaken')">
+      slug already taken
+    </mat-error>
     <mat-error *ngIf="form.controls.slug.hasError('required')">
       <span>slug is
         <strong>required</strong>
@@ -13,13 +16,21 @@
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Title" formControlName="title">
-    <mat-error *ngIf="form.controls.slug.hasError('required')">
+    <mat-error *ngIf="form.controls.title.hasError('required')">
       <span>title is
         <strong>required</strong>
       </span>
     </mat-error>
   </mat-form-field>
-  <mat-slide-toggle>
+  <mat-form-field>
+    <input matInput placeholder="Description" formControlName="description">
+    <mat-error *ngIf="form.controls.description.hasError('required')">
+      <span>description is
+        <strong>required</strong>
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <mat-slide-toggle formControlName="isDraft">
     Draft (not visible to public)
   </mat-slide-toggle>
   <br>
