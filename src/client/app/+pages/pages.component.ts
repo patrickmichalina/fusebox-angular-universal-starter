@@ -1,6 +1,6 @@
 import { FirebaseDatabaseService } from './../shared/services/firebase-database.service'
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { MatDialog } from '@angular/material'
+import { MatDialog, MatTableDataSource } from '@angular/material'
 import { PageFormComponent } from './page-form/page-form.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable'
@@ -20,24 +20,25 @@ export class PagesComponent {
     .map(a => a.tab ? +a.tab : 0)
 
   view$ = Observable.combineLatest(this.currentTab$, this.pages$,
-    (currentTab, pages) => {
+    (currentTab, pages: { [key: string]: string }) => {
       return {
-        pages,
+        groups: Object.keys(pages || {}).map(group => {
+          return {
+            table: new MatTableDataSource(Object.keys(pages[group] || {}).map(slug => {
+              return {
+                ...(pages[group] as any)[slug],
+                slug,
+                routerLink: `/${group}/${slug}`
+              }
+            })),
+            name: group
+          }
+        }),
         currentTab
       }
     })
 
-  ds(key: string) {
-    const self = this
-    return {
-      connect() {
-        return self.db.get(`/pages/${key}`)
-      },
-      disconnect() {
-        // void
-      }
-    }
-  }
+  displayedColumns = ['slug', 'edit']
 
   openDialog() {
     this.dialog.open(PageFormComponent, {

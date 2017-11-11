@@ -6,25 +6,30 @@
     </button>
   </div>
   <mat-tab-group [selectedIndex]="view.currentTab" (selectedIndexChange)="updateTabParam($event)">
-    <mat-tab *ngFor="let keyVal of view.pages | pmKeyVal" [label]="keyVal.key">
-      <ul>
-        <li *ngFor="let slug of keyVal.value | pmKeys">
-          <a [routerLink]="'/' + keyVal.key + '/' + slug">{{ slug }}</a>
-          <a [routerLink]="'/' + keyVal.key + '/' + slug" [queryParams]="{ 'edit': true }">edit</a>
-          <span (click)="delete(keyVal.key, slug)">delete</span>
-        </li>
-      </ul>
-
-      <!-- <mat-table #table [dataSource]="ds(keyVal.key)">
-        <ng-container matColumnDef="position">
+    <mat-tab *ngFor="let group of view.groups" [label]="group.name">
+      <mat-table #table [dataSource]="group.table">
+        <ng-container matColumnDef="slug">
           <mat-header-cell *matHeaderCellDef>Slug</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ keyVal.key }}</mat-cell>
+          <mat-cell *matCellDef="let element">
+            <a [routerLink]="element.routerLink">{{ element.slug }}</a>
+          </mat-cell>
         </ng-container>
-  
+
+        <ng-container matColumnDef="edit">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <a mat-icon-button [routerLink]="element.routerLink" [queryParams]="{ 'edit': true }">
+              <mat-icon fontSet="fa" fontIcon="fa-pencil-square-o"></mat-icon>
+            </a>
+            <a mat-icon-button (click)="delete(group.name, element.slug)">
+              <mat-icon fontSet="fa" fontIcon="fa-trash"></mat-icon>
+            </a>
+          </mat-cell>
+        </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table> -->
-      <router-outlet></router-outlet>
+      </mat-table>
     </mat-tab>
   </mat-tab-group>
 </div>
