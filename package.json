@@ -134,7 +134,7 @@
     "@angular/core": "5.0.2",
     "@angular/flex-layout": "2.0.0-beta.10-4905443",
     "@angular/forms": "5.0.2",
-    "@angular/http": "5.0.2",
+    "@angular/http": "5.0.3",
     "@angular/material": "^5.0.0-rc.1",
     "@angular/platform-browser": "5.0.2",
     "@angular/platform-browser-dynamic": "5.0.2",
