@@ -126,7 +126,7 @@
     "yargs": "^10.0.3"
   },
   "dependencies": {
-    "@angular/animations": "5.0.4",
+    "@angular/animations": "5.0.5",
     "@angular/cdk": "^5.0.0-rc.2",
     "@angular/common": "5.0.4",
     "@angular/compiler": "5.0.4",
