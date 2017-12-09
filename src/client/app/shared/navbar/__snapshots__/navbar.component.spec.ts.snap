@@ -3,7 +3,7 @@
 exports[`NavbarComponent should compile 1`] = `
 <div
   id="root0"
-  ng-version="5.0.2"
+  ng-version="5.1.0"
 >
   <nav
     class="mat-elevation-z6"
@@ -216,7 +216,7 @@ exports[`NavbarComponent should compile 1`] = `
 exports[`NavbarComponent should contain a list of links 1`] = `
 <div
   id="root1"
-  ng-version="5.0.2"
+  ng-version="5.1.0"
 >
   <nav
     class="mat-elevation-z6"

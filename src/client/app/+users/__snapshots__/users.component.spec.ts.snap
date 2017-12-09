@@ -13,7 +13,7 @@ exports[`UsersComponent should compile 1`] = `
       <mat-nav-list
         class="mat-nav-list"
         fxflex=""
-        role="list"
+        role="navigation"
       >
         
       
