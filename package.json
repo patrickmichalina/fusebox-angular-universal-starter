@@ -138,7 +138,7 @@
     "@angular/material": "^5.0.1",
     "@angular/platform-browser": "5.1.0",
     "@angular/platform-browser-dynamic": "5.1.0",
-    "@angular/platform-server": "5.1.0",
+    "@angular/platform-server": "5.1.1",
     "@angular/router": "5.1.0",
     "@angular/service-worker": "^5.1.0",
     "@expo/bunyan": "^1.8.10",
