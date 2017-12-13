@@ -129,7 +129,7 @@
     "@angular/animations": "5.1.0",
     "@angular/cdk": "^5.0.1",
     "@angular/common": "5.1.0",
-    "@angular/compiler": "5.1.0",
+    "@angular/compiler": "5.1.1",
     "@angular/compiler-cli": "5.1.0",
     "@angular/core": "5.1.0",
     "@angular/flex-layout": "2.0.0-beta.10-4905443",
