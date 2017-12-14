@@ -85,7 +85,7 @@
     "browser-sync": "^2.18.13",
     "codelyzer": "^3.2.1",
     "concurrently": "^3.5.1",
-    "condition-circle": "^1.5.0",
+    "condition-circle": "^2.0.1",
     "conventional-changelog": "^1.1.7",
     "dotenv": "^4.0.0",
     "express-minify-html": "^0.11.5",
