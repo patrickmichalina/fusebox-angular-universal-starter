@@ -111,7 +111,7 @@
     "node-sass": "^4.7.2",
     "opn": "^5.1.0",
     "rollup": "^0.52.2",
-    "semantic-release": "^8.2.1",
+    "semantic-release": "^11.0.2",
     "sitemap-generator": "6.0.0",
     "source-map-explorer": "^1.5.0",
     "string-hash": "^1.1.3",
