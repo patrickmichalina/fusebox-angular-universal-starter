@@ -102,7 +102,7 @@
     "is-reachable": "^2.3.3",
     "jest": "21.2.1",
     "jest-junit-reporter": "^1.1.0",
-    "jest-preset-angular": "^4.0.2",
+    "jest-preset-angular": "^5.0.0",
     "jsdom": "^11.5.1",
     "last-release-git": "0.0.3",
     "mkdirp": "^0.5.1",
