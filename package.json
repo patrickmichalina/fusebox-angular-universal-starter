@@ -177,7 +177,7 @@
     "swagger-jsdoc": "^1.9.7",
     "swagger-ui-express": "^2.0.11",
     "systemjs": "^0.20.19",
-    "tsickle": "^0.25.5",
+    "tsickle": "^0.26.0",
     "typedi": "^0.6.0",
     "url-parse": "^1.2.0",
     "ws": "^3.3.2",
