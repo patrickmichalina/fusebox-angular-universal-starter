@@ -1,4 +1,4 @@
-import { Http } from '@angular/http'
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { PlatformService } from './platform.service'
 import { Observable } from 'rxjs/Observable'
@@ -15,5 +15,5 @@ export class AdblockService implements IAdblockService {
       .catch(a => Observable.of(true))
     : Observable.of(false)
 
-  constructor(private platformService: PlatformService, private http: Http) { }
+  constructor(private platformService: PlatformService, private http: HttpClient) { }
 }

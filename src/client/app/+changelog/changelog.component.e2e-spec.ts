@@ -5,7 +5,6 @@ describe('Changelog Page', () => {
     expect.assertions(1)
 
     const page = browser.goto(`${baseUrl}/changelog`)
-
     const text = await page.evaluate(() => document.title)
 
     expect(text).toContain('Changelog - Fusebox Angular Universal Starter')

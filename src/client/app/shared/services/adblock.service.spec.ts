@@ -1,61 +1,51 @@
 import { IPlatformService, PlatformService } from './platform.service'
 import { AdblockService, IAdblockService } from './adblock.service'
 import { async, TestBed } from '@angular/core/testing'
-import { BaseRequestOptions, Http } from '@angular/http'
-import { MockBackend } from '@angular/http/testing'
-import { Observable } from 'rxjs/Observable'
+import { HttpClientModule } from '@angular/common/http'
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import '../../../operators'
-
-class MockHttp {
-  public returnValue: any
-  public throw: any
-
-  get(): Observable<any> {
-    return Observable.create((observer: any) => {
-      if (this.throw) observer.throw(this.throw)
-      observer.next(this.returnValue)
-      observer.complete()
-    })
-  }
-}
 
 describe(AdblockService.name, () => {
   let service: IAdblockService
-  let mockHttp: MockHttp
+  let httpMock: HttpTestingController
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, HttpClientModule],
       providers: [
-        BaseRequestOptions,
-        MockBackend,
-        { provide: Http, useValue: new MockHttp() },
-        { provide: PlatformService, useValue: new MockPlatformService() },
-        AdblockService
+        AdblockService,
+        { provide: PlatformService, useValue: new MockPlatformService() }
       ]
     })
   }))
 
   beforeEach(() => {
     service = TestBed.get(AdblockService)
-    mockHttp = TestBed.get(Http)
+    httpMock = TestBed.get(HttpTestingController)
   })
 
-  it('should construct', async(() => {
-    expect(service).toBeTruthy()
-  }))
-
-  it('should return an observable when called', async(() => {
-    expect(service.adBlockerIsActive$).toEqual(expect.any(Observable))
-  }))
-
   it('should detect adblock is present', async(() => {
-    mockHttp.throw = { status: 0 }
-    service.adBlockerIsActive$.subscribe(result => expect(result).toBe(true))
+    service.adBlockerIsActive$.subscribe(isPresent => {
+      expect(isPresent).toBeTruthy()
+    })
+
+    const req = httpMock.expectOne(r => r.url === './ad-server.js')
+    expect(req.request.method).toEqual('GET')
+
+    req.flush('', { status: 404, statusText: 'not found'})
+    httpMock.verify()
   }))
 
   it('should detect adblock is not present', async(() => {
-    mockHttp.returnValue = { status: 200 }
-    service.adBlockerIsActive$.subscribe(result => expect(result).toBe(false))
+    service.adBlockerIsActive$.subscribe(isPresent => {
+      expect(isPresent).toBeFalsy()
+    })
+
+    const req = httpMock.expectOne(r => r.url === './ad-server.js')
+    expect(req.request.method).toEqual('GET')
+
+    req.flush('', { status: 200, statusText: 'not found'})
+    httpMock.verify()
   }))
 
   it('should return false when not on platform browser', async(() => {
@@ -67,5 +57,5 @@ describe(AdblockService.name, () => {
 
 class MockPlatformService implements IPlatformService {
   public isBrowser = true
-  public isServer= false
+  public isServer = false
 }
