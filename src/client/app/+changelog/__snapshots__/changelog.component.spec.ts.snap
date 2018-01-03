@@ -1,64 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChangelogComponent should compile 1`] = `
-<pm-changelog
-  changelog$={[Function Observable]}
-  http={[Function HttpClient]}
->
-  <mat-card
-    class="mat-card"
-  >
-    
-    
-    <div />
-    
-  
-  </mat-card>
-</pm-changelog>
-`;
-
-exports[`ChangelogComponent should handle failure to load file gracefully 1`] = `
-<div
-  id="root2"
-  ng-version="5.1.2"
->
-  <mat-card
-    class="mat-card"
-  >
-    
-  
-    <div>
-      <p>
-        Error loading changelog.md
-      </p>
+<test-component>
+  <pm-changelog>
+    <mat-card
+      class="mat-card"
+    >
       
-
-    </div>
     
-
-  </mat-card>
-</div>
-`;
-
-exports[`ChangelogComponent should render changelog 1`] = `
-<div
-  id="root1"
-  ng-version="5.1.2"
->
-  <mat-card
-    class="mat-card"
-  >
-    
-  
-    <div>
-      <p>
-        Error loading changelog.md
-      </p>
+      <div />
       
-
-    </div>
-    
-
-  </mat-card>
-</div>
+  
+    </mat-card>
+  </pm-changelog>
+</test-component>
 `;
