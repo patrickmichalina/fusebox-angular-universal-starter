@@ -40,7 +40,7 @@ export class CookieService implements ICookieService {
     } else {
       try {
         return JSON.parse(this.req.cookies[name])
-      } catch {
+      } catch (err) {
         return this.req ? this.req.cookies[name] : undefined
       }
     }

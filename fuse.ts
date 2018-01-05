@@ -1,7 +1,6 @@
 import { Ng2TemplatePlugin } from 'ng2-fused';
 import { argv } from 'yargs';
 import { BUILD_CONFIG, ENV_CONFIG_INSTANCE, isProdBuild, cachebuster, typeHelper } from './tools/config/build.config';
-import { NgLazyPlugin } from './tools/plugins/ng-lazy';
 import { WebIndexPlugin } from './tools/plugins/web-index';
 import { init, reload, active } from 'browser-sync';
 import {
@@ -12,7 +11,7 @@ import {
   RawPlugin,
   SassPlugin,
   Sparky,
-  UglifyESPlugin
+  QuantumPlugin
 } from 'fuse-box';
 import './tools/tasks';
 
@@ -20,20 +19,18 @@ const isReachable = require('is-reachable');
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
-const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const appBundleName = isProdBuild ? `js/app-${cachebuster}` : `js/app`;
 const vendorBundleName = isProdBuild ? `js/vendor-${cachebuster}` : `js/vendors`;
+const mainEntryFileName = isProdBuild ? `${baseEntry}-prod` : `${baseEntry}`;
 const vendorBundleInstructions = ` ~ client/${mainEntryFileName}.ts`;
-const serverBundleInstructions = ' > [server/server.ts]';
 const appBundleInstructions = ` !> [client/${mainEntryFileName}.ts]`;
+const serverBundleInstructions = ' > [server/server.ts]';
 
 if (isProdBuild) typeHelper()
 
 const baseOptions = {
   homeDir: './src',
   output: `${BUILD_CONFIG.outputDir}/$name.js`,
-  cache: false,
-  target: 'browser',
   plugins: [
     Ng2TemplatePlugin(),
     ['*.component.html', RawPlugin()],
@@ -46,18 +43,9 @@ const baseOptions = {
 
 const appOptions = {
   ...baseOptions,
-  sourceMaps: isProdBuild || process.env.CI
-    ? { project: false, vendor: false, inline: false }
-    : { project: true, vendor: true, inline: true },
+  target: 'browser',
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
-    NgLazyPlugin({
-      angularAppEntry: '',
-      angularAppRoot: 'src/client/app',
-      angularBundle: appBundleName,
-      aot: isAot,
-      isProdBuild
-    }),
     WebIndexPlugin({
       bundles: [appBundleName, vendorBundleName],
       startingDocumentPath: 'dist/index.html',
@@ -67,24 +55,25 @@ const appOptions = {
       },
       additionalDeps: BUILD_CONFIG.dependencies as any[]
     }),
-    isProdBuild && UglifyESPlugin(),
+    // isProdBuild &&
+     QuantumPlugin({
+      target: "browser",
+      uglify: false,
+      bakeApiIntoBundle: vendorBundleName,
+      extendServerImport: true,
+      replaceProcessEnv : false,
+      processPolyfill: true
+    }),
     ...baseOptions.plugins
   ]
 }
 
 const serverOptions = {
   ...baseOptions,
+  target: 'server',
   sourceMaps: false,
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
-    NgLazyPlugin({
-      angularAppEntry: '',
-      angularAppRoot: 'src/client/app',
-      angularBundle: appBundleName,
-      aot: isAot,
-      isProdBuild,
-      isUniversalServer: true
-    }),
     ...baseOptions.plugins
   ]
 }
@@ -92,10 +81,12 @@ const serverOptions = {
 Sparky.task('build.universal', () => {
   const fuseApp = FuseBox.init(appOptions as any);
   const fuseServer = FuseBox.init(serverOptions as any);
-  const serverBundle = fuseServer.bundle('server').instructions(serverBundleInstructions);
   const path = isAot ? 'client/.aot/src/client/app' : 'client/app';
+
+  const serverBundle = fuseServer.bundle('server').instructions(serverBundleInstructions);
   const vendorBundle = fuseApp.bundle(`${vendorBundleName}`).instructions(vendorBundleInstructions);
   const appBundle = fuseApp.bundle(appBundleName)
+    .splitConfig({ dest: 'js/modules' })
     .instructions(`${appBundleInstructions} + [${path}/**/!(*.spec|*.e2e-spec|*.ngsummary|*.snap).*]`)
     .plugin([EnvPlugin(ENV_CONFIG_INSTANCE)]);
 

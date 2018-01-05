@@ -62,6 +62,13 @@ export class WebIndexPluginClass {
         inHead: true,
         element: 'meta',
         order: -99
+      },
+      {
+        element: 'script',
+        inHead: true,
+        attributes: {
+          src: 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js'
+        }
       }
     ]
 

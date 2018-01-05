@@ -5,7 +5,7 @@ Sparky.task(taskName(__filename), [
   'clean',
   'mk-dist',
   'index.copy',
-  'favicons',
+  // 'favicons',
   'fonts',
   'changelog',
   'web',
