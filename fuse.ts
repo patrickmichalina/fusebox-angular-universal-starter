@@ -43,7 +43,7 @@ const baseOptions = {
 
 const appOptions = {
   ...baseOptions,
-  target: 'browser',
+  // target: 'browser',
   plugins: [
     EnvPlugin(ENV_CONFIG_INSTANCE),
     WebIndexPlugin({
@@ -57,7 +57,7 @@ const appOptions = {
     }),
     // isProdBuild &&
      QuantumPlugin({
-      target: "browser",
+      target: "universal",
       uglify: false,
       bakeApiIntoBundle: vendorBundleName,
       extendServerImport: true,
