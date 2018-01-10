@@ -12,6 +12,7 @@ general:
 test:
   override:
     - npm run lint
+    - npm run gen.config
     - npm run test.ci.before
     - node_modules/.bin/jest --ci --updateSnapshot --runInBand --coverage:
         environment:
