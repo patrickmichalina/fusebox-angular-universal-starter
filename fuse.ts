@@ -15,6 +15,7 @@ import {
 } from 'fuse-box';
 import './tools/tasks';
 
+const death = require('death')
 const isReachable = require('is-reachable');
 const isAot = argv.aot;
 const isBuildServer = argv.ci;
@@ -55,11 +56,11 @@ const appOptions = {
       },
       additionalDeps: BUILD_CONFIG.dependencies as any[]
     }),
-    QuantumPlugin({
-      warnings: false,
+    isProdBuild && QuantumPlugin({
       target: "universal",
-      uglify: isProdBuild,
-      treeshake: isProdBuild,
+      warnings: false,
+      uglify: true,
+      treeshake: true,
       bakeApiIntoBundle: vendorBundleName,
       processPolyfill: true
     })
@@ -103,8 +104,11 @@ Sparky.task('build.universal', () => {
               proxy
             })
         })
+        death(function (signal: any, err: any) {
+          proc.kill()
+          process.exit()
+        })
       })
-
       return fuseServer.run()
     });
   } else {
