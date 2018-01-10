@@ -149,7 +149,7 @@
     "@ngx-meta/core": "^5.0.0",
     "angular2-jwt": "^0.2.3",
     "angularfire2": "^5.0.0-rc.4",
-    "angulartics2": "4.5.0",
+    "angulartics2": "4.6.0",
     "body-parser": "^1.18.2",
     "bunyan-middleware": "^0.8.0",
     "clean-css": "^4.1.9",
