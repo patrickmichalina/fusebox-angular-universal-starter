@@ -4,7 +4,7 @@ import { EnvConfig } from '../../tools/config/app.config'
 declare var __process_env__: any
 
 export function fuseBoxConfigFactory() {
-  return JSON.parse(__process_env__.angularAppConfig) as EnvConfig
+  return __process_env__ as EnvConfig
 }
 
 export interface ServerEnvironmentConfig {

@@ -12,11 +12,11 @@ import { DashboardComponent } from './dashboard.component'
           { path: '', redirectTo: 'test', pathMatch: 'full' },
           {
             path: 'test',
-            loadChildren: '~/client/app/+dashboard/+test/test.module#TestModule'
+            loadChildren: async () => (await import('./test/test.module')).TestModule
           },
           {
             path: 'test1',
-            loadChildren: '~/client/app/+dashboard/+test1/test1.module#Test1Module'
+            loadChildren: async () => (await import('./test1/test1.module')).Test1Module
           }
         ]
       }

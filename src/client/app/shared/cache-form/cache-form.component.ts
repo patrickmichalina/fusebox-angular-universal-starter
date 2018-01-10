@@ -87,7 +87,7 @@ export class CacheFormComponent implements OnDestroy, OnInit {
     if (!isNaN(+entry)) return +entry
     try {
       return ms(entry) / 1000
-    } catch {
+    } catch (err) {
       return 0
     }
   }

@@ -36,11 +36,10 @@ import { CacheFormComponent } from './cache-form/cache-form.component'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { LoginGuard } from './services/guard-login.service'
 import { AdminGuard } from './services/guard-admin.service'
-
-declare var __process_env__: any
+import * as config from '../../../config.json'
 
 export function fuseBoxConfigFactory() {
-  return JSON.parse(__process_env__.angularAppConfig)
+  return config
 }
 
 export function loggerConfigFactory(ps: PlatformService, gooogleAnalytics: Angulartics2GoogleAnalytics) {

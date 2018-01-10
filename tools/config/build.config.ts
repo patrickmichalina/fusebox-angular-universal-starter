@@ -35,7 +35,7 @@ const selectedBuildType = argv['build-type'] || 'dev'
 
 // tslint:disable:no-require-imports
 try {
-  envConfig = JSON.stringify({ ...require(`../env/${selectedEnv}`), ...OVERRIDES })
+  envConfig = { ...require(`../env/${selectedEnv}`), ...OVERRIDES }
 } catch (err) {
   throw new Error(`Unable to find environment configuration for '${selectedEnv}' `)
 }
@@ -43,9 +43,8 @@ try {
 const TypeHelper = require('fuse-box-typechecker').TypeHelper
 
 export const taskName = (nodeFilename: string) => basename(nodeFilename).replace('.ts', '')
-export const ENV_CONFIG_INSTANCE = { angularAppConfig: envConfig }
+export const ENV_CONFIG_INSTANCE = envConfig
 export const cdn = process.env.CDN_ORIGIN ? process.env.CDN_ORIGIN : undefined
-export const cachebuster = Math.round(new Date().getTime() / 1000)
 export const isBuildServer: boolean = argv.ci
 export const isAot: boolean = argv.aot
 export const isProdBuild =
