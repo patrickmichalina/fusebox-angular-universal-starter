@@ -14,7 +14,7 @@
     "noLib": false,
     "noUnusedLocals": true,
     "outDir": "dist/",
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "sourceMap": true,
     "lib": ["es6", "dom"],
     "skipLibCheck": true,
