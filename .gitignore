@@ -75,3 +75,5 @@ aot
 .e2e
 
 documentation
+
+src/config.json

@@ -4,6 +4,7 @@ import { taskName } from '../../config/build.config'
 Sparky.task(taskName(__filename), [
   'clean',
   'mk-dist',
+  'config',
   'index.copy',
   // 'favicons',
   'fonts',

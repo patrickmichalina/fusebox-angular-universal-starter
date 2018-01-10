@@ -1,4 +1,4 @@
-import { BundleProducer } from 'fuse-box/src/core/BundleProducer';
+import { BundleProducer } from 'fuse-box';
 import { minify } from 'html-minifier';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -62,13 +62,6 @@ export class WebIndexPluginClass {
         inHead: true,
         element: 'meta',
         order: -99
-      },
-      {
-        element: 'script',
-        inHead: true,
-        attributes: {
-          src: 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js'
-        }
       }
     ]
 
@@ -99,7 +92,7 @@ export class WebIndexPluginClass {
       ? readFileSync(join(producer.fuse.context.appRoot, this.opts.startingDocumentPath), 'utf-8')
       : undefined;
 
-    let html = depTransformer.applyTransform(deps, startingHtml);
+    let html = depTransformer.applyTransform(deps, startingHtml, this.opts.appElement && this.opts.appElement.name);
 
     if (this.opts.transformByQuery) {
       this.opts.transformByQuery.forEach(setting => {
@@ -138,7 +131,7 @@ export interface IConfigurationTransformer {
 }
 
 export class ConfigurationTransformer implements IConfigurationTransformer {
-  applyTransform(dependencies: Dependency[], document?: jsdom.JSDOM | string): string {
+  applyTransform(dependencies: Dependency[], document?: jsdom.JSDOM | string, appName = 'pm-app'): string {
     if (!Array.isArray(dependencies)) throw new Error('dependencies must be an array');
     if (!dependencies) {
       return !document
@@ -154,7 +147,8 @@ export class ConfigurationTransformer implements IConfigurationTransformer {
         : new JSDOM(minify(document, { collapseWhitespace: true }))
       : new JSDOM('<!DOCTYPE html><html lang="en"></html>');
 
-    const existingElements = Array.from(new Set(Array.from(doc.window.document.querySelectorAll('script, link, meta, base')).map(a => hash(a.outerHTML))));
+    const existingElements = 
+      Array.from(new Set(Array.from(doc.window.document.querySelectorAll(`script, link, meta, base, ${appName}`)).map(a => hash(a.outerHTML))));
 
     const elements = dependencies.filter(dep =>
       typeof (dep.shouldExecute) === 'function'
