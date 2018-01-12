@@ -80,7 +80,7 @@
     "@types/stacktrace-js": "^0.0.32",
     "@types/string-hash": "^1.1.1",
     "@types/supertest": "^2.0.4",
-    "@types/ws": "^3.2.0",
+    "@types/ws": "^4.0.0",
     "@types/yargs": "^10.0.0",
     "angular-tslint-rules": "^1.0.4",
     "browser-sync": "^2.23.5",
