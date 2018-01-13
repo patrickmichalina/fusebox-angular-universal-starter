@@ -22,4 +22,8 @@ export class NavbarComponent {
   @Input() user: User
 
   constructor(public navbarService: NavbarService) { }
+
+  trackByFn(index: number, item: any) {
+    return item.route
+  }
 }

@@ -1,4 +1,4 @@
-<div *ngFor="let keyVal of onChange.asObservable() | async | pmKeyVal">
+<div *ngFor="let keyVal of change.asObservable() | async | pmKeyVal; trackBy: trackByFn">
   <button mat-icon-button color="warn" (click)="remove(keyVal.key)">
     <mat-icon fontSet="fa" fontIcon="fa-minus-circle"></mat-icon>
   </button>

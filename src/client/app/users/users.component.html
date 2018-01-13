@@ -1,6 +1,6 @@
 <div fxFlexFill fxLayout="column">
   <mat-nav-list fxFlex>
-    <mat-list-item *ngFor="let user of users$ | async">
+    <mat-list-item *ngFor="let user of users$ | async; trackBy: trackByUsers">
       <img matListAvatar [src]="user.photo">
       <h4 mat-line>{{ user.displayName }}</h4>
       <p mat-line> {{ user.email }} </p>

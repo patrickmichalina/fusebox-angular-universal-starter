@@ -37,4 +37,9 @@ export class KeyValueFormComponent implements OnChanges {
         .reduce((a, c) => ({ ...a, [c]: this.change.getValue()[c] }), {})
     })
   }
+
+  trackByFn(index: number, item: any) {
+    console.log(item)
+    return index
+  }
 }

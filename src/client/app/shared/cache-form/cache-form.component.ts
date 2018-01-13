@@ -91,4 +91,12 @@ export class CacheFormComponent implements OnDestroy, OnInit {
       return 0
     }
   }
+
+  trackByDirsNoInput(index: number, item: any) {
+    return index
+  }
+
+  trackByDirsWithInput(index: number, item: any) {
+    return index
+  }
 }
