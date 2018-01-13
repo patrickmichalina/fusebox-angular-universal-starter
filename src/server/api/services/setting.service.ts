@@ -4,7 +4,7 @@ import { ISetting, SettingRepository } from '../repositories/setting.repository'
 export { ISetting }
 
 export interface ISettingService {
-  settings$: Observable<ISetting>
+  readonly settings$: Observable<ISetting>
   // getTranslation(lang: string): Observable<any>
   // getDictionary(): Observable<any>
   // getLanguageDictionary(lang: string): Observable<any>
@@ -12,7 +12,7 @@ export interface ISettingService {
 
 @Service()
 export class SettingService implements ISettingService {
-  settings$ = this.repo.getDictionary()
+  readonly settings$ = this.repo.getDictionary()
 
   constructor(private repo: SettingRepository) { }
 

@@ -28,9 +28,9 @@ export class LoginCardComponent {
       }, err => this.socialNetworkError(err))
   }
 
-  public socialNetworkErr: string
-  public socialNetworkErrEmail: string
-  public isLoading = true
+  public readonly socialNetworkErr: string
+  public readonly socialNetworkErrEmail: string
+  public readonly isLoading = true
 
   login(provider: string) {
     this.isLoading = true
@@ -76,7 +76,7 @@ export class LoginCardComponent {
     this.cd.markForCheck()
   }
 
-  public form = new FormGroup({
+  public readonly form = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.pattern(EMAIL_REGEX)

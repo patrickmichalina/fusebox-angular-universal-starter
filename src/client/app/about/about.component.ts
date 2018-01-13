@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AboutComponent {
-  posts$ = this.db.getList<{ title: string, html: string }>('posts').map(a => {
+  readonly posts$ = this.db.getList<{ readonly title: string, readonly html: string }>('posts').map(a => {
     return a.map((b: any) => {
       return {
         title: b.title || '',
@@ -19,7 +19,7 @@ export class AboutComponent {
     })
   })
 
-  public form = new FormGroup({
+  public readonly form = new FormGroup({
     title: new FormControl('', [
       Validators.required
     ]),

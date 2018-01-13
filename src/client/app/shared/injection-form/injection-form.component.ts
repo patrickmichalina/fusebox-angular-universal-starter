@@ -11,13 +11,13 @@ import { Subscription } from 'rxjs/Subscription'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InjectionFormComponent implements OnInit, OnDestroy {
-  @Input() showDomString: boolean
-  @Input() injectable: DOMInjectable = {} as any
-  @Output() onChange = new BehaviorSubject<DOMInjectable>(this.injectable)
-  @Output() onChangeHtmlString = new EventEmitter<string>()
+  @Input() readonly showDomString: boolean
+  @Input() readonly injectable: DOMInjectable = {} as any
+  @Output() readonly onChange = new BehaviorSubject<DOMInjectable>(this.injectable)
+  @Output() readonly onChangeHtmlString = new EventEmitter<string>()
 
-  public form: FormGroup
-  private sub = new Subscription()
+  public readonly form: FormGroup
+  private readonly sub = new Subscription()
 
   get htmlString() {
     return this.inj.getElementStringForm(this.renderer, this.onChange.getValue())

@@ -3,10 +3,10 @@ import { Inject, Injectable, Renderer2 } from '@angular/core'
 import { sha1 } from 'object-hash'
 
 export interface DOMInjectable {
-  inHead: boolean
-  element: string
-  value?: string
-  attributes?: { [key: string]: string | boolean }
+  readonly inHead: boolean
+  readonly element: string
+  readonly value?: string
+  readonly attributes?: { readonly [key: string]: string | boolean }
 }
 
 @Injectable()
@@ -43,7 +43,7 @@ export class InjectionService {
       : renderer.appendChild(this.doc.body, elm)
   }
 
-  injectCollection(renderer: Renderer2, injectables: DOMInjectable[]) {
+  injectCollection(renderer: Renderer2, injectables: ReadonlyArray<DOMInjectable>) {
     injectables.forEach(injectable => this.inject(renderer, injectable))
   }
 }

@@ -11,13 +11,13 @@ import { DASHBOARD_MENU } from './dashboard-menu'
 })
 export class DashboardComponent implements OnInit {
 
-  pageTitle: string
+  readonly pageTitle: string
 
-  isMobile = false
+  readonly isMobile = false
 
-  dashboardMenu: any = DASHBOARD_MENU
+  readonly dashboardMenu = DASHBOARD_MENU
 
-  @ViewChild('sidenav') public sidenav: MatSidenav
+  @ViewChild('sidenav') public readonly sidenav: MatSidenav
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -29,8 +29,7 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  constructor(private title: Title) {
-  }
+  constructor(private title: Title) { }
 
   ngOnInit() {
     const title = this.title.getTitle()
@@ -44,5 +43,4 @@ export class DashboardComponent implements OnInit {
   setPageTitle(title: string) {
     this.pageTitle = title
   }
-
 }

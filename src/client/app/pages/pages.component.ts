@@ -13,14 +13,13 @@ import { ModalConfirmationComponent } from '../shared/modal-confirmation/modal-c
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PagesComponent {
-  pages$ = this.db.get('/pages')
-
-  private params$ = this.ar.queryParams.shareReplay()
-  private currentTab$ = this.params$
+  readonly pages$ = this.db.get('/pages')
+  private readonly params$ = this.ar.queryParams.shareReplay()
+  private readonly currentTab$ = this.params$
     .map(a => a.tab ? +a.tab : 0)
 
-  view$ = Observable.combineLatest(this.currentTab$, this.pages$,
-    (currentTab, pages: { [key: string]: string }) => {
+  readonly view$ = Observable.combineLatest(this.currentTab$, this.pages$,
+    (currentTab, pages: { readonly [key: string]: string }) => {
       return {
         groups: Object.keys(pages || {}).map(group => {
           return {
@@ -38,7 +37,7 @@ export class PagesComponent {
       }
     })
 
-  displayedColumns = ['slug', 'edit']
+  readonly displayedColumns: ReadonlyArray<any> = ['slug', 'edit']
 
   openDialog() {
     this.dialog.open(PageFormComponent, {

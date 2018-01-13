@@ -13,30 +13,30 @@ import { FirebaseDatabaseService } from './firebase-database.service'
 import * as firebase from 'firebase/app'
 
 export interface ExtendedUser {
-  id: string
-  jwt: Object
-  jwtDecoded: Object
-  emailVerified: boolean
-  displayName: string
-  email: string
-  phoneNumber: string
-  photoURL: string
-  providerId: string
-  roles: { [key: string]: boolean }
+  readonly id: string
+  readonly jwt: Object
+  readonly jwtDecoded: Object
+  readonly emailVerified: boolean
+  readonly displayName: string
+  readonly email: string
+  readonly phoneNumber: string
+  readonly photoURL: string
+  readonly providerId: string
+  readonly roles: { readonly [key: string]: boolean }
 }
 
 export interface IAuthService {
   logout(): void
-  user$: Observable<ExtendedUser>
+  readonly user$: Observable<ExtendedUser>
 }
 
 export const FB_COOKIE_KEY = new InjectionToken<string>('auth.cookie.key')
 
 @Injectable()
 export class AuthService implements IAuthService {
-  private jwtHelper = new JwtHelper()
+  private readonly jwtHelper = new JwtHelper()
 
-  private viaCookies$ = this.cs.cookies$
+  private readonly viaCookies$ = this.cs.cookies$
     .map(cookies => {
       return cookies
         ? AuthService.cookieMapper(cookies[this.COOKIE_KEY], this.jwtHelper)
@@ -56,10 +56,10 @@ export class AuthService implements IAuthService {
     }
   }
 
-  private userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
-  public user$ = this.userSource.asObservable()
-  public isAdmin$ = this.user$.map(a => a && a.roles && (a.roles.admin || a.roles.superadmin))
-  private fbUser$ = this.fbAuth.idToken
+  private readonly userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
+  public readonly user$ = this.userSource.asObservable()
+  public readonly isAdmin$ = this.user$.map(a => a && a.roles && (a.roles.admin || a.roles.superadmin))
+  private readonly fbUser$ = this.fbAuth.idToken
     .flatMap(a => a ? a.getIdToken() : of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
     .debounceTime(500)
 
@@ -169,11 +169,11 @@ export class AuthService implements IAuthService {
   updateEmailPassword(currentPassword: string, newPassword: string) {
     return this.refreshEmailCredentials(currentPassword)
       .flatMap((userObj: {
-        user: firebase.User,
-        credentials: firebase.auth.AuthCredential
+        readonly user: firebase.User,
+        readonly credentials: firebase.auth.AuthCredential
       }) => userObj.user.reauthenticateWithCredential(userObj.credentials), (userObj: {
-        user: firebase.User,
-        credentials: firebase.auth.AuthCredential
+        readonly user: firebase.User,
+        readonly credentials: firebase.auth.AuthCredential
       }, res) => userObj.user)
       .flatMap(user => user.updatePassword(newPassword))
   }

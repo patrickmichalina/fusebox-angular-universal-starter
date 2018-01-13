@@ -9,8 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KeyValueFormComponent implements OnChanges {
-  @Input() keyVals: { [key: string]: string | boolean | number } = {}
-  @Output() onChange = new BehaviorSubject(this.keyVals)
+  @Input() readonly keyVals: { readonly [key: string]: string | boolean | number } = {}
+  @Output() readonly onChange = new BehaviorSubject(this.keyVals)
 
   public form = new FormGroup({
     key: new FormControl('', [Validators.required]),
@@ -23,7 +23,7 @@ export class KeyValueFormComponent implements OnChanges {
     }
   }
 
-  add(obj: { key: string, value: string }) {
+  add(obj: { readonly key: string, readonly value: string }) {
     this.onChange.next({
       ...this.onChange.getValue(),
       [obj.key]: obj.value

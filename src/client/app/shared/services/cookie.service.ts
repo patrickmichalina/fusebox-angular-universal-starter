@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable'
 import { CookieAttributes, getJSON, remove, set } from 'js-cookie'
 
 export interface ICookieService {
-  cookies$: Observable<{ [key: string]: any }>
+  readonly cookies$: Observable<{ readonly [key: string]: any }>
   getAll(): any
   get(name: string): any
   set(name: string, value: any, options?: CookieAttributes): void
@@ -15,8 +15,8 @@ export interface ICookieService {
 
 @Injectable()
 export class CookieService implements ICookieService {
-  private cookieSource = new Subject<{ [key: string]: any }>()
-  public cookies$ = this.cookieSource.asObservable()
+  private readonly cookieSource = new Subject<{ readonly [key: string]: any }>()
+  public readonly cookies$ = this.cookieSource.asObservable()
 
   constructor(private platformService: PlatformService, @Inject(REQUEST) private req: any) { }
 

@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, 
 import { NavbarService } from './navbar.service'
 
 export interface User {
-  photoURL: string
-  email: string
-  name: string
+  readonly photoURL: string
+  readonly email: string
+  readonly name: string
 }
 
 @Component({
@@ -17,9 +17,9 @@ export class NavbarComponent {
   @HostListener('click', ['$event.target']) clicked() {
     this.onClicked.next()
   }
-  @Output() onMenuIconClick = new EventEmitter()
-  @Output() onClicked = new EventEmitter()
-  @Input() user: User
+  @Output() readonly onMenuIconClick = new EventEmitter()
+  @Output() readonly onClicked = new EventEmitter()
+  @Input() readonly user: User
 
   constructor(public navbarService: NavbarService) { }
 }

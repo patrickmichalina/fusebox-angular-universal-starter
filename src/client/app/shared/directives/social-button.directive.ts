@@ -4,7 +4,7 @@ import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/cor
   selector: '[pmSocialButton]'
 })
 export class SocialButtonDirective implements OnInit {
-  @Input() pmSocialButton: string
+  @Input() readonly pmSocialButton: string
 
   @HostListener('mouseenter') onMouseEnter() {
     this.elementRef.nativeElement.style.backgroundColor = this.getHover(this.pmSocialButton)
@@ -16,7 +16,7 @@ export class SocialButtonDirective implements OnInit {
 
   constructor(private elementRef: ElementRef) { }
 
-  private map: { [key: string]: { bg: string, hover: string, border: string } } = {
+  private readonly map: { readonly [key: string]: { readonly bg: string, readonly hover: string, readonly border: string } } = {
     facebook: { bg: '#4267b2', hover: '#2d4373', border: '#29487d' },
     twitter: { bg: '#55acee', hover: '#2795e9', border: 'rgba(0, 0, 0, 0.2)' },
     github: { bg: '#444', hover: '#2b2b2b', border: 'rgba(0, 0, 0, 0.2)' },
