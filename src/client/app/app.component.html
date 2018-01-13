@@ -1,4 +1,4 @@
-<pm-navbar (onMenuIconClick)="sidenav.toggle()" [user]="user$ | async"></pm-navbar>
+<pm-navbar (menuIconClick)="sidenav.toggle()" [user]="user$ | async"></pm-navbar>
 <mat-sidenav-container class="sidenav-container" (pmClickOutside)="handleOutsideClicks()" exclude="#toggle-menu-button">
   <mat-sidenav #sidenav class="sidenav mat-elevation-z6" [mode]="menuMode">
     <mat-list>

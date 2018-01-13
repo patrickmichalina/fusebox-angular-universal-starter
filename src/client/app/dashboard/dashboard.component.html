@@ -10,11 +10,11 @@
             </button>
     </nav>
     <nav *ngFor="let menu of dashboardMenu; index as i;">
-      <h3>{{menu.heading}}</h3>
+      <h3>{{ menu.heading }}</h3>
       <ul>
         <li *ngFor="let child of menu.children; index as y;">
           <a mat-button [routerLink]="[child.path]" routerLinkActive="dashboard-sidenav-item-selected" (click)="setPageTitle(child.title)">
-                        {{child.title}}
+                        {{ child.title }}
                     </a>
         </li>
       </ul>

@@ -14,8 +14,8 @@ export class QuillEditorComponent implements AfterViewInit {
   @ViewChild('editor') editorContainer: any
   @Input() content: string
   @Output() textValue = new BehaviorSubject<string>(this.content)
-  @Output() onSelectionChange = new EventEmitter()
-  @Output() onContentUpdated = new EventEmitter()
+  @Output() selectionChange = new EventEmitter()
+  @Output() contentUpdated = new EventEmitter()
 
   private quill: Quill.Quill
 

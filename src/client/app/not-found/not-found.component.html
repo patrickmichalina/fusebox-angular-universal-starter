@@ -103,7 +103,7 @@
                   <mat-icon fontSet="fa" fontIcon="fa-globe" aria-hidden="true"></mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <pm-cache-form (onCacheChange)="updateCache($event)" [cache]="cacheSettings"></pm-cache-form>
+              <pm-cache-form (cacheChange)="updateCache($event)" [cache]="cacheSettings"></pm-cache-form>
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle="true">
               <mat-expansion-panel-header>
@@ -190,8 +190,8 @@
                 <input matInput placeholder="Name" type="text" [value]="keyVal.key" #keyTest (keydown)="injectionFormChange($event, keyVal.value.type, $event)">
               </mat-form-field>
               <div [ngSwitch]="keyVal.value.type">
-                <pm-injection-form *ngSwitchCase="'style'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
-                <pm-injection-form *ngSwitchCase="'script'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+                <pm-injection-form *ngSwitchCase="'style'" [injectable]="keyVal.value" showDomString="true" (change)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+                <pm-injection-form *ngSwitchCase="'script'" [injectable]="keyVal.value" showDomString="true" (change)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
               </div>
             </mat-card>
           </div>

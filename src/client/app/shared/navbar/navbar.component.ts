@@ -14,11 +14,11 @@ export interface User {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
-  @HostListener('click', ['$event.target']) clicked() {
-    this.onClicked.next()
+  @HostListener('click', ['$event.target']) click() {
+    this.clicked.next()
   }
-  @Output() onMenuIconClick = new EventEmitter()
-  @Output() onClicked = new EventEmitter()
+  @Output() menuIconClick = new EventEmitter()
+  @Output() clicked = new EventEmitter()
   @Input() user: User
 
   constructor(public navbarService: NavbarService) { }
