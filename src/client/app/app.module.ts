@@ -5,7 +5,7 @@ import { AppComponent } from './app.component'
 import { SharedModule } from './shared/shared.module'
 import { AppRoutingModule } from './app-routing.module'
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core'
-import { NotFoundModule } from './not-found/not-found.module'
+// import { NotFoundModule } from './not-found/not-found.module'
 import { BrowserModule, makeStateKey } from '@angular/platform-browser'
 import { EnvironmentService } from './shared/services/environment.service'
 import { ServerResponseService } from './shared/services/server-response.service'
@@ -71,7 +71,7 @@ export function cacheTagFactory(srs: ServerResponseService): any {
   imports: [
     HttpClientModule,
     AppRoutingModule,
-    NotFoundModule,
+    // NotFoundModule,
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,

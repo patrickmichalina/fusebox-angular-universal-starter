@@ -28,14 +28,14 @@ export class SocialButtonDirective implements OnInit {
   }
 
   setBaseSyles(provider: string) {
-    const val = this.map[provider] || {}
+    const val = this.map[provider] || {} as any
     this.elementRef.nativeElement.style.backgroundColor = val.bg
     this.elementRef.nativeElement.style.color = '#fff'
     this.elementRef.nativeElement.style['border-bottom'] = `1px solid ${val.border}`
   }
 
   getHover(provider: string) {
-    const val = this.map[provider] || {}
+    const val = this.map[provider] || {} as any
     return val.hover
   }
 }

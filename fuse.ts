@@ -17,7 +17,7 @@ import './tools/tasks';
 
 const death = require('death')
 const isReachable = require('is-reachable');
-const isAot = argv.aot;
+const isAot = true;
 const isBuildServer = argv.ci;
 const baseEntry = isAot ? 'main.aot' : 'main';
 const appBundleName = `js/app`;
@@ -56,7 +56,7 @@ const appOptions = {
       },
       additionalDeps: BUILD_CONFIG.dependencies as any[]
     }),
-    isProdBuild && QuantumPlugin({
+    QuantumPlugin({
       target: "universal",
       warnings: false,
       uglify: true,

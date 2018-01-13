@@ -41,7 +41,7 @@
     </nav>
   </mat-sidenav>
   <div class="dashboard-sidenav-content">
-    <pm-dashboard-page-header (toggleSidenav)="toggleSidenav(event)" [title]="pageTitle"></pm-dashboard-page-header>
+    <pm-dashboard-page-header (toggleSidenav)="toggleSidenav($event)" [title]="pageTitle"></pm-dashboard-page-header>
     <router-outlet></router-outlet>
     <pm-dashboard-page-footer></pm-dashboard-page-footer>
   </div>

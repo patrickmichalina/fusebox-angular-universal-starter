@@ -5,5 +5,5 @@ Sparky.task(taskName(__filename), () =>
   Sparky.src(`${BUILD_CONFIG.outputDir}`)
     .clean(`${BUILD_CONFIG.outputDir}`)
     .clean('.fusebox')
-    .clean('.ngc')
+    // .clean('.ngc')
     .clean('src/client/.aot'))

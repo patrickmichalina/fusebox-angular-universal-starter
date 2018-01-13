@@ -1,29 +1,38 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "module": "es2015",
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "lib": [
-            "es2015",
-            "dom"
-        ],
-        "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "typeRoots": [
-            "./node_modules/@types/",
-            "./node_modules/@angular/material/"
-        ],
-        "outDir": ".ngc"
-    },
-    "include": [
-        "./src/client/main.ts",
-        "./src/client/app/**/*.module.ts"
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2015",
+      "dom"
     ],
-    "angularCompilerOptions": {
-        "genDir": "src/client/.aot",
-        "skipMetadataEmit": true
-    }
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./node_modules/@angular/material/"
+    ],
+    "types": [
+      "firebase"
+    ],
+    "outDir": "src/.ngc"
+  },
+  "include": [
+    "./tools/manual-typings/**/**.ts",
+    "./src/client/main.ts",
+    "./src/client/app/client/**/*.module.ts"
+  ],
+  "exclude": [
+    "**-testing.module.ts",
+    "./.vscode",
+    "./.fusebox",
+    "./.ngc",
+    "./dist",
+    "./node_modules/**",
+    "./coverage"
+  ]
 }

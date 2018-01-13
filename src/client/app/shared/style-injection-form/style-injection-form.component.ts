@@ -10,6 +10,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
 })
 export class StyleInjectionFormComponent {
   isInline = new FormControl(true)
+  form = new FormControl()
 
   constructor() {
     // super()
