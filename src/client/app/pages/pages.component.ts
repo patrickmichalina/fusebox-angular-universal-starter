@@ -82,4 +82,8 @@ export class PagesComponent {
   }
 
   constructor(private db: FirebaseDatabaseService, private dialog: MatDialog, private ar: ActivatedRoute, private router: Router) { }
+
+  trackByGroup(index: number, item: any) {
+    return index
+  }
 }

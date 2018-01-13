@@ -30,4 +30,8 @@ export class UsersComponent {
   // pageEvent(pageEvent: PageEvent) {
   //   console.log(pageEvent)
   // }
+
+  trackByUsers(index: number, item: any) {
+    return item.id
+  }
 }

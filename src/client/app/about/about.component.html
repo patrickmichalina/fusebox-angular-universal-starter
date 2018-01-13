@@ -16,7 +16,7 @@
   </button>
 </form>
 
-<mat-card *ngFor="let post of posts$ | async">
+<mat-card *ngFor="let post of posts$ | async; trackBy: trackByPost">
   <h4>{{ post.title }}</h4>
   <div [innerHTML]="post.html"></div>
 </mat-card>

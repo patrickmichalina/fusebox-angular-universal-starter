@@ -37,4 +37,8 @@ export class AboutComponent {
   removeAll() {
     this.db.getObjectRef('posts').remove()
   }
+
+  trackByPost(index: number, item: any) {
+    return index
+  }
 }

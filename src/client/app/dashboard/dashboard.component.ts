@@ -45,4 +45,11 @@ export class DashboardComponent implements OnInit {
     this.pageTitle = title
   }
 
+  trackByMenu(index: number, item: any) {
+    return index
+  }
+
+  trackByChild(index: number, item: any) {
+    return index
+  }
 }

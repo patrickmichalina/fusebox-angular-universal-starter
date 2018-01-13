@@ -1,6 +1,6 @@
 <form *ngIf="form" [formGroup]="form" fxLayout="column">
-  <mat-checkbox *ngFor="let dir of dirsNoInput" [formControlName]="dir.key">{{ dir.key }}</mat-checkbox>
-  <div *ngFor="let dir of dirsWithInput">
+  <mat-checkbox *ngFor="let dir of dirsNoInput; trackBy: trackByDirsNoInput" [formControlName]="dir.key">{{ dir.key }}</mat-checkbox>
+  <div *ngFor="let dir of dirsWithInput; trackBy: trackByDirsWithInput">
     <mat-checkbox [formControlName]="dir.key">{{ dir.key }}</mat-checkbox>
     <mat-form-field floatPlaceholder="never" *ngIf="form.get(dir.key).value">
       <input matInput [placeholder]="dir.inputKey" type="text" [formControlName]="dir.inputKey">

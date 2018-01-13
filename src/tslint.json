@@ -6,6 +6,7 @@
     "angular-tslint-rules"
   ],
   "rules": {
+    "no-unnecessary-class": false,
     "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
     "space-within-parens": [false],
     "object-literal-key-quotes": [

@@ -11,7 +11,7 @@ import { ModalConfirmationComponent } from '../../shared/modal-confirmation/moda
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PageFormComponent {
-  @Output() onCreated = new EventEmitter()
+  @Output() created = new EventEmitter()
 
   public form = new FormGroup({
     slug: new FormControl('blog/', [

@@ -3,7 +3,7 @@
 exports[`App component should build without a problem 1`] = `
 <div
   id="root0"
-  ng-version="5.0.1"
+  ng-version="5.2.0"
 >
   <pm-app>
     <pm-navbar>
@@ -14,7 +14,7 @@ exports[`App component should build without a problem 1`] = `
   
         <button
           angulartics2on="click"
-          angularticsevent="ToggleSideMenu"
+          angularticsaction="ToggleSideMenu"
           class="mat-icon-button"
           id="toggle-menu-button"
           mat-icon-button=""
@@ -131,6 +131,8 @@ exports[`App component should build without a problem 1`] = `
         
 
       </nav>
+      
+
     </pm-navbar>
     
 
@@ -149,7 +151,6 @@ exports[`App component should build without a problem 1`] = `
     
         <mat-list
           class="mat-list"
-          role="list"
         >
           
       
@@ -203,7 +204,6 @@ exports[`App component should build without a problem 1`] = `
       
           <mat-list-item
             class="mat-list-item"
-            role="listitem"
           >
             <div
               class="mat-list-item-content"
@@ -323,7 +323,6 @@ exports[`App component should build without a problem 1`] = `
       
           <mat-list-item
             class="mat-list-item"
-            role="listitem"
           >
             <div
               class="mat-list-item-content"
