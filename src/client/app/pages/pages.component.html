@@ -6,7 +6,7 @@
     </button>
   </div>
   <mat-tab-group [selectedIndex]="view.currentTab" (selectedIndexChange)="updateTabParam($event)">
-    <mat-tab *ngFor="let group of view.groups" [label]="group.name">
+    <mat-tab *ngFor="let group of view.groups; trackBy: trackByGroup" [label]="group.name">
       <mat-table #table [dataSource]="group.table">
         <ng-container matColumnDef="slug">
           <mat-header-cell *matHeaderCellDef>Slug</mat-header-cell>

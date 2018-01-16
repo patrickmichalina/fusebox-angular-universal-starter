@@ -18,8 +18,8 @@ export class CacheFormComponent implements OnDestroy, OnInit {
   get cache() {
     return this._cache || {}
   }
-  @Output() readonly onCacheChange = new EventEmitter<{ readonly [key: string]: boolean | number | string }>()
-  @Output() readonly onCacheStringChange = this.onCacheChange.asObservable()
+  @Output() cacheChange = new EventEmitter<{ [key: string]: boolean | number | string }>()
+  @Output() cacheStringChange = this.cacheChange.asObservable()
     .scan((acc: string, value) => Object.keys(value).map(a => {
       return typeof value[a] === 'number' || typeof value[a] === 'string'
         ? `${a}=${value[a]}`
@@ -78,7 +78,7 @@ export class CacheFormComponent implements OnDestroy, OnInit {
             ? { ...a, [this.removeInputKey(c)]: this.compute(value[c]).toString() }
             : { ...a, [c]: value[c] }
         }, {}), {})
-      .subscribe(res => this.onCacheChange.next(res))
+      .subscribe(res => this.cacheChange.next(res))
   }
 
   ngOnDestroy() {
@@ -92,5 +92,13 @@ export class CacheFormComponent implements OnDestroy, OnInit {
     } catch (err) {
       return 0
     }
+  }
+
+  trackByDirsNoInput(index: number, item: any) {
+    return index
+  }
+
+  trackByDirsWithInput(index: number, item: any) {
+    return index
   }
 }

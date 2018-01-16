@@ -1,10 +1,10 @@
 <nav class="mat-elevation-z6">
-  <button id="toggle-menu-button" mat-icon-button (click)="onMenuIconClick.next()" angulartics2On="click" angularticsAction="ToggleSideMenu">
+  <button id="toggle-menu-button" mat-icon-button (click)="menuIconClick.next()" angulartics2On="click" angularticsAction="ToggleSideMenu">
     <mat-icon fontSet="fa" fontIcon="fa-bars"></mat-icon>
   </button>
   <a class="nav-button" mat-button routerLink>FB-ANGULAR-UNIVERSAL-STARTER</a>
   <div class="flex-spacer"></div>
-  <a class="nav-button" mat-button *ngFor="let item of navbarService.menu$ | async" [routerLink]="item.route" routerLinkActive="active"
+  <a class="nav-button" mat-button *ngFor="let item of navbarService.menu$ | async; trackBy: trackByFn" [routerLink]="item.route" routerLinkActive="active"
     [routerLinkActiveOptions]="{exact: true}">
     {{ item.name }}
   </a>

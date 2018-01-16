@@ -80,7 +80,7 @@
                 <mat-form-field>
                   <!-- <input matInput placeholder="Tags" type="text" formControlName="articleTag"> -->
                   <mat-chip-list #chipList>
-                    <mat-chip *ngFor="let tag of tags" [selectable]="selectable">
+                    <mat-chip *ngFor="let tag of tags; trackBy: trackByTag" [selectable]="selectable">
                       {{ tag }}
                       <mat-icon fontSet="fa" fontIcon="fa-times" aria-hidden="true" (click)="remove(tag)"></mat-icon>
                     </mat-chip>
@@ -103,7 +103,7 @@
                   <mat-icon fontSet="fa" fontIcon="fa-globe" aria-hidden="true"></mat-icon>
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <pm-cache-form (onCacheChange)="updateCache($event)" [cache]="cacheSettings"></pm-cache-form>
+              <pm-cache-form (cacheChange)="updateCache($event)" [cache]="cacheSettings"></pm-cache-form>
             </mat-expansion-panel>
             <mat-expansion-panel hideToggle="true">
               <mat-expansion-panel-header>
@@ -181,7 +181,7 @@
       <mat-tab label="Dynamic Code & Styling">
         <div class="pad-tab">
           <h3 mat-subheader>Add custom css and javascript for this page</h3>
-          <div class="card-list" *ngFor="let keyVal of injections$ | async | pmKeyVal">
+          <div class="card-list" *ngFor="let keyVal of injections$ | async | pmKeyVal; trackBy: trackByInjection">
             <button mat-icon-button>
               <mat-icon fontSet="fa" fontIcon="fa-minus-circle" color="warn" aria-hidden="true" (click)="removeInjectable(keyVal.key)"></mat-icon>
             </button>
@@ -190,8 +190,8 @@
                 <input matInput placeholder="Name" type="text" [value]="keyVal.key" #keyTest (keydown)="injectionFormChange($event, keyVal.value.type, $event)">
               </mat-form-field>
               <div [ngSwitch]="keyVal.value.type">
-                <pm-injection-form *ngSwitchCase="'style'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
-                <pm-injection-form *ngSwitchCase="'script'" [injectable]="keyVal.value" showDomString="true" (onChange)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+                <pm-injection-form *ngSwitchCase="'style'" [injectable]="keyVal.value" showDomString="true" (change)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
+                <pm-injection-form *ngSwitchCase="'script'" [injectable]="keyVal.value" showDomString="true" (change)="injectionFormChange(keyTest.value, keyVal.value.type, $event)"></pm-injection-form>
               </div>
             </mat-card>
           </div>

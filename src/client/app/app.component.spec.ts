@@ -1,6 +1,4 @@
 import { SharedModule } from './shared/shared.module'
-import { AngularFireAuthModule } from 'angularfire2/auth'
-import { AboutComponent } from './about/about.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { APP_BASE_HREF } from '@angular/common'
 import { Route } from '@angular/router'
@@ -17,7 +15,9 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { NavbarService } from './shared/navbar/navbar.service'
 import { MatCardModule } from '@angular/material'
-import { AngularFireModule } from 'angularfire2'
+import { AngularFireDatabase } from 'angularfire2/database'
+import { Observable } from 'rxjs/Observable'
+import { AuthService } from './shared/services/auth.service'
 import '../operators'
 
 export const TESTING_CONFIG: EnvConfig = {
@@ -42,8 +42,7 @@ class TestComponent { }
 
 describe('App component', () => {
   const config: Array<Route> = [
-    { path: '', component: HomeComponent },
-    { path: 'about', component: AboutComponent }
+    { path: '', component: HomeComponent }
   ]
 
   let fixture: ComponentFixture<TestComponent>
@@ -57,20 +56,29 @@ describe('App component', () => {
         HttpClientTestingModule,
         RouterTestingModule.withRoutes(config),
         Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
-        MatCardModule,
-        AngularFireAuthModule,
-        AngularFireModule.initializeApp({
-          'apiKey': '1',
-          'authDomain': 'app.firebaseapp.com',
-          'databaseURL': 'https://app.firebaseio.com',
-          'projectId': 'firebase-app',
-          'messagingSenderId': '1'
-        })
+        MatCardModule
       ],
-      declarations: [TestComponent, HomeComponent, AboutComponent],
+      declarations: [TestComponent, HomeComponent],
       providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         { provide: ENV_CONFIG, useValue: TESTING_CONFIG },
+        { provide: AuthService, useValue: { } },
+        {
+          provide: AngularFireDatabase, useValue: {
+            object: () => {
+              return {
+                snapshotChanges: () => Observable.of(),
+                valueChanges: () => Observable.of()
+              }
+            },
+            list: () => {
+              return {
+                snapshotChanges: () => Observable.of(),
+                valueChanges: () => Observable.of()
+              }
+            }
+          }
+        },
         EnvironmentService,
         NavbarService
       ]
@@ -85,7 +93,7 @@ describe('App component', () => {
     TestBed.resetTestingModule()
   }))
 
-  test.skip('should build without a problem', async(() => {
+  it('should build without a problem', async(() => {
     expect(fixture.nativeElement).toBeTruthy()
     expect(fixture.nativeElement).toMatchSnapshot()
   }))

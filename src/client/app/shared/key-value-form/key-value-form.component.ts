@@ -9,8 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KeyValueFormComponent implements OnChanges {
-  @Input() readonly keyVals: { readonly [key: string]: string | boolean | number } = {}
-  @Output() readonly onChange = new BehaviorSubject(this.keyVals)
+  @Input() keyVals: { [key: string]: string | boolean | number } = {}
+  @Output() change = new BehaviorSubject(this.keyVals)
 
   public form = new FormGroup({
     key: new FormControl('', [Validators.required]),
@@ -19,22 +19,27 @@ export class KeyValueFormComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.keyVals) {
-      this.onChange.next(changes.keyVals.currentValue)
+      this.change.next(changes.keyVals.currentValue)
     }
   }
 
-  add(obj: { readonly key: string, readonly value: string }) {
-    this.onChange.next({
-      ...this.onChange.getValue(),
+  add(obj: { key: string, value: string }) {
+    this.change.next({
+      ...this.change.getValue(),
       [obj.key]: obj.value
     })
   }
 
   remove(key: string) {
-    this.onChange.next({
-      ...Object.keys(this.onChange.getValue())
+    this.change.next({
+      ...Object.keys(this.change.getValue())
         .filter(k => k !== key)
-        .reduce((a, c) => ({ ...a, [c]: this.onChange.getValue()[c] }), {})
+        .reduce((a, c) => ({ ...a, [c]: this.change.getValue()[c] }), {})
     })
+  }
+
+  trackByFn(index: number, item: any) {
+    console.log(item)
+    return index
   }
 }

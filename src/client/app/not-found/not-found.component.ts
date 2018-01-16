@@ -321,4 +321,12 @@ export class NotFoundComponent {
   updateCache(cache: any) {
     this.cacheSettings = cache
   }
+
+  trackByInjection(index: number, item: any) {
+    return item.key
+  }
+
+  trackByTag(index: number, item: string) {
+    return item
+  }
 }
