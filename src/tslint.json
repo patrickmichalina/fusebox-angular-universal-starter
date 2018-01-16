@@ -8,12 +8,13 @@
     "tslint-immutable"
   ],
   "rules": {
+    "no-unnecessary-class": [false],
     "no-var-keyword": true,
-    "no-let": true,
-    "no-parameter-reassignment": true,
-    "readonly-keyword": true,
-    "readonly-array": true,
-    "no-object-mutation": true,
+    "no-let": false,
+    "no-parameter-reassignment": false,
+    "readonly-keyword": false,
+    "readonly-array": false,
+    "no-object-mutation": false,
     "no-delete": true,
     "no-method-signature": false,
     "typedef": [

@@ -28,9 +28,9 @@ export class LoginCardComponent {
       }, err => this.socialNetworkError(err))
   }
 
-  public readonly socialNetworkErr: string
-  public readonly socialNetworkErrEmail: string
-  public readonly isLoading = true
+  public socialNetworkErr: string
+  public socialNetworkErrEmail: string
+  public isLoading = true
 
   login(provider: string) {
     this.isLoading = true

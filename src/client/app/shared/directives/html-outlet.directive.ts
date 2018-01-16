@@ -37,7 +37,7 @@ export function createComponentFactory(compiler: Compiler, metadata: Component):
 })
 export class HtmlOutletDirective implements OnChanges, OnDestroy {
   @Input() readonly html: any
-  readonly cmpRef: ComponentRef<any>
+  cmpRef: ComponentRef<any>
 
   constructor(private vcRef: ViewContainerRef, private compiler: Compiler) { }
 

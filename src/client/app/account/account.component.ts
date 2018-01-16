@@ -134,5 +134,5 @@ export class AccountComponent {
       })
   }
 
-  readonly passwordError: string | undefined
+  passwordError: string | undefined
 }

@@ -31,7 +31,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChildren('out', { read: ElementRef }) readonly menuButtons: QueryList<ElementRef>
 
   public readonly user$ = this.auth.user$
-  public readonly menuMode = 'over'
+  public menuMode = 'over'
 
   constructor(ss: SettingService, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
     renderer: Renderer2, @Inject(DOCUMENT) doc: HTMLDocument, http: HttpClient, matIconRegistry: MatIconRegistry,

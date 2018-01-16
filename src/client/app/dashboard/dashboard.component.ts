@@ -11,7 +11,7 @@ import { DASHBOARD_MENU } from './dashboard-menu'
 })
 export class DashboardComponent implements OnInit {
 
-  readonly pageTitle: string
+  pageTitle: string
 
   readonly isMobile = false
 

@@ -14,10 +14,10 @@ export class QuillEditorComponent implements AfterViewInit {
   @ViewChild('editor') readonly editorContainer: any
   @Input() readonly content: string
   @Output() readonly textValue = new BehaviorSubject<string>(this.content)
-  @Output() readonly onSelectionChange = new EventEmitter()
-  @Output() readonly onContentUpdated = new EventEmitter()
+  @Output() readonly selectionChange = new EventEmitter()
+  @Output() readonly contentUpdated = new EventEmitter()
 
-  private readonly quill: Quill.Quill
+  private quill: Quill.Quill
 
   constructor(injector: InjectionService, renderer: Renderer2, private ps: PlatformService) {
   }

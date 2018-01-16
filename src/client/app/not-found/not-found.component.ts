@@ -45,7 +45,7 @@ export class NotFoundComponent {
 
   readonly addOnBlur = true
   readonly separatorKeysCodes: ReadonlyArray<any> = [ENTER, COMMA]
-  readonly tags: ReadonlyArray<string> = []
+  tags: ReadonlyArray<string> = []
   readonly injections$ = new BehaviorSubject<InjectionMap>({})
   readonly injectionsToSave$ = new BehaviorSubject<InjectionMap>({})
   readonly styleInjDefault = {
@@ -57,7 +57,7 @@ export class NotFoundComponent {
     }
   }
 
-  readonly cacheSettings = {} as any
+  cacheSettings = {} as any
 
   injectionFormChange(key: string, type: types, injectable: DOMInjectable) {
     console.log(key)

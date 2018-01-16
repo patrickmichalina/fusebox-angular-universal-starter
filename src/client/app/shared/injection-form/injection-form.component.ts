@@ -16,8 +16,8 @@ export class InjectionFormComponent implements OnInit, OnDestroy {
   @Output() change = new BehaviorSubject<DOMInjectable>(this.injectable)
   @Output() changeHtmlString = new EventEmitter<string>()
 
-  public readonly form: FormGroup
-  private readonly sub = new Subscription()
+  public form: FormGroup
+  private sub = new Subscription()
 
   get htmlString() {
     return this.inj.getElementStringForm(this.renderer, this.change.getValue())
