@@ -3,7 +3,7 @@ import { ENV_CONFIG } from '../../app.config'
 import { EnvConfig } from '../../../../../tools/config/app.config'
 
 export interface IEnvironmentService {
-  config: EnvConfig
+  readonly config: EnvConfig
 }
 
 @Injectable()

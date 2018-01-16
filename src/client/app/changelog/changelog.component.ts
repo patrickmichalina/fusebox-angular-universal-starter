@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChangelogComponent {
-  changelog$ = this.http.get('./changelog.md', { responseType: 'text' })
+  readonly changelog$ = this.http.get('./changelog.md', { responseType: 'text' })
     .catch(a => Observable.of('Error loading changelog.md'))
 
   constructor(private http: HttpClient) { }

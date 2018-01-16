@@ -8,11 +8,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalConfirmationComponent {
-  @Input() message: string
-  @Input() title: string
+  @Input() readonly message: string
+  @Input() readonly title: string
 
-  constructor(public dialog: MatDialogRef<ModalConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    if (data.message) this.message = data.message
-    if (data.title) this.title = data.title
+  constructor(public dialog: MatDialogRef<ModalConfirmationComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  readonly view = {
+    message: this.data.message || this.message,
+    title: this.data.title || this.title
   }
 }

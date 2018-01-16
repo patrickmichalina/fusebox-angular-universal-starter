@@ -1,14 +1,33 @@
 {
   "rulesDirectory": [
-    "../node_modules/codelyzer"
+    "../node_modules/codelyzer",
+    "../tools/tslint-rules"
   ],
   "extends": [
-    "angular-tslint-rules"
+    "angular-tslint-rules",
+    "tslint-immutable"
   ],
   "rules": {
-    "no-unnecessary-class": false,
-    "angular-whitespace": [true, "check-interpolation", "check-semicolon"],
-    "space-within-parens": [false],
+    "no-unnecessary-class": [false],
+    "no-var-keyword": true,
+    "no-let": false,
+    "no-parameter-reassignment": false,
+    "readonly-keyword": false,
+    "readonly-array": false,
+    "no-object-mutation": false,
+    "no-delete": true,
+    "no-method-signature": false,
+    "typedef": [
+      false
+    ],
+    "angular-whitespace": [
+      true,
+      "check-interpolation",
+      "check-semicolon"
+    ],
+    "space-within-parens": [
+      false
+    ],
     "object-literal-key-quotes": [
       false
     ],
@@ -23,15 +42,12 @@
       false
     ],
     "curly": false,
-    "typedef": [
-      false
-    ],
     "member-ordering": [
       false
     ],
     "member-access": [
-     false,
-     "no-public"
+      false,
+      "no-public"
     ],
     "newline-before-return": false,
     "directive-selector": [
@@ -62,6 +78,11 @@
     ],
     "array-type": [
       false
-    ]
+    ],
+    "validate-decorators": [true, {
+      "Component": {
+        "changeDetection": "\\.OnPush$"
+      }
+    }, "**/!(*.spec).ts"]
   }
 }

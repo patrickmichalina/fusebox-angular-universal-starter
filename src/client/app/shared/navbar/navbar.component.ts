@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostListener, Input, 
 import { NavbarService } from './navbar.service'
 
 export interface User {
-  photoURL: string
-  email: string
-  name: string
+  readonly photoURL: string
+  readonly email: string
+  readonly name: string
 }
 
 @Component({

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({ name: 'pmKeys' })
 export class KeysPipe implements PipeTransform {
-  public transform(value: { [key: string]: any }): string[] {
+  public transform(value: { readonly [key: string]: any }): ReadonlyArray<string> {
     return Object.keys(value || {})
   }
 }

@@ -17,21 +17,21 @@ import { ENTER } from '@angular/cdk/keycodes'
 const COMMA = 188
 
 export interface Page {
-  content: string
-  title: string
-  isDraft: boolean
-  userCommentsEnabled?: boolean
-  cache?: { [key: string]: boolean | string | number }
-  imgWidth?: number,
-  imgHeight?: number,
-  imgAlt?: string,
-  imgUrl?: string,
-  imgMime?: string
-  articleTag?: string[]
+  readonly content: string
+  readonly title: string
+  readonly isDraft: boolean
+  readonly userCommentsEnabled?: boolean
+  readonly cache?: { readonly [key: string]: boolean | string | number }
+  readonly imgWidth?: number,
+  readonly imgHeight?: number,
+  readonly imgAlt?: string,
+  readonly imgUrl?: string,
+  readonly imgMime?: string
+  readonly articleTag?: ReadonlyArray<string>
 }
 
 type types = 'script' | 'style'
-interface InjectionMap { [key: string]: { type: types, injectable: DOMInjectable } }
+interface InjectionMap { readonly [key: string]: { readonly type: types, readonly injectable: DOMInjectable } }
 
 @Component({
   selector: 'pm-not-found',
@@ -40,15 +40,15 @@ interface InjectionMap { [key: string]: { type: types, injectable: DOMInjectable
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NotFoundComponent {
-  @HostBinding('class.vert-flex-fill') flexFill = true
-  @ViewChild(QuillEditorComponent) editor: QuillEditorComponent
+  @HostBinding('class.vert-flex-fill') readonly flexFill = true
+  @ViewChild(QuillEditorComponent) readonly editor: QuillEditorComponent
 
-  addOnBlur = true
-  separatorKeysCodes = [ENTER, COMMA]
-  tags: string[] = []
-  injections$ = new BehaviorSubject<InjectionMap>({})
-  injectionsToSave$ = new BehaviorSubject<InjectionMap>({})
-  styleInjDefault = {
+  readonly addOnBlur = true
+  readonly separatorKeysCodes: ReadonlyArray<any> = [ENTER, COMMA]
+  tags: ReadonlyArray<string> = []
+  readonly injections$ = new BehaviorSubject<InjectionMap>({})
+  readonly injectionsToSave$ = new BehaviorSubject<InjectionMap>({})
+  readonly styleInjDefault = {
     element: 'link',
     attributes: {
       href: 'https://',
@@ -120,19 +120,19 @@ export class NotFoundComponent {
     this.router.navigate([this.router.url.split('?')[0]], { queryParams: { tab }, queryParamsHandling: 'merge' })
   }
 
-  private params$ = this.ar.queryParams.shareReplay()
+  private readonly params$ = this.ar.queryParams.shareReplay()
 
-  private isEditMode$ = this.params$
+  private readonly isEditMode$ = this.params$
     .map(a => a.edit ? true : false)
 
-  private currentTab$ = this.params$
+  private readonly currentTab$ = this.params$
     .map(a => a.tab ? +a.tab : 0)
 
-  private url$ = Observable.of(this.router.url.split('?')[0])
+  private readonly url$ = Observable.of(this.router.url.split('?')[0])
     .pipe(filter(a => !a.includes('.')))
     .shareReplay()
 
-  public settingsForm = new FormGroup({
+  public readonly settingsForm = new FormGroup({
     type: new FormControl('website', [Validators.required]),
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required, Validators.max(158)]),
@@ -151,7 +151,7 @@ export class NotFoundComponent {
     isDraft: new FormControl('', [])
   })
 
-  public page$ = this.url$
+  public readonly page$ = this.url$
     .flatMap(url => this.db
       .get<Page & SEONode>(`/pages/${url}`)
       .flatMap(page => this.isEditMode$, (page, editMode) => ({ page, editMode }))
@@ -228,7 +228,7 @@ export class NotFoundComponent {
         }
       }))
 
-  view$ = Observable.combineLatest(this.auth.user$, this.page$, this.currentTab$,
+  readonly view$ = Observable.combineLatest(this.auth.user$, this.page$, this.currentTab$,
     this.ar.queryParams.pluck('edit').map(a => a === 'true'),
     (user, page, currentTab, isEditing) => {
       return {

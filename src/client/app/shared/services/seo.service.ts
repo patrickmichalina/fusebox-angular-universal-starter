@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core'
 import { Meta, Title } from '@angular/platform-browser'
 
 export interface SEONode {
-  title?: string
-  description?: string
-  img?: SEOImage
-  type?: string
-  url?: string
-  locale?: string
-  facebookAppId?: string
-  tags?: string[]
+  readonly title?: string
+  readonly description?: string
+  readonly img?: SEOImage
+  readonly type?: string
+  readonly url?: string
+  readonly locale?: string
+  readonly facebookAppId?: string
+  readonly tags?: ReadonlyArray<string>
 }
 
 export interface SEOImage {
-  url?: string
-  alt?: string
-  type?: string
-  height?: number
-  width?: number
+  readonly url?: string
+  readonly alt?: string
+  readonly type?: string
+  readonly height?: number
+  readonly width?: number
 }
 
 @Injectable()
@@ -69,7 +69,7 @@ export class SEOService {
     this.meta.updateTag(this.createOgTag('url', url))
   }
 
-  updateTags(tags: string[]) {
+  updateTags(tags: ReadonlyArray<string>) {
     tags.forEach(tag => this.meta.removeTag('property="og:article:tag"'))
     tags.forEach(tag => this.meta.addTag(this.createOgTag('article', tag, 'tag')))
   }

@@ -28,7 +28,7 @@ export class CacheFormComponent implements OnDestroy, OnInit {
 
   public form: FormGroup
   private sub = new Subscription()
-  private staticDirectives: { key: string, hasInput?: boolean }[] = [
+  private readonly staticDirectives: ReadonlyArray<{ readonly key: string, readonly hasInput?: boolean }> = [
     { key: 'no-cache' },
     { key: 'no-store' },
     { key: 'no-transform' },
@@ -42,10 +42,12 @@ export class CacheFormComponent implements OnDestroy, OnInit {
     { key: 'max-stale', hasInput: true },
     { key: 'min-fresh', hasInput: true }
   ]
-  public dirsNoInput: { key: string, hasInput?: boolean, inputKey?: string }[] = this.staticDirectives
-    .filter(a => !a.hasInput)
 
-  public dirsWithInput = this.staticDirectives
+  public readonly dirsNoInput: ReadonlyArray<{ readonly key: string, readonly hasInput?: boolean, readonly inputKey?: string }> =
+    this.staticDirectives
+      .filter(a => !a.hasInput)
+
+  public readonly dirsWithInput = this.staticDirectives
     .filter(a => a.hasInput)
     .map(a => ({ ...a, inputKey: this.getInputKey(a.key) }))
 

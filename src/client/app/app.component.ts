@@ -26,11 +26,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewInit {
-  @ViewChild(MatSidenav) sidenav: MatSidenav
-  @ViewChild(MatSlideToggle) toggle: MatSlideToggle
-  @ViewChildren('out', { read: ElementRef }) menuButtons: QueryList<ElementRef>
+  @ViewChild(MatSidenav) readonly sidenav: MatSidenav
+  @ViewChild(MatSlideToggle) readonly toggle: MatSlideToggle
+  @ViewChildren('out', { read: ElementRef }) readonly menuButtons: QueryList<ElementRef>
 
-  public user$ = this.auth.user$
+  public readonly user$ = this.auth.user$
   public menuMode = 'over'
 
   constructor(ss: SettingService, analytics: Angulartics2GoogleAnalytics, wss: WebSocketService,
@@ -60,8 +60,8 @@ export class AppComponent implements AfterViewInit {
         .mergeMap(route => route.data)
         .map(data => data['response']))
       .subscribe((response: {
-        cache: { directive: HttpCacheDirective, maxage?: string, smaxage?: string },
-        headers: { [key: string]: string }
+        readonly cache: { readonly directive: HttpCacheDirective, readonly maxage?: string, readonly smaxage?: string },
+        readonly headers: { readonly [key: string]: string }
       }) => {
         if (response && response.cache) {
           if (response.cache.directive === 'private') {

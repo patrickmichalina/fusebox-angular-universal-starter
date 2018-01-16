@@ -11,11 +11,11 @@ import * as Quill from 'quill'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuillEditorComponent implements AfterViewInit {
-  @ViewChild('editor') editorContainer: any
-  @Input() content: string
-  @Output() textValue = new BehaviorSubject<string>(this.content)
-  @Output() selectionChange = new EventEmitter()
-  @Output() contentUpdated = new EventEmitter()
+  @ViewChild('editor') readonly editorContainer: any
+  @Input() readonly content: string
+  @Output() readonly textValue = new BehaviorSubject<string>(this.content)
+  @Output() readonly selectionChange = new EventEmitter()
+  @Output() readonly contentUpdated = new EventEmitter()
 
   private quill: Quill.Quill
 
@@ -32,7 +32,7 @@ export class QuillEditorComponent implements AfterViewInit {
     if (this.ps.isServer) return
     // tslint:disable-next-line:no-require-imports
     const _quill = require('quill')
-    const toolbarOptions = [
+    const toolbarOptions: ReadonlyArray<any> = [
       ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
       ['blockquote', 'code-block'],
 

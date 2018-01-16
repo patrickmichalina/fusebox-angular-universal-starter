@@ -90,9 +90,8 @@ export function getFirebaseServerModule(zone: NgZone, ts: TransferState) {
 export class AppServerModule { }
 
 export class AngularFireServer {
-
-  authSource = new Subject<any | undefined>()
-  idToken = this.authSource.asObservable()
+  readonly authSource = new Subject<any | undefined>()
+  readonly idToken = this.authSource.asObservable()
 
   constructor( @Inject(REQUEST) private req: any, ts: TransferState) {
     const fbAuth = JSON.parse(this.req.cookies['fbAuth'] || '{}')

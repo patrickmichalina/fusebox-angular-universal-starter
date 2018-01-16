@@ -8,9 +8,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 })
 export class DashboardPageHeaderComponent {
 
-  @Input() title: string
+  @Input() readonly title: string
 
-  @Output() toggleSidenav: EventEmitter<boolean> = new EventEmitter<boolean>()
+  @Output() readonly toggleSidenav: EventEmitter<boolean> = new EventEmitter<boolean>()
 
   toggle() {
     this.toggleSidenav.emit(true)

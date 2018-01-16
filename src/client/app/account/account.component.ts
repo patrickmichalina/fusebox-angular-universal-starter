@@ -11,13 +11,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccountComponent {
-  @HostBinding('class.card-float-container') containerClass = true
-  @ViewChild('passwordPanel') passwordPanel: MatExpansionPanel
-  @ViewChild('profilePanel') profilePanel: MatExpansionPanel
-  @ViewChild('socialPanel') socialPanel: MatExpansionPanel
+  @HostBinding('class.card-float-container') readonly containerClass = true
+  @ViewChild('passwordPanel') readonly passwordPanel: MatExpansionPanel
+  @ViewChild('profilePanel') readonly profilePanel: MatExpansionPanel
+  @ViewChild('socialPanel') readonly socialPanel: MatExpansionPanel
   // private DEBOUNCE_TIME = 750
 
-  public detailForm = new FormGroup({
+  public readonly detailForm = new FormGroup({
     displayName: new FormControl('', [
       Validators.required
     ]),
@@ -29,7 +29,7 @@ export class AccountComponent {
     ])
   })
 
-  public passForm = new FormGroup({
+  public readonly passForm = new FormGroup({
     currentPassword: new FormControl('', [
       Validators.required
     ]),
@@ -37,7 +37,7 @@ export class AccountComponent {
       Validators.required
     ])
   })
-  public user$ = this.auth.user$
+  public readonly user$ = this.auth.user$
   // private userSource = new Subject()
   // private photoURL$ = new Subject<string>()
   // public us$ = this.afAuth.idToken

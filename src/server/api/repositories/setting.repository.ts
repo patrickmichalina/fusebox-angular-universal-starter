@@ -4,35 +4,35 @@ import { SETTINGS } from './settings'
 import { FirebaseAppConfig } from 'angularfire2'
 
 export interface ISetting {
-  host: string
-  og: {
-    title: string
-    description: string
-    image: string
-    type: string
-    locale: string
+  readonly host: string
+  readonly og: {
+    readonly title: string
+    readonly description: string
+    readonly image: string
+    readonly type: string
+    readonly locale: string
   },
-  assets: {
-    userAvatarImage: string
+  readonly assets: {
+    readonly userAvatarImage: string
   }
-  tokens: {
-    facebookAppId: string
+  readonly tokens: {
+    readonly facebookAppId: string
   },
-  injections: Injectable[],
-  i18n: {
-    [key: string]: any
+  readonly injections: ReadonlyArray<Injectable>,
+  readonly i18n: {
+    readonly [key: string]: any
   },
-  firebase: {
-    appName: string
-    config: FirebaseAppConfig
+  readonly firebase: {
+    readonly appName: string
+    readonly config: FirebaseAppConfig
   }
 }
 
 export interface Injectable {
-  inHead: boolean
-  element: string
-  value?: string
-  attributes?: { [key: string]: string | boolean }
+  readonly inHead: boolean
+  readonly element: string
+  readonly value?: string
+  readonly attributes?: { readonly [key: string]: string | boolean }
 }
 
 export interface ISettingRepository {
@@ -42,7 +42,7 @@ export interface ISettingRepository {
 
 @Service()
 export class SettingRepository implements ISettingRepository {
-  private db = SETTINGS
+  private readonly db = SETTINGS
 
   getDictionary(): Observable<ISetting> {
     return Observable.of(this.db)

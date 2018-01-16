@@ -2,8 +2,8 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
 import { isPlatformBrowser, isPlatformServer } from '@angular/common'
 
 export interface IPlatformService {
-  isBrowser: boolean
-  isServer: boolean
+  readonly isBrowser: boolean
+  readonly isServer: boolean
 }
 
 @Injectable()

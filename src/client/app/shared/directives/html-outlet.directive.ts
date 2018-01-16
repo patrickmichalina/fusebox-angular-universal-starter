@@ -13,7 +13,6 @@ import {
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core'
-
 import { RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '../shared.module'
@@ -37,7 +36,7 @@ export function createComponentFactory(compiler: Compiler, metadata: Component):
   selector: '[pmHtmlOutlet]'
 })
 export class HtmlOutletDirective implements OnChanges, OnDestroy {
-  @Input() html: any
+  @Input() readonly html: any
   cmpRef: ComponentRef<any>
 
   constructor(private vcRef: ViewContainerRef, private compiler: Compiler) { }

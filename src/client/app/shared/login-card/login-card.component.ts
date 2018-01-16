@@ -76,7 +76,7 @@ export class LoginCardComponent {
     this.cd.markForCheck()
   }
 
-  public form = new FormGroup({
+  public readonly form = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.pattern(EMAIL_REGEX)
