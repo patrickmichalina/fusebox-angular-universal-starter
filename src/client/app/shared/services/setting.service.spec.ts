@@ -31,7 +31,7 @@ describe(SettingService.name, () => {
 
 class MockPlatformService implements IPlatformService {
   public isBrowser = true
-  public isServer= false
+  public isServer = false
 }
 
 class MockDb {
