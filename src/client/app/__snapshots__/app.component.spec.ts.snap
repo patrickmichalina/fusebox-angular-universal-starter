@@ -124,7 +124,7 @@ exports[`App component should build without a problem 1`] = `
         
   
         <mat-menu
-          class="ng-tns-c7-1"
+          class="ng-tns-c8-1"
         >
           
         </mat-menu>
@@ -307,7 +307,6 @@ exports[`App component should build without a problem 1`] = `
           
       
           <mat-divider
-            aria-orientation="horizontal"
             class="mat-divider"
             role="separator"
           />
