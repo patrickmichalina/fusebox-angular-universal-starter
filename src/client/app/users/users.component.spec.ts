@@ -2,8 +2,7 @@ import { UsersComponent } from './users.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { UsersModule } from './users.module'
-import { FirebaseDatabaseService } from '../shared/services/firebase-database.service'
-import { of } from 'rxjs/observable/of'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 @Component({
   selector: 'test-component',
@@ -16,11 +15,8 @@ describe(UsersComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [UsersModule],
-      declarations: [TestComponent],
-      providers: [
-        { provide: FirebaseDatabaseService, useValue: new MockDb() }
-      ]
+      imports: [AppTestingModule.forRoot(), UsersModule],
+      declarations: [TestComponent]
     }).compileComponents()
   }))
 
@@ -37,17 +33,3 @@ describe(UsersComponent.name, () => {
     expect(fixture).toMatchSnapshot()
   }))
 })
-
-class MockDb {
-  users = [
-    { email: 'test@aol.com' }
-  ]
-
-  getListKeyed() {
-    return of(this.users)
-  }
-
-  get() {
-    return of('')
-  }
-}

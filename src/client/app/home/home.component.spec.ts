@@ -1,21 +1,18 @@
 import { By } from '@angular/platform-browser'
-import { RouterTestingModule } from '@angular/router/testing'
-import { Angulartics2, Angulartics2Module } from 'angulartics2'
-import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
+import { Angulartics2 } from 'angulartics2'
 import { HomeComponent } from './home.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { HomeModule } from './home.module'
-import { MatButtonModule, MatCardModule, MatRaisedButtonCssMatStyler } from '@angular/material'
+import { MatRaisedButtonCssMatStyler } from '@angular/material'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 describe(HomeComponent.name, () => {
   let fixture: ComponentFixture<HomeComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HomeModule, RouterTestingModule,
-        Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
-        MatCardModule, MatButtonModule],
+      imports: [AppTestingModule.forRoot(), HomeModule],
       declarations: [TestComponent]
     }).compileComponents()
   }))

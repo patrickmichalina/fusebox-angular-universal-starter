@@ -1,4 +1,3 @@
-import { RouterTestingModule } from '@angular/router/testing'
 import { AuthService } from './../shared/services/auth.service'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { LoginComponent } from './login.component'
@@ -6,13 +5,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { LoginModule } from './login.module'
 import { AngularFireModule } from 'angularfire2'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 describe(LoginComponent.name, () => {
   let fixture: ComponentFixture<LoginComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [LoginModule, RouterTestingModule, AngularFireModule.initializeApp({
+      imports: [AppTestingModule.forRoot(), LoginModule, AngularFireModule.initializeApp({
         'apiKey': '1',
         'authDomain': 'app.firebaseapp.com',
         'databaseURL': 'https://app.firebaseio.com',
@@ -21,9 +21,7 @@ describe(LoginComponent.name, () => {
       }), AngularFireAuthModule],
       declarations: [TestComponent],
       providers: [
-        { provide: AuthService, userValue: {
-
-        }}
+        { provide: AuthService, userValue: { }}
       ]
     }).compileComponents()
   }))

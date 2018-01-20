@@ -2,13 +2,14 @@ import { AdminComponent } from './admin.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { AdminModule } from './admin.module'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 describe(AdminComponent.name, () => {
   let fixture: ComponentFixture<AdminComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [AdminModule],
+      imports: [AppTestingModule.forRoot(), AdminModule],
       declarations: [TestComponent]
     }).compileComponents()
   }))

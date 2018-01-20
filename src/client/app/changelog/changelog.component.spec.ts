@@ -1,9 +1,8 @@
-import { HttpClientModule } from '@angular/common/http'
 import { ChangelogComponent } from './changelog.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { ChangelogModule } from './changelog.module'
-import '../../operators'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 @Component({
   selector: 'test-component',
@@ -16,7 +15,7 @@ describe(ChangelogComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ChangelogModule, HttpClientModule],
+      imports: [AppTestingModule.forRoot(), ChangelogModule],
       declarations: [TestComponent]
     }).compileComponents()
   }))
