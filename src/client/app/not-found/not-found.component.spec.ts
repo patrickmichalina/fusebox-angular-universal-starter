@@ -1,5 +1,4 @@
 import { NotFoundComponent } from './not-found.component'
-import { RouterTestingModule } from '@angular/router/testing'
 import { AuthService } from './../shared/services/auth.service'
 import { of } from 'rxjs/observable/of'
 import { TransferState } from '@angular/platform-browser'
@@ -8,9 +7,8 @@ import { Observable } from 'rxjs/Observable'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { NotFoundModule } from './not-found.module'
-import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { FirebaseDatabaseService } from '../shared/services/firebase-database.service'
-import '../../operators'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 @Component({
   selector: 'test-component',
@@ -23,7 +21,7 @@ describe(NotFoundComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NotFoundModule, RouterTestingModule],
+      imports: [NotFoundModule, AppTestingModule.forRoot()],
       declarations: [TestComponent],
       providers: [
         ServerResponseService,
@@ -41,8 +39,7 @@ describe(NotFoundComponent.name, () => {
           useValue: {
             user$: Observable.of({})
           }
-        },
-        { provide: REQUEST, useValue: {} }
+        }
       ]
     }).compileComponents()
   }))

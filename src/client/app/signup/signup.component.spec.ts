@@ -2,13 +2,14 @@ import { SignupComponent } from './signup.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { SignupModule } from './signup.module'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 describe(SignupComponent.name, () => {
   let fixture: ComponentFixture<SignupComponent>
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [SignupModule],
+      imports: [AppTestingModule.forRoot(), SignupModule],
       declarations: [TestComponent]
     }).compileComponents()
   }))

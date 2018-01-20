@@ -1,12 +1,11 @@
 import { AuthService } from './../shared/services/auth.service'
-import { REQUEST } from '@nguniversal/express-engine/tokens'
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { UnauthorizedComponent } from './unauthorized.component'
 import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { Component } from '@angular/core'
 import { UnauthorizedModule } from './unauthorized.module'
 import { AngularFireModule } from 'angularfire2'
-import { RouterTestingModule } from '@angular/router/testing'
+import { AppTestingModule } from '../../../testing/app-testing.module'
 
 @Component({
   selector: 'test-component',
@@ -19,7 +18,7 @@ describe(UnauthorizedComponent.name, () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [UnauthorizedModule, RouterTestingModule, AngularFireAuthModule, AngularFireModule.initializeApp({
+      imports: [AppTestingModule.forRoot(), UnauthorizedModule, AngularFireAuthModule, AngularFireModule.initializeApp({
         'apiKey': '1',
         'authDomain': 'app.firebaseapp.com',
         'databaseURL': 'https://app.firebaseio.com',
@@ -28,8 +27,7 @@ describe(UnauthorizedComponent.name, () => {
       })],
       declarations: [TestComponent],
       providers: [
-        { provide: AuthService, useValue: {} },
-        { provide: REQUEST, useValue: {} }
+        { provide: AuthService, useValue: {} }
       ]
     }).compileComponents()
   }))
