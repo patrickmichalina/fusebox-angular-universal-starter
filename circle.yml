@@ -1,31 +1,177 @@
-machine:
-  node:
-    version: 8.9.0
-  npm:
-    version: 5.5.1
+version: 2
+jobs:
+  npm_cache:
+    docker:
+      - image: circleci/node:9.4.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  lint:
+      docker:
+        - image: circleci/node:9.4.0
+      steps:
+        - checkout
+        - restore_cache:
+            key: dependency-cache-{{ checksum "package.json" }}
+        - run:
+            name: Install npm
+            command: npm install
+        - run:
+            name: Lint
+            command: npm run lint
+  bundlesize:
+    docker:
+      - image: circleci/node:9.4.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - run:
+          name: Bundlesize
+          command: npm run start.prod.ci && npm run bundlesize
+  greenkeeper:
+    docker:
+      - image: circleci/node:9.4.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - run:
+          name: Greenkeeper
+          command: npm run test.ci.before
+  unit_tests:
+    # resource_class: xlarge
+    docker:
+      - image: circleci/node:9.4.0
+    environment:
+      TEST_REPORT_FILENAME: "test-results.xml"
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - run:
+          name: Generate App Config
+          command: npm run gen.config
+      - run:
+          name: Test
+          command: './node_modules/.bin/jest --updateSnapshot --maxWorkers=8 --coverage'
+      - store_artifacts:
+          path: test-results.xml
+          prefix: tests
+      - store_artifacts:
+          path: coverage
+          prefix: ./coverage
+      - run:
+          name: Post coverage results
+          command: 'bash <(curl -s https://codecov.io/bash)'
+  e2e_tests:
+    # resource_class: xlarge
+    docker:
+      - image: circleci/node:9.4.0-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - run:
+          name: Test
+          command: 'npm run test.e2e.ci'
+  semver:
+    docker:
+      - image: circleci/node:9.4.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install npm
+          command: npm install
+      - run:
+          name: Semantic Release
+          command: npm run semantic-release || true
 
-general:
-  artifacts:
-    - ./coverage
-    - ./dist
+workflows:
+  version: 2
+  build_test_release:
+    jobs:
+      - npm_cache
+      - greenkeeper:
+          requires:
+            - npm_cache
+      - unit_tests:
+          requires:
+            - npm_cache
+            - greenkeeper
+      - e2e_tests:
+          requires:
+            - npm_cache
+            - greenkeeper
+      - lint:
+          requires:
+            - npm_cache
+            - greenkeeper
+      - bundlesize:
+          requires:
+            - npm_cache
+            - greenkeeper
+      - semver:
+          requires:
+            - npm_cache
+            - greenkeeper
+            - unit_tests
+            - e2e_tests
+            - lint
+            - bundlesize
+          filters:
+            branches:
+              only: master
+      # - deploy:
+      #     requires:
+      #       - npm_cache
+      #       - greenkeeper
+      #       - unit_tests
+      #       - e2e_tests
+      #       - lint
+      #       - bundlesize
+      #     filters:
+      #       branches:
+      #         only: develop
+  # deploy:
+  #   docker:
+  #     - image: circleci/node:9.4.0
+  #   steps:
+  #     - type: deploy
+  #     - checkout
+  #     - restore_cache:
+  #         key: dependency-cache-{{ checksum "package.json" }}
+  #     - run:
+  #         name: Install npm
+  #         command: npm install
+  #     - run:
+  #         name: deploy
+  #         command: npm run deploy -- --env-config int01
 
-test:
-  override:
-    - npm run lint
-    - npm run gen.config
-    - npm run test.ci.before
-    - node_modules/.bin/jest --ci --updateSnapshot --runInBand --coverage:
-        environment:
-          TEST_REPORT_PATH: $CIRCLE_TEST_REPORTS
-          TEST_REPORT_FILENAME: test-results.xml
-    - npm run test.ci.after
-
-  post:
-    - bash <(curl -s https://codecov.io/bash)
-    - npm run semantic-release || true
-
-deployment:
-  production:
-    branch: master
-    heroku:
-      appname: fusebox-angular-universal-star
+# deployment:
+#   production:
+#     branch: master
+#     heroku:
+#       appname: fusebox-angular-universal-star

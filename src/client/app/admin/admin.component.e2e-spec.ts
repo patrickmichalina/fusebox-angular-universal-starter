@@ -5,7 +5,7 @@ describe('Admin Page', () => {
     expect.assertions(1)
     const page = browser.goto(`${baseUrl}/admin`)
 
-    const text = await page.evaluate(() => document.title)
+    const text = await page.evaluate(() => document.title).end()
 
     expect(text).toEqual('Admin - Fusebox Angular Universal Starter')
   })

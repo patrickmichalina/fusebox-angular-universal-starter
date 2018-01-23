@@ -6,7 +6,7 @@ describe('Home Page', () => {
 
     const page = browser.goto(`${baseUrl}`)
 
-    const text = await page.evaluate(() => document.title)
+    const text = await page.evaluate(() => document.title).end()
 
     expect(text).toContain('Home - Fusebox Angular Universal Starter')
   })

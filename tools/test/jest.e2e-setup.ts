@@ -3,7 +3,7 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 125000
 
 // tslint:disable:no-require-imports
 const browser = require('nightmare')({
-  show: false
+  show: true
 }) as Nightmare
 
 const baseUrl = 'http://localhost:8000'
