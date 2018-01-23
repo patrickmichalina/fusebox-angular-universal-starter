@@ -204,10 +204,6 @@
     "moduleNameMapper": {
       "./client/operators": "<rootDir>/src/client/operators.ts"
     },
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      ".fusebox"
-    ],
     "setupTestFrameworkScriptFile": "./tools/test/jest.setup.ts",
     "testResultsProcessor": "./node_modules/jest-junit-reporter",
     "collectCoverageFrom": [
