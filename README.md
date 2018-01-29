@@ -41,13 +41,15 @@ Note: Firebase doesn't have official support for Angular Universal at this time.
 - [x] Generic token based Authentication service with [JWT](https://jwt.io) cookie support.
 - [x] Both Client and Server build tasks
 - [x] Hot Module Reloading for faster browser reloads during client development
-- [x] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
+- [ ] [Ahead-of-Time](https://angular.io/guide/aot-compiler) (AOT) compilation support
 - [x] [angular-tslint-rules](https://github.com/fulls1z3/angular-tslint-rules) as configuration preset for [TSLint](https://github.com/palantir/tslint) and [codelyzer](https://github.com/mgechev/codelyzer).
 - [x] Automatic static file cache invalidation
 - [x] [Lazy Loaded](https://angular-2-training-book.rangle.io/handout/modules/lazy-loading-module.html) modules
 - [x] Analyze bundle sizes by using [source-map-explorer](https://github.com/danvk/source-map-explorer)
-- [ ] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
-- [ ] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
+- [x] Support for [Angular Mobile Toolkit](https://mobile.angular.io) (Service Worker)
+- [x] [Tree-Shaking](https://angular.io/guide/aot-compiler) for production builds
+
+Built by [AngularUniversal.com](https://www.angularuniversal.com). For additional help please checkout our [services](https://www.angularuniversal.com/services)
 
 # Quick Start
 
