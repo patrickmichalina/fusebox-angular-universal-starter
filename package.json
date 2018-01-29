@@ -184,7 +184,7 @@
     "xhr2": "^0.1.4",
     "yargs": "^10.0.3",
     "zone.js": "^0.8.20",
-    "dotenv": "^4.0.0",
+    "dotenv": "^5.0.0",
     "sitemap-generator": "6.0.0",
     "supertest": "^3.0.0"
   },
