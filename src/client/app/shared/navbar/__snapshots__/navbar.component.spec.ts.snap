@@ -143,6 +143,31 @@ exports[`NavbarComponent should compile 1`] = `
     <a
       aria-disabled="false"
       class="nav-button mat-button"
+      href="https://www.angularuniversal.com"
+      mat-button=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        Consulting
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="https://www.angularuniversal.c"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
       href="/api-docs"
       mat-button=""
       tabindex="0"
@@ -346,6 +371,31 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         ng-reflect-centered="false"
         ng-reflect-disabled="false"
         ng-reflect-trigger="/about"
+      />
+      <div
+        class="mat-button-focus-overlay"
+      />
+    </a>
+    
+  
+    <a
+      aria-disabled="false"
+      class="nav-button mat-button"
+      href="https://www.angularuniversal.com"
+      mat-button=""
+      tabindex="0"
+    >
+      <span
+        class="mat-button-wrapper"
+      >
+        Consulting
+      </span>
+      <div
+        class="mat-button-ripple mat-ripple"
+        matripple=""
+        ng-reflect-centered="false"
+        ng-reflect-disabled="false"
+        ng-reflect-trigger="https://www.angularuniversal.c"
       />
       <div
         class="mat-button-focus-overlay"
