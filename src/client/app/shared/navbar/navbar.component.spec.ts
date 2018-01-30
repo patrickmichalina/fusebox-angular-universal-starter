@@ -41,7 +41,7 @@ describe(NavbarComponent.name, () => {
     expect(buttonLinks).toBeDefined()
 
     navbarService.menu$.subscribe(items => {
-      expect(buttonLinks.length).toEqual(items.length + 4)
+      expect(buttonLinks.length).toEqual(items.length + 5)
     })
     expect(fixture.nativeElement).toMatchSnapshot()
   }))

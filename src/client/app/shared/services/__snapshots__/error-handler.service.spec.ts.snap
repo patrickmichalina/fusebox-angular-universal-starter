@@ -74,6 +74,26 @@ exports[`App component should build without a problem 1`] = `
   
         <a
           class="nav-button mat-button"
+          href="https://www.angularuniversal.com"
+          mat-button=""
+        >
+          <span
+            class="mat-button-wrapper"
+          >
+            Consulting
+          </span>
+          <div
+            class="mat-button-ripple mat-ripple"
+            matripple=""
+          />
+          <div
+            class="mat-button-focus-overlay"
+          />
+        </a>
+        
+  
+        <a
+          class="nav-button mat-button"
           href="/api-docs"
           mat-button=""
         >
@@ -291,7 +311,28 @@ exports[`App component should build without a problem 1`] = `
                     class="mat-button-focus-overlay"
                   />
                 </a>
+                <a
+                  class="mat-button mat-line"
+                  href="https://www.angularuniversal.com"
+                  mat-button=""
+                  matline=""
+                >
+                  <span
+                    class="mat-button-wrapper"
+                  >
+                    Consulting
+                  </span>
+                  <div
+                    class="mat-button-ripple mat-ripple"
+                    matripple=""
+                  />
+                  <div
+                    class="mat-button-focus-overlay"
+                  />
+                </a>
               </div>
+              
+        
               
         
               
