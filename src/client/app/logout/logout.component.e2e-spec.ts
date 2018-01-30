@@ -6,7 +6,7 @@ describe('Logout Page', () => {
 
     const page = browser.goto(`${baseUrl}/logout`)
 
-    const text = await page.evaluate(() => document.title)
+    const text = await page.evaluate(() => document.title).end()
 
     expect(text).toContain('Logged Out - Fusebox Angular Universal Starter')
   })
