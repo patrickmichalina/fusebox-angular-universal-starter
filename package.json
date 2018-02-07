@@ -185,7 +185,7 @@
     "yargs": "^11.0.0",
     "zone.js": "^0.8.20",
     "dotenv": "^5.0.0",
-    "sitemap-generator": "6.0.0",
+    "sitemap-generator": "7.5.3",
     "supertest": "^3.0.0"
   },
   "engines": {
