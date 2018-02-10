@@ -8,6 +8,8 @@
     "tslint-immutable"
   ],
   "rules": {
+    "i18n": [false],
+    "newline-per-chained-call": [false],
     "no-unnecessary-class": [false],
     "no-var-keyword": true,
     "no-let": false,
