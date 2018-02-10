@@ -11,7 +11,7 @@
   </mat-form-field>
   <div>
     <label>Attributes</label>
-    <pm-key-value-form [keyVals]="injectable.attributes" (change)="attributesChanged($event)"></pm-key-value-form>
+    <pm-key-value-form [keyVals]="injectable.attributes" (attributesChanged)="attributesChanged($event)"></pm-key-value-form>
   </div>
   <p *ngIf="showDomString">{{ htmlString }}</p>
   <!-- 

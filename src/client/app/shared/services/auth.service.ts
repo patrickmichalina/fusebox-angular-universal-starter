@@ -8,42 +8,44 @@ import { AngularFireAuth } from 'angularfire2/auth'
 import { JwtHelper } from 'angular2-jwt'
 import { fromPromise } from 'rxjs/observable/fromPromise'
 import { of } from 'rxjs/observable/of'
-import { combineLatest } from 'rxjs/observable/combineLatest'
 import { FirebaseDatabaseService } from './firebase-database.service'
 import * as firebase from 'firebase/app'
+import { Router } from '@angular/router'
+import { User } from 'firebase'
 
 export interface ExtendedUser {
-  readonly id: string
-  readonly jwt: Object
-  readonly jwtDecoded: Object
-  readonly emailVerified: boolean
-  readonly displayName: string
-  readonly email: string
-  readonly phoneNumber: string
-  readonly photoURL: string
-  readonly providerId: string
-  readonly roles: { readonly [key: string]: boolean }
+  id: string
+  jwt: Object
+  jwtDecoded: Object
+  emailVerified: boolean
+  displayName: string
+  email: string
+  phoneNumber: string
+  photoURL: string
+  providerId: string
+  roles: { [key: string]: boolean }
 }
 
 export interface IAuthService {
+  user$: Observable<ExtendedUser>
   logout(): void
-  readonly user$: Observable<ExtendedUser>
+  redirectToSignInPage(): void
 }
 
 export const FB_COOKIE_KEY = new InjectionToken<string>('auth.cookie.key')
 
 @Injectable()
 export class AuthService implements IAuthService {
-  private readonly jwtHelper = new JwtHelper()
+  private jwtHelper = new JwtHelper()
 
-  private readonly viaCookies$ = this.cs.cookies$
+  private viaCookies$ = this.cs.cookies$
     .map(cookies => {
       return cookies
         ? AuthService.cookieMapper(cookies[this.COOKIE_KEY], this.jwtHelper)
         : undefined
     })
     .distinctUntilChanged()
-    .share()
+    .shareReplay()
 
   static cookieMapper(data: any, jwtHelper: JwtHelper): any {
     if (!data || !data.jwt && !jwtHelper.isTokenExpired(data.jwt)) return undefined
@@ -56,69 +58,53 @@ export class AuthService implements IAuthService {
     }
   }
 
-  private readonly userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
-  public readonly user$ = this.userSource.asObservable()
-  public readonly isAdmin$ = this.user$.map(a => a && a.roles && (a.roles.admin || a.roles.superadmin))
-  private readonly fbUser$ = this.fbAuth.idToken
-    .flatMap(a => a ? a.getIdToken() : of(undefined), (fbUser, idToken) => ({ fbUser: fbUser ? fbUser : undefined, idToken }))
-    .debounceTime(500)
+  private userSource = new BehaviorSubject<ExtendedUser>(AuthService.cookieMapper(this.cs.get(this.COOKIE_KEY), this.jwtHelper))
+  public user$ = this.userSource.asObservable()
+  public isAdmin$ = this.user$.map(user => this.isAdmin(user))
+  public isAdmin(user: ExtendedUser) {
+    return user && user.roles && (user.roles.admin || user.roles.superadmin)
+  }
 
   constructor(private cs: CookieService, private fbAuth: AngularFireAuth, ss: SettingService, private ps: PlatformService,
-    private db: FirebaseDatabaseService, @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string) {
+    private db: FirebaseDatabaseService, @Inject(FB_COOKIE_KEY) private COOKIE_KEY: string, private router: Router) {
     this.viaCookies$.subscribe(a => this.userSource.next(a))
 
     if (ps.isServer) return
 
-    combineLatest(this.fbUser$, ss.settings$, (fbUser, settings) => ({ ...fbUser, ...settings }))
-      .flatMap(res => {
-        if (res.fbUser && res.fbUser.uid) {
-          return this.db
-            .get(`users/${res.fbUser.uid}`)
-            .map(a => a ? (a as any).roles : {})
-        } else {
-          return of(res)
-        }
-      }, (user, roles) => {
-        return {
-          ...user,
-          roles: {
-            ...roles
-          }
-        }
-      })
+    this.fbAuth.authState
+      .filter(a => a !== null)
+      .map(a => a as User)
+      .flatMap(a => this.db
+        .getObjectRef(`users/${a.uid}`)
+        .update({
+          displayName: a.displayName,
+          email: a.email,
+          photo: a.photoURL,
+          providers: (a.providerData || []).map((b: any) => b && b.providerId),
+          updated: new Date().toUTCString()
+        })
+        .catch(() => undefined), user => user)
+      .flatMap(a => a.getIdToken(), (user, token) => ({ user, token }))
+      .flatMap(a => this.db
+        .get(`users/${a.user.uid}`)
+        .map((b: any) => b && b.roles || {})
+        .catch(() => Observable.of(undefined)), (res, roles) => ({ roles, ...res }))
+      .flatMap(a => ss.settings$, (user, settings) => ({ ...user, settings }))
       .subscribe(res => {
-        if (!res || !res.idToken) {
-          this.logout()
-          return
-        }
-
-        const expires = this.jwtHelper.getTokenExpirationDate(res.idToken)
-
-        // once firebase auth supports native universal data exhange,
-        // we are stucking passing the cookies to the server
-        if (res.fbUser && res.fbUser.providerData) {
+        if (!res.roles) return
+        if (res.user.providerData) {
+          const expires = this.jwtHelper.getTokenExpirationDate(res.token as string)
           const important = {
-            jwt: res.idToken,
+            jwt: res.token,
             roles: res.roles,
-            providerId: res.fbUser.providerId,
-            displayName: res.fbUser.displayName,
-            email: res.fbUser.email,
-            photoURL: res.fbUser.photoURL ? res.fbUser.photoURL : res.assets.userAvatarImage,
-            phoneNumber: res.fbUser.phoneNumber,
-            providers: ((res.fbUser && res.fbUser.providerData) || []).map(a => a && a.providerId)
+            providerId: res.user.providerId,
+            displayName: res.user.displayName,
+            email: res.user.email,
+            photoURL: res.user.photoURL ? res.user.photoURL : res.settings.assets.userAvatarImage,
+            phoneNumber: res.user.phoneNumber,
+            providers: ((res && res.user.providerData) || []).map((a: any) => a && a.providerId)
           }
-
           cs.set(this.COOKIE_KEY, important, { expires })
-
-          this.db
-            .getObjectRef(`users/${res.fbUser.uid}`)
-            .update({
-              displayName: res.fbUser.displayName,
-              email: important.email,
-              photo: important.photoURL,
-              providers: important.providers
-            })
-            .catch(() => undefined)
         }
       })
   }
@@ -147,19 +133,22 @@ export class AuthService implements IAuthService {
     return fromPromise(this.fbAuth.auth.signInWithEmailAndPassword(email, password))
   }
 
+  redirectToSignInPage() {
+    this.router.navigate(['login'], { queryParams: { redirect: this.router.url }, skipLocationChange: true })
+  }
+
   logout() {
     if (this.ps.isBrowser) {
-      return this.fbAuth.auth.signOut()
+      this.fbAuth.auth
+        .signOut()
         .then(() => this.cs.remove(this.COOKIE_KEY))
     }
   }
 
   refreshEmailCredentials(paswword: string) {
-    return this.fbUser$
-      .map(a => a.fbUser)
+    return this.fbAuth.authState
       .map(user => {
-        if (!user) return Observable.throw('missing user')
-        return {
+        return user && {
           user,
           credentials: firebase.auth.EmailAuthProvider.credential(user.email as string, paswword)
         }
@@ -169,25 +158,25 @@ export class AuthService implements IAuthService {
   updateEmailPassword(currentPassword: string, newPassword: string) {
     return this.refreshEmailCredentials(currentPassword)
       .flatMap((userObj: {
-        readonly user: firebase.User,
-        readonly credentials: firebase.auth.AuthCredential
+        user: User,
+        credentials: firebase.auth.AuthCredential
       }) => userObj.user.reauthenticateWithCredential(userObj.credentials), (userObj: {
-        readonly user: firebase.User,
-        readonly credentials: firebase.auth.AuthCredential
+        user: firebase.User,
+        credentials: firebase.auth.AuthCredential
       }, res) => userObj.user)
       .flatMap(user => user.updatePassword(newPassword))
   }
 
   updateProfile(displayName?: string, photoURL?: string) {
-    return this.fbUser$
-      .map(a => a.fbUser)
+    return this.fbAuth.authState
       .flatMap(user => {
-        if (!user) return Observable.throw('missing user')
-        return user.updateProfile({
-          // tslint:disable:no-null-keyword
-          displayName: displayName || null,
-          photoURL: photoURL || null
-        })
+        return user
+          ? user.updateProfile({
+            // tslint:disable:no-null-keyword
+            displayName: displayName || null,
+            photoURL: photoURL || null
+          })
+          : Observable.throw('missing user')
       }, (user, e) => user)
       .flatMap(user => user ? user.getIdToken(true) : of(undefined))
       .flatMap(() => this.fbAuth.idToken)

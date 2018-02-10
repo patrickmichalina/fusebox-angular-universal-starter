@@ -13,14 +13,14 @@ import { Subscription } from 'rxjs/Subscription'
 export class InjectionFormComponent implements OnInit, OnDestroy {
   @Input() showDomString: boolean
   @Input() injectable: DOMInjectable = {} as any
-  @Output() change = new BehaviorSubject<DOMInjectable>(this.injectable)
+  @Output() formChange = new BehaviorSubject<DOMInjectable>(this.injectable)
   @Output() changeHtmlString = new EventEmitter<string>()
 
   public form: FormGroup
   private sub = new Subscription()
 
   get htmlString() {
-    return this.inj.getElementStringForm(this.renderer, this.change.getValue())
+    return this.inj.getElementStringForm(this.renderer, this.formChange.getValue())
   }
 
   constructor(private renderer: Renderer2, private inj: InjectionService) { }
@@ -33,7 +33,7 @@ export class InjectionFormComponent implements OnInit, OnDestroy {
       attributes: new FormControl(this.injectable.attributes || {}, [])
     })
     this.sub = this.form.valueChanges.skip(1).subscribe(form => {
-      this.change.next(form)
+      this.formChange.next(form)
       this.changeHtmlString.next(this.htmlString)
     })
   }

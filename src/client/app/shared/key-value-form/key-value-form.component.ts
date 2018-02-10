@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class KeyValueFormComponent implements OnChanges {
   @Input() keyVals: { [key: string]: string | boolean | number } = {}
-  @Output() change = new BehaviorSubject(this.keyVals)
+  @Output() attributesChanged = new BehaviorSubject(this.keyVals)
 
   public form = new FormGroup({
     key: new FormControl('', [Validators.required]),
@@ -19,22 +19,22 @@ export class KeyValueFormComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.keyVals) {
-      this.change.next(changes.keyVals.currentValue)
+      this.attributesChanged.next(changes.keyVals.currentValue)
     }
   }
 
   add(obj: { key: string, value: string }) {
-    this.change.next({
-      ...this.change.getValue(),
+    this.attributesChanged.next({
+      ...this.attributesChanged.getValue(),
       [obj.key]: obj.value
     })
   }
 
   remove(key: string) {
-    this.change.next({
-      ...Object.keys(this.change.getValue())
+    this.attributesChanged.next({
+      ...Object.keys(this.attributesChanged.getValue())
         .filter(k => k !== key)
-        .reduce((a, c) => ({ ...a, [c]: this.change.getValue()[c] }), {})
+        .reduce((a, c) => ({ ...a, [c]: this.attributesChanged.getValue()[c] }), {})
     })
   }
 
