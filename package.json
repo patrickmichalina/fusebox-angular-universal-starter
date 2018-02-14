@@ -81,7 +81,7 @@
     "@types/string-hash": "^1.1.1",
     "@types/supertest": "^2.0.4",
     "@types/ws": "^4.0.0",
-    "@types/yargs": "^10.0.1",
+    "@types/yargs": "^11.0.0",
     "angular-tslint-rules": "^1.2.1",
     "browser-sync": "^2.23.6",
     "codelyzer": "^4.1.0",
