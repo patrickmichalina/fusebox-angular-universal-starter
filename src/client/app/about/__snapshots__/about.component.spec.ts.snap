@@ -6,21 +6,14 @@ exports[`AboutComponent should compile 1`] = `
     <h1>
       About
     </h1>
-    
-  
     <p>
       An Angular starter with all the tools necessary to create server rendered Angular applications.
     </p>
-    
-  
-  
     <form
       class="ng-untouched ng-pristine ng-invalid"
       ng-reflect-form="[object Object]"
       novalidate=""
     >
-      
-    
       <mat-form-field
         class="mat-input-container mat-form-field ng-tns-c0-0 mat-form-field-type-mat-input mat-form-field-can-float mat-form-field-hide-placeholder mat-primary ng-untouched ng-pristine ng-invalid"
       >
@@ -34,8 +27,6 @@ exports[`AboutComponent should compile 1`] = `
             <div
               class="mat-input-infix mat-form-field-infix"
             >
-              
-      
               <input
                 aria-invalid="false"
                 aria-required="false"
@@ -47,8 +38,6 @@ exports[`AboutComponent should compile 1`] = `
                 ng-reflect-placeholder="Title"
                 placeholder="Title"
               />
-              
-    
               <span
                 class="mat-form-field-label-wrapper mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
               >
@@ -94,8 +83,6 @@ exports[`AboutComponent should compile 1`] = `
           </div>
         </div>
       </mat-form-field>
-      
-    
       <mat-form-field
         class="mat-input-container mat-form-field ng-tns-c0-1 mat-form-field-type-mat-input mat-form-field-can-float mat-form-field-hide-placeholder mat-primary ng-untouched ng-pristine ng-invalid"
       >
@@ -109,8 +96,6 @@ exports[`AboutComponent should compile 1`] = `
             <div
               class="mat-input-infix mat-form-field-infix"
             >
-              
-      
               <textarea
                 aria-invalid="false"
                 aria-required="false"
@@ -122,8 +107,6 @@ exports[`AboutComponent should compile 1`] = `
                 ng-reflect-placeholder="html"
                 placeholder="html"
               />
-              
-    
               <span
                 class="mat-form-field-label-wrapper mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper"
               >
@@ -169,8 +152,6 @@ exports[`AboutComponent should compile 1`] = `
           </div>
         </div>
       </mat-form-field>
-      
-    
       <button
         class="mat-raised-button mat-primary"
         color="primary"
@@ -182,9 +163,7 @@ exports[`AboutComponent should compile 1`] = `
         <span
           class="mat-button-wrapper"
         >
-          
-      Post
-    
+           Post 
         </span>
         <div
           class="mat-button-ripple mat-ripple"
@@ -197,8 +176,6 @@ exports[`AboutComponent should compile 1`] = `
           class="mat-button-focus-overlay"
         />
       </button>
-      
-    
       <button
         class="mat-raised-button mat-warn"
         color="warn"
@@ -208,9 +185,7 @@ exports[`AboutComponent should compile 1`] = `
         <span
           class="mat-button-wrapper"
         >
-          
-      Delete All Posts
-    
+           Delete All Posts 
         </span>
         <div
           class="mat-button-ripple mat-ripple"
@@ -223,12 +198,7 @@ exports[`AboutComponent should compile 1`] = `
           class="mat-button-focus-overlay"
         />
       </button>
-      
-  
     </form>
-    
-  
-  
     
   </pm-about>
 </test-component>

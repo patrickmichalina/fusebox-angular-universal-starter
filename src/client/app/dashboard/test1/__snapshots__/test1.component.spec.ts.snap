@@ -5,8 +5,7 @@ exports[`Test1Component should match snapshot 1`] = `
   <mat-card
     class="mat-card"
   >
-    
-    Test 1 Project
+     Test 1 Project
   
   </mat-card>
 </pm-test1>

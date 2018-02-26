@@ -3,13 +3,11 @@
 exports[`NavbarComponent should compile 1`] = `
 <div
   id="root0"
-  ng-version="6.0.0-beta.4"
+  ng-version="6.0.0-beta.5"
 >
   <nav
     class="mat-elevation-z6"
   >
-    
-  
     <button
       angulartics2on="click"
       angularticsaction="ToggleSideMenu"
@@ -20,8 +18,6 @@ exports[`NavbarComponent should compile 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    
         <mat-icon
           aria-hidden="true"
           class="mat-icon fa fa-bars"
@@ -31,8 +27,6 @@ exports[`NavbarComponent should compile 1`] = `
           ng-reflect-font-set="fa"
           role="img"
         />
-        
-  
       </span>
       <div
         class="mat-button-ripple mat-ripple mat-button-ripple-round"
@@ -45,8 +39,6 @@ exports[`NavbarComponent should compile 1`] = `
         class="mat-button-focus-overlay"
       />
     </button>
-    
-  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -72,13 +64,9 @@ exports[`NavbarComponent should compile 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <div
       class="flex-spacer"
     />
-    
-  
     
     <a
       aria-disabled="false"
@@ -94,9 +82,7 @@ exports[`NavbarComponent should compile 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    Dashboard
-  
+         Dashboard 
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -123,9 +109,7 @@ exports[`NavbarComponent should compile 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    About
-  
+         About 
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -138,8 +122,6 @@ exports[`NavbarComponent should compile 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -163,8 +145,6 @@ exports[`NavbarComponent should compile 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -188,8 +168,6 @@ exports[`NavbarComponent should compile 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <button
       aria-haspopup="true"
       class="mat-icon-button"
@@ -200,8 +178,6 @@ exports[`NavbarComponent should compile 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    
         <mat-icon
           aria-hidden="true"
           class="mat-icon fa fa-user-circle-o"
@@ -211,8 +187,6 @@ exports[`NavbarComponent should compile 1`] = `
           ng-reflect-font-set="fa"
           role="img"
         />
-        
-  
       </span>
       <div
         class="mat-button-ripple mat-ripple mat-button-ripple-round"
@@ -225,29 +199,21 @@ exports[`NavbarComponent should compile 1`] = `
         class="mat-button-focus-overlay"
       />
     </button>
-    
-  
     <mat-menu>
       
     </mat-menu>
-    
-
   </nav>
-  
-
 </div>
 `;
 
 exports[`NavbarComponent should contain a list of links 1`] = `
 <div
   id="root1"
-  ng-version="6.0.0-beta.4"
+  ng-version="6.0.0-beta.5"
 >
   <nav
     class="mat-elevation-z6"
   >
-    
-  
     <button
       angulartics2on="click"
       angularticsaction="ToggleSideMenu"
@@ -258,8 +224,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    
         <mat-icon
           aria-hidden="true"
           class="mat-icon fa fa-bars"
@@ -269,8 +233,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
           ng-reflect-font-set="fa"
           role="img"
         />
-        
-  
       </span>
       <div
         class="mat-button-ripple mat-ripple mat-button-ripple-round"
@@ -283,8 +245,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         class="mat-button-focus-overlay"
       />
     </button>
-    
-  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -310,13 +270,9 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <div
       class="flex-spacer"
     />
-    
-  
     
     <a
       aria-disabled="false"
@@ -332,9 +288,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    Dashboard
-  
+         Dashboard 
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -361,9 +315,7 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    About
-  
+         About 
       </span>
       <div
         class="mat-button-ripple mat-ripple"
@@ -376,8 +328,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -401,8 +351,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <a
       aria-disabled="false"
       class="nav-button mat-button"
@@ -426,8 +374,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         class="mat-button-focus-overlay"
       />
     </a>
-    
-  
     <button
       aria-haspopup="true"
       class="mat-icon-button"
@@ -438,8 +384,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
       <span
         class="mat-button-wrapper"
       >
-        
-    
         <mat-icon
           aria-hidden="true"
           class="mat-icon fa fa-user-circle-o"
@@ -449,8 +393,6 @@ exports[`NavbarComponent should contain a list of links 1`] = `
           ng-reflect-font-set="fa"
           role="img"
         />
-        
-  
       </span>
       <div
         class="mat-button-ripple mat-ripple mat-button-ripple-round"
@@ -463,15 +405,9 @@ exports[`NavbarComponent should contain a list of links 1`] = `
         class="mat-button-focus-overlay"
       />
     </button>
-    
-  
     <mat-menu>
       
     </mat-menu>
-    
-
   </nav>
-  
-
 </div>
 `;

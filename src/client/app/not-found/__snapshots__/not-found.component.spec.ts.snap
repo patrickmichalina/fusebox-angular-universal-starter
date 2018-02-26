@@ -11,27 +11,17 @@ exports[`NotFoundComponent should compile 1`] = `
       ng-reflect-ng-switch="false"
     >
       
-    
-      
-      
-    
       
       <div
         class="vert-flex-fill"
       >
-        
-      
         <div
           ng-reflect-html="SafeValue must use [property]="
           pmhtmloutlet=""
         />
-        
-      
         <footer
           class="footer mat-elevation-z6"
         >
-          
-        
           
           <button
             class="mat-raised-button mat-accent"
@@ -55,14 +45,8 @@ exports[`NotFoundComponent should compile 1`] = `
               class="mat-button-focus-overlay"
             />
           </button>
-          
-      
         </footer>
-        
-    
       </div>
-      
-  
     </div>
   </pm-not-found>
 </test-component>
