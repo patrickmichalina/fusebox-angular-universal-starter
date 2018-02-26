@@ -7,27 +7,19 @@ exports[`HomeComponent should compile 1`] = `
   <mat-card
     class="mat-card"
   >
-    
-    
     <div
       id="hero"
     >
-      
-      
       <h1
         class="display-3"
       >
         Hello, Angular Developer!
       </h1>
-      
-      
       <p
         class="lead"
       >
         Welcome to a blazing fast Angular Universal development starter
       </p>
-      
-      
       <a
         angulartics2on="click"
         angularticsaction="ViewRepo"
@@ -40,8 +32,6 @@ exports[`HomeComponent should compile 1`] = `
         <span
           class="mat-button-wrapper"
         >
-          
-        
           <mat-icon
             aria-hidden="true"
             class="fa fa-github mat-icon"
@@ -57,11 +47,7 @@ exports[`HomeComponent should compile 1`] = `
           class="mat-button-focus-overlay"
         />
       </a>
-      
-    
     </div>
-    
-    
     <mat-tab-group
       class="mat-tab-group mat-primary"
     >
@@ -110,9 +96,6 @@ exports[`HomeComponent should compile 1`] = `
         
       </div>
     </mat-tab-group>
-    
-  
   </mat-card>
-  
 </pm-home>
 `;

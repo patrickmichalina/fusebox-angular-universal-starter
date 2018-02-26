@@ -8,23 +8,13 @@ exports[`UsersComponent should compile 1`] = `
       fxlayout="column"
       style="height: 100%; margin: 0px; min-height: 100%; min-width: 100%; width: 100%;"
     >
-      
-    
       <mat-nav-list
         class="mat-nav-list"
         fxflex=""
         role="navigation"
       >
         
-      
-        
-        
-    
       </mat-nav-list>
-      
-    
-      
-  
     </div>
   </pm-users>
 </test-component>

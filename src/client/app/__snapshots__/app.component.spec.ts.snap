@@ -3,15 +3,13 @@
 exports[`App component should build without a problem 1`] = `
 <div
   id="root0"
-  ng-version="6.0.0-beta.4"
+  ng-version="6.0.0-beta.5"
 >
   <pm-app>
     <pm-navbar>
       <nav
         class="mat-elevation-z6"
       >
-        
-  
         <button
           angulartics2on="click"
           angularticsaction="ToggleSideMenu"
@@ -22,8 +20,6 @@ exports[`App component should build without a problem 1`] = `
           <span
             class="mat-button-wrapper"
           >
-            
-    
             <mat-icon
               aria-hidden="true"
               class="mat-icon"
@@ -31,8 +27,6 @@ exports[`App component should build without a problem 1`] = `
               fontset="fa"
               role="img"
             />
-            
-  
           </span>
           <div
             class="mat-button-ripple mat-ripple"
@@ -42,8 +36,6 @@ exports[`App component should build without a problem 1`] = `
             class="mat-button-focus-overlay"
           />
         </button>
-        
-  
         <a
           class="nav-button mat-button"
           mat-button=""
@@ -62,16 +54,10 @@ exports[`App component should build without a problem 1`] = `
             class="mat-button-focus-overlay"
           />
         </a>
-        
-  
         <div
           class="flex-spacer"
         />
         
-  
-        
-        
-  
         <a
           class="nav-button mat-button"
           href="https://www.angularuniversal.com"
@@ -90,8 +76,6 @@ exports[`App component should build without a problem 1`] = `
             class="mat-button-focus-overlay"
           />
         </a>
-        
-  
         <a
           class="nav-button mat-button"
           href="/api-docs"
@@ -110,8 +94,6 @@ exports[`App component should build without a problem 1`] = `
             class="mat-button-focus-overlay"
           />
         </a>
-        
-  
         <button
           aria-haspopup="true"
           class="mat-icon-button"
@@ -121,8 +103,6 @@ exports[`App component should build without a problem 1`] = `
           <span
             class="mat-button-wrapper"
           >
-            
-    
             <mat-icon
               aria-hidden="true"
               class="mat-icon"
@@ -130,8 +110,6 @@ exports[`App component should build without a problem 1`] = `
               fontset="fa"
               role="img"
             />
-            
-  
           </span>
           <div
             class="mat-button-ripple mat-ripple"
@@ -141,21 +119,13 @@ exports[`App component should build without a problem 1`] = `
             class="mat-button-focus-overlay"
           />
         </button>
-        
-  
         <mat-menu
           class="ng-tns-c8-1"
         >
           
         </mat-menu>
-        
-
       </nav>
-      
-
     </pm-navbar>
-    
-
     <mat-sidenav-container
       class="sidenav-container mat-drawer-container mat-sidenav-container"
       exclude="#toggle-menu-button"
@@ -167,26 +137,18 @@ exports[`App component should build without a problem 1`] = `
         class="sidenav mat-elevation-z6 mat-drawer mat-sidenav ng-tns-c1-0 ng-trigger ng-trigger-transform"
         tabindex="-1"
       >
-        
-    
         <mat-list
           class="mat-list"
         >
-          
-      
           <div
             id="menu-top"
           >
-            
-        
             <h3
               class="mat-subheader"
               matsubheader=""
             >
               Pages
             </h3>
-            
-        
             <mat-slide-toggle
               class="mat-slide-toggle mat-accent"
             >
@@ -217,11 +179,7 @@ exports[`App component should build without a problem 1`] = `
                 />
               </label>
             </mat-slide-toggle>
-            
-      
           </div>
-          
-      
           <mat-list-item
             class="mat-list-item"
           >
@@ -331,36 +289,18 @@ exports[`App component should build without a problem 1`] = `
                   />
                 </a>
               </div>
-              
-        
-              
-        
-              
-        
-              
-        
-              
-        
-              
-      
             </div>
           </mat-list-item>
-          
-      
           <mat-divider
             class="mat-divider"
             role="separator"
           />
-          
-      
           <h3
             class="mat-subheader"
             matsubheader=""
           >
             Boss Area
           </h3>
-          
-      
           <mat-list-item
             class="mat-list-item"
           >
@@ -450,23 +390,9 @@ exports[`App component should build without a problem 1`] = `
                   />
                 </a>
               </div>
-              
-        
-              
-        
-              
-        
-              
-        
-              
-      
             </div>
           </mat-list-item>
-          
-    
         </mat-list>
-        
-  
       </mat-sidenav>
       
     </mat-sidenav-container>
