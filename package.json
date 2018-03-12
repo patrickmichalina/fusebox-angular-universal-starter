@@ -166,7 +166,7 @@
     "ms": "2.1.1",
     "nightmare": "3.0.0",
     "object-hash": "1.2.0",
-    "quill": "1.3.5",
+    "quill": "1.3.6",
     "reflect-metadata": "0.1.12",
     "request": "2.83.0",
     "routing-controllers": "0.7.7",
