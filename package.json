@@ -110,7 +110,7 @@
     "node-run-cmd": "1.0.1",
     "node-sass": "4.7.2",
     "opn": "5.2.0",
-    "semantic-release": "15.0.2",
+    "semantic-release": "15.0.3",
     "source-map-explorer": "1.5.0",
     "string-hash": "1.1.3",
     "superagent": "3.8.2",
