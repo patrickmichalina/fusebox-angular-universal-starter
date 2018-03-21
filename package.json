@@ -140,7 +140,7 @@
     "@angular/service-worker": "6.0.0-beta.7",
     "@expo/bunyan": "1.8.10",
     "@nguniversal/common": "5.0.0-beta.5",
-    "@nguniversal/express-engine": "5.0.0-beta.5",
+    "@nguniversal/express-engine": "5.0.0-beta.7",
     "@ngx-meta/core": "5.0.0",
     "angular2-jwt": "0.2.3",
     "angularfire2": "5.0.0-rc.6",
