@@ -178,7 +178,7 @@
     "supertest": "3.0.0",
     "swagger-jsdoc": "1.9.7",
     "swagger-ui-express": "2.0.15",
-    "systemjs": "0.21.0",
+    "systemjs": "0.21.1",
     "ts-node": "5.0.1",
     "tsickle": "0.27.2",
     "typedi": "0.7.1",
