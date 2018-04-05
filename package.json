@@ -180,7 +180,7 @@
     "swagger-ui-express": "2.0.15",
     "systemjs": "0.21.0",
     "ts-node": "5.0.1",
-    "tsickle": "0.27.2",
+    "tsickle": "0.27.3",
     "typedi": "0.7.1",
     "url-parse": "1.2.0",
     "ws": "5.0.0",
