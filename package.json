@@ -54,7 +54,7 @@
   "devDependencies": {
     "@compodoc/compodoc": "1.1.2",
     "@pwa/manifest": "1.0.0",
-    "@types/body-parser": "1.16.8",
+    "@types/body-parser": "1.17.0",
     "@types/browser-sync": "0.0.39",
     "@types/bunyan": "1.8.4",
     "@types/clean-css": "3.4.30",
