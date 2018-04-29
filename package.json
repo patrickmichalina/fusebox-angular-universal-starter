@@ -113,7 +113,7 @@
     "semantic-release": "15.1.7",
     "source-map-explorer": "1.5.0",
     "string-hash": "1.1.3",
-    "superagent": "3.8.2",
+    "superagent": "3.8.3",
     "svg2png": "4.1.1",
     "ts-jest": "22.4.3",
     "ts-node": "5.0.1",
