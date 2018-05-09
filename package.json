@@ -71,7 +71,7 @@
     "@types/memory-cache": "0.2.0",
     "@types/mkdirp": "0.5.2",
     "@types/ms": "0.7.30",
-    "@types/nightmare": "2.10.3",
+    "@types/nightmare": "2.10.4",
     "@types/node-sass": "3.10.32",
     "@types/object-hash": "1.2.0",
     "@types/quill": "1.3.6",
