@@ -145,7 +145,7 @@
     "angular2-jwt": "0.2.3",
     "angularfire2": "5.0.0-rc.6",
     "angulartics2": "5.1.2",
-    "body-parser": "1.18.2",
+    "body-parser": "1.18.3",
     "bunyan-middleware": "0.8.0",
     "clean-css": "4.1.11",
     "compressible": "2.0.13",
