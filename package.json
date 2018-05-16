@@ -143,7 +143,7 @@
     "@nguniversal/express-engine": "5.0.0",
     "@ngx-meta/core": "5.0.0",
     "angular2-jwt": "0.2.3",
-    "angularfire2": "5.0.0-rc.6",
+    "angularfire2": "5.0.0-rc.9",
     "angulartics2": "5.1.2",
     "body-parser": "1.18.2",
     "bunyan-middleware": "0.8.0",
