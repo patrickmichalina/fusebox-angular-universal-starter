@@ -52,7 +52,7 @@
     "gen.config": "ts-node fuse.ts config"
   },
   "devDependencies": {
-    "@compodoc/compodoc": "1.1.2",
+    "@compodoc/compodoc": "1.1.3",
     "@pwa/manifest": "1.0.0",
     "@types/body-parser": "1.16.8",
     "@types/browser-sync": "0.0.39",
