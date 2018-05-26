@@ -151,7 +151,7 @@
     "compressible": "2.0.13",
     "compression": "1.7.2",
     "cookie-parser": "1.4.3",
-    "core-js": "2.5.5",
+    "core-js": "2.5.7",
     "cors": "2.8.4",
     "dotenv": "5.0.1",
     "express": "4.16.3",
