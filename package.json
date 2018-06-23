@@ -93,7 +93,7 @@
     "firebase-tools": "3.17.6",
     "font-awesome": "4.7.0",
     "fuse-box": "3.0.2",
-    "fuse-box-typechecker": "2.7.1",
+    "fuse-box-typechecker": "2.10.0",
     "glob": "7.1.2",
     "greenkeeper-lockfile": "1.14.0",
     "hash-files": "1.1.1",
