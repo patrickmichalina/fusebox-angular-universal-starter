@@ -141,7 +141,7 @@
     "@expo/bunyan": "1.8.10",
     "@nguniversal/common": "5.0.0",
     "@nguniversal/express-engine": "5.0.0",
-    "@ngx-meta/core": "5.0.0",
+    "@ngx-meta/core": "6.0.0",
     "angular2-jwt": "0.2.3",
     "angularfire2": "5.0.0-rc.6",
     "angulartics2": "5.1.2",
