@@ -82,7 +82,7 @@
     "@types/supertest": "2.0.4",
     "@types/ws": "4.0.2",
     "@types/yargs": "11.0.0",
-    "angular-tslint-rules": "1.2.1",
+    "angular-tslint-rules": "1.5.0",
     "browser-sync": "2.23.6",
     "codelyzer": "4.2.1",
     "concurrently": "3.5.1",
