@@ -85,7 +85,7 @@
     "angular-tslint-rules": "1.2.1",
     "browser-sync": "2.23.6",
     "codelyzer": "4.2.1",
-    "concurrently": "3.5.1",
+    "concurrently": "3.6.1",
     "condition-circle": "2.0.1",
     "conventional-changelog": "1.1.24",
     "death": "1.1.0",
