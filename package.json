@@ -176,7 +176,7 @@
     "sitemap-generator": "6.0.0",
     "stacktrace-js": "2.0.0",
     "supertest": "3.0.0",
-    "swagger-jsdoc": "1.9.7",
+    "swagger-jsdoc": "3.0.1",
     "swagger-ui-express": "3.0.8",
     "systemjs": "0.21.3",
     "ts-node": "5.0.1",
