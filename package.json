@@ -157,7 +157,7 @@
     "express": "4.16.3",
     "express-minify-html": "0.12.0",
     "express-urlrewrite": "1.2.0",
-    "firebase": "4.11.0",
+    "firebase": "5.3.1",
     "firebase-admin": "5.10.0",
     "getos": "3.1.0",
     "hammerjs": "2.0.8",
