@@ -1,4 +1,4 @@
-# PROJECT HAS BEEN MOVED TO [https://github.com/patrickmichalina/fusing-angular](https://github.com/patrickmichalina/fusing-angular)
+## This project is archived and an improved version has been moved to [https://github.com/patrickmichalina/fusing-angular](https://github.com/patrickmichalina/fusing-angular)
 
 # Introduction
 
