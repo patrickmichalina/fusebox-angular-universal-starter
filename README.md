@@ -1,3 +1,5 @@
+# PROJECT HAS BEEN MOVED TO [https://github.com/patrickmichalina/fusing-angular](https://github.com/patrickmichalina/fusing-angular)
+
 # Introduction
 
 [![CircleCI](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter.svg?style=shield)](https://circleci.com/gh/patrickmichalina/fusebox-angular-universal-starter)
